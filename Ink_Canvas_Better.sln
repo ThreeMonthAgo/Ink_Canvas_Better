@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36518.9 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better.Logging", "..\Ink_Canvas_Better.Logging\Ink_Canvas_Better.Logging.csproj", "{4EF1B8F0-2EF2-7EBE-7C7E-7F5090F1843C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better.Logging", "Ink_Canvas_Better.Logging\Ink_Canvas_Better.Logging.csproj", "{4EF1B8F0-2EF2-7EBE-7C7E-7F5090F1843C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better.Controls", "..\Ink_Canvas_Better.Controls\Ink_Canvas_Better.Controls.csproj", "{FDEC81B5-7371-87B2-56EC-DB4C01B39CFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better.Controls", "Ink_Canvas_Better.Controls\Ink_Canvas_Better.Controls.csproj", "{FDEC81B5-7371-87B2-56EC-DB4C01B39CFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better", "Ink_Canvas_Better.csproj", "{06C295CD-4A90-5363-AA5F-6B7FCA547697}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better", "Ink_Canvas_Better\Ink_Canvas_Better.csproj", "{06C295CD-4A90-5363-AA5F-6B7FCA547697}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
