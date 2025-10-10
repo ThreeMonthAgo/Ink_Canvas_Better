@@ -1,0 +1,51 @@
+name: .NET Build
+
+on:
+  push:
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3.5.2
+      with:
+        fetch-depth: 0
+
+    # Install .NET Core
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3.0.3
+      with:
+        dotnet-version: '6.0.x'
+        
+    # Install NuGet
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.2.0
+      with:
+        nuget-version: '5.x'
+
+    # Restore NuGet packages
+    - name: NuGet restore
+      run: nuget restore
+      
+    # Add MSBuild.exe to environment variables: https://github.com/microsoft/setup-msbuild
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.3.1
+
+    # Build the entire project
+    - name: Build the solution
+      run: |
+        msbuild -t:restore /p:GitFlow="Github Action"
+        msbuild -target:"Ink_Canvas_Better" /p:Configuration=Release /p:Platform="Any CPU" /p:GitFlow="Github Action"
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # Upload build artifacts
+    - name: Upload to artifact
+      uses: actions/upload-artifact@main
+      with:
+        name: Ink Canvas Better
+        path: Ink_Canvas_Better/bin/Release
+        
