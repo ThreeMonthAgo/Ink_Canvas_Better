@@ -6,7 +6,8 @@ on:
 jobs:
 
   build:
-    runs-on: windows-latest
+
+    steps:
 
     # Install .NET Core
     - uses: actions/checkout@v3.5.2
