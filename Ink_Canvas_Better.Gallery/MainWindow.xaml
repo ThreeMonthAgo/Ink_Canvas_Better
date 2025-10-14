@@ -1,0 +1,27 @@
+﻿<Window x:Class="Ink_Canvas_Better.Gallery.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="Ink_Canvas_Better.Controls"
+        xmlns:local="clr-namespace:Ink_Canvas_Better.Gallery"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <ScrollViewer
+            VerticalScrollBarVisibility="Visible"
+            HorizontalScrollBarVisibility="Disabled">
+        <WrapPanel Orientation="Vertical" Margin="5">
+            <Label Content="Ink__Canvas__Better.Gallery" FontSize="16"/>
+            <!-- // Panel // -->
+            <Label Content="Panel"/>
+            <Button Name="Button_Subpanel" Content="Subpanel" Click="Button_Subpanel_Click"/>
+            <controls:Subpanel Name="Subpanel" PlacementTarget="{Binding ElementName=Button_Subpanel}" Title="Subpanel">
+                <TextBlock>
+                    This is the content of the Subpanel.
+                </TextBlock>
+            </controls:Subpanel>
+            <!-- // Layout // -->
+            <Label Content="Layout"/>
+        </WrapPanel>
+    </ScrollViewer>
+</Window>

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Ink_Canvas_Better.Controls.Panel
 {
@@ -18,14 +19,10 @@ namespace Ink_Canvas_Better.Controls.Panel
             this.IsOpen = false;
         }
 
-        public void Show()
+        protected override void OnLostMouseCapture(MouseEventArgs e)
         {
-            this.IsOpen = true;
-        }
-
-        public void Hide()
-        {
-            this.IsOpen = false;
+            base.OnLostMouseCapture(e);
+            e.Handled = false;
         }
     }
 }

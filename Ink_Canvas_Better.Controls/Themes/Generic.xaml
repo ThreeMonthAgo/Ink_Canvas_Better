@@ -4,6 +4,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Ink_Canvas_Better.Controls;component/Themes/ColorResources_light.xaml"/>
+        <ResourceDictionary Source="/Ink_Canvas_Better.Controls;component/Themes/Layout/Subpanel.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>

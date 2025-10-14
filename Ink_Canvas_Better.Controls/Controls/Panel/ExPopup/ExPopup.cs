@@ -14,6 +14,7 @@ namespace Ink_Canvas_Better.Controls.Panel
         static ExPopup()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ExPopup), new FrameworkPropertyMetadata(typeof(ExPopup)));
+            AllowsTransparencyProperty.OverrideMetadata(typeof(ExPopup), new FrameworkPropertyMetadata(true));
         }
     }
 }

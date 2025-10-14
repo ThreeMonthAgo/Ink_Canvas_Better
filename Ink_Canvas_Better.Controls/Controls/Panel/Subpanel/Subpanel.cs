@@ -40,7 +40,7 @@ namespace Ink_Canvas_Better.Controls.Panel
             _titleBarGrid.Children.Add(_closeButton);
             Grid.SetColumn(_closeButton, 2);
 
-            _contentPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding("Child") { Source = this });
+            _contentPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding("Child") { Source = MemberwiseClone() });
 
             _mainGrid.Children.Add(_titleBarGrid);
             Grid.SetRow(_titleBarGrid, 0);
