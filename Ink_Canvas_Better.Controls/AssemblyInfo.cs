@@ -10,4 +10,4 @@ using System.Windows.Markup;
                                                 // app, or any theme specific resource dictionaries)
 )]
 
-[assembly: XmlnsDefinition("Ink_Canvas_Better.Controls", "Ink_Canvas_Better.Controls.Controls.Panel")]
+[assembly: XmlnsDefinition("Ink_Canvas_Better.Controls", "Ink_Canvas_Better.Controls.Panel")]

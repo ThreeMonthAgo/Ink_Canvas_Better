@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Ink_Canvas_Better.Controls.Helpers;
 
-namespace Ink_Canvas_Better.Controls.Controls.Panel
+namespace Ink_Canvas_Better.Controls.Panel
 {
     public partial class Subpanel
     {

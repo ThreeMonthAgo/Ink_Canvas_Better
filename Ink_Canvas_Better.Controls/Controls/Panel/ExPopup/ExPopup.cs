@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Markup;
 
-namespace Ink_Canvas_Better.Controls.Controls.Panel
+namespace Ink_Canvas_Better.Controls.Panel
 {
     [ContentProperty("Child")]
     public partial class ExPopup : Popup

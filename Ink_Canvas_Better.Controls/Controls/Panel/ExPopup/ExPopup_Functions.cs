@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Ink_Canvas_Better.Controls.Controls.Panel
+namespace Ink_Canvas_Better.Controls.Panel
 {
     public partial class ExPopup
     {

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Media;
+﻿using System.Windows;
 
-namespace Ink_Canvas_Better.Controls.Controls.Panel
+namespace Ink_Canvas_Better.Controls.Panel
 {
     public partial class Subpanel
     {
@@ -35,12 +29,5 @@ namespace Ink_Canvas_Better.Controls.Controls.Panel
         }
 
         #endregion
-
-        private Binding? titleBinding;
-        private Binding? isShowHeaderBinding;
-
-        private Binding? childBinding;
-        private Binding? marginBinding;
-        private Binding? staysOpenBinding;
     }
 }
