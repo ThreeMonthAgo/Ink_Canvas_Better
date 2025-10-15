@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Themes\Panel\" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,7 @@
             VerticalScrollBarVisibility="Visible"
             HorizontalScrollBarVisibility="Disabled">
         <WrapPanel Orientation="Vertical" Margin="5">
-            <Label Content="Ink__Canvas__Better.Gallery" FontSize="16"/>
+            <Label Content="Ink Canvas Better Gallery" FontSize="16"/>
             <!-- // Panel // -->
             <Label Content="Panel"/>
             <Button Name="Button_Subpanel" Content="Subpanel" Click="Button_Subpanel_Click"/>
@@ -22,6 +22,12 @@
             </controls:Subpanel>
             <!-- // Layout // -->
             <Label Content="Layout"/>
+            <ToggleButton Content="Switch orientation" Checked="ToggleBtn_Stackpanel_Checked" Unchecked="ToggleBtn_Stackpanel_UnChecked"/>
+            <controls:Stackpanel Spacing="2" Name="Stackpanel">
+                <Button Content="Btn1"/>
+                <Button Content="Btn2"/>
+                <Button Content="Btn3"/>
+            </controls:Stackpanel>
         </WrapPanel>
     </ScrollViewer>
 </Window>

@@ -14,7 +14,7 @@ namespace Ink_Canvas_Better.Controls.Panel
         #region TitleBar
 
         // title
-        private readonly TextBlock _titleTextBlock = new TextBlock
+        private readonly TextBlock _titleTextBlock = new()
         {
             VerticalAlignment = VerticalAlignment.Center,
             FontSize = 18,
@@ -22,7 +22,7 @@ namespace Ink_Canvas_Better.Controls.Panel
         };
 
         // close button
-        private readonly Button _closeButton = new Button
+        private readonly Button _closeButton = new()
         {
             Background = Brushes.Transparent,
             Padding = new Thickness(0),
@@ -34,14 +34,14 @@ namespace Ink_Canvas_Better.Controls.Panel
         };
 
         // pin button
-        private readonly Button _pinButton = new Button
+        private readonly Button _pinButton = new()
         {
             Background = Brushes.Transparent,
             Padding = new Thickness(0),
             Width = 24,
             BorderThickness = new Thickness(0)
         };
-        private readonly TextBlock _pinTextBlock = new TextBlock
+        private readonly TextBlock _pinTextBlock = new()
         {
             // TODO: Needed to replace it with a svg icon
             Text = "\ue718",
@@ -49,7 +49,7 @@ namespace Ink_Canvas_Better.Controls.Panel
         };
 
         // title bar
-        private readonly Grid _titleBarGrid = new Grid
+        private readonly Grid _titleBarGrid = new()
         {
             Margin = new Thickness(5, 0, 5, 0),
             Height = 30,
@@ -64,13 +64,13 @@ namespace Ink_Canvas_Better.Controls.Panel
         #endregion
 
         // this grid is used to keep the gap between the popup and the target element
-        // i know offset property exists, but it has some issues when the target element is near the screen edge
+        // i know offset property exists, but it has some problem when the target element is near the screen edge
         private readonly Grid _transparentGrid = new()
         {
             Background = Brushes.Transparent
         };
 
-        private readonly Border _mainBorder = new Border
+        private readonly Border _mainBorder = new()
         {
             MinHeight = 30,
             Background = ThemeHelper.DefaultBackgroundColor,
@@ -88,7 +88,7 @@ namespace Ink_Canvas_Better.Controls.Panel
             }
         };
 
-        private readonly ContentPresenter _contentPresenter = new ContentPresenter
+        private readonly ContentPresenter _contentPresenter = new()
         {
             Margin = new Thickness(10)
         };
