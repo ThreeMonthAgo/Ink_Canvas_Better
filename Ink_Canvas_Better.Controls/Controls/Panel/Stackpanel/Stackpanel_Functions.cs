@@ -10,61 +10,64 @@ namespace Ink_Canvas_Better.Controls.Panel
 {
     public partial class Stackpanel
     {
-
         protected override Size MeasureOverride(Size availableSize)
         {
-            double height = 0, width = 0;
-
+            double totalHeight = 0, totalWidth = 0;
             switch (Orientation)
             {
                 case Orientation.Horizontal:
                     foreach (UIElement child in InternalChildren)
                     {
                         if (child == null) continue;
-                        child.Measure(availableSize);
-                        width += child.DesiredSize.Width;
-                        if (child.DesiredSize.Height > height) height = child.DesiredSize.Height;
+                        child.Measure(new Size(double.PositiveInfinity, availableSize.Height));
+                        totalWidth += child.DesiredSize.Width;
+                        totalHeight = Math.Max(totalHeight, child.DesiredSize.Height);
                     }
-                    width += Spacing * InternalChildren.Count;
+                    if (InternalChildren.Count > 1)
+                        totalWidth += Spacing * (InternalChildren.Count - 1);
                     break;
                 case Orientation.Vertical:
                     foreach (UIElement child in InternalChildren)
                     {
                         if (child == null) continue;
-                        child.Measure(availableSize);
-                        height += child.DesiredSize.Height;
-                        if (child.DesiredSize.Width > width) width = child.DesiredSize.Width;
+                        child.Measure(new Size(availableSize.Width, double.PositiveInfinity));
+                        totalHeight += child.DesiredSize.Height;
+                        totalWidth = Math.Max(totalWidth, child.DesiredSize.Width);
                     }
-                    height += Spacing * InternalChildren.Count;
+                    if (InternalChildren.Count > 1)
+                        totalHeight += Spacing * (InternalChildren.Count - 1);
                     break;
             }
-            return new Size(width, height);
+            return new Size(totalWidth, totalHeight);
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            double totalWidth = 0, totalHeight = 0;
-            double x, y;
+            double currentPosition = 0;
+
             switch (Orientation)
             {
                 case Orientation.Horizontal:
-                    for (int i = 0; i < InternalChildren.Count; i++)
+                    foreach (UIElement child in InternalChildren)
                     {
-                        y = totalHeight;
-                        x = InternalChildren[i].DesiredSize.Width * i + Spacing * i;
-                        totalWidth += Children[i].DesiredSize.Width;
-                        Rect rect = new(x, y, Children[i].DesiredSize.Width, Children[i].DesiredSize.Height);
-                        Children[i].Arrange(rect);
+                        if (child == null) continue;
+                        double childWidth = child.DesiredSize.Width;
+                        double childHeight = child.DesiredSize.Height;
+                        Rect rect = new Rect(currentPosition, 0, childWidth, childHeight);
+                        child.Arrange(rect);
+                        currentPosition += childWidth + Spacing;
                     }
                     break;
+
                 case Orientation.Vertical:
-                    for (int i = 0; i < InternalChildren.Count; i++)
+                    foreach (UIElement child in InternalChildren)
                     {
-                        x = totalWidth;
-                        y = InternalChildren[i].DesiredSize.Height * i + Spacing * i;
-                        totalHeight += Children[i].DesiredSize.Height;
-                        Rect rect = new(x, y, Children[i].DesiredSize.Width, Children[i].DesiredSize.Height);
-                        Children[i].Arrange(rect);
+                        if (child == null) continue;
+                        double childWidth = child.DesiredSize.Width;
+                        double childHeight = child.DesiredSize.Height;
+                        Rect rect = new Rect(0, currentPosition, childWidth, childHeight);
+                        child.Arrange(rect);
+                        currentPosition += childHeight + Spacing;
                     }
                     break;
             }

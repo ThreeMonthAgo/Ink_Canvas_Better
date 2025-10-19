@@ -24,7 +24,7 @@
             <Label Content="Layout"/>
             <ToggleButton Content="Switch orientation" Checked="ToggleBtn_Stackpanel_Checked" Unchecked="ToggleBtn_Stackpanel_UnChecked"/>
             <controls:Stackpanel Spacing="2" Name="Stackpanel">
-                <Button Content="Btn1"/>
+                <Button Content="Btn1" Width="50"/>
                 <Button Content="Btn2"/>
                 <Button Content="Btn3"/>
             </controls:Stackpanel>
