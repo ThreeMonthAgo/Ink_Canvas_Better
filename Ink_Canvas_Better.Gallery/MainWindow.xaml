@@ -20,14 +20,6 @@
                     This is the content of the Subpanel.
                 </TextBlock>
             </controls:Subpanel>
-            <!-- // Layout // -->
-            <Label Content="Layout"/>
-            <ToggleButton Content="Switch orientation" Checked="ToggleBtn_Stackpanel_Checked" Unchecked="ToggleBtn_Stackpanel_UnChecked"/>
-            <controls:Stackpanel Spacing="2" Name="Stackpanel">
-                <Button Content="Btn1" Width="50"/>
-                <Button Content="Btn2"/>
-                <Button Content="Btn3"/>
-            </controls:Stackpanel>
         </WrapPanel>
     </ScrollViewer>
 </Window>

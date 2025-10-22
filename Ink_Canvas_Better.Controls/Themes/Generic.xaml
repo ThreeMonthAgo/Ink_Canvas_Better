@@ -6,4 +6,5 @@
         <ResourceDictionary Source="/Ink_Canvas_Better.Controls;component/Themes/ColorResources_light.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
+
 </ResourceDictionary>

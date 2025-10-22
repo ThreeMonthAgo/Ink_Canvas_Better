@@ -26,15 +26,5 @@ namespace Ink_Canvas_Better.Gallery
         {
             Subpanel.IsOpen = true;
         }
-
-        private void ToggleBtn_Stackpanel_Checked(object sender, RoutedEventArgs e)
-        {
-            Stackpanel.Orientation = Orientation.Vertical;
-        }
-
-        private void ToggleBtn_Stackpanel_UnChecked(object sender, RoutedEventArgs e)
-        {
-            Stackpanel.Orientation = Orientation.Horizontal;
-        }
     }
 }
