@@ -12,10 +12,8 @@
         Title="{DynamicResource Text_ProductName}"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
-        Stylus.IsPressAndHoldEnabled="False"
         Topmost="True"
         WindowStyle="None"
-        Foreground="Black"
         Background="Transparent"
         AllowsTransparency="True"
         WindowState="Maximized">
