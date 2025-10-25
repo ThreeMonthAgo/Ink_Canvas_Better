@@ -42,12 +42,6 @@
             </controls:Subpanel>
             <Label Content="FloatingBarGroup" Style="{StaticResource label_h2}"/>
             <controls:FloatingBarGroup Name="FloatingBarGroup">
-                <!--
-                <controls:FloatingBarGroup.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <ui:SimpleStackPanel Spacing="4" Orientation="{Binding ElementName=FloatingBarGroup,Path=Orientation}"/>
-                    </ItemsPanelTemplate>
-                </controls:FloatingBarGroup.ItemsPanel>-->
                 <Button Click="Button_FloatingBarGroup_Click" Content="Switch"/>
                 <TextBlock>Text1</TextBlock>
                 <TextBlock>Text2</TextBlock>
