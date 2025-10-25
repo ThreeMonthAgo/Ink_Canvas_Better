@@ -3,23 +3,57 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.inkore.net/lib/ui/wpf"
         xmlns:controls="Ink_Canvas_Better.Controls"
         xmlns:local="clr-namespace:Ink_Canvas_Better.Gallery"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="label_title">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style TargetType="Label" x:Key="label_h1">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="FontWeight" Value="Heavy"/>
+        </Style>
+        <Style TargetType="Label" x:Key="label_h2">
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style TargetType="Label" x:Key="label_h3">
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+    </Window.Resources>
+    
     <ScrollViewer
             VerticalScrollBarVisibility="Visible"
             HorizontalScrollBarVisibility="Disabled">
         <WrapPanel Orientation="Vertical" Margin="5">
-            <Label Content="Ink Canvas Better Gallery" FontSize="16"/>
+            <Label Content="Ink Canvas Better Gallery" Style="{StaticResource label_title}"/>
             <!-- // Panel // -->
-            <Label Content="Panel"/>
+            <Label Content="Panel" Style="{StaticResource label_h1}"/>
+            <Label Content="Subpanel" Style="{StaticResource label_h2}"/>
             <Button Name="Button_Subpanel" Content="Subpanel" Click="Button_Subpanel_Click"/>
             <controls:Subpanel Name="Subpanel" PlacementTarget="{Binding ElementName=Button_Subpanel}" Title="Subpanel">
                 <TextBlock>
                     This is the content of the Subpanel.
                 </TextBlock>
             </controls:Subpanel>
+            <Label Content="FloatingBarGroup" Style="{StaticResource label_h2}"/>
+            <controls:FloatingBarGroup Name="FloatingBarGroup">
+                <!--
+                <controls:FloatingBarGroup.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ui:SimpleStackPanel Spacing="4" Orientation="{Binding ElementName=FloatingBarGroup,Path=Orientation}"/>
+                    </ItemsPanelTemplate>
+                </controls:FloatingBarGroup.ItemsPanel>-->
+                <Button Click="Button_FloatingBarGroup_Click" Content="Switch"/>
+                <TextBlock>Text1</TextBlock>
+                <TextBlock>Text2</TextBlock>
+                <TextBlock>Text3</TextBlock>
+                <TextBlock>Text4</TextBlock>
+            </controls:FloatingBarGroup>
         </WrapPanel>
     </ScrollViewer>
 </Window>

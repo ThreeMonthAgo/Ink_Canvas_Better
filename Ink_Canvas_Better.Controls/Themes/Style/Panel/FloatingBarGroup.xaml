@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.Panel"
+                    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf">
+
+    <Style TargetType="{x:Type local:FloatingBarGroup}">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <ui:SimpleStackPanel 
+                        Spacing="{Binding Spacing, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBarGroup}}}"
+                        Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBarGroup}}}"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:FloatingBarGroup}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ItemsPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

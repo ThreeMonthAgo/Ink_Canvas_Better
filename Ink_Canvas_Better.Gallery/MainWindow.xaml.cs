@@ -26,5 +26,10 @@ namespace Ink_Canvas_Better.Gallery
         {
             Subpanel.IsOpen = true;
         }
+
+        private void Button_FloatingBarGroup_Click(object sender, RoutedEventArgs e)
+        {
+            FloatingBarGroup.Orientation = FloatingBarGroup.Orientation == Orientation.Horizontal ? Orientation.Vertical : Orientation.Horizontal;
+        }
     }
 }
