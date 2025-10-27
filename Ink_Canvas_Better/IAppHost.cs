@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Ink_Canvas_Better.Logging;
+using Ink_Canvas_Better.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -21,7 +23,7 @@ namespace Ink_Canvas_Better
                 CreateDefaultBuilder().
                 ConfigureServices((context, service) =>
                 {
-
+                    service.AddSingleton<SettingsService>();
                 }).
                 ConfigureLogging((context, logging) =>
                 {

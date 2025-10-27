@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using Ink_Canvas_Better.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -32,6 +33,7 @@ namespace Ink_Canvas_Better
             #region log
             IAppHost.InitAppHost();
             ILogger _logger = IAppHost.Host.Services.GetRequiredService<ILogger<App>>();
+            SettingsService _settings = IAppHost.Host.Services.GetRequiredService<SettingsService>();
             this.DispatcherUnhandledException += (sender, e) =>
             {
                 _logger.LogCritical(e.Exception.StackTrace);
@@ -50,9 +52,6 @@ namespace Ink_Canvas_Better
             };
             #endregion
 
-            //Log.NewLog(string.Format("Ink-Canvas-Better Starting (Version: {0})", Assembly.GetExecutingAssembly().GetName().Version?.ToString()));
-
-
             //Mutex _ = new Mutex(true, "Ink_Canvas_Better", out bool ret);
 
             //if (!ret && !e.Args.Contains("-m")) // -m multiple
@@ -62,7 +61,7 @@ namespace Ink_Canvas_Better
             //    Log.NewLog("Ink-Canvas-Batter automatically closed");
             //    Environment.Exit(0);
             //}
-            _logger.LogInformation("===== Ink Canvas Better is running =====");
+            _logger.LogInformation($"===== Ink Canvas Better (v{_settings.Settings.Version}) is running =====");
         }
 
         void App_OnExit(object sender, ExitEventArgs e)
