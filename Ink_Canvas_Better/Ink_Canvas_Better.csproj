@@ -54,9 +54,6 @@
     <Compile Update="Controls\ICB_CustomColor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\ICB_ToggleButton.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
 
 </Project>

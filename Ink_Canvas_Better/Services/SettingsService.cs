@@ -16,8 +16,9 @@ namespace Ink_Canvas_Better.Services
 
         public Settings Settings { get { return _settings ??= new(); } }
 
-        public void ReadSettings(string path)
+        public void ReadSettings()
         {
+            string path = SettingsFilePath;
             if (File.Exists(path))
             {
                 string s = File.ReadAllText(path);
@@ -26,12 +27,13 @@ namespace Ink_Canvas_Better.Services
             else
             {
                 _settings = new();
-                SaveSettings(path);
+                SaveSettings();
             }
         }
 
-        public void SaveSettings(string path)
+        public void SaveSettings()
         {
+            string path = SettingsFilePath;
             var f = File.CreateText(path);
             f.Write(JsonConvert.SerializeObject(_settings));
             f.Close();

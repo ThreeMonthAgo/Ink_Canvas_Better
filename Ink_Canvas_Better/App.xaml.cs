@@ -17,8 +17,8 @@ namespace Ink_Canvas_Better
     /// </summary>
     public partial class App : Application, IAppHost
     {
-        private static string[]? StartArgs = null;
-        public readonly static string RootPath = Environment.GetEnvironmentVariable("APPDATA") + "\\Ink Canvas Better\\";
+        public static string[]? StartupArgs { get; set; } = null;
+        public static string RootPath { get; } = Environment.GetEnvironmentVariable("APPDATA") + "\\Ink Canvas Better\\";
 
         public App()
         {
@@ -28,12 +28,10 @@ namespace Ink_Canvas_Better
 
         void App_Startup(object sender, StartupEventArgs e)
         {
-            StartArgs = e.Args;
-
+            StartupArgs = e.Args;
             #region log
             IAppHost.InitAppHost();
-            ILogger _logger = IAppHost.Host.Services.GetRequiredService<ILogger<App>>();
-            SettingsService _settings = IAppHost.Host.Services.GetRequiredService<SettingsService>();
+            ILogger _logger = IAppHost.GetService<ILogger<App>>();
             this.DispatcherUnhandledException += (sender, e) =>
             {
                 _logger.LogCritical(e.Exception.StackTrace);
@@ -52,6 +50,8 @@ namespace Ink_Canvas_Better
             };
             #endregion
 
+            IAppHost.GetService<SettingsService>().ReadSettings();
+
             //Mutex _ = new Mutex(true, "Ink_Canvas_Better", out bool ret);
 
             //if (!ret && !e.Args.Contains("-m")) // -m multiple
@@ -61,12 +61,12 @@ namespace Ink_Canvas_Better
             //    Log.NewLog("Ink-Canvas-Batter automatically closed");
             //    Environment.Exit(0);
             //}
-            _logger.LogInformation($"===== Ink Canvas Better (v{_settings.Settings.Version}) is running =====");
+            _logger.LogInformation($"===== Ink Canvas Better (v{IAppHost.GetService<SettingsService>().Settings.Version}) is running =====");
         }
 
         void App_OnExit(object sender, ExitEventArgs e)
         {
-            ILogger _logger = IAppHost.Host.Services.GetRequiredService<ILogger<App>>();
+            ILogger _logger = IAppHost.GetService<ILogger<App>>();
             _logger.LogInformation("===== Ink Canvas Better exited =====");
         }
     }

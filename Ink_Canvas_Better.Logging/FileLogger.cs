@@ -37,7 +37,7 @@ public sealed class FileLogger(
             {
                 Directory.CreateDirectory(config.LogDirectoryPath);
             }
-            StreamWriter sw = new(config.LogDirectoryPath + $"{DateTime.Now:yyyy_MM_dd}.log", true);
+            StreamWriter sw = new(config.LogDirectoryPath + $"{DateTime.Now:yyyy-MM-dd}.log", true);
             sw.WriteLine(string.Format("{0} [{1}] {2} {3}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), logLevel, state, exception));
             sw.Close();
         }

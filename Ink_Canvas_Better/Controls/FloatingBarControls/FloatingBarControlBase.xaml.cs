@@ -10,16 +10,14 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Ink_Canvas_Better.Windows
+namespace Ink_Canvas_Better.Controls.FloatingBarControls
 {
-    /// <summary>
-    /// FloatingBar.xaml 的交互逻辑
-    /// </summary>
-    public partial class FloatingBar : Window
+    public partial class FloatingBarControlBase : UserControl
     {
-        public FloatingBar()
+        public FloatingBarControlBase()
         {
             InitializeComponent();
         }
