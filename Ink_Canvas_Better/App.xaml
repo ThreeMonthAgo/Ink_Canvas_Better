@@ -16,6 +16,7 @@
                 <ui:ThemeResources/>
                 <ui:XamlControlsResources/>
                 <ResourceDictionary Source="/Resources/Styles/Light.xaml"/>
+                <ResourceDictionary Source="/Resources/Image/FluentUIIcons/FluentUIIcons.xaml"/>
 
                 <ResourceDictionary Source="/Resources/Image/OthersImageDictionary.xaml"/>
                 <ResourceDictionary Source="/Resources/Image/DrawShapeImageDictionary.xaml"/>

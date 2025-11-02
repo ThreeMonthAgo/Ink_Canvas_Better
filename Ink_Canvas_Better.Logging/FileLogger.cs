@@ -7,8 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Ink_Canvas_Better.Logging;
 
-public sealed class FileLogger(
-    Func<FileLoggerConfiguration> getCurrentConfig) : ILogger
+public sealed class FileLogger(Func<FileLoggerConfiguration> getCurrentConfig) : ILogger
 {
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull => default!;
 

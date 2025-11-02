@@ -21,5 +21,35 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         {
             InitializeComponent();
         }
+
+        #region Properties
+
+        #region Source
+
+        public ImageSource Source
+        {
+            get { return (ImageSource)GetValue(SourceProperty); }
+            set { SetValue(SourceProperty, value); }
+        }
+
+        public static readonly DependencyProperty SourceProperty =
+            DependencyProperty.Register("Source", typeof(ImageSource), typeof(FloatingBarControlBase), new PropertyMetadata(null));
+
+        #endregion
+
+        #region TextVisibility
+
+        public Visibility TextVisibility
+        {
+            get { return (Visibility)GetValue(TextVisibilityProperty); }
+            set { SetValue(TextVisibilityProperty, value); }
+        }
+
+        public static readonly DependencyProperty TextVisibilityProperty =
+            DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof(FloatingBarControlBase), new PropertyMetadata(Visibility.Collapsed));
+
+        #endregion
+
+        #endregion
     }
 }

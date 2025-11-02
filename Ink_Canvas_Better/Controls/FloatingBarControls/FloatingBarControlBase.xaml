@@ -8,15 +8,10 @@
              xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.FloatingBarControls"
              mc:Ignorable="d">
     <Border>
-        <Button Width="64" Height="64">
+        <Button Width="64" Height="64" Background="Transparent" Padding="0">
             <iUW:SimpleStackPanel>
-                <!-- TODO -->
-                <Image Source="/Resources/Ink Canvas Better.ico">
-                    
-                </Image>
-                <TextBlock FontSize="12" Visibility="Collapsed">
-                    Teest
-                </TextBlock>
+                <Image Source="{Binding Source=Source}" Height="48" Width="48"/>
+                <TextBlock FontSize="8" TextAlignment="Center" Visibility="{Binding Source=TextVisibility}"/>
             </iUW:SimpleStackPanel>
         </Button>
     </Border>
