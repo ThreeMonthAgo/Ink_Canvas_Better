@@ -12,11 +12,9 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
     internal class MultifuntionalControl : FloatingBarControlBase, ISerializableControl
     {
         public Guid ControlGuid => new("{03C5FD8D-2880-40F7-BAC5-9D83C347162C}");
-        private ControlsService _controlsService = IAppHost.GetService<ControlsService>();
 
         MultifuntionalControl() {
             Source = (DrawingImage)this.Resources["FUI.Drag"];
-            _controlsService.TryRegisterControl(this);
         }
 
     }

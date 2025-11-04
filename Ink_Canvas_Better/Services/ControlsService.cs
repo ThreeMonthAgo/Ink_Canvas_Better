@@ -1,41 +1,45 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.DirectoryServices.ActiveDirectory;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Concurrent;
+using System.Windows.Controls;
 using Ink_Canvas_Better.Controls;
 
 namespace Ink_Canvas_Better.Services
 {
     internal class ControlsService
     {
-        private readonly ConcurrentDictionary<Guid,ISerializableControl> _controls = new();
+        private readonly ConcurrentDictionary<Guid,Type> _controls = new();
 
-        public bool TryRegisterControl(ISerializableControl control)
+        public bool TryRegisterControl<T>(Guid guid) where T : ISerializableControl
         {
-            return _controls.TryAdd(control.ControlGuid, control);
+            return _controls.TryAdd(guid,typeof(T));
         }
 
-        public bool TryGetControl(Guid guid, out ISerializableControl control)
+        public bool UnregisterControl(Guid guid, out Type? type)
         {
-            return _controls.TryGetValue(guid, out control);
+            return _controls.TryRemove(guid, out type);
         }
 
-        public bool UnregisterControl(Guid guid)
+        public Control CreateControl(Guid guid)
         {
-            return _controls.TryRemove(guid, out _);
+            Type type;
+            _controls.TryGetValue(guid,out type);
+            var control = Activator.CreateInstance(type) as Control;
+            return control;
         }
 
-        public bool UnregisterControl(ISerializableControl control)
+        public bool TryCreateControl(Guid guid, out Control? control)
         {
-            return control != null && _controls.TryRemove(control.ControlGuid, out _);
-        }
-
-        public IEnumerable<ISerializableControl> GetAllControls()
-        {
-            return _controls.Values;
+            Type type;
+            _controls.TryGetValue(guid, out type);
+            if (type == null)
+            {
+                control = null;
+                return false;
+            }
+            else
+            {
+                control = Activator.CreateInstance(type) as Control;
+                return true;
+            }
         }
     }
 }

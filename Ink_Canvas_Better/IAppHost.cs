@@ -14,9 +14,7 @@ namespace Ink_Canvas_Better
 {
     internal interface IAppHost
     {
-#pragma warning disable CS8618
         public static IHost Host;
-#pragma warning restore CS8618
 
         public static void InitAppHost()
         {
