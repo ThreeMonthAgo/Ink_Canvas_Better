@@ -1,9 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+using Ink_Canvas_Better.Controls;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +19,7 @@ namespace Ink_Canvas_Better
                 ConfigureServices((context, service) =>
                 {
                     service.AddSingleton<SettingsService>();
+                    service.AddSingleton<FloatingBar>();
                 }).
                 ConfigureLogging((context, logging) =>
                 {

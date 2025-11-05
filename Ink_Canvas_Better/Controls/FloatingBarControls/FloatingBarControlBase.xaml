@@ -7,11 +7,11 @@
              xmlns:iUWM="http://schemas.inkore.net/lib/ui/wpf/modern"
              xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.FloatingBarControls"
              mc:Ignorable="d">
-    <Border>
-        <Button Width="64" Height="64" Background="Transparent" Padding="0">
-            <iUW:SimpleStackPanel>
-                <Image Source="{Binding Source=Source}" Height="48" Width="48"/>
-                <TextBlock FontSize="8" TextAlignment="Center" Visibility="{Binding Source=TextVisibility}"/>
+    <Border x:Name="Border">
+        <Button x:Name="Button" Width="64" Height="64" Background="Transparent" Padding="0">
+            <iUW:SimpleStackPanel x:Name="SimpleStackPanel">
+                <Image x:Name="Image" Source="{Binding Source=Source}" Height="48" Width="48"/>
+                <TextBlock x:Name="TextBlock" FontSize="8" TextAlignment="Center" Visibility="{Binding Source=TextVisibility}" Text="{Binding Source=Text}"/>
             </iUW:SimpleStackPanel>
         </Button>
     </Border>

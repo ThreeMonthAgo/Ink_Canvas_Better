@@ -50,6 +50,20 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
 
         #endregion
 
+        #region Text
+
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register("Text", typeof(string), typeof(FloatingBarControlBase), new PropertyMetadata("null"));
+
         #endregion
+
+        #endregion
+
     }
 }
