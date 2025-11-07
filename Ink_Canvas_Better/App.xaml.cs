@@ -19,7 +19,6 @@ namespace Ink_Canvas_Better
         public static string[]? StartupArgs { get; set; } = null;
         public static string RootPath { get; } = Environment.GetEnvironmentVariable("APPDATA") + "\\Ink Canvas Better\\";
 
-        ILogger _logger = IAppHost.GetService<ILogger<App>>();
         public App()
         {
             this.Startup += new StartupEventHandler(App_Startup);
@@ -31,6 +30,7 @@ namespace Ink_Canvas_Better
             StartupArgs = e.Args;
             #region log
             IAppHost.InitAppHost();
+            ILogger _logger = IAppHost.GetService<ILogger<App>>();
             this.DispatcherUnhandledException += (sender, e) =>
             {
                 _logger.LogCritical(e.Exception.StackTrace);
@@ -50,7 +50,6 @@ namespace Ink_Canvas_Better
             #endregion
 
             IAppHost.GetService<SettingsService>().ReadSettings();
-            RegisterControls();
             //Mutex _ = new Mutex(true, "Ink_Canvas_Better", out bool ret);
 
             //if (!ret && !e.Args.Contains("-m")) // -m multiple
@@ -65,12 +64,9 @@ namespace Ink_Canvas_Better
 
         void App_OnExit(object sender, ExitEventArgs e)
         {
+            ILogger _logger = IAppHost.GetService<ILogger<App>>();
             _logger.LogInformation("===== Ink Canvas Better exited =====");
         }
 
-        void RegisterControls()
-        {
-            IAppHost.GetService<ControlsService>().TryRegisterControl<MultifuntionalControl>(new("{03C5FD8D-2880-40F7-BAC5-9D83C347162C}"));
-        }
     }
 }

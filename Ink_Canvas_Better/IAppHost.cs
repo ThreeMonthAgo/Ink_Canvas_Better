@@ -1,7 +1,9 @@
 ﻿using System.IO;
 using Ink_Canvas_Better.Controls;
+using Ink_Canvas_Better.Controls.FloatingBarControls;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Services;
+using Ink_Canvas_Better.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -18,6 +20,8 @@ namespace Ink_Canvas_Better
                 CreateDefaultBuilder().
                 ConfigureServices((context, service) =>
                 {
+                    service.AddSingleton<ControlsService>();
+                    service.AddSingleton<MainWindow>();
                     service.AddSingleton<SettingsService>();
                     service.AddSingleton<FloatingBar>();
                 }).
@@ -30,6 +34,8 @@ namespace Ink_Canvas_Better
                     });
                 }).
                 Build();
+
+            RegisterControls();
         }
 
         public static T GetService<T>()
@@ -39,13 +45,20 @@ namespace Ink_Canvas_Better
             {
                 return (T)s;
             }
-
             throw new ArgumentException($"Service {typeof(T)} is null!");
         }
 
         public static T? TryGetService<T>()
         {
             return (T?)Host?.Services.GetService(typeof(T));
+        }
+
+        private static void RegisterControls()
+        {
+            ControlsService controlsService = IAppHost.GetService<ControlsService>();
+            controlsService.TryRegisterControl<MultifuntionControl>(MultifuntionControl.ControlGuid);
+            controlsService.TryRegisterControl<MultifuntionControl>(CursorControl.ControlGuid);
+
         }
     }
 }

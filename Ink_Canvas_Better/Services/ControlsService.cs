@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Windows.Controls;
 using Ink_Canvas_Better.Controls;
 

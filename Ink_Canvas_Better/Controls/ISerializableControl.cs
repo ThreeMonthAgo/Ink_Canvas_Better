@@ -9,6 +9,6 @@ namespace Ink_Canvas_Better.Controls
 {
     internal interface ISerializableControl
     {
-        Guid ControlGuid { get; }
+        static Guid ControlGuid { get; }
     }
 }

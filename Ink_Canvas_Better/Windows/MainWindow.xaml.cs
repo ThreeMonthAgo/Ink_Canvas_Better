@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Ink_Canvas_Better.Controls;
+using Ink_Canvas_Better.Services;
 
 namespace Ink_Canvas_Better.Windows
 {
@@ -19,9 +22,17 @@ namespace Ink_Canvas_Better.Windows
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
         public MainWindow()
         {
             InitializeComponent();
+            this.Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Temp.Children.Add(new FloatingBar());
         }
     }
 }

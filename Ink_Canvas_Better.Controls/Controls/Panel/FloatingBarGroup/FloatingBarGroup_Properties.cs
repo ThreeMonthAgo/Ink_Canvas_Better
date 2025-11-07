@@ -6,7 +6,7 @@ namespace Ink_Canvas_Better.Controls.Panel
 {
     public partial class FloatingBarGroup
     {
-        public ObservableCollection<Control>? ControlsCollection { get; }
+        public ObservableCollection<Control> ControlsCollection { get; } = [];
 
         #region Orientation
 
@@ -42,7 +42,6 @@ namespace Ink_Canvas_Better.Controls.Panel
             set { SetValue(CornerRadiusProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register("CornerRadius", typeof(double), typeof(FloatingBarGroup), new PropertyMetadata(0.0));
 
