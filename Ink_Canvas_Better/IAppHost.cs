@@ -57,7 +57,7 @@ namespace Ink_Canvas_Better
         {
             ControlsService controlsService = IAppHost.GetService<ControlsService>();
             controlsService.TryRegisterControl<MultifuntionControl>(MultifuntionControl.ControlGuid);
-            controlsService.TryRegisterControl<MultifuntionControl>(CursorControl.ControlGuid);
+            controlsService.TryRegisterControl<CursorControl>(CursorControl.ControlGuid);
 
         }
     }

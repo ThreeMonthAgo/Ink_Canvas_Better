@@ -5,7 +5,6 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using Ink_Canvas_Better.Windows;
-using iNKORE.UI.WPF.Helpers;
 
 namespace Ink_Canvas_Better.Controls.FloatingBarControls
 {
@@ -15,22 +14,19 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         private bool _isMouseDown = false;
         private Point _mouseDownPos, _mouseUpPos, _mouseDownControlPos, _currentMousePos;
 
-        private readonly MainWindow _mainWindow;
-        private readonly FloatingBar _floatingBar;
 
         public MultifuntionControl() {
-            _mainWindow = IAppHost.GetService<MainWindow>();
-            _floatingBar = IAppHost.GetService<FloatingBar>();
-
-            Source = (DrawingImage)this.Resources["FUI.Drag"];
-            TextVisibility = Visibility.Collapsed;
-
+            Image.SetResourceReference(Image.SourceProperty, "FUI.Drag");
+            TextBlock.Visibility = Visibility.Collapsed;
+            
             Button.MouseDown += Button_MouseDown;
             Button.MouseUp += Button_MouseUp;
         }
 
         private void Button_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            MainWindow _mainWindow = IAppHost.GetService<MainWindow>();
+            FloatingBar _floatingBar = IAppHost.GetService<FloatingBar>();
             _isMouseDown = true;
             _mouseDownPos = e.GetPosition(_mainWindow);
             var transform = _floatingBar.RenderTransform as TranslateTransform ?? new TranslateTransform();
@@ -44,6 +40,8 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         {
             if (_isMouseDown)
             {
+                MainWindow _mainWindow = IAppHost.GetService<MainWindow>();
+                FloatingBar _floatingBar = IAppHost.GetService<FloatingBar>();
                 var transform = _floatingBar.RenderTransform as TranslateTransform ?? new TranslateTransform();
                 _currentMousePos = e.GetPosition(_mainWindow);
                 transform.X = _mouseDownControlPos.X + _currentMousePos.X - _mouseDownPos.X;
@@ -53,6 +51,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
 
         private void Button_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            MainWindow _mainWindow = IAppHost.GetService<MainWindow>();
             Button.MouseMove -= Button_MouseMove;
             Button.ReleaseMouseCapture();
             _isMouseDown = false;

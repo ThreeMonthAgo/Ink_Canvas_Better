@@ -13,8 +13,8 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
 
         public CursorControl()
         {
-            Source = (DrawingImage)this.Resources["FUI.Drag"];
             TextBlock.SetResourceReference(TextBlock.TextProperty, "Text_Cursor");
+            TextBlock.Visibility = Visibility.Visible;
         }
 
     }
