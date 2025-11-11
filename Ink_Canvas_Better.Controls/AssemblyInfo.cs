@@ -11,3 +11,4 @@ using System.Windows.Markup;
 )]
 
 [assembly: XmlnsDefinition("Ink_Canvas_Better.Controls", "Ink_Canvas_Better.Controls.Panel")]
+[assembly: XmlnsDefinition("Ink_Canvas_Better.Controls", "Ink_Canvas_Better.Controls.Basic")]

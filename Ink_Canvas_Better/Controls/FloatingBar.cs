@@ -26,6 +26,7 @@ namespace Ink_Canvas_Better.Controls
 
         private void FloatingBar_Loaded(object sender, RoutedEventArgs e)
         {
+            this.RenderTransform = new TranslateTransform();
             FloatingBarGroup f = new();
             f.ControlsCollection.Add(IAppHost.GetService<ControlsService>().CreateControl(MultifuntionControl.ControlGuid));
             Groups.Add(f);

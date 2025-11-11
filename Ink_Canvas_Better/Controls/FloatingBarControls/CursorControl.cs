@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using Ink_Canvas_Better.Controls.Basic;
 
 namespace Ink_Canvas_Better.Controls.FloatingBarControls
 {
@@ -13,8 +14,8 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
 
         public CursorControl()
         {
-            TextBlock.SetResourceReference(TextBlock.TextProperty, "Text_Cursor");
-            TextBlock.Visibility = Visibility.Visible;
+            this.SetResourceReference(FloatingBarControlBase.TextProperty, "Text_Cursor");
+            this.TextVisibility = Visibility.Visible;
         }
 
     }
