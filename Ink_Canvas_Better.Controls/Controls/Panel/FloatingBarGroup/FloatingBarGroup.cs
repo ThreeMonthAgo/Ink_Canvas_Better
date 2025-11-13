@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
 
 namespace Ink_Canvas_Better.Controls.Panel
 {
@@ -8,12 +11,6 @@ namespace Ink_Canvas_Better.Controls.Panel
         static FloatingBarGroup()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FloatingBarGroup), new FrameworkPropertyMetadata(typeof(FloatingBarGroup)));
-        }
-
-        protected override void OnInitialized(EventArgs e)
-        {
-            base.OnInitialized(e);
-            ItemsSource = ControlsCollection;
         }
     }
 }

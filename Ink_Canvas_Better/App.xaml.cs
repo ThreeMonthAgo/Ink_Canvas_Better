@@ -5,7 +5,6 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using Ink_Canvas_Better.Controls.FloatingBarControls;
 using Ink_Canvas_Better.Services;
 using Microsoft.Extensions.Logging;
 

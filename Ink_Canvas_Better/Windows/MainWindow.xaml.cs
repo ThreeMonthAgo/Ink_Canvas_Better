@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Ink_Canvas_Better.Controls;
+using Ink_Canvas_Better.Controls.FloatingBarControls;
+using Ink_Canvas_Better.Controls.Panel;
 using Ink_Canvas_Better.Services;
 
 namespace Ink_Canvas_Better.Windows
@@ -32,7 +34,17 @@ namespace Ink_Canvas_Better.Windows
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            Temp.Children.Add(new FloatingBar());
+            var f = IAppHost.GetService<FloatingBar>();
+            Temp.Children.Add(f);
+            FloatingBarGroup g1 = new FloatingBarGroup();
+            var c1 = new CursorControl();
+            g1.Add(c1);
+
+            FloatingBarGroup g2 = new FloatingBarGroup();
+            var c2 = new MultifuntionControl();
+            g2.Add(c2);
+            f.Add(g2);
+            f.Add(g1);
         }
     }
 }

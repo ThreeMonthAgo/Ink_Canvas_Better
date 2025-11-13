@@ -14,7 +14,8 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
 
         public CursorControl()
         {
-            this.SetResourceReference(FloatingBarControlBase.TextProperty, "Text_Cursor");
+            this.SetResourceReference(SourceProperty, "FUI.Cursor");
+            this.SetResourceReference(TextProperty, "Text_Cursor");
             this.TextVisibility = Visibility.Visible;
         }
 

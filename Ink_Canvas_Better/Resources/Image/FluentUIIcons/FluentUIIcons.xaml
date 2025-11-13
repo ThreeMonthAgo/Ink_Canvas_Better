@@ -2,6 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Resources/Image/FluentUIIcons/Drag.xaml"/>
+        <ResourceDictionary Source="/Resources/Image/FluentUIIcons/Pin.xaml"/>
+        <ResourceDictionary Source="/Resources/Image/FluentUIIcons/Pin Off.xaml"/>
+        <ResourceDictionary Source="/Resources/Image/FluentUIIcons/Cursor.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
     

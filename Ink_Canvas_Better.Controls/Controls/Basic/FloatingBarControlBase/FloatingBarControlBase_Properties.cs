@@ -17,8 +17,6 @@ namespace Ink_Canvas_Better.Controls.Basic
 {
     partial class FloatingBarControlBase
     {
-        #region Properties
-
         #region Source
 
         public ImageSource Source
@@ -67,7 +65,7 @@ namespace Ink_Canvas_Better.Controls.Basic
         }
 
         public static readonly DependencyProperty ImageWidthProperty =
-            DependencyProperty.Register("ImageWidth", typeof(double), typeof(FloatingBarControlBase), new PropertyMetadata(48d));
+            DependencyProperty.Register("ImageWidth", typeof(double), typeof(FloatingBarControlBase), new PropertyMetadata(46d));
 
         #endregion
 
@@ -80,9 +78,7 @@ namespace Ink_Canvas_Better.Controls.Basic
         }
 
         public static readonly DependencyProperty ImageHeightProperty =
-            DependencyProperty.Register("ImageHeight", typeof(double), typeof(FloatingBarControlBase), new PropertyMetadata(48d));
-
-        #endregion
+            DependencyProperty.Register("ImageHeight", typeof(double), typeof(FloatingBarControlBase), new PropertyMetadata(46d));
 
         #endregion
     }

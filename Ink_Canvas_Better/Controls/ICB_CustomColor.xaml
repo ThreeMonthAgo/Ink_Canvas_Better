@@ -54,7 +54,7 @@
                     <Viewbox Name="Viewbox1" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center"
                              Width="{Binding ElementName=InnerBorder, Path=ActualWidth}"
                              Height="{Binding ElementName=InnerBorder, Path=ActualHeight}">
-                        <ui:FontIcon Glyph="&#xe73a;" FontFamily="{DynamicResource FluentIconFontFamily}"
+                        <ui:FontIcon Glyph="&#xe73a;"
                                      Width="{Binding ElementName=InnerBorder, Path=ActualWidth}"
                                      Height="{Binding ElementName=InnerBorder, Path=ActualHeight}"
                                      FontSize="30"/>

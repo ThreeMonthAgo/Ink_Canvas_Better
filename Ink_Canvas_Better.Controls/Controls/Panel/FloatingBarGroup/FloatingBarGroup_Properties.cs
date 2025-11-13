@@ -6,8 +6,6 @@ namespace Ink_Canvas_Better.Controls.Panel
 {
     public partial class FloatingBarGroup
     {
-        public ObservableCollection<Control> ControlsCollection { get; } = [];
-
         #region Orientation
 
         public Orientation Orientation

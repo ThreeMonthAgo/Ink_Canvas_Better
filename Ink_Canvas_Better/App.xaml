@@ -9,7 +9,6 @@
             <Style TargetType="ui:FontIcon">
                 <Setter Property="Foreground" Value="{DynamicResource DefaultForegroundColor}"/>
             </Style>
-            <FontFamily x:Key="FluentIconFontFamily">pack://application:,,,/Resources/#Segoe Fluent Icons</FontFamily>
 
             <!-- TODO -->
             <ResourceDictionary.MergedDictionaries>
