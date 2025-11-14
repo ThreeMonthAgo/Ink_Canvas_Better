@@ -9,7 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Page Remove="Styles\Dark.xaml" />
+    <Page Remove="Styles\Light.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Ink_Canvas_Better.Controls\Ink_Canvas_Better.Controls.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Styles\Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Styles\Light.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
   </ItemGroup>
 
 </Project>

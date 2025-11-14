@@ -1,64 +1,42 @@
-﻿using Ink_Canvas_Better.Controls.Helpers;
-using Ink_Canvas_Better.Controls.Helpers.Converter;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Windows.Markup;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Ink_Canvas_Better.Controls.Helpers;
 
 namespace Ink_Canvas_Better.Controls.Panel
 {
-    [ContentProperty("Child")]
-    public partial class Subpanel : ExPopup
+    public partial class Subpanel : ContentControl
     {
+        const double IconSize = 24d;
+
         static Subpanel()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Subpanel), new FrameworkPropertyMetadata(typeof(Subpanel)));
         }
 
-        protected override void OnInitialized(EventArgs e)
+        public override void OnApplyTemplate()
         {
-            base.OnInitialized(e);
-
-            _titleTextBlock.Text = Title;
-            _titleTextBlock.SetBinding(TextBlock.TextProperty, new Binding("Title") { Source = this });
-
-            _titleBarGrid.Background = ThemeHelper.DefaultBackgroundColor;
-            _titleBarGrid.Children.Add(_titleTextBlock);
-            Grid.SetColumn(_titleTextBlock, 0);
-
-            _pinTextBlock.SetBinding(TextBlock.TextProperty, new Binding("StaysOpen")
-            {
-                Source = this,
-                Converter = new BooleanToTextCconverter_Pin()
-            });
-            _pinButton.Content = _pinTextBlock;
-            _pinButton.Click += OnPinButtonClicked;
-            _titleBarGrid.Children.Add(_pinButton);
-            Grid.SetColumn(_pinButton, 1);
-
-            _closeButton.Click += OnCloseButtonClicked;
-            _titleBarGrid.Children.Add(_closeButton);
-            Grid.SetColumn(_closeButton, 2);
-
-            _contentPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding("Child") { Source = MemberwiseClone() });
-
-            _mainGrid.Children.Add(_titleBarGrid);
-            Grid.SetRow(_titleBarGrid, 0);
-
-            _mainGrid.Children.Add(_contentPresenter);
-            Grid.SetRow(_contentPresenter, 1);
-
-            _titleBarGrid.SetBinding(VisibilityProperty, new Binding("IsShowHeader")
-            {
-                Source = this,
-                Converter = new BooleanToVisibilityConverter()
-            });
-
-            _mainBorder.Child = _mainGrid;
-            _mainBorder.SetBinding(MarginProperty, new Binding("Margin") { Source = this });
-
-            _transparentGrid.Children.Add(_mainBorder);
-            Child = _transparentGrid;
+            base.OnApplyTemplate();
+            var pinToggleButton = GetTemplateChild("PART_PinToggleButton") as ToggleButton;
+            pinToggleButton.Checked += PinToggleButton_Checked;
+            pinToggleButton.Unchecked += PinToggleButton_Unchecked;
+            pinToggleButton.Content = new Image() { Source = StaysOpen ? ThemeHelper.FUI_PinOff : ThemeHelper.FUI_Pin, Height = IconSize, Width = IconSize };
+            var closeButton = GetTemplateChild("PART_CloseButton") as Button;
+            closeButton.Click += CloseButton_Click;
+            closeButton.Content = new Image() { Source = ThemeHelper.FUI_Dismiss, Height = IconSize, Width = IconSize };
         }
     }
 }

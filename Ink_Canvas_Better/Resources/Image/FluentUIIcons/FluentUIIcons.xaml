@@ -5,6 +5,7 @@
         <ResourceDictionary Source="/Resources/Image/FluentUIIcons/Pin.xaml"/>
         <ResourceDictionary Source="/Resources/Image/FluentUIIcons/Pin Off.xaml"/>
         <ResourceDictionary Source="/Resources/Image/FluentUIIcons/Cursor.xaml"/>
+        <ResourceDictionary Source="/Resources/Image/FluentUIIcons/Dismiss.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
     

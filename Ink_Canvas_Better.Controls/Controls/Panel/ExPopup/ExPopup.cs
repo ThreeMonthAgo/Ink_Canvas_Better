@@ -1,15 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Markup;
 
 namespace Ink_Canvas_Better.Controls.Panel
 {
     [ContentProperty("Child")]
-    public partial class ExPopup : Popup
+    public class ExPopup : Popup
     {
         static ExPopup()
         {

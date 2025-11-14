@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows;
+using System.Diagnostics;
 
 namespace Ink_Canvas_Better.Controls.Helpers
 {
@@ -18,22 +19,30 @@ namespace Ink_Canvas_Better.Controls.Helpers
             };
         }
 
-        #region Colors
-
-        public static Brush GetBrush(string key)
+        public static T GetFromDictionary<T>(string key)
         {
-            if (Dictionary.Contains(key) && Dictionary[key] is Brush brush)
+            if (Dictionary.Contains(key) && Dictionary[key] is T t)
             {
-                return brush;
+                return t;
             }
-            return Brushes.Transparent;
+            return default;
         }
 
-        public static Brush DefaultBackgroundColor => GetBrush("DefaultBackgroundColor");
-        public static Brush DefaultBackgroundColor_Opacity => GetBrush("DefaultBorderColor");
-        public static Brush DefaultForegroundColor => GetBrush("DefaultBorderColor");
-        public static Brush DefaultBorderColor => GetBrush("DefaultBorderColor");
-        public static Brush DefaultButtonHoverColor => GetBrush("DefaultHoverColor");
+        #region Colors
+
+        public static Brush DefaultBackgroundColor => GetFromDictionary<Brush>("DefaultBackgroundColor");
+        public static Brush DefaultBackgroundColor_Opacity => GetFromDictionary<Brush>("DefaultBorderColor");
+        public static Brush DefaultForegroundColor => GetFromDictionary<Brush>("DefaultBorderColor");
+        public static Brush DefaultBorderColor => GetFromDictionary<Brush>("DefaultBorderColor");
+        public static Brush DefaultButtonHoverColor => GetFromDictionary<Brush>("DefaultHoverColor");
+
+        #endregion
+
+        #region Images
+
+        public static DrawingImage FUI_Pin => GetFromDictionary<DrawingImage>("FUI.Pin");
+        public static DrawingImage FUI_PinOff => GetFromDictionary<DrawingImage>("FUI.PinOff");
+        public static DrawingImage FUI_Dismiss => GetFromDictionary<DrawingImage>("FUI.Dismiss");
 
         #endregion
     }

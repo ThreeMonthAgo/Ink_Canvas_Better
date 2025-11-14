@@ -24,7 +24,7 @@ namespace Ink_Canvas_Better.Gallery
 
         private void Button_Subpanel_Click(object sender, RoutedEventArgs e)
         {
-            Subpanel.IsOpen = true;
+            Subpanel.IsOpen = !Subpanel.IsOpen;
         }
 
         private void Button_FloatingBarGroup_Click(object sender, RoutedEventArgs e)

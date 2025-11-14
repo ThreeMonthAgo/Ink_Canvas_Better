@@ -35,7 +35,12 @@
             <Label Content="Panel" Style="{StaticResource label_h1}"/>
             <Label Content="Subpanel" Style="{StaticResource label_h2}"/>
             <Button Name="Button_Subpanel" Content="Subpanel" Click="Button_Subpanel_Click"/>
-            <controls:Subpanel Name="Subpanel" PlacementTarget="{Binding ElementName=Button_Subpanel}" Title="Subpanel">
+            <controls:Subpanel Name="Subpanel"
+                               PlacementTarget="{Binding ElementName=Button_Subpanel}"
+                               Title="Subpanel"
+                               Background="AliceBlue"
+                               BorderThickness="1"
+                               BorderBrush="Black">
                 <TextBlock>
                     This is the content of the Subpanel.
                 </TextBlock>
