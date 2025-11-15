@@ -65,6 +65,5 @@
             ForceCursor="False"
             IsManipulationEnabled="True">
         </InkCanvas>
-        <Grid Name="Temp" Width="500" Height="500" Background="AliceBlue"></Grid>
     </Grid>
 </Window>

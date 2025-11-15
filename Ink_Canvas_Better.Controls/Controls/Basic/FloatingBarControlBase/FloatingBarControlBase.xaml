@@ -4,6 +4,14 @@
                     xmlns:iUW="http://schemas.inkore.net/lib/ui/wpf">
 
     <Style TargetType="{x:Type local:FloatingBarControlBase}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.Setters>
+                    <!-- Temp -->
+                    <Setter Property="Background" Value="AntiqueWhite"/>
+                </Trigger.Setters>
+            </Trigger>
+        </Style.Triggers>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:FloatingBarControlBase}">
@@ -14,7 +22,7 @@
                             <Image Source="{TemplateBinding Source}"
                                    Width="{TemplateBinding ImageWidth}"
                                    Height="{TemplateBinding ImageHeight}"/>
-                            <TextBlock FontSize="8"
+                            <TextBlock FontSize="12"
                                        TextAlignment="Center"
                                        Text="{TemplateBinding Text}"
                                        Visibility="{TemplateBinding TextVisibility}"/>

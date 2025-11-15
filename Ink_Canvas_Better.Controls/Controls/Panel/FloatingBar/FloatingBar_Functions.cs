@@ -21,3 +21,4 @@ namespace Ink_Canvas_Better.Controls.Panel
         }
     }
 }
+    

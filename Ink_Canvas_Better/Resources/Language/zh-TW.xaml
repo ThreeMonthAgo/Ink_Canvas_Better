@@ -11,7 +11,7 @@
     <!-- Floating bar -->
     <s:String x:Key="Text_Cursor">滑鼠</s:String>
     <s:String x:Key="Text_Clear">清空</s:String>
-    <s:String x:Key="Text_Pen">鉛筆</s:String>
+    <s:String x:Key="Text_Pen">筆</s:String>
     <s:String x:Key="Text_Highlighter">螢光筆</s:String>
     <s:String x:Key="Text_Eraser">橡皮擦</s:String>
     <s:String x:Key="Text_Pick">圈選</s:String>

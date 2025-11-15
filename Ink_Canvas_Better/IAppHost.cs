@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using Ink_Canvas_Better.Controls;
 using Ink_Canvas_Better.Controls.FloatingBarControls;
 using Ink_Canvas_Better.Controls.Panel;
 using Ink_Canvas_Better.Logging;
@@ -59,7 +58,7 @@ namespace Ink_Canvas_Better
             ControlsService controlsService = IAppHost.GetService<ControlsService>();
             controlsService.TryRegisterControl<MultifuntionControl>(MultifuntionControl.ControlGuid);
             controlsService.TryRegisterControl<CursorControl>(CursorControl.ControlGuid);
-
+            controlsService.TryRegisterControl<PenControl>(PenControl.ControlGuid);
         }
     }
 }

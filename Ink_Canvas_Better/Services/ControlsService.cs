@@ -21,8 +21,7 @@ namespace Ink_Canvas_Better.Services
 
         public Control CreateControl(Guid guid)
         {
-            Type type;
-            _controls.TryGetValue(guid,out type);
+            _controls.TryGetValue(guid, out Type type);
             var control = Activator.CreateInstance(type) as Control;
             return control;
         }

@@ -34,14 +34,14 @@ namespace Ink_Canvas_Better.Controls.Panel
 
         #region CornerRadius
 
-        public double CornerRadius
+        public CornerRadius CornerRadius
         {
-            get { return (double)GetValue(CornerRadiusProperty); }
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
             set { SetValue(CornerRadiusProperty, value); }
         }
 
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(double), typeof(FloatingBarGroup), new PropertyMetadata(0.0));
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(FloatingBarGroup), new PropertyMetadata(new CornerRadius(4d)));
 
         #endregion
     }

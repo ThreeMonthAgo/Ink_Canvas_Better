@@ -65,7 +65,7 @@ namespace Ink_Canvas_Better.Controls.Basic
         }
 
         public static readonly DependencyProperty ImageWidthProperty =
-            DependencyProperty.Register("ImageWidth", typeof(double), typeof(FloatingBarControlBase), new PropertyMetadata(46d));
+            DependencyProperty.Register("ImageWidth", typeof(double), typeof(FloatingBarControlBase), new PropertyMetadata(40d));
 
         #endregion
 
@@ -78,7 +78,7 @@ namespace Ink_Canvas_Better.Controls.Basic
         }
 
         public static readonly DependencyProperty ImageHeightProperty =
-            DependencyProperty.Register("ImageHeight", typeof(double), typeof(FloatingBarControlBase), new PropertyMetadata(46d));
+            DependencyProperty.Register("ImageHeight", typeof(double), typeof(FloatingBarControlBase), new PropertyMetadata(40d));
 
         #endregion
     }
