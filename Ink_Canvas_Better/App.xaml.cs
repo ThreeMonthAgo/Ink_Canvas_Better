@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using Ink_Canvas_Better.Services;
+using Ink_Canvas_Better.Windows;
 using Microsoft.Extensions.Logging;
 
 namespace Ink_Canvas_Better
@@ -13,8 +14,14 @@ namespace Ink_Canvas_Better
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application, IAppHost
+    public partial class App : Application
     {
+        /// <summary>
+        /// StartupArgs:
+        /// <list type="bullet">
+        /// -m multiple
+        /// </list>
+        /// </summary>
         public static string[]? StartupArgs { get; set; } = null;
         public static string RootPath { get; } = Environment.GetEnvironmentVariable("APPDATA") + "\\Ink Canvas Better\\";
 
@@ -28,8 +35,8 @@ namespace Ink_Canvas_Better
         {
             StartupArgs = e.Args;
             #region log
-            IAppHost.InitAppHost();
-            ILogger _logger = IAppHost.GetService<ILogger<App>>();
+            AppHost.Init();
+            ILogger _logger = AppHost.GetService<ILogger<App>>();
             this.DispatcherUnhandledException += (sender, e) =>
             {
                 _logger.LogCritical(e.Exception.StackTrace);
@@ -47,23 +54,25 @@ namespace Ink_Canvas_Better
                 e.SetObserved();
             };
             #endregion
+            Mutex _ = new Mutex(true, "Ink_Canvas_Better", out bool ret);
 
-            IAppHost.GetService<SettingsService>().ReadSettings();
-            //Mutex _ = new Mutex(true, "Ink_Canvas_Better", out bool ret);
+            if (!ret && !StartupArgs.Contains("-m")) // -m multiple
+            {
+                _logger.LogInformation("Detected existing instance");
+                MessageBox.Show("Ink Canvas Better is running");
+                _logger.LogInformation("Ink Canvas Batter automatically closed");
+                Environment.Exit(0);
+            }
 
-            //if (!ret && !e.Args.Contains("-m")) // -m multiple
-            //{
-            //    Log.NewLog("Detected existing instance");
-            //    MessageBox.Show("已有一个程序实例正在运行");
-            //    Log.NewLog("Ink-Canvas-Batter automatically closed");
-            //    Environment.Exit(0);
-            //}
-            _logger.LogInformation($"===== Ink Canvas Better (v{IAppHost.GetService<SettingsService>().Settings.Version}) is running =====");
+            AppHost.GetService<SettingsService>().ReadSettings();
+            AppHost.GetService<MainWindow>().Show();
+
+            _logger.LogInformation($"===== Ink Canvas Better (v{AppHost.GetService<SettingsService>().Settings.Version}) is running =====");
         }
 
         void App_OnExit(object sender, ExitEventArgs e)
         {
-            ILogger _logger = IAppHost.GetService<ILogger<App>>();
+            ILogger _logger = AppHost.GetService<ILogger<App>>();
             _logger.LogInformation("===== Ink Canvas Better exited =====");
         }
 

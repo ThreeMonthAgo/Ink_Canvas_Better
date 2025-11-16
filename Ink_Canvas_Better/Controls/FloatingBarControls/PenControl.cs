@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Controls;
 using Ink_Canvas_Better.Controls.Basic;
+using Ink_Canvas_Better.Services;
 
 namespace Ink_Canvas_Better.Controls.FloatingBarControls
 {
@@ -15,6 +14,12 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
             this.SetResourceReference(SourceProperty, "FUI.CalligraphyPen");
             this.SetResourceReference(TextProperty, "Text_Pen");
             this.TextVisibility = Visibility.Visible;
+            this.MouseDown += PenControl_MouseDown;
+        }
+
+        private void PenControl_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            AppHost.GetService<InkCanvasService>().SwitchInkCanvasMode(InkCanvasEditingMode.Ink);
         }
     }
 }

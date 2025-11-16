@@ -41,7 +41,7 @@ namespace Ink_Canvas_Better.Controls.Panel
         }
 
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(FloatingBarGroup), new PropertyMetadata(new CornerRadius(4d)));
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(FloatingBarGroup), new PropertyMetadata(new CornerRadius(8d)));
 
         #endregion
     }

@@ -10,19 +10,22 @@ using Microsoft.Extensions.Logging;
 
 namespace Ink_Canvas_Better
 {
-    internal interface IAppHost
+    public static class AppHost
     {
-        public static IHost Host;
+        private static IHost Host;
 
-        public static void InitAppHost()
+        public static void Init()
         {
-            IAppHost.Host = Microsoft.Extensions.Hosting.Host.
+            AppHost.Host = Microsoft.Extensions.Hosting.Host.
                 CreateDefaultBuilder().
                 ConfigureServices((context, service) =>
                 {
+                    // Services
                     service.AddSingleton<ControlsService>();
-                    service.AddSingleton<MainWindow>();
                     service.AddSingleton<SettingsService>();
+                    service.AddSingleton<InkCanvasService>();
+                    // UI
+                    service.AddSingleton<MainWindow>();
                     service.AddSingleton<FloatingBar>();
                 }).
                 ConfigureLogging((context, logging) =>
@@ -55,7 +58,7 @@ namespace Ink_Canvas_Better
 
         private static void RegisterControls()
         {
-            ControlsService controlsService = IAppHost.GetService<ControlsService>();
+            ControlsService controlsService = AppHost.GetService<ControlsService>();
             controlsService.TryRegisterControl<MultifuntionControl>(MultifuntionControl.ControlGuid);
             controlsService.TryRegisterControl<CursorControl>(CursorControl.ControlGuid);
             controlsService.TryRegisterControl<PenControl>(PenControl.ControlGuid);

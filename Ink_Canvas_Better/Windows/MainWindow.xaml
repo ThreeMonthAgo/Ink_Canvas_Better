@@ -25,9 +25,7 @@
         </Style>
     </Window.Resources>
     
-    <Grid
-        Name="MainWindow_Grid"
-        Background="Transparent">
+    <Grid Name="MainWindow_Grid">
         <!-- 
         <InkCanvas
             x:Name="inkCanvas"
