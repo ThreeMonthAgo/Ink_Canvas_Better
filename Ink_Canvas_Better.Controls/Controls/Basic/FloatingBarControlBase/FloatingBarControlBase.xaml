@@ -19,6 +19,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid Background="Transparent">
+                            <ContentPresenter Content="{TemplateBinding Content}"/> <!-- For Subpanel or the other popup only -->
                             <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Image Source="{TemplateBinding Source}"
                                        Width="{TemplateBinding ImageWidth}"

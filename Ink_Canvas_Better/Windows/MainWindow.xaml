@@ -9,6 +9,7 @@
         xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
         xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
         xmlns:icb="Ink_Canvas_Better.Controls"
+        xmlns:test="clr-namespace:Ink_Canvas_Better.Controls.FloatingBarSubpanel"
         Title="{DynamicResource Text_ProductName}"
         ResizeMode="NoResize"
         ShowInTaskbar="False"

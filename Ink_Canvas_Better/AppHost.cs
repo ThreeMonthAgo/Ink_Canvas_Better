@@ -27,6 +27,7 @@ namespace Ink_Canvas_Better
                     // UI
                     service.AddSingleton<MainWindow>();
                     service.AddSingleton<FloatingBar>();
+                    service.AddSingleton<PenControl>();
                 }).
                 ConfigureLogging((context, logging) =>
                 {

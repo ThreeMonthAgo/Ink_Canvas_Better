@@ -1,7 +1,13 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 using Ink_Canvas_Better.Controls.Basic;
+using Ink_Canvas_Better.Controls.FloatingBarSubpanel;
+using Ink_Canvas_Better.Controls.Panel;
 using Ink_Canvas_Better.Services;
+using iNKORE.UI.WPF.Helpers;
 
 namespace Ink_Canvas_Better.Controls.FloatingBarControls
 {
@@ -15,11 +21,25 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
             this.SetResourceReference(TextProperty, "Text_Pen");
             this.TextVisibility = Visibility.Visible;
             this.MouseDown += PenControl_MouseDown;
+            this.Loaded += PenControl_Loaded;
+        }
+
+        private void PenControl_Loaded(object sender, RoutedEventArgs e)
+        {
         }
 
         private void PenControl_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            AppHost.GetService<InkCanvasService>().SwitchInkCanvasMode(InkCanvasEditingMode.Ink);
+            this.Content = new Subpanel()
+            {
+                Content = new PenSubpanel(),
+                PlacementTarget = this
+            };
+            var Subpanel = this.Content as Subpanel;
+            AppHost.GetService<InkCanvasService>().CurrentEditingMode = Enums.EditingMode.Ink;
+            Subpanel.IsOpen = true;
+            Subpanel.Placement = PlacementMode.Top;
+            Subpanel.CaptureMouse();
         }
     }
 }

@@ -6,7 +6,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:Subpanel}">
-                    <local:ExPopup IsOpen="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                    <local:ExPopup IsOpen="{TemplateBinding IsOpen}"
                                    StaysOpen="{TemplateBinding StaysOpen}"
                                    AllowsTransparency="{TemplateBinding AllowsTransparency}"
                                    Placement="{TemplateBinding Placement}"
@@ -41,4 +41,3 @@
         </Setter>
     </Style>
 </ResourceDictionary>
-    

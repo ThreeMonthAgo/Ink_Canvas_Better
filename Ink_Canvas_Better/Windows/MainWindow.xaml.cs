@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Ink_Canvas_Better.Controls;
 using Ink_Canvas_Better.Controls.FloatingBarControls;
+using Ink_Canvas_Better.Controls.FloatingBarSubpanel;
 using Ink_Canvas_Better.Controls.Panel;
 using Ink_Canvas_Better.Services;
 

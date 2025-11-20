@@ -19,7 +19,7 @@ namespace Ink_Canvas_Better.Controls.Panel
 {
     partial class Subpanel
     {
-        #region Properties
+        #region Title
 
         public string Title
         {
