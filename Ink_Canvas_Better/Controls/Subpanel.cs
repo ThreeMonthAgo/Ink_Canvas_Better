@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using iNKORE.UI.WPF.Modern.Controls.Primitives;
+using Ink_Canvas_Better.Controls.Helpers;
 
-namespace Ink_Canvas_Better.Controls.Panel
+namespace Ink_Canvas_Better.Controls
 {
-    partial class Subpanel
+    public class Subpanel : ContentControl
     {
+        const double IconSize = 24d;
+
+        static Subpanel()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Subpanel), new FrameworkPropertyMetadata(typeof(Subpanel)));
+        }
+
+        #region Properties
+
         #region Title
 
         public string Title
@@ -148,5 +145,28 @@ namespace Ink_Canvas_Better.Controls.Panel
             DependencyProperty.Register(nameof(PlacementRectangle), typeof(Rect), typeof(Subpanel), new PropertyMetadata(new Rect(0, 0, 0, 0)));
 
         #endregion
+
+        #endregion
+
+        public virtual void CloseButton_Click(Object sender, RoutedEventArgs args)
+        {
+            this.IsOpen = false;
+            var closeButton = GetTemplateChild("PART_CloseButton") as Button;
+            closeButton.Content = new Image() { Source = ThemeHelper.FUI_Dismiss, Height = IconSize, Width = IconSize };
+        }
+
+        public virtual void PinToggleButton_Checked(Object sender, RoutedEventArgs args)
+        {
+            this.StaysOpen = true;
+            var pinToggleButton = GetTemplateChild("PART_PinToggleButton") as ToggleButton;
+            pinToggleButton.Content = new Image() { Source = ThemeHelper.FUI_PinOff, Height = IconSize, Width = IconSize };
+        }
+
+        public virtual void PinToggleButton_Unchecked(Object sender, RoutedEventArgs args)
+        {
+            this.StaysOpen = false;
+            var pinToggleButton = GetTemplateChild("PART_PinToggleButton") as ToggleButton;
+            pinToggleButton.Content = new Image() { Source = ThemeHelper.FUI_Pin, Height = IconSize, Width = IconSize };
+        }
     }
 }

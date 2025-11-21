@@ -1,8 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using Ink_Canvas_Better.Controls.Basic;
-using Ink_Canvas_Better.Controls.Panel;
 
 namespace Ink_Canvas_Better.Controls.FloatingBarControls
 {

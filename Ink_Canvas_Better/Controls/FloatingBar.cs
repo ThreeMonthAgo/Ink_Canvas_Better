@@ -1,10 +1,28 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
-namespace Ink_Canvas_Better.Controls.Panel
+namespace Ink_Canvas_Better.Controls
 {
-    partial class FloatingBar
+    public class FloatingBar : ItemsControl
     {
+        static FloatingBar()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(FloatingBar), new FrameworkPropertyMetadata(typeof(FloatingBar)));
+        }
+
+        public FloatingBar()
+        {
+            RenderTransform = new TranslateTransform();
+        }
+
+        #region Properties
+
         #region Orientation
 
         public Orientation Orientation
@@ -30,5 +48,17 @@ namespace Ink_Canvas_Better.Controls.Panel
             DependencyProperty.Register(nameof(Spacing), typeof(double), typeof(FloatingBar), new PropertyMetadata(4d));
 
         #endregion
+
+        #endregion
+
+        public void Add(FloatingBarGroup fg)
+        {
+            this.Items.Add(fg);
+        }
+
+        public void Clear()
+        {
+            this.Items.Clear();
+        }
     }
 }

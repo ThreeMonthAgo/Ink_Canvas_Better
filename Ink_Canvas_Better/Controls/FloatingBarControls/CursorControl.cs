@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Ink_Canvas_Better.Controls.Basic;
 using Ink_Canvas_Better.Services;
 
 namespace Ink_Canvas_Better.Controls.FloatingBarControls

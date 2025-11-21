@@ -5,17 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Ink_Canvas_Better.Controls;
 using Ink_Canvas_Better.Controls.FloatingBarControls;
-using Ink_Canvas_Better.Controls.FloatingBarSubpanel;
-using Ink_Canvas_Better.Controls.Panel;
 using Ink_Canvas_Better.Services;
 
 namespace Ink_Canvas_Better.Windows

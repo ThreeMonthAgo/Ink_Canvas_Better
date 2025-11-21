@@ -1,13 +1,7 @@
-﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media;
-using Ink_Canvas_Better.Controls.Basic;
 using Ink_Canvas_Better.Controls.FloatingBarSubpanel;
-using Ink_Canvas_Better.Controls.Panel;
 using Ink_Canvas_Better.Services;
-using iNKORE.UI.WPF.Helpers;
 
 namespace Ink_Canvas_Better.Controls.FloatingBarControls
 {

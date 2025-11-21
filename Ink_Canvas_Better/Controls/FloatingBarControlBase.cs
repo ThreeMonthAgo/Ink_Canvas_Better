@@ -5,19 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Ink_Canvas_Better.Controls.Panel;
 
-namespace Ink_Canvas_Better.Controls.Basic
+namespace Ink_Canvas_Better.Controls
 {
-    partial class FloatingBarControlBase
+    public class FloatingBarControlBase : ContentControl
     {
+        static FloatingBarControlBase()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(FloatingBarControlBase), new FrameworkPropertyMetadata(typeof(FloatingBarControlBase)));
+
+            WidthProperty.OverrideMetadata(typeof(FloatingBarControlBase), new FrameworkPropertyMetadata(64d));
+            HeightProperty.OverrideMetadata(typeof(FloatingBarControlBase), new FrameworkPropertyMetadata(64d));
+            BorderThicknessProperty.OverrideMetadata(typeof(FloatingBarControlBase), new FrameworkPropertyMetadata(new Thickness(2)));
+        }
+
+        #region Properties
+
         #region Source
 
         public ImageSource Source
@@ -80,6 +84,8 @@ namespace Ink_Canvas_Better.Controls.Basic
 
         public static readonly DependencyProperty ImageHeightProperty =
             DependencyProperty.Register("ImageHeight", typeof(double), typeof(FloatingBarControlBase), new PropertyMetadata(40d));
+
+        #endregion
 
         #endregion
     }

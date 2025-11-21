@@ -18,14 +18,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         WindowState="Maximized">
-    <Window.Resources>
-        <Style x:Key="SubpanelStyle" TargetType="icb:Subpanel">
-            <Setter Property="Margin" Value="0,5,0,5"/>
-            <Setter Property="IsOpen" Value="False"/>
-            <Setter Property="StaysOpen" Value="False"/>
-        </Style>
-    </Window.Resources>
-    
+
     <Grid Name="MainWindow_Grid">
         <!-- 
         <InkCanvas

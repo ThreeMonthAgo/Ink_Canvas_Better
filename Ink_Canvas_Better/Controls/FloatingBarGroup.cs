@@ -1,11 +1,29 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace Ink_Canvas_Better.Controls.Panel
+namespace Ink_Canvas_Better.Controls
 {
-    public partial class FloatingBarGroup
+    public class FloatingBarGroup : ItemsControl
     {
+        static FloatingBarGroup()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(FloatingBarGroup), new FrameworkPropertyMetadata(typeof(FloatingBarGroup)));
+        }
+
+        #region Properties
+
         #region Orientation
 
         public Orientation Orientation
@@ -44,5 +62,17 @@ namespace Ink_Canvas_Better.Controls.Panel
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(FloatingBarGroup), new PropertyMetadata(new CornerRadius(8d)));
 
         #endregion
+
+        #endregion
+
+        public void Add(object obj)
+        {
+            this.Items.Add(obj);
+        }
+
+        public void Clear()
+        {
+            this.Items.Clear();
+        }
     }
 }
