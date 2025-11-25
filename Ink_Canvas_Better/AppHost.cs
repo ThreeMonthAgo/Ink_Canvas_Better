@@ -1,6 +1,4 @@
 ﻿using System.IO;
-using Ink_Canvas_Better.Controls.FloatingBarControls;
-using Ink_Canvas_Better.Controls;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
@@ -23,19 +21,16 @@ namespace Ink_Canvas_Better
                     // Services
                     service.AddSingleton<ControlsService>();
                     service.AddSingleton<SettingsService>();
-                    service.AddSingleton<InkCanvasService>();
+                    //service.AddSingleton<InkCanvasService>();
                     // UI
-                    service.AddSingleton<PenControl>();
-                    service.AddSingleton<FloatingBar>();
+                    //service.AddSingleton<PenControl>();
+                    //service.AddSingleton<FloatingBar>();
                     service.AddSingleton<MainWindow>();
                 }).
                 ConfigureLogging((context, logging) =>
                 {
                     logging.ClearProviders();
-                    logging.AddFileLogger(configuration =>
-                    {
-                        configuration.LogDirectoryPath = Path.Combine(App.RootPath, "Logs\\");
-                    });
+                    logging.AddFileLogger();
                 }).
                 Build();
 
@@ -60,9 +55,9 @@ namespace Ink_Canvas_Better
         private static void RegisterControls()
         {
             ControlsService controlsService = AppHost.GetService<ControlsService>();
-            controlsService.TryRegisterControl<MultifuntionControl>(MultifuntionControl.ControlGuid);
-            controlsService.TryRegisterControl<CursorControl>(CursorControl.ControlGuid);
-            controlsService.TryRegisterControl<PenControl>(PenControl.ControlGuid);
+            //controlsService.TryRegisterControl<MultifuntionControl>(MultifuntionControl.ControlGuid);
+            //controlsService.TryRegisterControl<CursorControl>(CursorControl.ControlGuid);
+            //controlsService.TryRegisterControl<PenControl>(PenControl.ControlGuid);
         }
     }
 }

@@ -3,59 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Controls="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
-        xmlns:localControls="clr-namespace:Ink_Canvas_Better.Controls"
-        xmlns:local="clr-namespace:Ink_Canvas_Better"
-        xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
-        xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
-        xmlns:icb="Ink_Canvas_Better.Controls"
-        xmlns:test="clr-namespace:Ink_Canvas_Better.Controls.FloatingBarSubpanel"
-        Title="{DynamicResource Text_ProductName}"
-        ResizeMode="NoResize"
-        ShowInTaskbar="False"
-        Topmost="True"
+        xmlns:local="clr-namespace:Ink_Canvas_Better.Windows"
+        xmlns:base="clr-namespace:Ink_Canvas_Better.Controls"
+        xmlns:controls="clr-namespace:Ink_Canvas_Better.Controls.FloatingBarControls"
+        xmlns:services="clr-namespace:Ink_Canvas_Better.Services"
+        mc:Ignorable="d"
         WindowStyle="None"
-        Background="Transparent"
+        WindowState="Maximized"
+        Topmost="True"
         AllowsTransparency="True"
-        WindowState="Maximized">
-
-    <Grid Name="MainWindow_Grid">
-        <!-- 
+        Background="Transparent"
+        Title="{DynamicResource Text_ProductName}">
+    <Grid Background="Transparent">
         <InkCanvas
-            x:Name="inkCanvas"
+            Name="MW_InkCanvas"
             Background="Transparent"
             Cursor="Pen"
             ForceCursor="False"
-            IsManipulationEnabled="True"
-            EditingModeChanged=""
-            ManipulationCompleted=""
-            ManipulationDelta=""
-            ManipulationInertiaStarting=""
-            ManipulationStarting=""
-            MouseDown=""
-            MouseMove=""
-            MouseUp=""
-            PreviewTouchDown=""
-            PreviewTouchUp=""
-            SelectionChanged=""
-            StrokeCollected=""
-            TouchDown=""
-            TouchMove=""
-            TouchUp=""
-            TouchDown="MainInkCanvas_TouchDown"
-            TouchMove="MainInkCanvas_TouchMove"
-            TouchUp="MainInkCanvas_TouchUp"
-            MouseDown="MainInkCanvas_MouseDown"
-            MouseMove="MainInkCanvas_MouseMove"
-            MouseUp="MainInkCanvas_MouseUp"/>
-        -->
-        <!--  // Canvas //  -->
-        <InkCanvas
-            x:Name="MainInkCanvas"
-            Background="Transparent"
-            Cursor="Pen"
-            ForceCursor="False"
-            IsManipulationEnabled="True">
-        </InkCanvas>
+            IsManipulationEnabled="True"/>
     </Grid>
 </Window>

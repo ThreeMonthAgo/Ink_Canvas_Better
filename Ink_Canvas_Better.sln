@@ -5,13 +5,13 @@ VisualStudioVersion = 18.0.11205.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better.Logging", "Ink_Canvas_Better.Logging\Ink_Canvas_Better.Logging.csproj", "{4EF1B8F0-2EF2-7EBE-7C7E-7F5090F1843C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better", "Ink_Canvas_Better\Ink_Canvas_Better.csproj", "{06C295CD-4A90-5363-AA5F-6B7FCA547697}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		ICBCustomControl.filenesting.json = ICBCustomControl.filenesting.json
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better", "Ink_Canvas_Better\Ink_Canvas_Better.csproj", "{0EF8ED9A-3D99-4C19-A08E-FA04F745326E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{4EF1B8F0-2EF2-7EBE-7C7E-7F5090F1843C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EF1B8F0-2EF2-7EBE-7C7E-7F5090F1843C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EF1B8F0-2EF2-7EBE-7C7E-7F5090F1843C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06C295CD-4A90-5363-AA5F-6B7FCA547697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06C295CD-4A90-5363-AA5F-6B7FCA547697}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06C295CD-4A90-5363-AA5F-6B7FCA547697}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06C295CD-4A90-5363-AA5F-6B7FCA547697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EF8ED9A-3D99-4C19-A08E-FA04F745326E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EF8ED9A-3D99-4C19-A08E-FA04F745326E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EF8ED9A-3D99-4C19-A08E-FA04F745326E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EF8ED9A-3D99-4C19-A08E-FA04F745326E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

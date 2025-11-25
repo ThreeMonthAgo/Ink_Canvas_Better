@@ -20,7 +20,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
 
         private void CursorControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AppHost.GetService<InkCanvasService>().CurrentEditingMode = Enums.EditingMode.None;
+            //AppHost.GetService<InkCanvasService>().CurrentEditingMode = Enums.EditingMode.None;
         }
     }
 }

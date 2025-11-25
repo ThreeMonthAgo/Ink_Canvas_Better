@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Ink_Canvas_Better.Controls"
+                    xmlns:iUWM="http://schemas.inkore.net/lib/ui/wpf/modern"
                     xmlns:iUW="http://schemas.inkore.net/lib/ui/wpf">
 
     <Style TargetType="{x:Type local:FloatingBarGroup}">
@@ -16,10 +17,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:FloatingBarGroup}">
-                    <Border Background="AliceBlue"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            CornerRadius="{TemplateBinding CornerRadius}"
-                            BorderThickness="2">
+                    <Border Background="{DynamicResource {x:Static iUWM:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
                         <ItemsPresenter/>
                     </Border>
                 </ControlTemplate>

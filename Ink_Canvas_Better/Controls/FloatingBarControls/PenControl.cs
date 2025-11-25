@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using Ink_Canvas_Better.Controls.FloatingBarSubpanel;
 using Ink_Canvas_Better.Services;
@@ -13,27 +14,22 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         {
             this.SetResourceReference(SourceProperty, "FUI.CalligraphyPen");
             this.SetResourceReference(TextProperty, "Text_Pen");
+            this.SetResourceReference(TitleProperty, "Text_Pen");
+            this.Content = new PenSubpanel();
             this.TextVisibility = Visibility.Visible;
             this.MouseDown += PenControl_MouseDown;
-            this.Loaded += PenControl_Loaded;
+            this.MouseUp += PenControl_MouseUp;
         }
 
-        private void PenControl_Loaded(object sender, RoutedEventArgs e)
+        private void PenControl_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            IsOpen = !IsOpen;
         }
 
         private void PenControl_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            this.Content = new Subpanel()
-            {
-                Content = new PenSubpanel(),
-                PlacementTarget = this
-            };
-            var Subpanel = this.Content as Subpanel;
-            AppHost.GetService<InkCanvasService>().CurrentEditingMode = Enums.EditingMode.Ink;
-            Subpanel.IsOpen = true;
-            Subpanel.Placement = PlacementMode.Top;
-            Subpanel.CaptureMouse();
+           // IsOpen = true;
+            //AppHost.GetService<InkCanvasService>().CurrentEditingMode = Enums.EditingMode.Ink;
         }
     }
 }

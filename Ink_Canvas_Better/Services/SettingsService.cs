@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Ink_Canvas_Better.Controls;
 using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Services
@@ -48,6 +49,11 @@ namespace Ink_Canvas_Better.Services
         public Version Version { get; set; } = Application.ResourceAssembly.GetName().Version ??= new Version(0, 0, 0, 0); // if it's 0.0.0.0, something wrong happen
 
         public Version SettingsVersion { get; set; } = new(2, 0, 0, 0); // The version of settings
+
+        public class FloatingBarControls
+        {
+            List<FloatingBarGroup> floatingBarGroups = new();
+        }
     }
 
     #endregion

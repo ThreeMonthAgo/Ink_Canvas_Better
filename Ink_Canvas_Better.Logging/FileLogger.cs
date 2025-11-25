@@ -28,10 +28,7 @@ public sealed class FileLogger(Func<FileLoggerConfiguration> getCurrentConfig) :
         FileLoggerConfiguration config = getCurrentConfig();
         if (config.EventId == 0 || config.EventId == eventId.Id)
         {
-            if (config.LogDirectoryPath == null)
-            {
-                config.LogDirectoryPath = $"./Logs/";
-            }
+            config.LogDirectoryPath ??= $"./Logs/";
             if (!Directory.Exists(config.LogDirectoryPath))
             {
                 Directory.CreateDirectory(config.LogDirectoryPath);

@@ -1,9 +1,5 @@
 ﻿using System.Configuration;
 using System.Data;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
@@ -54,7 +50,7 @@ namespace Ink_Canvas_Better
                 e.SetObserved();
             };
             #endregion
-            Mutex _ = new Mutex(true, "Ink_Canvas_Better", out bool ret);
+            Mutex _ = new(true, "Ink_Canvas_Better", out bool ret);
 
             if (!ret && !StartupArgs.Contains("-m")) // -m multiple
             {
@@ -75,6 +71,5 @@ namespace Ink_Canvas_Better
             ILogger _logger = AppHost.GetService<ILogger<App>>();
             _logger.LogInformation("===== Ink Canvas Better exited =====");
         }
-
     }
 }

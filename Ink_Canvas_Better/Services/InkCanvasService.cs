@@ -25,7 +25,7 @@ namespace Ink_Canvas_Better.Services
             {
                 if (_currentEditingMode == value) return;
                 _currentEditingMode = value;
-                InkCanvas inkCanvas = AppHost.GetService<MainWindow>().MainInkCanvas;
+                InkCanvas inkCanvas = AppHost.GetService<MainWindow>().MW_InkCanvas;
                 switch (value)
                 {
                     case EditingMode.None:
