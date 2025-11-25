@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Ink_Canvas_Better.Controls;
-using Ink_Canvas_Better.Interface;
+using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Services
 {
@@ -25,7 +23,7 @@ namespace Ink_Canvas_Better.Services
             if (File.Exists(path))
             {
                 string s = File.ReadAllText(path);
-                _settings = JsonSerializer.Deserialize<Settings>(s);
+                _settings = JsonConvert.DeserializeObject<Settings>(s);
             }
             else
             {
@@ -38,29 +36,24 @@ namespace Ink_Canvas_Better.Services
         {
             string path = SettingsFilePath;
             var f = File.CreateText(path);
-            f.Write(JsonSerializer.Serialize(_settings));
+            f.Write(JsonConvert.SerializeObject(_settings));
             f.Close();
         }
     }
 
     #region Settings
 
-    /// <summary>
-    /// The application settings
-    /// </summary>
     internal class Settings
     {
-        /// <summary>
-        /// Version of the application. Synced with Assembly version.
-        /// </summary>
-        public Version Version = Application.ResourceAssembly.GetName().Version ??= new Version(0, 0, 0, 0);
+        [JsonIgnore]
+        public Version Version { get; set; } = Application.ResourceAssembly.GetName().Version ??= new Version(0, 0, 0, 0); // if it's 0.0.0.0, something wrong happen
 
-        /// <summary>
-        /// Gets or sets the version of the settings used by the application.
-        /// </summary>
-        /// <remarks>Use this property to determine compatibility between different settings files or
-        /// configurations. Changing the version may affect how settings are interpreted or migrated.</remarks>
-        public Version SettingsVersion { get; } = new(2, 0, 0, 0);
+        public Version SettingsVersion { get; set; } = new(2, 0, 0, 0); // The version of settings
+
+        public class FloatingBarControls
+        {
+            List<FloatingBarGroup> floatingBarGroups = new();
+        }
     }
 
     #endregion

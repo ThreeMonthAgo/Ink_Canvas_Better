@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ink_Canvas_Better.Windows"
+        xmlns:base="clr-namespace:Ink_Canvas_Better.Controls"
+        xmlns:controls="clr-namespace:Ink_Canvas_Better.Controls.FloatingBarControls"
         xmlns:services="clr-namespace:Ink_Canvas_Better.Services"
         mc:Ignorable="d"
         WindowStyle="None"
@@ -19,11 +21,5 @@
             Cursor="Pen"
             ForceCursor="False"
             IsManipulationEnabled="True"/>
-        <Border
-            Name="MW_TopBorder"
-            Background="Blue"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Top"
-            Height="30"/>
     </Grid>
 </Window>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Windows.Controls;
 using Ink_Canvas_Better.Controls;
+using Ink_Canvas_Better.Interfaces.FloatingBar;
 
 namespace Ink_Canvas_Better.Services
 {
@@ -8,7 +9,7 @@ namespace Ink_Canvas_Better.Services
     {
         private readonly ConcurrentDictionary<Guid,Type> _controls = new();
 
-        public bool TryRegisterControl<T>(Guid guid)// where T : IFloatingBarControlSettingBase
+        public bool TryRegisterControl<T>(Guid guid) where T : IFloatingBarControlSettingBase
         {
             return _controls.TryAdd(guid,typeof(T));
         }

@@ -1,20 +1,25 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Ink_Canvas_Better.Interfaces.FloatingBar;
 
 namespace Ink_Canvas_Better.Controls.FloatingBarControls
 {
-    internal class MultifuntionControl : FloatingBarControlBase, ISerializableControl
+    internal class MultifuntionControl : Control, IFloatingBarControlSettingBase
     {
         public static Guid ControlGuid => new("{03C5FD8D-2880-40F7-BAC5-9D83C347162C}");
+
+        public object Settings { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         private bool _isMouseDown = false;
         private Point _mouseDownPos, _mouseUpPos, _mouseDownControlPos, _currentMousePos;
 
 
         public MultifuntionControl()
         {
-            this.SetResourceReference(SourceProperty, "FUI.Drag");
-            this.TextVisibility = Visibility.Collapsed;
+            //this.SetResourceReference(SourceProperty, "FUI.Drag");
+            //this.TextVisibility = Visibility.Collapsed;
 
             this.MouseDown += MultifuntionControl_MouseDown;
             this.MouseUp += MultifuntionControl_MouseUp;

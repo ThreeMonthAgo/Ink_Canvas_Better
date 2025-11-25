@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
-using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
 using Microsoft.Extensions.Logging;
 
@@ -10,7 +10,7 @@ namespace Ink_Canvas_Better
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application, IAppHost
+    public partial class App : Application
     {
         /// <summary>
         /// StartupArgs:
@@ -31,8 +31,8 @@ namespace Ink_Canvas_Better
         {
             StartupArgs = e.Args;
             #region log
-            IAppHost.Init();
-            ILogger _logger = IAppHost.GetService<ILogger<App>>();
+            AppHost.Init();
+            ILogger _logger = AppHost.GetService<ILogger<App>>();
             this.DispatcherUnhandledException += (sender, e) =>
             {
                 _logger.LogCritical(e.Exception.StackTrace);
@@ -60,15 +60,15 @@ namespace Ink_Canvas_Better
                 Environment.Exit(0);
             }
 
-            //IAppHost.GetService<SettingsService>().ReadSettings();
-            IAppHost.GetService<MainWindow>().Show();
+            AppHost.GetService<SettingsService>().ReadSettings();
+            AppHost.GetService<MainWindow>().Show();
 
-            //_logger.LogInformation($"===== Ink Canvas Better (v{IAppHost.GetService<SettingsService>().Settings.Version}) is running =====");
+            _logger.LogInformation($"===== Ink Canvas Better (v{AppHost.GetService<SettingsService>().Settings.Version}) is running =====");
         }
 
         void App_OnExit(object sender, ExitEventArgs e)
         {
-            ILogger _logger = IAppHost.GetService<ILogger<App>>();
+            ILogger _logger = AppHost.GetService<ILogger<App>>();
             _logger.LogInformation("===== Ink Canvas Better exited =====");
         }
     }

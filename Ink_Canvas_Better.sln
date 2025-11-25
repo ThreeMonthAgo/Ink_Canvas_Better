@@ -11,7 +11,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ICBCustomControl.filenesting.json = ICBCustomControl.filenesting.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better", "Ink_Canvas_Better\Ink_Canvas_Better.csproj", "{0EF8ED9A-3D99-4C19-A08E-FA04F745326E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better.old", "Ink_Canvas_Better.old\Ink_Canvas_Better.old.csproj", "{0EF8ED9A-3D99-4C19-A08E-FA04F745326E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better", "Ink_Canvas_Better\Ink_Canvas_Better.csproj", "{2C35BF23-B1C1-4726-AFCC-A32C792E0DFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{5189581F-9FDF-4F89-AA6E-0426FA71EA76}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "snippet", "snippet", "{6726D133-A79A-48E7-915B-D2B5465ADA10}"
+	ProjectSection(SolutionItems) = preProject
+		tools\snippet\FloatingBarControlCodeSnippet.snippet = tools\snippet\FloatingBarControlCodeSnippet.snippet
+		tools\snippet\FloatingBarControlSettingsSnippet.snippet = tools\snippet\FloatingBarControlSettingsSnippet.snippet
+		tools\snippet\FloatingBarControlXamlSnippet.snippet = tools\snippet\FloatingBarControlXamlSnippet.snippet
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +38,17 @@ Global
 		{0EF8ED9A-3D99-4C19-A08E-FA04F745326E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EF8ED9A-3D99-4C19-A08E-FA04F745326E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EF8ED9A-3D99-4C19-A08E-FA04F745326E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C35BF23-B1C1-4726-AFCC-A32C792E0DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C35BF23-B1C1-4726-AFCC-A32C792E0DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C35BF23-B1C1-4726-AFCC-A32C792E0DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C35BF23-B1C1-4726-AFCC-A32C792E0DFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5189581F-9FDF-4F89-AA6E-0426FA71EA76} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{6726D133-A79A-48E7-915B-D2B5465ADA10} = {5189581F-9FDF-4F89-AA6E-0426FA71EA76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CDCD6950-4276-4CEE-A878-521BF1A8AB15}

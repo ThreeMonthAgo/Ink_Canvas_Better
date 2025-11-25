@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.Windows;
 using static Ink_Canvas_Better.Enums;
 
@@ -26,7 +25,7 @@ namespace Ink_Canvas_Better.Services
             {
                 if (_currentEditingMode == value) return;
                 _currentEditingMode = value;
-                InkCanvas inkCanvas = IAppHost.GetService<MainWindow>().MW_InkCanvas;
+                InkCanvas inkCanvas = AppHost.GetService<MainWindow>().MW_InkCanvas;
                 switch (value)
                 {
                     case EditingMode.None:

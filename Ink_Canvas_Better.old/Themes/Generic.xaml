@@ -3,7 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Ink_Canvas_Better">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Controls/FloatingBar/FloatingBarControl/CursorControl.xaml"/>
+        <ResourceDictionary Source="/Controls/FloatingBarControlBase.xaml"/>
+        <ResourceDictionary Source="/Controls/FloatingBar.xaml"/>
+        <ResourceDictionary Source="/Controls/FloatingBarGroup.xaml"/>
+        <ResourceDictionary Source="/Controls/FloatingBarControls/PenControl.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>
