@@ -16,17 +16,17 @@ jobs:
     - name: Install .NET Core
       uses: actions/setup-dotnet@v3.0.3
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '10.0.x'
         
     # Install NuGet
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.2.0
       with:
-        nuget-version: '5.x'
+        nuget-version: '6.x'
 
     # Restore NuGet packages
-    - name: NuGet restore
-      run: nuget restore
+    - name: Restore dependencies
+      run: dotnet restore
       
     # Add MSBuild.exe to environment variables: https://github.com/microsoft/setup-msbuild
     - name: Add msbuild to PATH
