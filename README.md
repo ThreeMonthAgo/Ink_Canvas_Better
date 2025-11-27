@@ -2,7 +2,7 @@
 
 **:construction: Under Development :construction:**  
 
-Migrated from the v.1.X repository: [old repository](https://github.com/BaiYang2238/Ink-Canvas-Better)
+Migrated from the [v.1.X repository](https://github.com/BaiYang2238/Ink-Canvas-Better)
 
 <div align="center">
 

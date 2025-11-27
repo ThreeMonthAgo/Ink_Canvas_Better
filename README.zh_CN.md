@@ -2,7 +2,7 @@
 
 **:construction: 正在开发 :construction:**  
 
-从 v1.X 版本仓库迁移而来，[旧仓库](https://github.com/BaiYang2238/Ink-Canvas-Better)  
+迁移自 [v1.X 仓库](https://github.com/BaiYang2238/Ink-Canvas-Better)  
 
 <div align="center">
 
