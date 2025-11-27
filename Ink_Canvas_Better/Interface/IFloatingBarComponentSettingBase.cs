@@ -6,7 +6,7 @@ namespace Ink_Canvas_Better.Interface
 {
     internal interface IFloatingBarComponentSettingBase
     {
-        public object Settings { get; set; }
-        static Guid Guid { get; }
+        object Settings { get; set; }
+        static string Guid { get; }
     }
 }

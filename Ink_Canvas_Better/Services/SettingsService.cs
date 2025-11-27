@@ -12,10 +12,10 @@ using Ink_Canvas_Better.Interface;
 
 namespace Ink_Canvas_Better.Services
 {
-    internal class SettingsService
+    public class SettingsService
     {
         private Settings? _settings;
-        public string SettingsFilePath = Path.Combine(App.RootPath, "Settings.json");
+        public string SettingsFilePath = "Settings.json";
 
         public Settings Settings { get { return _settings ??= new(); } }
 
@@ -48,7 +48,7 @@ namespace Ink_Canvas_Better.Services
     /// <summary>
     /// The application settings
     /// </summary>
-    internal class Settings
+    public class Settings
     {
         /// <summary>
         /// Version of the application. Synced with Assembly version.

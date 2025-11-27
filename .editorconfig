@@ -6,4 +6,4 @@ dotnet_diagnostic.CS8618.severity = silent
 dotnet_diagnostic.CS8600.severity = silent
 dotnet_diagnostic.CS8604.severity = silent
 dotnet_diagnostic.CA2254.severity = silent
-
+dotnet_diagnostic.CS8766.severity = silent

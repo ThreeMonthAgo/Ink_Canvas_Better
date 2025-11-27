@@ -4,6 +4,7 @@
     xmlns:local="clr-namespace:Ink_Canvas_Better">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Controls/FloatingBar/FloatingBarControl/CursorControl.xaml"/>
+        <ResourceDictionary Source="/Controls/FloatingBar/FloatingBarControl/MultifunctionControl.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>

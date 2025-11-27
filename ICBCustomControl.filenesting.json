@@ -1,90 +1,90 @@
 {
-  "help": "https://go.microsoft.com/fwlink/?linkid=866610",
-  "root": false,
+    "help": "https://go.microsoft.com/fwlink/?linkid=866610",
+    "root": false,
 
-  "dependentFileProviders": {
-    "add": {
-      "addedExtension": {},
-      "pathSegment": {
+    "dependentFileProviders": {
         "add": {
-          ".*": [
-            ".js",
-            ".css",
-            ".html",
-            ".htm",
-            ".less",
-            ".scss",
-            ".coffee",
-            ".iced",
-            ".config",
-            ".cs",
-            ".vb",
-            ".json"
-          ]
+            "addedExtension": {},
+            "pathSegment": {
+                "add": {
+                    ".*": [
+                        ".js",
+                        ".css",
+                        ".html",
+                        ".htm",
+                        ".less",
+                        ".scss",
+                        ".coffee",
+                        ".iced",
+                        ".config",
+                        ".cs",
+                        ".vb",
+                        ".json"
+                    ]
+                }
+            },
+            "extensionToExtension": {
+                "add": {
+                    ".map": [
+                        ".js",
+                        ".css"
+                    ],
+                    ".svgz": [
+                        ".svg"
+                    ],
+                    ".designer.cs": [
+                        ".resx"
+                    ],
+                    ".cs.d.ts": [
+                        ".cs"
+                    ],
+                    ".cs": [
+                        ".xaml"
+                    ]
+                }
+            },
+            "fileToFile": {
+                "add": {
+                    ".bowerrc": [
+                        "bower.json"
+                    ],
+                    ".npmrc": [
+                        "package.json"
+                    ],
+                    "npm-shrinkwrap.json": [
+                        "package.json"
+                    ],
+                    "yarn.lock": [
+                        "package.json"
+                    ],
+                    ".yarnclean": [
+                        "package.json"
+                    ],
+                    ".yarnignore": [
+                        "package.json"
+                    ],
+                    ".yarn-integrity": [
+                        "package.json"
+                    ],
+                    ".yarnrc": [
+                        "package.json"
+                    ],
+                    "package-lock.json": [
+                        "package.json"
+                    ]
+                }
+            },
+            "fileSuffixToExtension": {
+                "add": {
+                    "-vsdoc.js": [
+                        ".js"
+                    ]
+                }
+            },
+            "allExtensions": {
+                "add": {
+                }
+            }
         }
-      },
-      "extensionToExtension": {
-        "add": {
-          ".map": [
-            ".js",
-            ".css"
-          ],
-          ".svgz": [
-            ".svg"
-          ],
-          ".designer.cs": [
-            ".resx"
-          ],
-          ".cs.d.ts": [
-            ".cs"
-          ],
-          ".cs": [
-            ".settings.cs"
-          ]
-        }
-      },
-      "fileToFile": {
-        "add": {
-          ".bowerrc": [
-            "bower.json"
-          ],
-          ".npmrc": [
-            "package.json"
-          ],
-          "npm-shrinkwrap.json": [
-            "package.json"
-          ],
-          "yarn.lock": [
-            "package.json"
-          ],
-          ".yarnclean": [
-            "package.json"
-          ],
-          ".yarnignore": [
-            "package.json"
-          ],
-          ".yarn-integrity": [
-            "package.json"
-          ],
-          ".yarnrc": [
-            "package.json"
-          ],
-          "package-lock.json": [
-            "package.json"
-          ]
-        }
-      },
-      "fileSuffixToExtension": {
-        "add": {
-          "-vsdoc.js": [
-            ".js"
-          ]
-        }
-      },
-      "allExtensions": {
-        "add": {
-        }
-      }
     }
-  }
 }

@@ -1,30 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Services;
+using Ink_Canvas_Better.Windows;
+using Ink_Canvas_Better.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Ink_Canvas_Better.Logging;
-using Ink_Canvas_Better.Services;
-using Ink_Canvas_Better.Windows;
 
-namespace Ink_Canvas_Better.Interface
+namespace Ink_Canvas_Better
 {
-    internal interface IAppHost
+    class Program
     {
         private static IHost Host;
 
+        /// <summary>
+        /// StartupArgs:
+        /// <list type="bullet">
+        /// -m multiple
+        /// </list>
+        /// </summary>
+        public static string[]? StartupArgs { get; set; } = null;
+        public static string RootPath { get; } = Environment.GetEnvironmentVariable("APPDATA") + "\\Ink Canvas Better\\";
+
+
+        [STAThread]
+        public static void Main(string[] args)
+        {
+            StartupArgs = args;
+            Init();
+
+            GetService<App>().Run();
+        }
+
         public static void Init()
         {
-            IAppHost.Host = Microsoft.Extensions.Hosting.Host.
+            Host = Microsoft.Extensions.Hosting.Host.
                 CreateDefaultBuilder().
                 ConfigureServices((context, service) =>
                 {
                     // Services
-                    //service.AddSingleton<ControlsService>();
+                    service.AddSingleton<ControlsService>();
                     service.AddSingleton<SettingsService>();
                     service.AddSingleton<InkCanvasService>();
                     // UI
+                    service.AddSingleton<App>();
                     //service.AddSingleton<PenControl>();
                     //service.AddSingleton<FloatingBar>();
                     service.AddSingleton<MainWindow>();

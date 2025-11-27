@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows;
 using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
 using Microsoft.Extensions.Logging;
 
@@ -10,66 +11,62 @@ namespace Ink_Canvas_Better
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application, IAppHost
+    public partial class App : Application
     {
-        /// <summary>
-        /// StartupArgs:
-        /// <list type="bullet">
-        /// -m multiple
-        /// </list>
-        /// </summary>
-        public static string[]? StartupArgs { get; set; } = null;
-        public static string RootPath { get; } = Environment.GetEnvironmentVariable("APPDATA") + "\\Ink Canvas Better\\";
+        ILogger logger;
+        MainWindow mainWindow;
+        SettingsService settingsService;
 
-        public App()
+        public App(ILogger<App> logger, SettingsService settingsService, MainWindow mainWindow)
         {
+            InitializeComponent();
+            this.logger = logger;
+            this.settingsService = settingsService;
+            this.mainWindow = mainWindow;
+
             this.Startup += new StartupEventHandler(App_Startup);
             this.Exit += new ExitEventHandler(App_OnExit);
         }
 
         void App_Startup(object sender, StartupEventArgs e)
         {
-            StartupArgs = e.Args;
             #region log
-            IAppHost.Init();
-            ILogger _logger = IAppHost.GetService<ILogger<App>>();
             this.DispatcherUnhandledException += (sender, e) =>
             {
-                _logger.LogCritical(e.Exception.StackTrace);
+                logger.LogCritical(e.Exception.StackTrace);
                 // TODO: show in the messagebox
                 // Ink_Canvas.MainWindow.ShowNewMessage($"抱歉，出现预料之外的异常，可能导致 Ink Canvas 画板运行不稳定。\n建议保存墨迹后重启应用。\n报错信息：\n{e.ToString()}", true);
                 e.Handled = true;
             };
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
             {
-                _logger.LogWarning(e.ToString());
+                logger.LogWarning(e.ToString());
             };
             TaskScheduler.UnobservedTaskException += (sender, e) =>
             {
-                _logger.LogError(e.Exception.StackTrace);
+                logger.LogError(e.Exception.StackTrace);
                 e.SetObserved();
             };
             #endregion
             Mutex _ = new(true, "Ink_Canvas_Better", out bool ret);
 
-            if (!ret && !StartupArgs.Contains("-m")) // -m multiple
-            {
-                _logger.LogInformation("Detected existing instance");
-                MessageBox.Show("Ink Canvas Better is running");
-                _logger.LogInformation("Ink Canvas Batter automatically closed");
-                Environment.Exit(0);
-            }
+            //if (!ret && !StartupArgs.Contains("-m")) // -m multiple
+            //{
+            //    logger.LogInformation("Detected existing instance");
+            //    MessageBox.Show("Ink Canvas Better is running");
+            //    logger.LogInformation("Ink Canvas Batter automatically closed");
+            //    Environment.Exit(0);
+            //}
 
             //IAppHost.GetService<SettingsService>().ReadSettings();
-            IAppHost.GetService<MainWindow>().Show();
+            mainWindow.Show();
 
-            //_logger.LogInformation($"===== Ink Canvas Better (v{IAppHost.GetService<SettingsService>().Settings.Version}) is running =====");
+            logger.LogInformation($"===== Ink Canvas Better (v{settingsService.Settings.Version}) is running =====");
         }
 
         void App_OnExit(object sender, ExitEventArgs e)
         {
-            ILogger _logger = IAppHost.GetService<ILogger<App>>();
-            _logger.LogInformation("===== Ink Canvas Better exited =====");
+            logger.LogInformation("===== Ink Canvas Better exited =====");
         }
     }
 }

@@ -20,7 +20,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "snippet", "snippet", "{6726D133-A79A-48E7-915B-D2B5465ADA10}"
 	ProjectSection(SolutionItems) = preProject
 		tools\snippet\FloatingBarControlCodeSnippet.snippet = tools\snippet\FloatingBarControlCodeSnippet.snippet
-		tools\snippet\FloatingBarControlSettingsSnippet.snippet = tools\snippet\FloatingBarControlSettingsSnippet.snippet
 		tools\snippet\FloatingBarControlXamlSnippet.snippet = tools\snippet\FloatingBarControlXamlSnippet.snippet
 	EndProjectSection
 EndProject

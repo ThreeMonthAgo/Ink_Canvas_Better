@@ -1,14 +1,22 @@
 ﻿using System.Collections.Concurrent;
 using System.Windows.Controls;
 using Ink_Canvas_Better.Controls;
+using Ink_Canvas_Better.Interface;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Ink_Canvas_Better.Services
 {
     internal class ControlsService
     {
         private readonly ConcurrentDictionary<Guid,Type> _controls = new();
+        IServiceProvider serviceProvider;
 
-        public bool TryRegisterControl<T>(Guid guid)// where T : IFloatingBarControlSettingBase
+        public ControlsService(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+        }
+
+        public bool TryRegisterControl<T>(Guid guid)
         {
             return _controls.TryAdd(guid,typeof(T));
         }
@@ -21,8 +29,8 @@ namespace Ink_Canvas_Better.Services
         public Control CreateControl(Guid guid)
         {
             _controls.TryGetValue(guid, out Type type);
-            var control = Activator.CreateInstance(type) as Control;
-            return control;
+            var c = ActivatorUtilities.CreateInstance(serviceProvider, type) as Control;
+            return c;
         }
 
         public bool TryCreateControl(Guid guid, out Control? control)
@@ -36,7 +44,7 @@ namespace Ink_Canvas_Better.Services
             }
             else
             {
-                control = Activator.CreateInstance(type) as Control;
+                control = ActivatorUtilities.CreateInstance(serviceProvider, type) as Control;
                 return true;
             }
         }

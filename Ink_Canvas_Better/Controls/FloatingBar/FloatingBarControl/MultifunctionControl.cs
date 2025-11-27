@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,19 +12,33 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Services;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 /// <summary>
-/// The logic for CursorControl.xaml
+/// The logic for MultifunctionControl.xaml
 /// </summary>
-public class CursorControl : Control, IFloatingBarComponentSettingBase
+public class MultifunctionControl : FloatingBarComponentBase, IFloatingBarComponentSettingBase
 {
-    public object Settings { get; set; } = new CursorControlSettings();
-    public static Guid Guid { get; } = new("{9A703354-E315-4FFE-BB3A-503E0B901DCC}");
+    public object Settings { get; set; } = new MultifunctionControlSettings();
+    public string Guid { get; } = "03C5FD8D-2880-40F7-BAC5-9D83C347162C";
 
-    static CursorControl()
+    FloatingBar floatingBar;
+
+    private bool _isMouseDown = false;
+    private Point _mouseDownPos, _mouseUpPos, _mouseDownControlPos, _currentMousePos;
+
+    static MultifunctionControl()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(CursorControl), new FrameworkPropertyMetadata(typeof(CursorControl)));
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(MultifunctionControl), new FrameworkPropertyMetadata(typeof(MultifunctionControl)));
+    }
+
+    public MultifunctionControl(FloatingBar floatingBar)
+    {
+        this.floatingBar = floatingBar;
+
+        this.MouseDown += MultifuntionControl_MouseDown;
+        this.MouseUp += MultifuntionControl_MouseUp;
     }
 
     #region Properties
@@ -37,7 +52,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty SourceProperty =
-        DependencyProperty.Register("Source", typeof(ImageSource), typeof(CursorControl), new PropertyMetadata(null));
+        DependencyProperty.Register("Source", typeof(ImageSource), typeof(MultifunctionControl), new PropertyMetadata(null));
 
     #endregion
 
@@ -50,7 +65,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty TextProperty =
-        DependencyProperty.Register("Text", typeof(string), typeof(CursorControl), new PropertyMetadata("Text"));
+        DependencyProperty.Register("Text", typeof(string), typeof(MultifunctionControl), new PropertyMetadata("Text"));
 
     #endregion
 
@@ -63,7 +78,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty TextVisibilityProperty =
-        DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof(CursorControl), new PropertyMetadata(Visibility.Collapsed));
+        DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof(MultifunctionControl), new PropertyMetadata(Visibility.Collapsed));
 
     #endregion
 
@@ -76,7 +91,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty ImageWidthProperty =
-        DependencyProperty.Register("ImageWidth", typeof(double), typeof(CursorControl), new PropertyMetadata(40d));
+        DependencyProperty.Register("ImageWidth", typeof(double), typeof(MultifunctionControl), new PropertyMetadata(40d));
 
     #endregion
 
@@ -89,7 +104,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty ImageHeightProperty =
-        DependencyProperty.Register("ImageHeight", typeof(double), typeof(CursorControl), new PropertyMetadata(40d));
+        DependencyProperty.Register("ImageHeight", typeof(double), typeof(MultifunctionControl), new PropertyMetadata(40d));
 
     #endregion
 
@@ -104,7 +119,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty TitleProperty =
-        DependencyProperty.Register(nameof(Title), typeof(string), typeof(CursorControl), new PropertyMetadata("Subpanel"));
+        DependencyProperty.Register(nameof(Title), typeof(string), typeof(MultifunctionControl), new PropertyMetadata("Subpanel"));
 
     #endregion
 
@@ -117,7 +132,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty IsOpenProperty =
-        DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(CursorControl), new PropertyMetadata(false));
+        DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(MultifunctionControl), new PropertyMetadata(false));
 
     #endregion
 
@@ -130,7 +145,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty StaysOpenProperty =
-        DependencyProperty.Register(nameof(StaysOpen), typeof(bool), typeof(CursorControl), new PropertyMetadata(false));
+        DependencyProperty.Register(nameof(StaysOpen), typeof(bool), typeof(MultifunctionControl), new PropertyMetadata(false));
 
     #endregion
 
@@ -143,7 +158,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty PlacementTargetProperty =
-        DependencyProperty.Register(nameof(PlacementTarget), typeof(UIElement), typeof(CursorControl), new PropertyMetadata(null));
+        DependencyProperty.Register(nameof(PlacementTarget), typeof(UIElement), typeof(MultifunctionControl), new PropertyMetadata(null));
 
     #endregion
 
@@ -156,7 +171,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty TitleBarHeightProperty =
-        DependencyProperty.Register(nameof(TitleBarHeight), typeof(double), typeof(CursorControl), new PropertyMetadata(36d));
+        DependencyProperty.Register(nameof(TitleBarHeight), typeof(double), typeof(MultifunctionControl), new PropertyMetadata(36d));
 
     #endregion
 
@@ -169,7 +184,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty CornerRadiusProperty =
-        DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(CursorControl), new PropertyMetadata(new CornerRadius(4d)));
+        DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(MultifunctionControl), new PropertyMetadata(new CornerRadius(4d)));
 
     #endregion
 
@@ -182,7 +197,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty PlacementProperty =
-        DependencyProperty.Register(nameof(Placement), typeof(PlacementMode), typeof(CursorControl), new PropertyMetadata(PlacementMode.Top));
+        DependencyProperty.Register(nameof(Placement), typeof(PlacementMode), typeof(MultifunctionControl), new PropertyMetadata(PlacementMode.Top));
 
     #endregion
 
@@ -195,7 +210,7 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty PopupAnimationProperty =
-        DependencyProperty.Register(nameof(PopupAnimation), typeof(PopupAnimation), typeof(CursorControl), new PropertyMetadata(PopupAnimation.Slide));
+        DependencyProperty.Register(nameof(PopupAnimation), typeof(PopupAnimation), typeof(MultifunctionControl), new PropertyMetadata(PopupAnimation.Slide));
 
     #endregion
 
@@ -208,14 +223,45 @@ public class CursorControl : Control, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty PlacementRectangleProperty =
-        DependencyProperty.Register(nameof(PlacementRectangle), typeof(Rect), typeof(CursorControl), new PropertyMetadata(new Rect(0, 0, 0, 0)));
+        DependencyProperty.Register(nameof(PlacementRectangle), typeof(Rect), typeof(MultifunctionControl), new PropertyMetadata(new Rect(0, 0, 0, 0)));
 
     #endregion
 
     #endregion
+
+    private void MultifuntionControl_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        _isMouseDown = true;
+        _mouseDownPos = e.GetPosition(Application.Current.MainWindow);
+        var transform = floatingBar.RenderTransform as TranslateTransform ?? new TranslateTransform();
+        _mouseDownControlPos = new Point(transform.X, transform.Y);
+        this.MouseMove += MultifuntionControl_MouseMove;
+        this.CaptureMouse();
+        e.Handled = true;
+    }
+
+    private void MultifuntionControl_MouseMove(object sender, MouseEventArgs e)
+    {
+        if (_isMouseDown)
+        {
+            TranslateTransform transform = (TranslateTransform)floatingBar.RenderTransform;
+            _currentMousePos = e.GetPosition(Application.Current.MainWindow);
+            transform.X = _mouseDownControlPos.X + _currentMousePos.X - _mouseDownPos.X;
+            transform.Y = _mouseDownControlPos.Y + _currentMousePos.Y - _mouseDownPos.Y;
+        }
+    }
+
+    private void MultifuntionControl_MouseUp(object sender, MouseButtonEventArgs e)
+    {
+        this.MouseMove -= MultifuntionControl_MouseMove;
+        this.ReleaseMouseCapture();
+        _isMouseDown = false;
+        _mouseUpPos = e.GetPosition(Application.Current.MainWindow);
+        // TODO: fold the floatingbar
+    }
 }
 
-public class CursorControlSettings
+public class MultifunctionControlSettings
 {
 
 }

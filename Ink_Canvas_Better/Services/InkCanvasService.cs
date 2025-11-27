@@ -13,10 +13,12 @@ using static Ink_Canvas_Better.Enums;
 
 namespace Ink_Canvas_Better.Services
 {
-    public class InkCanvasService
+    public class InkCanvasService(MainWindow mainWindow)
     {
         private readonly SolidColorBrush NearlyTransparent = new(Color.FromArgb(1,255,255,255));
         private readonly SolidColorBrush Transparent = Brushes.Transparent;
+        private MainWindow mainWindow = mainWindow;
+
 
         private EditingMode _currentEditingMode;
         public EditingMode CurrentEditingMode
@@ -26,7 +28,7 @@ namespace Ink_Canvas_Better.Services
             {
                 if (_currentEditingMode == value) return;
                 _currentEditingMode = value;
-                InkCanvas inkCanvas = IAppHost.GetService<MainWindow>().MW_InkCanvas;
+                InkCanvas inkCanvas = mainWindow.MW_InkCanvas;
                 switch (value)
                 {
                     case EditingMode.None:
