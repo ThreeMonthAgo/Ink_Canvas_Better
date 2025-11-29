@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Ink_Canvas_Better.Services
 {
-    internal class ControlsService
+    public class ControlsService
     {
-        private readonly ConcurrentDictionary<Guid,Type> _controls = new();
+        private readonly ConcurrentDictionary<string,Type> _controls = new();
         IServiceProvider serviceProvider;
 
         public ControlsService(IServiceProvider serviceProvider)
@@ -16,27 +16,26 @@ namespace Ink_Canvas_Better.Services
             this.serviceProvider = serviceProvider;
         }
 
-        public bool TryRegisterControl<T>(Guid guid)
+        public bool TryRegisterControl<T>(string guid)
         {
             return _controls.TryAdd(guid,typeof(T));
         }
 
-        public bool UnregisterControl(Guid guid, out Type? type)
+        public bool UnregisterControl(string guid, out Type? type)
         {
             return _controls.TryRemove(guid, out type);
         }
 
-        public Control CreateControl(Guid guid)
+        public IFloatingBarComponentSettingBase CreateControl(string guid)
         {
             _controls.TryGetValue(guid, out Type type);
-            var c = ActivatorUtilities.CreateInstance(serviceProvider, type) as Control;
+            var c = ActivatorUtilities.CreateInstance(serviceProvider, type) as IFloatingBarComponentSettingBase;
             return c;
         }
 
-        public bool TryCreateControl(Guid guid, out Control? control)
+        public bool TryCreateControl(string guid, out IFloatingBarComponentSettingBase? control)
         {
-            Type type;
-            _controls.TryGetValue(guid, out type);
+            _controls.TryGetValue(guid, out Type type);
             if (type == null)
             {
                 control = null;
@@ -44,7 +43,7 @@ namespace Ink_Canvas_Better.Services
             }
             else
             {
-                control = ActivatorUtilities.CreateInstance(serviceProvider, type) as Control;
+                control = ActivatorUtilities.CreateInstance(serviceProvider, type) as IFloatingBarComponentSettingBase;
                 return true;
             }
         }

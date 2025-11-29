@@ -38,7 +38,11 @@ namespace Ink_Canvas_Better
             {
                 logger.LogCritical(e.Exception.StackTrace);
                 iNKORE.UI.WPF.Modern.Controls.MessageBox.Show(
-                    $"* An unexpected error has occurred, which may cause Ink Canvas Better to become unstable.\r\n* It is strongly recommended to save your work and restart the application.\r\n* Please consider reporting this issue at: https://github.com/ThreeMonthAgo/Ink_Canvas_Better.\r\n=> Exception details:\r\n{e}",
+                    $"* An unexpected error has occurred, which may cause Ink Canvas Better to become unstable." +
+                    $"\r\n* It is strongly recommended to save your work and restart the application." +
+                    $"\r\n* Please consider reporting this issue at: https://github.com/ThreeMonthAgo/Ink_Canvas_Better." +
+                    $"\r\n===== Exception details =====" +
+                    $"\r\n{e}",
                     "Ink Canvas Better",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);

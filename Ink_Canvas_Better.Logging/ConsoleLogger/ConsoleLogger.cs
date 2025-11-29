@@ -27,11 +27,11 @@ public sealed class ConsoleLogger(Func<ConsoleLoggerConfiguration> getCurrentCon
             {
                 if (config.OutputTarget.HasFlag(OutputTarget.Console))
                 {
-                    Console.WriteLine(string.Format("=> {0} [{1}] {2} {3}", DateTime.Now.ToString("HH:mm:ss.fff"), logLevel, state, exception));
+                    Console.WriteLine(string.Format("==> {0} [{1}] {2} {3}", DateTime.Now.ToString("HH:mm:ss.fff"), logLevel, state, exception));
                 }
                 if (config.OutputTarget.HasFlag(OutputTarget.Debug))
                 {
-                    Debug.WriteLine(string.Format("=> {0} [{1}] {2} {3}", DateTime.Now.ToString("HH:mm:ss.fff"), logLevel, state, exception));
+                    Debug.WriteLine(string.Format("==> {0} [{1}] {2} {3}", DateTime.Now.ToString("HH:mm:ss.fff"), logLevel, state, exception));
                 }
             });
         }

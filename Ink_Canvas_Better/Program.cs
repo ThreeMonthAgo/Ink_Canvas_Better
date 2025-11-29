@@ -8,12 +8,14 @@ using Ink_Canvas_Better.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Ink_Canvas_Better.Controls.FloatingBar;
+using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 
 namespace Ink_Canvas_Better
 {
     class Program
     {
-        private static IHost Host;
+        public static IHost Host;
 
         /// <summary>
         /// StartupArgs:
@@ -47,7 +49,7 @@ namespace Ink_Canvas_Better
                     // UI
                     service.AddSingleton<App>();
                     //service.AddSingleton<PenControl>();
-                    //service.AddSingleton<FloatingBar>();
+                    service.AddSingleton<FloatingBar>();
                     service.AddSingleton<MainWindow>();
                 }).
                 ConfigureLogging((context, logging) =>
@@ -99,8 +101,8 @@ namespace Ink_Canvas_Better
 
         private static void RegisterControls()
         {
-            //ControlsService controlsService = AppHost.GetService<ControlsService>();
-            //controlsService.TryRegisterControl<MultifuntionControl>(MultifuntionControl.ControlGuid);
+            ControlsService controlsService = GetService<ControlsService>();
+            controlsService.TryRegisterControl<MultifunctionControl>(MultifunctionControl.Guid);
             //controlsService.TryRegisterControl<CursorControl>(CursorControl.ControlGuid);
             //controlsService.TryRegisterControl<PenControl>(PenControl.ControlGuid);
         }

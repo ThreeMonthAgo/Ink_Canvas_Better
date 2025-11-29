@@ -1,44 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Interface;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar
 {
-    public class FloatingBar : FloatingBarComponentBase, IFloatingBarComponentSettingBase
+    public partial class FloatingBar : FloatingBarComponentBase, IFloatingBarComponentSettingBase
     {
         public object Settings { get; set; } = new FloatingBarSettings();
-        public string Guid { get; } = "D4F5C8A1-6E2B-4F3A-9C1E-2B7D8F9A0B1C";
+        public static string Guid { get; } = "D4F5C8A1-6E2B-4F3A-9C1E-2B7D8F9A0B1C";
 
-        static FloatingBar()
+        public FloatingBar()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(FloatingBar), new FrameworkPropertyMetadata(typeof(FloatingBar)));
+            InitializeComponent();
+            this.RenderTransform = new TranslateTransform();
         }
 
         #region dp
-
-        #region ItemsSource
-
-        public object ItemsSource
-        {
-            get { return (object)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
-        }
-
-        public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(FloatingBar), new PropertyMetadata(null));
-
-        #endregion
 
         #region Orientation
 
@@ -72,6 +54,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBar
 
     public class FloatingBarSettings
     {
+        public ObservableCollection<IFloatingBarComponentSettingBase> Items { get; set; } = [ ];
         //public bool IsAutoHideEnabled { get; set; } = false;
         //public int AutoHideDelay { get; set; } = 3; // in seconds
         //public double OpacityWhenHidden { get; set; } = 0.2;

@@ -27,23 +27,5 @@ namespace Ink_Canvas_Better.Controls.Helpers
             }
             return default;
         }
-
-        #region Colors
-
-        public static Brush DefaultBackgroundColor => GetFromDictionary<Brush>("DefaultBackgroundColor");
-        public static Brush DefaultBackgroundColor_Opacity => GetFromDictionary<Brush>("DefaultBorderColor");
-        public static Brush DefaultForegroundColor => GetFromDictionary<Brush>("DefaultBorderColor");
-        public static Brush DefaultBorderColor => GetFromDictionary<Brush>("DefaultBorderColor");
-        public static Brush DefaultButtonHoverColor => GetFromDictionary<Brush>("DefaultHoverColor");
-
-        #endregion
-
-        #region Images
-
-        public static DrawingImage FUI_Pin => GetFromDictionary<DrawingImage>("FUI.Pin");
-        public static DrawingImage FUI_PinOff => GetFromDictionary<DrawingImage>("FUI.PinOff");
-        public static DrawingImage FUI_Dismiss => GetFromDictionary<DrawingImage>("FUI.Dismiss");
-
-        #endregion
     }
 }

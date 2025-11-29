@@ -12,18 +12,12 @@
         AllowsTransparency="True"
         Background="Transparent"
         Title="{DynamicResource Text_ProductName}">
-    <Grid Background="Transparent">
+    <Grid Background="Transparent" Name="MW_Grid">
         <InkCanvas
             Name="MW_InkCanvas"
             Background="Transparent"
             Cursor="Pen"
             ForceCursor="False"
             IsManipulationEnabled="True"/>
-        <Border
-            Name="MW_TopBorder"
-            Background="Blue"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Top"
-            Height="30"/>
     </Grid>
 </Window>
