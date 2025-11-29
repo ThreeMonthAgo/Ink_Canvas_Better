@@ -15,7 +15,7 @@ namespace Ink_Canvas_Better.Controls.Helpers
         {
             Dictionary = new ResourceDictionary()
             {
-                Source = new Uri("pack://application:,,,/Ink_Canvas_Better.Controls;component/Themes/Generic.xaml", UriKind.RelativeOrAbsolute)
+                Source = new Uri("pack://application:,,,/Ink_Canvas_Better;component/App.xaml", UriKind.RelativeOrAbsolute)
             };
         }
 

@@ -53,7 +53,29 @@ namespace Ink_Canvas_Better
                 ConfigureLogging((context, logging) =>
                 {
                     logging.ClearProviders();
-                    logging.AddFileLogger();
+                    logging.AddCompositeLogger((configuration) =>
+                    {
+                        configuration.Loggers =
+                        [
+                            new FileLogger(() =>
+                            {
+                                return new FileLoggerConfiguration()
+                                {
+                                    MinimumLogLevel = LogLevel.Information,
+                                };
+                            }),
+#if DEBUG
+                            new ConsoleLogger(() =>
+                            {
+                                return new ConsoleLoggerConfiguration()
+                                {
+                                    MinimumLogLevel = LogLevel.Debug,
+                                    OutputTarget = OutputTarget.Debug,
+                                };
+                            }),
+#endif
+                        ];
+                    });
                 }).
                 Build();
 

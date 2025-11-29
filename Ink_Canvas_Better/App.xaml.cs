@@ -1,9 +1,12 @@
 ﻿using System.Configuration;
 using System.Data;
+using System.Drawing;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
+using iNKORE.UI.WPF.Modern.Common;
 using Microsoft.Extensions.Logging;
 
 namespace Ink_Canvas_Better
@@ -34,8 +37,11 @@ namespace Ink_Canvas_Better
             this.DispatcherUnhandledException += (sender, e) =>
             {
                 logger.LogCritical(e.Exception.StackTrace);
-                // TODO: show in the messagebox
-                // Ink_Canvas.MainWindow.ShowNewMessage($"抱歉，出现预料之外的异常，可能导致 Ink Canvas 画板运行不稳定。\n建议保存墨迹后重启应用。\n报错信息：\n{e.ToString()}", true);
+                iNKORE.UI.WPF.Modern.Controls.MessageBox.Show(
+                    $"* An unexpected error has occurred, which may cause Ink Canvas Better to become unstable.\r\n* It is strongly recommended to save your work and restart the application.\r\n* Please consider reporting this issue at: https://github.com/ThreeMonthAgo/Ink_Canvas_Better.\r\n=> Exception details:\r\n{e}",
+                    "Ink Canvas Better",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
                 e.Handled = true;
             };
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
@@ -48,17 +54,21 @@ namespace Ink_Canvas_Better
                 e.SetObserved();
             };
             #endregion
+
             Mutex _ = new(true, "Ink_Canvas_Better", out bool ret);
+            if (!ret && !Program.StartupArgs.Contains("-m")) // -m multiple
+            {
+                logger.LogInformation("Detected existing instance");
+                iNKORE.UI.WPF.Modern.Controls.MessageBox.Show(
+                    "Another instance of Ink Canvas Better is already running.",
+                    "Ink Canvas Better",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                logger.LogInformation("Ink Canvas Batter automatically closed");
+                Environment.Exit(0);
+            }
 
-            //if (!ret && !StartupArgs.Contains("-m")) // -m multiple
-            //{
-            //    logger.LogInformation("Detected existing instance");
-            //    MessageBox.Show("Ink Canvas Better is running");
-            //    logger.LogInformation("Ink Canvas Batter automatically closed");
-            //    Environment.Exit(0);
-            //}
-
-            //IAppHost.GetService<SettingsService>().ReadSettings();
+            settingsService.ReadSettings();
             mainWindow.Show();
 
             logger.LogInformation($"===== Ink Canvas Better (v{settingsService.Settings.Version}) is running =====");
