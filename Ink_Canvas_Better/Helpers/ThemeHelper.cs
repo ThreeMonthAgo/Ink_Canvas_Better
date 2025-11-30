@@ -8,6 +8,7 @@ using System.Diagnostics;
 
 namespace Ink_Canvas_Better.Controls.Helpers
 {
+    [Obsolete]
     public static class ThemeHelper
     {
         public static ResourceDictionary Dictionary { get; set; }

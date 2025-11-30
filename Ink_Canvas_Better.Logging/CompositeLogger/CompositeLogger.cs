@@ -20,16 +20,19 @@ public sealed class CompositeLogger(Func<CompositeLoggerConfiguration> getCurren
         var _loggers = getCurrentConfig().Loggers;
         foreach (var logger in _loggers)
         {
-            try
+            Task.Run(() =>
             {
-                logger.Log(logLevel, eventId, state, exception, formatter);
-            }
-            catch (Exception ex)
-            {
+                try
+                {
+                    logger.Log(logLevel, eventId, state, exception, formatter);
+                }
+                catch (Exception ex)
+                {
 #if DEBUG
-                Debug.WriteLine($"Logger failed: {ex.Message}");
+                    Debug.WriteLine($"Logger failed: {ex.Message}");
 #endif
-            }
+                }
+            });
         }
     }
 }

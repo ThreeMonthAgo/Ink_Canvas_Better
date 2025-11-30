@@ -26,7 +26,10 @@ namespace Ink_Canvas_Better
         public static string[]? StartupArgs { get; set; } = null;
         public static string RootPath { get; } = Environment.GetEnvironmentVariable("APPDATA") + "\\Ink Canvas Better\\";
 
-
+        /// <summary>
+        /// Entry Point
+        /// </summary>
+        /// <param name="args"></param>
         [STAThread]
         public static void Main(string[] args)
         {
@@ -99,6 +102,9 @@ namespace Ink_Canvas_Better
             return (T?)Host?.Services.GetService(typeof(T));
         }
 
+        /// <summary>
+        /// Register custom controls here.
+        /// </summary>
         private static void RegisterControls()
         {
             ControlsService controlsService = GetService<ControlsService>();
