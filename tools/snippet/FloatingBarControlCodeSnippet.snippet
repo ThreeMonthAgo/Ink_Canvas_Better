@@ -23,219 +23,222 @@
 using System;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Windows;
 
-namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
-/// <summary>
-/// The logic for $FloatingBarControlName$.xaml
-/// </summary>
-public class $FloatingBarControlName$ : Control, IFloatingBarComponentSettingBase
+namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl
 {
-    public object Settings { get; set; } = new $FloatingBarControlName$Settings();
-    private static Guid _guid = new("${Guid}$");
-    public static Guid Guid => _guid;
-
-    static $FloatingBarControlName$()
+    /// <summary>
+    /// $FloatingBarControlName$.xaml 的交互逻辑
+    /// </summary>
+    public partial class $FloatingBarControlName$ : FloatingBarComponentBase, IFloatingBarComponentSettingBase
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof($FloatingBarControlName$), new FrameworkPropertyMetadata(typeof($FloatingBarControlName$)));
-    }
+        public object Settings { get; set; } = new $FloatingBarControlName$Settings();
+        public static string Guid { get; } = "$Guid$";
 
-    #region Properties
+        MainWindow mainWindow;
 
-    #region Source
+        public $FloatingBarControlName$() : this(Program.GetService<FloatingBar>()) { }
 
-    public ImageSource Source
-    {
-        get { return (ImageSource)GetValue(SourceProperty); }
-        set { SetValue(SourceProperty, value); }
-    }
+        public $FloatingBarControlName$(MainWindow mainWindow)
+        {
+            InitializeComponent();
+        }
 
-    public static readonly DependencyProperty SourceProperty =
-        DependencyProperty.Register("Source", typeof(ImageSource), typeof($FloatingBarControlName$), new PropertyMetadata(null));
+        #region Properties
 
-    #endregion
+        #region Source
 
-    #region Text
+        public ImageSource Source
+        {
+            get { return (ImageSource)GetValue(SourceProperty); }
+            set { SetValue(SourceProperty, value); }
+        }
 
-    public string Text
-    {
-        get { return (string)GetValue(TextProperty); }
-        set { SetValue(TextProperty, value); }
-    }
+        public static readonly DependencyProperty SourceProperty =
+            DependencyProperty.Register("Source", typeof(ImageSource), typeof($FloatingBarControlName$), new PropertyMetadata(null));
 
-    public static readonly DependencyProperty TextProperty =
-        DependencyProperty.Register("Text", typeof(string), typeof($FloatingBarControlName$), new PropertyMetadata("Text"));
+        #endregion
 
-    #endregion
+        #region Text
 
-    #region TextVisibility
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
 
-    public Visibility TextVisibility
-    {
-        get { return (Visibility)GetValue(TextVisibilityProperty); }
-        set { SetValue(TextVisibilityProperty, value); }
-    }
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register("Text", typeof(string), typeof($FloatingBarControlName$), new PropertyMetadata("Text"));
 
-    public static readonly DependencyProperty TextVisibilityProperty =
-        DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof($FloatingBarControlName$), new PropertyMetadata(Visibility.Collapsed));
+        #endregion
 
-    #endregion
+        #region TextVisibility
 
-    #region ImageWidth
+        public Visibility TextVisibility
+        {
+            get { return (Visibility)GetValue(TextVisibilityProperty); }
+            set { SetValue(TextVisibilityProperty, value); }
+        }
 
-    public double ImageWidth
-    {
-        get { return (double)GetValue(ImageWidthProperty); }
-        set { SetValue(ImageWidthProperty, value); }
-    }
+        public static readonly DependencyProperty TextVisibilityProperty =
+            DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof($FloatingBarControlName$), new PropertyMetadata(Visibility.Collapsed));
 
-    public static readonly DependencyProperty ImageWidthProperty =
-        DependencyProperty.Register("ImageWidth", typeof(double), typeof($FloatingBarControlName$), new PropertyMetadata(40d));
+        #endregion
 
-    #endregion
+        #region ImageWidth
 
-    #region ImageHeight
+        public double ImageWidth
+        {
+            get { return (double)GetValue(ImageWidthProperty); }
+            set { SetValue(ImageWidthProperty, value); }
+        }
 
-    public double ImageHeight
-    {
-        get { return (double)GetValue(ImageHeightProperty); }
-        set { SetValue(ImageHeightProperty, value); }
-    }
+        public static readonly DependencyProperty ImageWidthProperty =
+            DependencyProperty.Register("ImageWidth", typeof(double), typeof($FloatingBarControlName$), new PropertyMetadata(40d));
 
-    public static readonly DependencyProperty ImageHeightProperty =
-        DependencyProperty.Register("ImageHeight", typeof(double), typeof($FloatingBarControlName$), new PropertyMetadata(40d));
+        #endregion
 
-    #endregion
+        #region ImageHeight
 
-    // Popup Properties
+        public double ImageHeight
+        {
+            get { return (double)GetValue(ImageHeightProperty); }
+            set { SetValue(ImageHeightProperty, value); }
+        }
 
-    #region Title
+        public static readonly DependencyProperty ImageHeightProperty =
+            DependencyProperty.Register("ImageHeight", typeof(double), typeof($FloatingBarControlName$), new PropertyMetadata(40d));
 
-    public string Title
-    {
-        get { return (string)GetValue(TitleProperty); }
-        set { SetValue(TitleProperty, value); }
-    }
+        #endregion
 
-    public static readonly DependencyProperty TitleProperty =
-        DependencyProperty.Register(nameof(Title), typeof(string), typeof($FloatingBarControlName$), new PropertyMetadata("Subpanel"));
+        // Popup Properties
 
-    #endregion
+        #region Title
 
-    #region IsOpen
+        public string Title
+        {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
 
-    public bool IsOpen
-    {
-        get { return (bool)GetValue(IsOpenProperty); }
-        set { SetValue(IsOpenProperty, value); }
-    }
+        public static readonly DependencyProperty TitleProperty =
+            DependencyProperty.Register(nameof(Title), typeof(string), typeof($FloatingBarControlName$), new PropertyMetadata("Subpanel"));
 
-    public static readonly DependencyProperty IsOpenProperty =
-        DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof($FloatingBarControlName$), new PropertyMetadata(false));
+        #endregion
 
-    #endregion
+        #region IsOpen
 
-    #region StaysOpen
+        public bool IsOpen
+        {
+            get { return (bool)GetValue(IsOpenProperty); }
+            set { SetValue(IsOpenProperty, value); }
+        }
 
-    public bool StaysOpen
-    {
-        get { return (bool)GetValue(StaysOpenProperty); }
-        set { SetValue(StaysOpenProperty, value); }
-    }
+        public static readonly DependencyProperty IsOpenProperty =
+            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof($FloatingBarControlName$), new PropertyMetadata(false));
 
-    public static readonly DependencyProperty StaysOpenProperty =
-        DependencyProperty.Register(nameof(StaysOpen), typeof(bool), typeof($FloatingBarControlName$), new PropertyMetadata(false));
+        #endregion
 
-    #endregion
+        #region StaysOpen
 
-    #region PlacementTarget
+        public bool StaysOpen
+        {
+            get { return (bool)GetValue(StaysOpenProperty); }
+            set { SetValue(StaysOpenProperty, value); }
+        }
 
-    public UIElement PlacementTarget
-    {
-        get { return (UIElement)GetValue(PlacementTargetProperty); }
-        set { SetValue(PlacementTargetProperty, value); }
-    }
+        public static readonly DependencyProperty StaysOpenProperty =
+            DependencyProperty.Register(nameof(StaysOpen), typeof(bool), typeof($FloatingBarControlName$), new PropertyMetadata(false));
 
-    public static readonly DependencyProperty PlacementTargetProperty =
-        DependencyProperty.Register(nameof(PlacementTarget), typeof(UIElement), typeof($FloatingBarControlName$), new PropertyMetadata(null));
+        #endregion
 
-    #endregion
+        #region PlacementTarget
 
-    #region TitleBarHeight
+        public UIElement PlacementTarget
+        {
+            get { return (UIElement)GetValue(PlacementTargetProperty); }
+            set { SetValue(PlacementTargetProperty, value); }
+        }
 
-    public double TitleBarHeight
-    {
-        get { return (double)GetValue(TitleBarHeightProperty); }
-        set { SetValue(TitleBarHeightProperty, value); }
-    }
+        public static readonly DependencyProperty PlacementTargetProperty =
+            DependencyProperty.Register(nameof(PlacementTarget), typeof(UIElement), typeof($FloatingBarControlName$), new PropertyMetadata(null));
 
-    public static readonly DependencyProperty TitleBarHeightProperty =
-        DependencyProperty.Register(nameof(TitleBarHeight), typeof(double), typeof($FloatingBarControlName$), new PropertyMetadata(36d));
+        #endregion
 
-    #endregion
+        #region TitleBarHeight
 
-    #region CornerRadius
+        public double TitleBarHeight
+        {
+            get { return (double)GetValue(TitleBarHeightProperty); }
+            set { SetValue(TitleBarHeightProperty, value); }
+        }
 
-    public CornerRadius CornerRadius
-    {
-        get { return (CornerRadius)GetValue(CornerRadiusProperty); }
-        set { SetValue(CornerRadiusProperty, value); }
-    }
+        public static readonly DependencyProperty TitleBarHeightProperty =
+            DependencyProperty.Register(nameof(TitleBarHeight), typeof(double), typeof($FloatingBarControlName$), new PropertyMetadata(36d));
 
-    public static readonly DependencyProperty CornerRadiusProperty =
-        DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof($FloatingBarControlName$), new PropertyMetadata(new CornerRadius(4d)));
+        #endregion
 
-    #endregion
+        #region CornerRadius
 
-    #region Placement
+        public CornerRadius CornerRadius
+        {
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
 
-    public PlacementMode Placement
-    {
-        get { return (PlacementMode)GetValue(PlacementProperty); }
-        set { SetValue(PlacementProperty, value); }
-    }
+        public static readonly DependencyProperty CornerRadiusProperty =
+            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof($FloatingBarControlName$), new PropertyMetadata(new CornerRadius(4d)));
 
-    public static readonly DependencyProperty PlacementProperty =
-        DependencyProperty.Register(nameof(Placement), typeof(PlacementMode), typeof($FloatingBarControlName$), new PropertyMetadata(PlacementMode.Top));
+        #endregion
 
-    #endregion
+        #region Placement
 
-    #region PopupAnimation
+        public PlacementMode Placement
+        {
+            get { return (PlacementMode)GetValue(PlacementProperty); }
+            set { SetValue(PlacementProperty, value); }
+        }
 
-    public PopupAnimation PopupAnimation
-    {
-        get { return (PopupAnimation)GetValue(PopupAnimationProperty); }
-        set { SetValue(PopupAnimationProperty, value); }
-    }
+        public static readonly DependencyProperty PlacementProperty =
+            DependencyProperty.Register(nameof(Placement), typeof(PlacementMode), typeof($FloatingBarControlName$), new PropertyMetadata(PlacementMode.Top));
 
-    public static readonly DependencyProperty PopupAnimationProperty =
-        DependencyProperty.Register(nameof(PopupAnimation), typeof(PopupAnimation), typeof($FloatingBarControlName$), new PropertyMetadata(PopupAnimation.Slide));
+        #endregion
 
-    #endregion
+        #region PopupAnimation
 
-    #region PlacementRectangle
+        public PopupAnimation PopupAnimation
+        {
+            get { return (PopupAnimation)GetValue(PopupAnimationProperty); }
+            set { SetValue(PopupAnimationProperty, value); }
+        }
 
-    public Rect PlacementRectangle
-    {
-        get { return (Rect)GetValue(PlacementRectangleProperty); }
-        set { SetValue(PlacementRectangleProperty, value); }
-    }
+        public static readonly DependencyProperty PopupAnimationProperty =
+            DependencyProperty.Register(nameof(PopupAnimation), typeof(PopupAnimation), typeof($FloatingBarControlName$), new PropertyMetadata(PopupAnimation.Slide));
 
-    public static readonly DependencyProperty PlacementRectangleProperty =
-        DependencyProperty.Register(nameof(PlacementRectangle), typeof(Rect), typeof($FloatingBarControlName$), new PropertyMetadata(new Rect(0, 0, 0, 0)));
+        #endregion
 
-    #endregion
+        #region PlacementRectangle
 
-    #endregion
+        public Rect PlacementRectangle
+        {
+            get { return (Rect)GetValue(PlacementRectangleProperty); }
+            set { SetValue(PlacementRectangleProperty, value); }
+        }
+
+        public static readonly DependencyProperty PlacementRectangleProperty =
+            DependencyProperty.Register(nameof(PlacementRectangle), typeof(Rect), typeof($FloatingBarControlName$), new PropertyMetadata(new Rect(0, 0, 0, 0)));
+
+        #endregion
+
+        #endregion
+
+public class $FloatingBarControlName$Settings
+{
+
 }
                ]]>
            </Code>

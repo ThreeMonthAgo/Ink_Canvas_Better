@@ -16,61 +16,53 @@
 		   </Declarations>
            <Code Language="xaml">
                <![CDATA[
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl"
-                    xmlns:iUWM="http://schemas.inkore.net/lib/ui/wpf/modern"
-                    xmlns:iUW="http://schemas.inkore.net/lib/ui/wpf">
-
-    <Style TargetType="{x:Type local:$FloatingBarControlName$}">
-        <Style.Triggers>
-            
-        </Style.Triggers>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:$FloatingBarControlName$}">
-                    <Border Background="Transparent">
-                        <Grid Background="Transparent">
-                            <Popup Placement="{TemplateBinding Placement}"
-                                   PlacementRectangle="{TemplateBinding PlacementRectangle}"
-                                   PlacementTarget="{TemplateBinding PlacementTarget}"
-                                   IsOpen="{Binding Path=IsOpen,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                                   StaysOpen="{TemplateBinding StaysOpen}"
-                                   PopupAnimation="{TemplateBinding PopupAnimation}"
-                                   Margin="4"
-                                   AllowsTransparency="True">
-                                <Border CornerRadius="{TemplateBinding CornerRadius}"
-                                        Background="{DynamicResource {x:Static iUWM:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
-                                        BorderBrush="{DynamicResource {x:Static iUWM:ThemeKeys.FlyoutBorderThemeBrushKey}}"
-                                        BorderThickness="{DynamicResource {x:Static iUWM:ThemeKeys.FlyoutBorderThemeThicknessKey}}">
-                                    <StackPanel Orientation="Vertical" MinWidth="100">
-                                        <Grid ColumnDefinitions="*,auto,auto">
-                                            <TextBlock Text="{TemplateBinding Title}"
-                                                       Grid.Column="0"
-                                                       FontSize="20"/>
-                                            <Button Grid.Column="1"/>
-                                            <Button Grid.Column="2"/>
-                                        </Grid>
-                                        <ContentPresenter/>
-                                    </StackPanel>
-                                </Border>
-                            </Popup>
-                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Image Source="{TemplateBinding Source}"
-                                       Width="{TemplateBinding ImageWidth}"
-                                       Height="{TemplateBinding ImageHeight}"/>
-                                <TextBlock FontSize="12"
-                                           TextAlignment="Center"
-                                           Text="{TemplateBinding Text}"
-                                           Visibility="{TemplateBinding TextVisibility}"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-</ResourceDictionary>
+<base:FloatingBarComponentBase xmlns:base="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar"
+                               x:Class="Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl.MultifunctionControl"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl"
+                               xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
+                               DataContext="{Binding RelativeSource={RelativeSource Self}}"
+                               mc:Ignorable="d" >
+    <Grid Background="AliceBlue" d:Background="AliceBlue" Width="64" Height="64">
+        <Popup PlacementRectangle="{Binding PlacementRectangle}"
+               PlacementTarget="{Binding PlacementTarget}"
+               IsOpen="{Binding Path=IsOpen,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+               StaysOpen="{Binding StaysOpen}"
+               PopupAnimation="{Binding PopupAnimation}"
+               Margin="4"
+               AllowsTransparency="True">
+            <Border CornerRadius="{Binding CornerRadius}"
+                    Background="{DynamicResource {x:Static iuwm:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
+                    BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
+                    BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}">
+                <StackPanel Orientation="Vertical" MinWidth="100">
+                    <Grid ColumnDefinitions="*,auto,auto">
+                        <TextBlock Text="{Binding Title}"
+                                   Grid.Column="0"
+                                   FontSize="20"/>
+                        <Button Grid.Column="1"/>
+                        <Button Grid.Column="2"/>
+                    </Grid>
+                    <ContentPresenter/>
+                </StackPanel>
+            </Border>
+        </Popup>
+        <StackPanel Name="StackPanel" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image Source="{DynamicResource Image.FUI.Drag}"
+                   d:Width="40"
+                   d:Height="40"
+                   Width="{Binding ImageWidth}"
+                   Height="{Binding ImageHeight}"/>
+            <TextBlock FontSize="12"
+                       TextAlignment="Center"
+                       Text="No Text"
+                       Visibility="Collapsed"/>
+        </StackPanel>
+    </Grid>
+</base:FloatingBarComponentBase>
                ]]>
            </Code>
        </Snippet>
