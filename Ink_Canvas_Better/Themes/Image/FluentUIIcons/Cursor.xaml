@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern">
+    <DrawingImage x:Key="Image.FUI.Cursor">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="{DynamicResource {x:Static iuwm:ThemeKeys.TextFillColorPrimaryBrushKey}}" Geometry="M5.5 3.48325C5.5 2.23498 6.93571 1.53286 7.92098 2.29927L21.4353 12.8116C22.5626 13.6885 21.9425 15.4956 20.5143 15.4956H13.6619C13.1574 15.4956 12.6806 15.7264 12.3676 16.1222L8.17661 21.4224C7.2945 22.538 5.5 21.9142 5.5 20.492L5.5 3.48325ZM20.5143 13.9956L7 3.48325L7 20.492L11.191 15.1918C11.7884 14.4363 12.6987 13.9956 13.6619 13.9956H20.5143Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

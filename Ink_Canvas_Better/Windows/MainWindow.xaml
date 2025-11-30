@@ -8,16 +8,18 @@
         mc:Ignorable="d"
         WindowStyle="None"
         WindowState="Maximized"
+        ShowInTaskbar="False"
         Topmost="True"
         AllowsTransparency="True"
         Background="Transparent"
         Title="{DynamicResource Text_ProductName}">
-    <Grid Background="Transparent" Name="MW_Grid">
+    <Grid Background="Transparent">
         <InkCanvas
             Name="MW_InkCanvas"
             Background="Transparent"
             Cursor="Pen"
             ForceCursor="False"
             IsManipulationEnabled="True"/>
+        <Canvas Name="MW_Canvas"/>
     </Grid>
 </Window>

@@ -27,14 +27,22 @@ namespace Ink_Canvas_Better.Windows
         public MainWindow(FloatingBar floatingBar, ControlsService controlsService)
         {
             InitializeComponent();
+            this.SourceInitialized += Helpers.Win32Helper.MainWindow_SourceInitialized;
 
             this.floatingBar = floatingBar;
             this.controlsService = controlsService;
-            // Temp
-            MW_Grid.Children.Add(floatingBar);
-            ((FloatingBarSettings)(this.floatingBar.Settings)).Items.Add(controlsService.CreateControl(MultifunctionControl.Guid));
-            Debug.WriteLine(((FloatingBarSettings)(this.floatingBar.Settings)).Items[0]);
+
+            Loaded += MainWindow_Loaded;
         }
 
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Temp
+            MW_Canvas.Children.Add(floatingBar);
+            var group = controlsService.CreateControl(FloatingBarGroup.Guid) as FloatingBarGroup;
+            group.Add(controlsService.CreateControl(MultifunctionControl.Guid));
+            floatingBar.Add(group);
+            // Debug.WriteLine(((FloatingBarSettings)(this.floatingBar.Settings)).Items[0]);
+        }
     }
 }

@@ -10,7 +10,8 @@
                 <iuwm:XamlControlsResources/>
 
                 <ResourceDictionary Source="/Themes/Image/DrawShapeImageDictionary.xaml"/>
-                <ResourceDictionary Source="/Themes/Image/DrawShapeImageDictionary.xaml"/>
+                <ResourceDictionary Source="/Themes/Image/OthersImageDictionary.xaml"/>
+                <ResourceDictionary Source="/Themes/Image/FluentUIIcons/FluentUIIcons.xaml"/>
                 <ResourceDictionary Source="/Themes/Language/en.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

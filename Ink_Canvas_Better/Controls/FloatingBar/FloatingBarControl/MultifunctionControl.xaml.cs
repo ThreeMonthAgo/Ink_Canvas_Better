@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Windows;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl
 {
@@ -25,16 +26,16 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl
         public static string Guid { get; } = "03C5FD8D-2880-40F7-BAC5-9D83C347162C";
 
         FloatingBar floatingBar;
+        MainWindow mainWindow;
 
         private bool _isMouseDown = false;
         private Point _mouseDownPos, _mouseUpPos, _mouseDownControlPos, _currentMousePos;
 
-        public MultifunctionControl() : this(Program.GetService<FloatingBar>()) { }
+        public MultifunctionControl() : this(Program.GetService<FloatingBar>(), Program.GetService<MainWindow>()) { }
 
-        public MultifunctionControl(FloatingBar floatingBar)
+        public MultifunctionControl(FloatingBar floatingBar, MainWindow mainWindow)
         {
             InitializeComponent();
-            DataContext = this;
             this.floatingBar = floatingBar;
 
             this.MouseDown += MultifuntionControl_MouseDown;
@@ -232,7 +233,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl
         private void MultifuntionControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
             _isMouseDown = true;
-            _mouseDownPos = e.GetPosition(Application.Current.MainWindow);
+            _mouseDownPos = e.GetPosition(mainWindow);
             if (floatingBar.RenderTransform is not TranslateTransform transform)
             {
                 transform = new TranslateTransform();
@@ -248,7 +249,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl
             if (_isMouseDown)
             {
                 TranslateTransform transform = (TranslateTransform)floatingBar.RenderTransform;
-                _currentMousePos = e.GetPosition(Application.Current.MainWindow);
+                _currentMousePos = e.GetPosition(mainWindow);
                 transform.X = _mouseDownControlPos.X + _currentMousePos.X - _mouseDownPos.X;
                 transform.Y = _mouseDownControlPos.Y + _currentMousePos.Y - _mouseDownPos.Y;
             }
@@ -259,7 +260,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl
             this.MouseMove -= MultifuntionControl_MouseMove;
             this.ReleaseMouseCapture();
             _isMouseDown = false;
-            _mouseUpPos = e.GetPosition(Application.Current.MainWindow);
+            _mouseUpPos = e.GetPosition(mainWindow);
             // TODO: fold the floatingbar
         }
     }

@@ -6,42 +6,42 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                                xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl"
                                xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
+                               DataContext="{Binding RelativeSource={RelativeSource Self}}"
                                mc:Ignorable="d" >
-    <Border Background="Transparent" d:Background="AliceBlue">
-        <Grid Background="Transparent">
-            <Popup PlacementRectangle="{Binding PlacementRectangle}"
-                   PlacementTarget="{Binding PlacementTarget}"
-                   IsOpen="{Binding Path=IsOpen,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                   StaysOpen="{Binding StaysOpen}"
-                   PopupAnimation="{Binding PopupAnimation}"
-                   Margin="4"
-                   AllowsTransparency="True">
-                <Border CornerRadius="{Binding CornerRadius}"
-                        Background="{DynamicResource {x:Static iuwm:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
-                        BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
-                        BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}">
-                    <StackPanel Orientation="Vertical" MinWidth="100">
-                        <Grid ColumnDefinitions="*,auto,auto">
-                            <TextBlock Text="{Binding Title}"
-                                       Grid.Column="0"
-                                       FontSize="20"/>
-                            <Button Grid.Column="1"/>
-                            <Button Grid.Column="2"/>
-                        </Grid>
-                        <ContentPresenter/>
-                    </StackPanel>
-                </Border>
-            </Popup>
-            <StackPanel Name="StackPanel" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="64" Height="64">
-                <Image Source="{DynamicResource {x:Static iuwm:SegoeFluentIcons.Move}}"
-                       Width="{Binding ImageWidth}"
-                       Height="{Binding ImageHeight}"/>
-                <TextBlock FontSize="12"
-                           TextAlignment="Center"
-                           Text="No Text"
-                           Background="AliceBlue"
-                           Visibility="Visible"/>
-            </StackPanel>
-        </Grid>
-    </Border>
+    <Grid Background="AliceBlue" d:Background="AliceBlue" Width="64" Height="64">
+        <Popup PlacementRectangle="{Binding PlacementRectangle}"
+               PlacementTarget="{Binding PlacementTarget}"
+               IsOpen="{Binding Path=IsOpen,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+               StaysOpen="{Binding StaysOpen}"
+               PopupAnimation="{Binding PopupAnimation}"
+               Margin="4"
+               AllowsTransparency="True">
+            <Border CornerRadius="{Binding CornerRadius}"
+                    Background="{DynamicResource {x:Static iuwm:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
+                    BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
+                    BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}">
+                <StackPanel Orientation="Vertical" MinWidth="100">
+                    <Grid ColumnDefinitions="*,auto,auto">
+                        <TextBlock Text="{Binding Title}"
+                                   Grid.Column="0"
+                                   FontSize="20"/>
+                        <Button Grid.Column="1"/>
+                        <Button Grid.Column="2"/>
+                    </Grid>
+                    <ContentPresenter/>
+                </StackPanel>
+            </Border>
+        </Popup>
+        <StackPanel Name="StackPanel" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image Source="{DynamicResource Image.FUI.Drag}"
+                   d:Width="40"
+                   d:Height="40"
+                   Width="{Binding ImageWidth}"
+                   Height="{Binding ImageHeight}"/>
+            <TextBlock FontSize="12"
+                       TextAlignment="Center"
+                       Text="No Text"
+                       Visibility="Collapsed"/>
+        </StackPanel>
+    </Grid>
 </base:FloatingBarComponentBase>

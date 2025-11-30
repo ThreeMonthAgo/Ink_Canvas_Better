@@ -108,6 +108,7 @@ namespace Ink_Canvas_Better
         private static void RegisterControls()
         {
             ControlsService controlsService = GetService<ControlsService>();
+            controlsService.TryRegisterControl<FloatingBarGroup>(FloatingBarGroup.Guid);
             controlsService.TryRegisterControl<MultifunctionControl>(MultifunctionControl.Guid);
             //controlsService.TryRegisterControl<CursorControl>(CursorControl.ControlGuid);
             //controlsService.TryRegisterControl<PenControl>(PenControl.ControlGuid);

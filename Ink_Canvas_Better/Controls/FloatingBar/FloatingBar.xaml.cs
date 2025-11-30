@@ -17,7 +17,18 @@ namespace Ink_Canvas_Better.Controls.FloatingBar
         public FloatingBar()
         {
             InitializeComponent();
+
+            Loaded += FloatingBar_Loaded;
+        }
+
+        private void FloatingBar_Loaded(object sender, RoutedEventArgs e)
+        {
             this.RenderTransform = new TranslateTransform();
+        }
+
+        public void Add(IFloatingBarComponentSettingBase component)
+        {
+            ((FloatingBarSettings)Settings).Items.Add(component);
         }
 
         #region dp

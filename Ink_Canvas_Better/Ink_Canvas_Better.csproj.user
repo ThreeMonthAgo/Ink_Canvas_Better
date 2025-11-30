@@ -8,5 +8,8 @@
     <Compile Update="Controls\FloatingBar\FloatingBarControl\MultifunctionControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\FloatingBar\FloatingBarGroup.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>
