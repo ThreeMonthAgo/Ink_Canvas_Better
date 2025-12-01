@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Ink_Canvas_Better.Logging\Ink_Canvas_Better.Logging.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interface\" />
+  </ItemGroup>
+
 </Project>

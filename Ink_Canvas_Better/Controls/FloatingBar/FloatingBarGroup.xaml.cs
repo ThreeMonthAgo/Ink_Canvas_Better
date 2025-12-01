@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Services;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar
 {
@@ -19,8 +21,9 @@ namespace Ink_Canvas_Better.Controls.FloatingBar
     /// </summary>
     public partial class FloatingBarGroup : FloatingBarComponentBase, IFloatingBarComponentSettingBase
     {
-        public object Settings { get; set; } = new FloatingBarGroupSettings();
         public static string Guid { get; } = "B1E2F3A4-5678-90AB-CDEF-1234567890AB";
+        public string ComponentGuid => Guid;
+        public ObservableCollection<IFloatingBarComponentSettingBase>? Items { get; set; } = [];
 
         public FloatingBarGroup()
         {
@@ -29,7 +32,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBar
 
         public void Add(IFloatingBarComponentSettingBase component)
         {
-            ((FloatingBarGroupSettings)Settings).Items.Add(component);
+            Items.Add(component);
         }
 
         #region dp
@@ -62,10 +65,5 @@ namespace Ink_Canvas_Better.Controls.FloatingBar
 
         #endregion
 
-    }
-
-    public class FloatingBarGroupSettings
-    {
-        public List<IFloatingBarComponentSettingBase> Items { get; set; } = [];
     }
 }

@@ -6,6 +6,7 @@ Dependency:
 - [Ink_Canvas_Better.logging](../Ink_Canvas_Better.logging/README.md)
 - [iNKORE.UI.WPF.Modern](https://github.com/InkCanvas/Ink-Canvas-Artistry)
 - Microsoft.Extensions.Hosting
+- [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
 
 Other Resources:
 - [FluentUISystemIcons](https://github.com/microsoft/fluentui-system-icons) (used part of icons)

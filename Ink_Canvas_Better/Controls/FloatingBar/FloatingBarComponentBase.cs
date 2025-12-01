@@ -6,7 +6,7 @@ using Ink_Canvas_Better.Interface;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar
 {
-    public class FloatingBarComponentBase : UserControl
+    public abstract class FloatingBarComponentBase : UserControl
     {
 
     }

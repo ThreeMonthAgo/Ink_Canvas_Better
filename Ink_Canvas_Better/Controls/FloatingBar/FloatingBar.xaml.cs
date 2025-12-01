@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Services;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar
 {
     public partial class FloatingBar : FloatingBarComponentBase, IFloatingBarComponentSettingBase
     {
-        public object Settings { get; set; } = new FloatingBarSettings();
         public static string Guid { get; } = "D4F5C8A1-6E2B-4F3A-9C1E-2B7D8F9A0B1C";
+        public string ComponentGuid => Guid;
+        public ObservableCollection<IFloatingBarComponentSettingBase>? Items { get; set; } = [];
 
         public FloatingBar()
         {
@@ -28,7 +31,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBar
 
         public void Add(IFloatingBarComponentSettingBase component)
         {
-            ((FloatingBarSettings)Settings).Items.Add(component);
+            Items.Add(component);
         }
 
         #region dp
@@ -61,13 +64,5 @@ namespace Ink_Canvas_Better.Controls.FloatingBar
 
         #endregion
 
-    }
-
-    public class FloatingBarSettings
-    {
-        public ObservableCollection<IFloatingBarComponentSettingBase> Items { get; set; } = [ ];
-        //public bool IsAutoHideEnabled { get; set; } = false;
-        //public int AutoHideDelay { get; set; } = 3; // in seconds
-        //public double OpacityWhenHidden { get; set; } = 0.2;
     }
 }

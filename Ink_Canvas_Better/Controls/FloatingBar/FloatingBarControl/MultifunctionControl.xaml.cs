@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -14,8 +16,10 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl
     /// </summary>
     public partial class MultifunctionControl : FloatingBarComponentBase, IFloatingBarComponentSettingBase
     {
-        public object Settings { get; set; } = new MultifunctionControlSettings();
         public static string Guid { get; } = "03C5FD8D-2880-40F7-BAC5-9D83C347162C";
+        public string ComponentGuid => Guid; 
+        public ObservableCollection<IFloatingBarComponentSettingBase>? Items { get; set; } = null;
+
 
         FloatingBar floatingBar;
         MainWindow mainWindow;
@@ -23,13 +27,9 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl
         private bool _isMouseDown = false;
         private Point _mouseDownPos, _mouseUpPos, _mouseDownControlPos, _currentMousePos;
 
-        public MultifunctionControl() : this(Program.GetService<FloatingBar>(), Program.GetService<MainWindow>()) { }
-
-        public MultifunctionControl(FloatingBar floatingBar, MainWindow mainWindow)
+        public MultifunctionControl()
         {
             InitializeComponent();
-            this.floatingBar = floatingBar;
-
             this.MouseDown += MultifuntionControl_MouseDown;
             this.MouseUp += MultifuntionControl_MouseUp;
         }
@@ -224,6 +224,11 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl
 
         private void MultifuntionControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            floatingBar = Ink_Canvas_Better.Helpers.VisualTreeHelper.GetParent<FloatingBar>(this);
+            if (floatingBar == null)
+            {
+                return;
+            }
             _isMouseDown = true;
             _mouseDownPos = e.GetPosition(mainWindow);
             if (floatingBar.RenderTransform is not TranslateTransform transform)
@@ -256,9 +261,4 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl
             // TODO: fold the floatingbar
         }
     }
-}
-
-public class MultifunctionControlSettings
-{
-
 }

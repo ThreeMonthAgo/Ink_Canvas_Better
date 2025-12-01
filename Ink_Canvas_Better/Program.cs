@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ink_Canvas_Better.Controls.FloatingBar;
 using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
+using System.Runtime.CompilerServices;
 
 namespace Ink_Canvas_Better
 {
@@ -46,13 +47,11 @@ namespace Ink_Canvas_Better
                 ConfigureServices((context, service) =>
                 {
                     // Services
-                    service.AddSingleton<ControlsService>();
                     service.AddSingleton<SettingsService>();
+                    service.AddSingleton<ControlsService>();
                     service.AddSingleton<InkCanvasService>();
                     // UI
                     service.AddSingleton<App>();
-                    //service.AddSingleton<PenControl>();
-                    service.AddSingleton<FloatingBar>();
                     service.AddSingleton<MainWindow>();
                 }).
                 ConfigureLogging((context, logging) =>
@@ -83,7 +82,6 @@ namespace Ink_Canvas_Better
                     });
                 }).
                 Build();
-
             RegisterControls();
         }
 

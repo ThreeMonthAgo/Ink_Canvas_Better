@@ -7,7 +7,7 @@
                                 xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar"
                                 xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
                                 mc:Ignorable="d">
-    <ItemsControl ItemsSource="{Binding Settings.Items, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}">
+    <ItemsControl ItemsSource="{Binding Items, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <iuw:SimpleStackPanel Spacing="{Binding Spacing, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}"

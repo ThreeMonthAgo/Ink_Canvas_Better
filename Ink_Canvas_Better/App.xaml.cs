@@ -22,11 +22,11 @@ namespace Ink_Canvas_Better
 
         public App(ILogger<App> logger, SettingsService settingsService, MainWindow mainWindow)
         {
-            InitializeComponent();
             this.logger = logger;
             this.settingsService = settingsService;
             this.mainWindow = mainWindow;
 
+            InitializeComponent();
             this.Startup += new StartupEventHandler(App_Startup);
             this.Exit += new ExitEventHandler(App_OnExit);
         }
@@ -42,7 +42,7 @@ namespace Ink_Canvas_Better
                     $"\r\n* It is strongly recommended to save your work and restart the application." +
                     $"\r\n* Please consider reporting this issue at: https://github.com/ThreeMonthAgo/Ink_Canvas_Better." +
                     $"\r\n===== Exception details =====" +
-                    $"\r\n{e}",
+                    $"\r\n{e.Exception}",
                     "Ink Canvas Better",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
@@ -54,7 +54,7 @@ namespace Ink_Canvas_Better
             };
             TaskScheduler.UnobservedTaskException += (sender, e) =>
             {
-                logger.LogError(e.Exception.StackTrace);
+                logger.LogError(e.Exception.ToString());
                 e.SetObserved();
             };
             #endregion
@@ -72,10 +72,9 @@ namespace Ink_Canvas_Better
                 Environment.Exit(0);
             }
 
-            settingsService.ReadSettings();
             mainWindow.Show();
 
-            logger.LogInformation($"===== Ink Canvas Better (v{settingsService.Settings.Version}) is running =====");
+            logger.LogInformation($"===== Ink Canvas Better (v{settingsService.Settings.AppVersion}) is running =====");
         }
 
         void App_OnExit(object sender, ExitEventArgs e)
