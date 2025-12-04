@@ -1,4 +1,4 @@
-﻿<base:FloatingBarComponentBase xmlns:base="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar"
+﻿<UserControl xmlns:base="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar"
                                x:Class="Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl.MultifunctionControl"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -44,4 +44,4 @@
                        Visibility="Collapsed"/>
         </StackPanel>
     </Grid>
-</base:FloatingBarComponentBase>
+</UserControl>

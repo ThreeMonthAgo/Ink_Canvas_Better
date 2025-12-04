@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
 using Ink_Canvas_Better.Logging;
@@ -106,6 +105,7 @@ namespace Ink_Canvas_Better
         private static void RegisterControls()
         {
             ControlsService controlsService = GetService<ControlsService>();
+            controlsService.TryRegisterControl<FloatingBar>(FloatingBar.Guid);
             controlsService.TryRegisterControl<FloatingBarGroup>(FloatingBarGroup.Guid);
             controlsService.TryRegisterControl<MultifunctionControl>(MultifunctionControl.Guid);
             //controlsService.TryRegisterControl<CursorControl>(CursorControl.ControlGuid);

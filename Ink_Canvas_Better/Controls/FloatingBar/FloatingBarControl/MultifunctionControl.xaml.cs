@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -14,7 +15,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl
     /// <summary>
     /// MultifunctionControl.xaml 的交互逻辑
     /// </summary>
-    public partial class MultifunctionControl : FloatingBarComponentBase, IFloatingBarComponentSettingBase
+    public partial class MultifunctionControl : UserControl, IFloatingBarComponentSettingBase
     {
         public static string Guid { get; } = "03C5FD8D-2880-40F7-BAC5-9D83C347162C";
         public string ComponentGuid => Guid; 

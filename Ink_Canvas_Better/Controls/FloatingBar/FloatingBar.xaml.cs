@@ -11,7 +11,7 @@ using Ink_Canvas_Better.Services;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar
 {
-    public partial class FloatingBar : FloatingBarComponentBase, IFloatingBarComponentSettingBase
+    public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
     {
         public static string Guid { get; } = "D4F5C8A1-6E2B-4F3A-9C1E-2B7D8F9A0B1C";
         public string ComponentGuid => Guid;

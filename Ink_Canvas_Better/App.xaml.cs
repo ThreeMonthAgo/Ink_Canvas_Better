@@ -3,7 +3,6 @@ using System.Data;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
 using iNKORE.UI.WPF.Modern.Common;

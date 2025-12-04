@@ -12,14 +12,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Ink_Canvas_Better.Interface;
-using Ink_Canvas_Better.Services;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar
 {
     /// <summary>
     /// FloatingBarGroup.xaml 的交互逻辑
     /// </summary>
-    public partial class FloatingBarGroup : FloatingBarComponentBase, IFloatingBarComponentSettingBase
+    public partial class FloatingBarGroup : UserControl, IFloatingBarComponentSettingBase
     {
         public static string Guid { get; } = "B1E2F3A4-5678-90AB-CDEF-1234567890AB";
         public string ComponentGuid => Guid;

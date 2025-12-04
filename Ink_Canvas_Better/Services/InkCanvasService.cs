@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.Windows;
 using static Ink_Canvas_Better.Enums;
 

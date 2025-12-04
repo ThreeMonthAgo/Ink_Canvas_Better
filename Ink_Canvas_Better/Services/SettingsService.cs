@@ -5,27 +5,29 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text.Json;
 using System.Windows;
 using Ink_Canvas_Better.Controls.FloatingBar;
 using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Interface;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Services
 {
     public class SettingsService
     {
         private readonly ILogger<SettingsService> logger;
+        private readonly ControlsService controlsService;
 
         public string SettingsFilePath = "Settings.json";
 
         public Settings Settings { get; private set; }
 
-        public SettingsService(ILogger<SettingsService> logger)
+        public SettingsService(ILogger<SettingsService> logger, ControlsService controlsService)
         {
             this.logger = logger;
+            this.controlsService = controlsService;
 
             LoadSettings();
         }
@@ -43,11 +45,11 @@ namespace Ink_Canvas_Better.Services
                     );
                     using var reader = new StreamReader(stream);
                     var json = reader.ReadToEnd();
-                    Settings = JsonSerializer.Deserialize<Settings>(json) ?? new();
+                    Settings = JsonConvert.DeserializeObject<Settings>(json, controlsService) ?? new();
                 }
                 catch (Exception ex)
                 {
-                    logger.LogWarning($"Load settings failed, creating a new noe. {ex.Message}"); // TODO: Perhaps a need to inform the user?
+                    logger.LogWarning($"Load settings failed, creating a new one. {ex.Message}"); // TODO: Perhaps a need to inform the user?
                     Settings = new();
                     SaveSettings();
                 }
@@ -62,10 +64,10 @@ namespace Ink_Canvas_Better.Services
 
         public void SaveSettings()
         {
-            var json = JsonSerializer.Serialize(Settings);
+            var json = JsonConvert.SerializeObject(Settings, controlsService);
             using var stream = new FileStream(
                 SettingsFilePath,
-                FileMode.Open,
+                FileMode.OpenOrCreate,
                 FileAccess.Write,
                 FileShare.ReadWrite
             );
@@ -87,11 +89,13 @@ namespace Ink_Canvas_Better.Services
             [
                 new FloatingBar(){
                     Items = [
+                        ActivatorUtilities.CreateInstance<MultifunctionControl>(Program.Host.Services),
+                        ActivatorUtilities.CreateInstance<MultifunctionControl>(Program.Host.Services),
+                        ActivatorUtilities.CreateInstance<MultifunctionControl>(Program.Host.Services),
                         ActivatorUtilities.CreateInstance<MultifunctionControl>(Program.Host.Services)
                     ]
                 }
             ];
-
 
 
         public Version SettingsVersion
