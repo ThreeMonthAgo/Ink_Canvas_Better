@@ -27,9 +27,11 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     private bool _isMouseDown = false;
     private Point _mouseDownPos, _mouseUpPos, _mouseDownControlPos, _currentMousePos;
 
-    public MultifunctionControl()
+    public MultifunctionControl(MainWindow mainWindow)
     {
         InitializeComponent();
+        this.mainWindow = mainWindow;
+
         this.MouseDown += MultifuntionControl_MouseDown;
         this.MouseUp += MultifuntionControl_MouseUp;
     }
