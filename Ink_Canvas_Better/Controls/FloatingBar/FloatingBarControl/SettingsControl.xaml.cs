@@ -16,14 +16,25 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 /// </summary>
 public partial class SettingsControl : UserControl, IFloatingBarComponentSettingBase
 {
+    private SettingsWindow settingsWindow;
+
     public static string Guid { get; } = "8AA94A7A-4847-4ED2-930F-292A7BFBA7CB";
     public string ComponentGuid => Guid;
     public object Settings { get; set; } = new SettingsControlSettings();
     public SettingsControlSettings SettingsControlSettings => Settings as SettingsControlSettings;
 
-    public SettingsControl()
+    public SettingsControl(SettingsWindow settingsWindow)
     {
+        this.settingsWindow = settingsWindow;
+
         InitializeComponent();
+
+        this.MouseUp += SettingsControl_MouseUp;
+    }
+
+    private void SettingsControl_MouseUp(object sender, MouseButtonEventArgs e)
+    {
+        settingsWindow.Show();
     }
 
     #region Properties
@@ -213,6 +224,8 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
     #endregion
 
     #endregion
+
+
 }
 
 public class SettingsControlSettings

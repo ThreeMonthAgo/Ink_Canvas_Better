@@ -29,6 +29,7 @@ namespace Ink_Canvas_Better.Services
 
             LoadSettings();
         }
+
         public void LoadSettings()
         {
             if (File.Exists(SettingsFilePath))
@@ -72,6 +73,11 @@ namespace Ink_Canvas_Better.Services
             using var writer = new StreamWriter(stream);
             writer.Write(json);
         }
+
+        public void ResetSettings()
+        {
+            throw new NotImplementedException();// TODO
+        }
     }
 
     #region Settings
@@ -84,7 +90,7 @@ namespace Ink_Canvas_Better.Services
         private Version _appVersion = Application.ResourceAssembly.GetName().Version ??= new Version(0, 0, 0, 0); // 0.0.0.0 => something is wrong
         private Version _settingsVersion = new(2, 0, 0, 0); // Current settings version
         private ObservableCollection<IFloatingBarComponentSettingBase> _floatingBarCollection = [];
-
+        private string _logDirPath = "./Logs/";
 
         public Version SettingsVersion
         {
@@ -100,6 +106,11 @@ namespace Ink_Canvas_Better.Services
         {
             get { return _floatingBarCollection; }
             set { _floatingBarCollection = value; OnPropertyChanged(); }
+        }
+        public string LogDirPath
+        {
+            get { return _logDirPath; }
+            set { _logDirPath = value; OnPropertyChanged(); }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

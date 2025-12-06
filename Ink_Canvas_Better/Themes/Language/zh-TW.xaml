@@ -4,8 +4,8 @@
                     xml:space="preserve">
     <!-- About -->
     <s:String x:Key="Text_ProductName">Ink Canvas Better</s:String>
-    <s:String x:Key="Text_Author">BaiYang2238</s:String>
-    <s:String x:Key="Text_Author1">theMonthBeforeLastMonth</s:String>
+    <s:String x:Key="Text_Author">ThreeMonthAgo</s:String>
+    <s:String x:Key="Text_Author1">BaiYang2238</s:String>
     <s:String x:Key="Text_CurrentLanguage">繁體中文</s:String>
 
     <!-- Floating bar -->
@@ -55,7 +55,7 @@
         <s:String x:Key="Text_Setting_GoToGithubRepository">原始碼託管於 Github，點此訪問 Github 倉庫&#10;我們的 Github 倉庫：github.com/BaiYang2238/Ink-Canvas-Better</s:String>
         <s:String x:Key="Text_Setting_Language">語言</s:String>
         <s:String x:Key="Text_ResetSettings">重設設定</s:String>
-        <s:String x:Key="Text_OpenLog">開啟日誌</s:String>
+        <s:String x:Key="Text_OpenLogDir">打開日誌目錄</s:String>
         <!-- Appearance -->
         <s:String x:Key="Text_Setting_Theme">主題</s:String>
         <s:String x:Key="Text_Setting_Auto">自動</s:String>

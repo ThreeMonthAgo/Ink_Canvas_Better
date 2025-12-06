@@ -48,6 +48,7 @@ namespace Ink_Canvas_Better
                     service.AddSingleton<SettingsService>();
                     service.AddSingleton<ControlsService>();
                     service.AddSingleton<InkCanvasService>();
+                    service.AddSingleton<SettingsWindow>();
                     // UI
                     service.AddSingleton<App>();
                     service.AddSingleton<MainWindow>();
