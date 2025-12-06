@@ -12,26 +12,18 @@ using Ink_Canvas_Better.Windows;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 /// <summary>
-/// MultifunctionControl.xaml 的交互逻辑
+/// SettingsControl.xaml 的交互逻辑
 /// </summary>
-public partial class MultifunctionControl : UserControl, IFloatingBarComponentSettingBase
+public partial class SettingsControl : UserControl, IFloatingBarComponentSettingBase
 {
-    public static string Guid { get; } = "03C5FD8D-2880-40F7-BAC5-9D83C347162C";
-    public string ComponentGuid => Guid; 
-    public object Settings { get; set; } = new MultifunctionControlSettings();
-    public MultifunctionControlSettings MultifunctionControlSettings => Settings as MultifunctionControlSettings;
+    public static string Guid { get; } = "8AA94A7A-4847-4ED2-930F-292A7BFBA7CB";
+    public string ComponentGuid => Guid;
+    public object Settings { get; set; } = new SettingsControlSettings();
+    public SettingsControlSettings SettingsControlSettings => Settings as SettingsControlSettings;
 
-    FloatingBar floatingBar;
-
-    private bool _isMouseDown = false;
-    private Point _mouseDownPos, _mouseUpPos, _mouseDownControlPos, _currentMousePos;
-
-    public MultifunctionControl()
+    public SettingsControl()
     {
         InitializeComponent();
-
-        this.MouseDown += MultifuntionControl_MouseDown;
-        this.MouseUp += MultifuntionControl_MouseUp;
     }
 
     #region Properties
@@ -45,7 +37,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty SourceProperty =
-        DependencyProperty.Register("Source", typeof(ImageSource), typeof(MultifunctionControl), new PropertyMetadata(null));
+        DependencyProperty.Register("Source", typeof(ImageSource), typeof(SettingsControl), new PropertyMetadata(null));
 
     #endregion
 
@@ -58,7 +50,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty TextProperty =
-        DependencyProperty.Register("Text", typeof(string), typeof(MultifunctionControl), new PropertyMetadata("Text"));
+        DependencyProperty.Register("Text", typeof(string), typeof(SettingsControl), new PropertyMetadata("Text"));
 
     #endregion
 
@@ -71,7 +63,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty TextVisibilityProperty =
-        DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof(MultifunctionControl), new PropertyMetadata(Visibility.Collapsed));
+        DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof(SettingsControl), new PropertyMetadata(Visibility.Collapsed));
 
     #endregion
 
@@ -84,7 +76,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty ImageWidthProperty =
-        DependencyProperty.Register("ImageWidth", typeof(double), typeof(MultifunctionControl), new PropertyMetadata(40d));
+        DependencyProperty.Register("ImageWidth", typeof(double), typeof(SettingsControl), new PropertyMetadata(40d));
 
     #endregion
 
@@ -97,7 +89,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty ImageHeightProperty =
-        DependencyProperty.Register("ImageHeight", typeof(double), typeof(MultifunctionControl), new PropertyMetadata(40d));
+        DependencyProperty.Register("ImageHeight", typeof(double), typeof(SettingsControl), new PropertyMetadata(40d));
 
     #endregion
 
@@ -112,7 +104,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty TitleProperty =
-        DependencyProperty.Register(nameof(Title), typeof(string), typeof(MultifunctionControl), new PropertyMetadata("Subpanel"));
+        DependencyProperty.Register(nameof(Title), typeof(string), typeof(SettingsControl), new PropertyMetadata("Subpanel"));
 
     #endregion
 
@@ -125,7 +117,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty IsOpenProperty =
-        DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(MultifunctionControl), new PropertyMetadata(false));
+        DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(SettingsControl), new PropertyMetadata(false));
 
     #endregion
 
@@ -138,7 +130,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty StaysOpenProperty =
-        DependencyProperty.Register(nameof(StaysOpen), typeof(bool), typeof(MultifunctionControl), new PropertyMetadata(false));
+        DependencyProperty.Register(nameof(StaysOpen), typeof(bool), typeof(SettingsControl), new PropertyMetadata(false));
 
     #endregion
 
@@ -151,7 +143,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty PlacementTargetProperty =
-        DependencyProperty.Register(nameof(PlacementTarget), typeof(UIElement), typeof(MultifunctionControl), new PropertyMetadata(null));
+        DependencyProperty.Register(nameof(PlacementTarget), typeof(UIElement), typeof(SettingsControl), new PropertyMetadata(null));
 
     #endregion
 
@@ -164,7 +156,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty TitleBarHeightProperty =
-        DependencyProperty.Register(nameof(TitleBarHeight), typeof(double), typeof(MultifunctionControl), new PropertyMetadata(36d));
+        DependencyProperty.Register(nameof(TitleBarHeight), typeof(double), typeof(SettingsControl), new PropertyMetadata(36d));
 
     #endregion
 
@@ -177,7 +169,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty CornerRadiusProperty =
-        DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(MultifunctionControl), new PropertyMetadata(new CornerRadius(4d)));
+        DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(SettingsControl), new PropertyMetadata(new CornerRadius(4d)));
 
     #endregion
 
@@ -190,7 +182,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty PlacementProperty =
-        DependencyProperty.Register(nameof(Placement), typeof(PlacementMode), typeof(MultifunctionControl), new PropertyMetadata(PlacementMode.Top));
+        DependencyProperty.Register(nameof(Placement), typeof(PlacementMode), typeof(SettingsControl), new PropertyMetadata(PlacementMode.Top));
 
     #endregion
 
@@ -203,7 +195,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty PopupAnimationProperty =
-        DependencyProperty.Register(nameof(PopupAnimation), typeof(PopupAnimation), typeof(MultifunctionControl), new PropertyMetadata(PopupAnimation.Slide));
+        DependencyProperty.Register(nameof(PopupAnimation), typeof(PopupAnimation), typeof(SettingsControl), new PropertyMetadata(PopupAnimation.Slide));
 
     #endregion
 
@@ -216,53 +208,15 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 
     public static readonly DependencyProperty PlacementRectangleProperty =
-        DependencyProperty.Register(nameof(PlacementRectangle), typeof(Rect), typeof(MultifunctionControl), new PropertyMetadata(new Rect(0, 0, 0, 0)));
+        DependencyProperty.Register(nameof(PlacementRectangle), typeof(Rect), typeof(SettingsControl), new PropertyMetadata(new Rect(0, 0, 0, 0)));
 
     #endregion
 
     #endregion
-
-    private void MultifuntionControl_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-        floatingBar = Ink_Canvas_Better.Helpers.VisualTreeHelper.GetParent<FloatingBar>(this);
-        if (floatingBar == null)
-        {
-            return;
-        }
-        _isMouseDown = true;
-        _mouseDownPos = e.GetPosition(null);
-        if (floatingBar.RenderTransform is not TranslateTransform transform)
-        {
-            transform = new TranslateTransform();
-        }
-        _mouseDownControlPos = new Point(transform.X, transform.Y);
-        this.MouseMove += MultifuntionControl_MouseMove;
-        this.CaptureMouse();
-        e.Handled = true;
-    }
-
-    private void MultifuntionControl_MouseMove(object sender, MouseEventArgs e)
-    {
-        if (_isMouseDown)
-        {
-            TranslateTransform transform = (TranslateTransform)floatingBar.RenderTransform;
-            _currentMousePos = e.GetPosition(null);
-            transform.X = _mouseDownControlPos.X + _currentMousePos.X - _mouseDownPos.X;
-            transform.Y = _mouseDownControlPos.Y + _currentMousePos.Y - _mouseDownPos.Y;
-        }
-    }
-
-    private void MultifuntionControl_MouseUp(object sender, MouseButtonEventArgs e)
-    {
-        this.MouseMove -= MultifuntionControl_MouseMove;
-        this.ReleaseMouseCapture();
-        _isMouseDown = false;
-        _mouseUpPos = e.GetPosition(null);
-        // TODO: fold the floatingbar
-    }
 }
 
-public class MultifunctionControlSettings
+public class SettingsControlSettings
 {
 
 }
+

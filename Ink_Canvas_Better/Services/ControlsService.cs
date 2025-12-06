@@ -17,7 +17,7 @@ namespace Ink_Canvas_Better.Services
     public class ControlsService(IServiceProvider serviceProvider, ILogger<ControlsService> logger) : JsonConverter
     {
         private readonly IServiceProvider serviceProvider = serviceProvider;
-        private readonly ILogger<ControlsService> logger;
+        private readonly ILogger<ControlsService> logger = logger;
 
         public ConcurrentDictionary<string, Type> RegisteredControls = new();
 

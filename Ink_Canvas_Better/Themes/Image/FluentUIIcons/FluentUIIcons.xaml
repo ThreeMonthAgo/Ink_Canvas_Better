@@ -7,6 +7,7 @@
         <ResourceDictionary Source="/Themes/Image/FluentUIIcons/Cursor.xaml"/>
         <ResourceDictionary Source="/Themes/Image/FluentUIIcons/Dismiss.xaml"/>
         <ResourceDictionary Source="/Themes/Image/FluentUIIcons/Calligraphy Pen.xaml"/>
+        <ResourceDictionary Source="/Themes/Image/FluentUIIcons/Settings.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
     

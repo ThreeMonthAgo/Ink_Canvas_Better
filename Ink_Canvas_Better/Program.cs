@@ -9,7 +9,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ink_Canvas_Better.Controls.FloatingBar;
 using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
-using System.Runtime.CompilerServices;
 
 namespace Ink_Canvas_Better
 {
@@ -60,22 +59,9 @@ namespace Ink_Canvas_Better
                     {
                         configuration.Loggers =
                         [
-                            new FileLogger(() =>
-                            {
-                                return new FileLoggerConfiguration()
-                                {
-                                    MinimumLogLevel = LogLevel.Information,
-                                };
-                            }),
+                            new FileLogger(() => new FileLoggerConfiguration() { MinimumLogLevel = LogLevel.Information } ),
 #if DEBUG
-                            new ConsoleLogger(() =>
-                            {
-                                return new ConsoleLoggerConfiguration()
-                                {
-                                    MinimumLogLevel = LogLevel.Debug,
-                                    OutputTarget = OutputTarget.Debug,
-                                };
-                            }),
+                            new ConsoleLogger(() => new ConsoleLoggerConfiguration() { MinimumLogLevel = LogLevel.Debug, OutputTarget = OutputTarget.Debug } ),
 #endif
                         ];
                     });
@@ -108,6 +94,7 @@ namespace Ink_Canvas_Better
             controlsService.TryRegisterControl<FloatingBar>(FloatingBar.Guid);
             controlsService.TryRegisterControl<FloatingBarGroup>(FloatingBarGroup.Guid);
             controlsService.TryRegisterControl<MultifunctionControl>(MultifunctionControl.Guid);
+            controlsService.TryRegisterControl<SettingsControl>(SettingsControl.Guid);
             //controlsService.TryRegisterControl<CursorControl>(CursorControl.ControlGuid);
             //controlsService.TryRegisterControl<PenControl>(PenControl.ControlGuid);
         }

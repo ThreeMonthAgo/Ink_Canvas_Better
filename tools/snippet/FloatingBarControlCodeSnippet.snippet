@@ -15,7 +15,7 @@
 			   </Literal>
 			   <Literal>
 				   <ID>Guid</ID>
-				   <Default>{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}</Default>
+				   <Default>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</Default>
 			   </Literal>
 		   </Declarations>
            <Code Language="csharp">
@@ -38,7 +38,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 /// </summary>
 public partial class $FloatingBarControlName$ : UserControl, IFloatingBarComponentSettingBase
 {
-    public static string Guid { get; } = "03C5FD8D-2880-40F7-BAC5-9D83C347162C";
+    public static string Guid { get; } = "$Guid$";
     public string ComponentGuid => Guid; 
     public object Settings { get; set; } = new $FloatingBarControlName$Settings();
     public $FloatingBarControlName$Settings $FloatingBarControlName$Settings => Settings as $FloatingBarControlName$Settings;

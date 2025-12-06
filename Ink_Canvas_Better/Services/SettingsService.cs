@@ -7,9 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using Ink_Canvas_Better.Controls.FloatingBar;
-using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Interface;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
