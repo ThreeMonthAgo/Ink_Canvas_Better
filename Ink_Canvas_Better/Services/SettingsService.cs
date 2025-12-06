@@ -85,17 +85,7 @@ namespace Ink_Canvas_Better.Services
     {
         private Version _appVersion = Application.ResourceAssembly.GetName().Version ??= new Version(0, 0, 0, 0); // 0.0.0.0 => something is wrong
         private Version _settingsVersion = new(2, 0, 0, 0); // Current settings version
-        private ObservableCollection<IFloatingBarComponentSettingBase> _floatingBarCollection =
-            [
-                new FloatingBar(){
-                    Items = [
-                        ActivatorUtilities.CreateInstance<MultifunctionControl>(Program.Host.Services),
-                        ActivatorUtilities.CreateInstance<MultifunctionControl>(Program.Host.Services),
-                        ActivatorUtilities.CreateInstance<MultifunctionControl>(Program.Host.Services),
-                        ActivatorUtilities.CreateInstance<MultifunctionControl>(Program.Host.Services)
-                    ]
-                }
-            ];
+        private ObservableCollection<IFloatingBarComponentSettingBase> _floatingBarCollection = [];
 
 
         public Version SettingsVersion

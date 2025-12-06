@@ -1,8 +1,10 @@
 ﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.DirectoryServices.ActiveDirectory;
 using System.Reflection;
 using Ink_Canvas_Better.Interface;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -12,9 +14,10 @@ namespace Ink_Canvas_Better.Services
     /// <summary>
     /// Provides registration, instantiation, and json serialization support for floating bar controls
     /// </summary>
-    public class ControlsService(IServiceProvider serviceProvider) : JsonConverter
+    public class ControlsService(IServiceProvider serviceProvider, ILogger<ControlsService> logger) : JsonConverter
     {
-        IServiceProvider serviceProvider = serviceProvider;
+        private readonly IServiceProvider serviceProvider = serviceProvider;
+        private readonly ILogger<ControlsService> logger;
 
         public ConcurrentDictionary<string, Type> RegisteredControls = new();
 
@@ -69,40 +72,59 @@ namespace Ink_Canvas_Better.Services
 
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            writer.WriteStartObject();
-            var properties = value.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.CanRead &&
-                           p.GetCustomAttribute<JsonIgnoreAttribute>() == null &&
-                           p.Name != "ComponentGuid");
-
-            foreach (var item in properties)
+            if (value == null)
             {
-                writer.WritePropertyName(item.Name);
-                writer.WriteValue(item.GetValue(value));
+                writer.WriteNull();
+                return;
             }
 
+            writer.WriteStartObject();
+            var p = typeof(IFloatingBarComponentSettingBase).GetProperties();
+            foreach (var p1 in p)
+            {
+                try
+                {
+                    var v = p1.GetValue(value);
+                    writer.WritePropertyName(p1.Name);
+                    serializer.Serialize(writer, v);
+                }
+                catch (Exception ex)
+                {
+                    logger.LogWarning($"Error serializing property {p1.Name}: {ex}");
+                    writer.WritePropertyName(p1.Name);
+                    writer.WriteNull();
+                }
+            }
             writer.WriteEndObject();
         }
 
         public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
-            var jsonObject = JObject.Load(reader);
-            object target;
-            if (jsonObject.TryGetValue("ComponentGuid", out JToken guid))
+            var jobj = JObject.Load(reader);
+
+            if (!jobj.TryGetValue("ComponentGuid", out JToken? guidToken))
             {
-                string s = guid.ToString();
-                if (RegisteredControls.TryGetValue(s, out Type? value))
-                {
-                    target = value;
-                }
-                else
-                {
-                    throw new JsonReaderException($"Component with guid {{{s}}} unregistered");
-                }
+                throw new JsonSerializationException("ComponentGuid is required for deserialization");
             }
-            else throw new JsonReaderException();
-            serializer.Populate(jsonObject.CreateReader(), target);
-            return target;
+
+            string guid = guidToken.ToString();
+
+            if (!RegisteredControls.TryGetValue(guid, out Type? type))
+            {
+                throw new JsonSerializationException($"Component with guid {{{guid}}} is not registered");
+            }
+
+            object instance = ActivatorUtilities.CreateInstance(serviceProvider, type)
+                ?? throw new JsonSerializationException($"Failed to create instance of {type.Name}");
+
+            jobj.Remove("ComponentGuid");
+
+            using (var jsonReader = jobj.CreateReader())
+            {
+                serializer.Populate(jsonReader, instance);
+            }
+
+            return instance;
         }
     }
 }

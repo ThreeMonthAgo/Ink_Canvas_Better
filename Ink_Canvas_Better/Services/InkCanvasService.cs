@@ -16,7 +16,7 @@ namespace Ink_Canvas_Better.Services
     {
         private readonly SolidColorBrush NearlyTransparent = new(Color.FromArgb(1,255,255,255));
         private readonly SolidColorBrush Transparent = Brushes.Transparent;
-        private MainWindow mainWindow = mainWindow;
+        private readonly MainWindow mainWindow = mainWindow;
 
 
         private EditingMode _currentEditingMode;

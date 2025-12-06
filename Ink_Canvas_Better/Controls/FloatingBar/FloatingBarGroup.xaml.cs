@@ -13,56 +13,60 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Ink_Canvas_Better.Interface;
 
-namespace Ink_Canvas_Better.Controls.FloatingBar
+namespace Ink_Canvas_Better.Controls.FloatingBar;
+/// <summary>
+/// FloatingBarGroup.xaml 的交互逻辑
+/// </summary>
+public partial class FloatingBarGroup : UserControl, IFloatingBarComponentSettingBase
 {
-    /// <summary>
-    /// FloatingBarGroup.xaml 的交互逻辑
-    /// </summary>
-    public partial class FloatingBarGroup : UserControl, IFloatingBarComponentSettingBase
+    public static string Guid { get; } = "B1E2F3A4-5678-90AB-CDEF-1234567890AB";
+    public string ComponentGuid => Guid;
+    public object Settings { get; set; } = new FloatingBarGroupSettings();
+    public FloatingBarGroupSettings FloatingBarGroupSettings => Settings as FloatingBarGroupSettings;
+
+    public FloatingBarGroup()
     {
-        public static string Guid { get; } = "B1E2F3A4-5678-90AB-CDEF-1234567890AB";
-        public string ComponentGuid => Guid;
-        public ObservableCollection<IFloatingBarComponentSettingBase>? Items { get; set; } = [];
-
-        public FloatingBarGroup()
-        {
-            InitializeComponent();
-        }
-
-        public void Add(IFloatingBarComponentSettingBase component)
-        {
-            Items.Add(component);
-        }
-
-        #region dp
-
-        #region Orientation
-
-        public Orientation Orientation
-        {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
-        }
-
-        public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(FloatingBarGroup), new PropertyMetadata(Orientation.Horizontal));
-
-        #endregion
-
-        #region Spacing
-
-        public double Spacing
-        {
-            get { return (double)GetValue(SpacingProperty); }
-            set { SetValue(SpacingProperty, value); }
-        }
-
-        public static readonly DependencyProperty SpacingProperty =
-            DependencyProperty.Register(nameof(Spacing), typeof(double), typeof(FloatingBarGroup), new PropertyMetadata(0d));
-
-        #endregion
-
-        #endregion
-
+        InitializeComponent();
     }
+
+    public void Add(IFloatingBarComponentSettingBase component)
+    {
+        FloatingBarGroupSettings.Items.Add(component);
+    }
+
+    #region Properties
+
+    #region Orientation
+
+    public Orientation Orientation
+    {
+        get { return (Orientation)GetValue(OrientationProperty); }
+        set { SetValue(OrientationProperty, value); }
+    }
+
+    public static readonly DependencyProperty OrientationProperty =
+        DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(FloatingBarGroup), new PropertyMetadata(Orientation.Horizontal));
+
+    #endregion
+
+    #region Spacing
+
+    public double Spacing
+    {
+        get { return (double)GetValue(SpacingProperty); }
+        set { SetValue(SpacingProperty, value); }
+    }
+
+    public static readonly DependencyProperty SpacingProperty =
+        DependencyProperty.Register(nameof(Spacing), typeof(double), typeof(FloatingBarGroup), new PropertyMetadata(0d));
+
+    #endregion
+
+    #endregion
+
+}
+
+public class FloatingBarGroupSettings
+{
+    public ObservableCollection<IFloatingBarComponentSettingBase>? Items { get; set; } = [];
 }
