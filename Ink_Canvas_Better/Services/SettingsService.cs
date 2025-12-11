@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using Ink_Canvas_Better.Controls.FloatingBar;
+using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Interface;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -66,7 +67,7 @@ namespace Ink_Canvas_Better.Services
             var json = JsonConvert.SerializeObject(Settings, controlsService);
             using var stream = new FileStream(
                 SettingsFilePath,
-                FileMode.OpenOrCreate,
+                FileMode.Create,
                 FileAccess.Write,
                 FileShare.ReadWrite
             );
@@ -89,7 +90,13 @@ namespace Ink_Canvas_Better.Services
     {
         private Version _appVersion = Application.ResourceAssembly.GetName().Version ??= new Version(0, 0, 0, 0); // 0.0.0.0 => something is wrong
         private Version _settingsVersion = new(2, 0, 0, 0); // Current settings version
-        private ObservableCollection<IFloatingBarComponentSettingBase> _floatingBarCollection = [];
+        private ObservableCollection<IFloatingBarComponentSettingBase> _floatingBarCollection = [
+                Program.GetService<FloatingBar>()
+                    .Add(Program.GetService<FloatingBarGroup>()
+                            .Add(Program.GetService<MultifunctionControl>())
+                            .Add(Program.GetService<SettingsControl>())
+                    )
+            ];
         private string _logDirPath = "./Logs/";
 
         public Version SettingsVersion

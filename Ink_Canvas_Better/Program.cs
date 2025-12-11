@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Windows.Controls;
+using Ink_Canvas_Better.Controls.FloatingBar;
+using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
+using Ink_Canvas_Better.Logging;
+using Ink_Canvas_Better.Pages.Settings.Home;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
-using Ink_Canvas_Better.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Ink_Canvas_Better.Controls.FloatingBar;
-using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 
 namespace Ink_Canvas_Better
 {
@@ -26,6 +30,11 @@ namespace Ink_Canvas_Better
         public static string RootPath { get; } = Environment.GetEnvironmentVariable("APPDATA") + "\\Ink Canvas Better\\";
 
         /// <summary>
+        /// Used for check
+        /// </summary>
+        public readonly static ConcurrentDictionary<string, Type> RegisteredControls = new();
+
+        /// <summary>
         /// Entry Point
         /// </summary>
         /// <param name="args"></param>
@@ -34,7 +43,6 @@ namespace Ink_Canvas_Better
         {
             StartupArgs = args;
             Init();
-
             GetService<App>().Run();
         }
 
@@ -48,10 +56,27 @@ namespace Ink_Canvas_Better
                     service.AddSingleton<SettingsService>();
                     service.AddSingleton<ControlsService>();
                     service.AddSingleton<InkCanvasService>();
-                    service.AddSingleton<SettingsWindow>();
                     // UI
                     service.AddSingleton<App>();
                     service.AddSingleton<MainWindow>();
+                    service.AddSingleton<SettingsWindow>();
+                    // Pages
+                    service.AddSingleton<HomePage>();
+                    // FloatingBarComponent
+                    RegComponents<FloatingBar>(FloatingBar.Guid);
+                    RegComponents<FloatingBarGroup>(FloatingBarGroup.Guid);
+                    RegComponents<MultifunctionControl>(MultifunctionControl.Guid);
+                    RegComponents<SettingsControl>(SettingsControl.Guid);
+
+                    void RegComponents<T>(string guid)
+                    {
+                        if (RegisteredControls.ContainsKey(guid) | !RegisteredControls.TryAdd(guid, typeof(T)))
+                        {
+                            Debug.WriteLine($"Component with guid {{{guid}}} failed to register");
+                            return;
+                        }
+                        service.AddTransient(typeof(T));
+                    }
                 }).
                 ConfigureLogging((context, logging) =>
                 {
@@ -68,7 +93,21 @@ namespace Ink_Canvas_Better
                     });
                 }).
                 Build();
-            RegisterControls();
+        }
+
+        public static object GetService(Type t)
+        {
+            var s = Host?.Services.GetService(t);
+            if (s != null)
+            {
+                return s;
+            }
+            throw new ArgumentException($"Service {s} is null!");
+        }
+
+        public static object? TryGetService(Type t)
+        {
+            return Host?.Services.GetService(t);
         }
 
         public static T GetService<T>()
@@ -84,20 +123,6 @@ namespace Ink_Canvas_Better
         public static T? TryGetService<T>()
         {
             return (T?)Host?.Services.GetService(typeof(T));
-        }
-
-        /// <summary>
-        /// Register custom controls here.
-        /// </summary>
-        private static void RegisterControls()
-        {
-            ControlsService controlsService = GetService<ControlsService>();
-            controlsService.TryRegisterControl<FloatingBar>(FloatingBar.Guid);
-            controlsService.TryRegisterControl<FloatingBarGroup>(FloatingBarGroup.Guid);
-            controlsService.TryRegisterControl<MultifunctionControl>(MultifunctionControl.Guid);
-            controlsService.TryRegisterControl<SettingsControl>(SettingsControl.Guid);
-            //controlsService.TryRegisterControl<CursorControl>(CursorControl.ControlGuid);
-            //controlsService.TryRegisterControl<PenControl>(PenControl.ControlGuid);
         }
     }
 }

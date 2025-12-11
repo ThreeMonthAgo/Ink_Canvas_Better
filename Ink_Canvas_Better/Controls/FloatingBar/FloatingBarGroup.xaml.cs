@@ -29,9 +29,10 @@ public partial class FloatingBarGroup : UserControl, IFloatingBarComponentSettin
         InitializeComponent();
     }
 
-    public void Add(IFloatingBarComponentSettingBase component)
+    public FloatingBarGroup Add(IFloatingBarComponentSettingBase component)
     {
         FloatingBarGroupSettings.Items.Add(component);
+        return this;
     }
 
     #region Properties

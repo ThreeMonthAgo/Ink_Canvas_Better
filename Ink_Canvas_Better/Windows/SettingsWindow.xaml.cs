@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using Ink_Canvas_Better.Pages.Settings.Home;
@@ -17,7 +18,6 @@ namespace Ink_Canvas_Better.Windows
         public SettingsWindow(HomePage homePage)
         {
             this.homePage = homePage;
-
             InitializeComponent();
         }
 
