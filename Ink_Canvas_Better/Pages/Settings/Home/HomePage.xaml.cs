@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using Ink_Canvas_Better.Services;
+using Ink_Canvas_Better.Windows;
 
 namespace Ink_Canvas_Better.Pages.Settings.Home
 {
@@ -13,10 +14,12 @@ namespace Ink_Canvas_Better.Pages.Settings.Home
     public partial class HomePage : Page
     {
         private SettingsService settingsService;
+        private Language language;
 
-        public HomePage(SettingsService settingsService)
+        public HomePage(SettingsService settingsService, Language language)
         {
             this.settingsService = settingsService;
+            this.language = language;
 
             InitializeComponent();
 
@@ -50,7 +53,7 @@ namespace Ink_Canvas_Better.Pages.Settings.Home
 
         private void SettingsCard_Github_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo("https://github.com/BaiYang2238/Ink-Canvas-Better") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo("https://github.com/ThreeMonthAgo/Ink_Canvas_Better") { UseShellExecute = true });
         }
 
         private void Home_Loaded(object sender, RoutedEventArgs e)
@@ -60,9 +63,7 @@ namespace Ink_Canvas_Better.Pages.Settings.Home
 
         private void SettingsCard_Language_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Language
-            //Language languageWindow = new Language();
-            //languageWindow.ShowDialog();
+            language.ShowDialog();
         }
 
         private void HyperlinkButton_Author_Click(object sender, RoutedEventArgs e)

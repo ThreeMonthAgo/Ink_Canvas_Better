@@ -60,6 +60,7 @@ namespace Ink_Canvas_Better
                     service.AddSingleton<App>();
                     service.AddSingleton<MainWindow>();
                     service.AddSingleton<SettingsWindow>();
+                    service.AddSingleton<Language>();
                     // Pages
                     service.AddSingleton<HomePage>();
                     // FloatingBarComponent

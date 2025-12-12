@@ -19,11 +19,18 @@ namespace Ink_Canvas_Better.Windows
         {
             this.homePage = homePage;
             InitializeComponent();
+
+            this.Loaded += SettingsWindow_Loaded;
+        }
+
+        private void SettingsWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            SettingNaviagtion_Item_Home.IsSelected = true;
         }
 
         private void Navigation_SelectionChanged(iUWM.Controls.NavigationView sender, iUWM.Controls.NavigationViewSelectionChangedEventArgs args)
         {
-            switch (((iUWM.Controls.NavigationView)sender.SelectedItem).Name)
+            switch (((iUWM.Controls.NavigationViewItem)sender.SelectedItem).Name)
             {
                 case "SettingNaviagtion_Item_Home":
                     SettingsFrame.Navigate(homePage);

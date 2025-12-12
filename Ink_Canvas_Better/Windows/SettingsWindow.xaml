@@ -8,7 +8,7 @@
         xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
         iuwm:WindowHelper.UseModernWindowStyle="True"
         iuwm:WindowHelper.SystemBackdropType="Mica"
-        Icon="/Themes/Ink Canvas Better.ico"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="{DynamicResource Text_SettingWindowTitle}"
         Topmost="True"
         MinHeight="500"
@@ -54,7 +54,7 @@
             -->
         </iuwm:NavigationView.MenuItems>
         <iuwm:NavigationView.Content>
-            <iuwm:Frame x:Name="SettingsFrame" Source="pack://application:,,,/Pages/Settings/Home/HomePage.xaml"/>
+            <iuwm:Frame x:Name="SettingsFrame"/>
         </iuwm:NavigationView.Content>
     </iuwm:NavigationView>
 </Window>

@@ -23,13 +23,17 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
     public object Settings { get; set; } = new SettingsControlSettings();
     public SettingsControlSettings SettingsControlSettings => Settings as SettingsControlSettings;
 
-    public SettingsControl(SettingsWindow settingsWindow)
+    public SettingsControl()
     {
-        this.settingsWindow = settingsWindow;
-
         InitializeComponent();
 
+        this.Loaded += SettingsControl_Loaded;
         this.MouseUp += SettingsControl_MouseUp;
+    }
+
+    private void SettingsControl_Loaded(object sender, RoutedEventArgs e)
+    {
+        this.settingsWindow = Program.GetService<SettingsWindow>();
     }
 
     private void SettingsControl_MouseUp(object sender, MouseButtonEventArgs e)
@@ -224,8 +228,6 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
     #endregion
 
     #endregion
-
-
 }
 
 public class SettingsControlSettings

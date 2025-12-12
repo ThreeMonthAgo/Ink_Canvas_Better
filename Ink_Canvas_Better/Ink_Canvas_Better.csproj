@@ -12,6 +12,14 @@
 </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Themes\Ink Canvas Better.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Themes\Ink Canvas Better.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.10.2.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
