@@ -51,7 +51,8 @@
         <!-- Home -->
         <s:String x:Key="Text_Setting_AppDescription">Ink Canvas Better is a completely open-source and free drawing tool. If you have any suggestions or issues, please visit our GitHub page. Thank you for using it!</s:String>
         <s:String x:Key="Text_Setting_Author">Author</s:String>
-        <s:String x:Key="Text_Setting_GoToGithubRepository">The source code is hosted on GitHub. Click here to visit our GitHub repository.&#10;Our Github repository: github.com/BaiYang2238/Ink-Canvas-Better</s:String>
+        <s:String x:Key="Text_Setting_GoToGithubRepository">The source code is hosted on GitHub. Click here to visit our GitHub repository.&#10;Our Github repository: https://github.com/ThreeMonthAgo/Ink_Canvas_Better</s:String>
+        <s:String x:Key="Text_Setting_License">GPL-3.0 license</s:String>
         <s:String x:Key="Text_Setting_Language">Language</s:String>
         <s:String x:Key="Text_ResetSettings">Reset Settings</s:String>
         <s:String x:Key="Text_OpenLogDir">Open Log Directory</s:String>

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -18,15 +19,17 @@ namespace Ink_Canvas_Better.Services
     {
         private readonly ILogger<SettingsService> logger;
         private readonly ControlsService controlsService;
+        private readonly ThemeService themeService;
 
         public string SettingsFilePath = "Settings.json";
 
-        public Settings Settings { get; private set; }
+        public Settings Settings { get; private set; } = new();
 
-        public SettingsService(ILogger<SettingsService> logger, ControlsService controlsService)
+        public SettingsService(ILogger<SettingsService> logger, ControlsService controlsService, ThemeService themeService)
         {
             this.logger = logger;
             this.controlsService = controlsService;
+            this.themeService = themeService;
 
             LoadSettings();
         }
@@ -98,6 +101,7 @@ namespace Ink_Canvas_Better.Services
                     )
             ];
         private string _logDirPath = "./Logs/";
+        private CultureInfo _cultureInfo = new CultureInfo("en");
 
         public Version SettingsVersion
         {
@@ -118,6 +122,12 @@ namespace Ink_Canvas_Better.Services
         {
             get { return _logDirPath; }
             set { _logDirPath = value; OnPropertyChanged(); }
+        }
+
+        public CultureInfo CultureInfo
+        {
+            get { return _cultureInfo; }
+            set { _cultureInfo = value; Program.GetService<ThemeService>().ChangeCultureInfo(CultureInfo); OnPropertyChanged(); }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

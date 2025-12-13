@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,12 @@ namespace Ink_Canvas_Better.Windows
             InitializeComponent();
 
             this.Loaded += SettingsWindow_Loaded;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
         }
 
         private void SettingsWindow_Loaded(object sender, RoutedEventArgs e)

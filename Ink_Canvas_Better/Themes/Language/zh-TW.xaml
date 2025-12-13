@@ -52,7 +52,8 @@
         <!-- Home -->
         <s:String x:Key="Text_Setting_AppDescription">Ink Canvas Better 是一個完全開源免費的畫板工具。如果您有任何建議或問題，請訪問我們的 GitHub 頁面。感謝您的使用！</s:String>
         <s:String x:Key="Text_Setting_Author">作者</s:String>
-        <s:String x:Key="Text_Setting_GoToGithubRepository">原始碼託管於 Github，點此訪問 Github 倉庫&#10;我們的 Github 倉庫：github.com/BaiYang2238/Ink-Canvas-Better</s:String>
+        <s:String x:Key="Text_Setting_GoToGithubRepository">原始碼託管於 Github，點此訪問 Github 倉庫&#10;我們的 Github 倉庫：https://github.com/ThreeMonthAgo/Ink_Canvas_Better</s:String>
+        <s:String x:Key="Text_Setting_License">GPL-3.0 license</s:String>
         <s:String x:Key="Text_Setting_Language">語言</s:String>
         <s:String x:Key="Text_ResetSettings">重設設定</s:String>
         <s:String x:Key="Text_OpenLogDir">打開日誌目錄</s:String>

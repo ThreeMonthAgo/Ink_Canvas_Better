@@ -43,12 +43,10 @@
                                 <TextBlock Text="{DynamicResource Text_OpenLogDir}" FontWeight="Bold"/>
                             </StackPanel>
                         </Button>
-                        <Button Click="ButtonResetSettings_Click"
-                                Background="{DynamicResource {x:Static iuwm:ThemeKeys.InfoBarWarningSeverityIconBackgroundKey}}"
-                                Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.InfoBarWarningSeverityIconForegroundKey}}">
+                        <Button Click="ButtonResetSettings_Click">
                             <StackPanel Orientation="Horizontal">
-                                <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.MobeSIMBusy}" Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.InfoBarWarningSeverityIconForegroundKey}}"/>
-                                <TextBlock Text="{DynamicResource Text_ResetSettings}" FontWeight="Bold" Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.InfoBarWarningSeverityIconForegroundKey}}"/>
+                                <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.MobeSIMBusy}"/>
+                                <TextBlock Text="{DynamicResource Text_ResetSettings}" FontWeight="Bold"/>
                             </StackPanel>
                         </Button>
                     </iuw:SimpleStackPanel>
@@ -78,7 +76,19 @@
                             <Image Source="{DynamicResource Image.Others.Github}"/>
                         </iuwm:SettingsCard.HeaderIcon>
                         <iuwm:SettingsCard.ActionIcon>
-                            <iuwm:FontIcon Glyph="&#xe8a7;"/>
+                            <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.OpenInNewWindow}"/>
+                        </iuwm:SettingsCard.ActionIcon>
+                    </iuwm:SettingsCard>
+                    <iuwm:SettingsCard
+                        Header="License"
+                        Click="SettingsCard_License_Click"
+                        IsClickEnabled="True"
+                        Description="{DynamicResource Text_Setting_License}">
+                        <iuwm:SettingsCard.HeaderIcon>
+                            <iuwm:FontIcon Icon="{x:Static iuwm:FluentSystemIcons.Certificate_24_Regular}" />
+                        </iuwm:SettingsCard.HeaderIcon>
+                        <iuwm:SettingsCard.ActionIcon>
+                            <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.OpenInNewWindow}"/>
                         </iuwm:SettingsCard.ActionIcon>
                     </iuwm:SettingsCard>
                 </iuwm:SettingsExpander.Items>

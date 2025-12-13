@@ -56,11 +56,12 @@ namespace Ink_Canvas_Better
                     service.AddSingleton<SettingsService>();
                     service.AddSingleton<ControlsService>();
                     service.AddSingleton<InkCanvasService>();
+                    service.AddSingleton<ThemeService>();
                     // UI
                     service.AddSingleton<App>();
                     service.AddSingleton<MainWindow>();
                     service.AddSingleton<SettingsWindow>();
-                    service.AddSingleton<Language>();
+                    service.AddSingleton<LanguageWindow>();
                     // Pages
                     service.AddSingleton<HomePage>();
                     // FloatingBarComponent

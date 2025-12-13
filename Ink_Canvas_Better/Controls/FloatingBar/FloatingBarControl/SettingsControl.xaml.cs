@@ -38,7 +38,15 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
 
     private void SettingsControl_MouseUp(object sender, MouseButtonEventArgs e)
     {
-        settingsWindow.Show();
+        if (settingsWindow.IsActive)
+        {
+            settingsWindow.Focus();
+        }
+        else
+        {
+            settingsWindow.Show();
+            settingsWindow.Activate();
+        }
     }
 
     #region Properties

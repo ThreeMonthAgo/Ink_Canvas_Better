@@ -36,7 +36,8 @@ namespace Ink_Canvas_Better
             #region log
             this.DispatcherUnhandledException += (sender, e) =>
             {
-                logger.LogCritical(e.Exception.StackTrace);
+                logger.LogCritical(e.Exception.ToString());
+                // TODO
                 iNKORE.UI.WPF.Modern.Controls.MessageBox.Show(
                     $"* An unexpected error has occurred, which may cause Ink Canvas Better to become unstable." +
                     $"\r\n* It is strongly recommended to save your work and restart the application." +
