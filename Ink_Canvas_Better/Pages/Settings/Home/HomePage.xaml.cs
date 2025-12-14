@@ -9,9 +9,6 @@ using Ink_Canvas_Better.Windows;
 
 namespace Ink_Canvas_Better.Pages.Settings.Home
 {
-    /// <summary>
-    /// HomePage.xaml 的交互逻辑
-    /// </summary>
     public partial class HomePage : Page
     {
         private SettingsService settingsService;
@@ -34,7 +31,7 @@ namespace Ink_Canvas_Better.Pages.Settings.Home
 
         private void ButtonRestart_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(Assembly.GetExecutingAssembly().Location, "-m");
+            Process.Start(Environment.ProcessPath);
             Application.Current.Shutdown();
         }
 
@@ -72,6 +69,7 @@ namespace Ink_Canvas_Better.Pages.Settings.Home
         private void HyperlinkButton_Author_Click(object sender, RoutedEventArgs e)
         {
             var name = ((iNKORE.UI.WPF.Modern.Controls.HyperlinkButton)sender).Content.ToString();
+            Process.Start(new ProcessStartInfo($"https://github.com/{name}") { UseShellExecute = true });
         }
 
         private void SettingsCard_License_Click(object sender, RoutedEventArgs e)

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Ink_Canvas_Better.Pages.Settings.Home"
       xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
       xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="{DynamicResource Text_Home}">
 
@@ -15,7 +15,7 @@
             <iuwm:SettingsCard Name="SettingsCard_About_1" Header="Ink Cnavas Better" Description="{DynamicResource Text_Setting_AppDescription}" IsClickEnabled="True">
                 <iuwm:SettingsCard.HeaderIcon>
                     <!--<iuwm:FontIcon Glyph="&#xf167;"/>-->
-                    <Image Source="/Themes/Ink Canvas Better.ico"/>
+                    <Image Source="/Themes/App.ico"/>
                 </iuwm:SettingsCard.HeaderIcon>
                 <iuwm:SettingsCard.Content>
                     <iuw:SimpleStackPanel Orientation="Horizontal" Spacing="5">
@@ -63,8 +63,8 @@
                             <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.GuestUser}"/>
                         </iuwm:SettingsCard.HeaderIcon>
                         <iuw:SimpleStackPanel Orientation="Horizontal">
-                            <iuwm:HyperlinkButton Content="{DynamicResource Text_Author}" FontSize="12" Click="HyperlinkButton_Author_Click"/>
-                            <iuwm:HyperlinkButton Content="{DynamicResource Text_Author1}" FontSize="12" Click="HyperlinkButton_Author_Click"/>
+                            <iuwm:HyperlinkButton Content="{DynamicResource Text_Author}" RaiseHyperlinkClicks="False" FontSize="12" Click="HyperlinkButton_Author_Click"/>
+                            <iuwm:HyperlinkButton Content="{DynamicResource Text_Author1}" RaiseHyperlinkClicks="False" FontSize="12" Click="HyperlinkButton_Author_Click"/>
                         </iuw:SimpleStackPanel>
                     </iuwm:SettingsCard>
                     <iuwm:SettingsCard

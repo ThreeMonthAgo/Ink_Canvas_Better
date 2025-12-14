@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 using System.Windows;
+using Ink_Canvas_Better.Pages.Settings.Appearance;
 using Ink_Canvas_Better.Pages.Settings.Home;
 using iUWM = iNKORE.UI.WPF.Modern;
 
@@ -15,10 +16,13 @@ namespace Ink_Canvas_Better.Windows
     public partial class SettingsWindow : Window
     {
         private HomePage homePage;
+        private AppearancePage appearancePage;
 
-        public SettingsWindow(HomePage homePage)
+        public SettingsWindow(HomePage homePage, AppearancePage appearancePage)
         {
             this.homePage = homePage;
+            this.appearancePage = appearancePage;
+
             InitializeComponent();
 
             this.Loaded += SettingsWindow_Loaded;
@@ -45,6 +49,7 @@ namespace Ink_Canvas_Better.Windows
                 case "SettingNaviagtion_Item_StartupAndUpdate":
                     break;
                 case "SettingNaviagtion_Item_Appearance":
+                    SettingsFrame.Navigate(appearancePage);
                     break;
                 case "SettingNaviagtion_Item_PPT":
                     break;

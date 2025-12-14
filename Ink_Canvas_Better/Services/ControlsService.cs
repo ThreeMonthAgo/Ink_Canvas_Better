@@ -17,7 +17,8 @@ namespace Ink_Canvas_Better.Services
     /// <summary>
     /// Converter
     /// </summary>
-    public class ControlsService(ILogger<ControlsService> logger) : JsonConverter
+    [Obsolete]
+    public class ControlsService(ILogger<ControlsService> logger) : Newtonsoft.Json.JsonConverter
     {
         private readonly ILogger<ControlsService> logger = logger;
 
@@ -65,12 +66,12 @@ namespace Ink_Canvas_Better.Services
 
             string guid = guidToken.ToString();
 
-            if (!Program.RegisteredControls.TryGetValue(guid, out Type? type))
+            if (!App.RegisteredControls.TryGetValue(guid, out Type? type))
             {
                 throw new JsonSerializationException($"Component with guid {{{guid}}} is not registered");
             }
 
-            object instance = Program.GetService(type);
+            object instance = App.GetService(type);
 
             jobj.Remove("ComponentGuid");
 

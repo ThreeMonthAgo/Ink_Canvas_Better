@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Windows;
 using Ink_Canvas_Better.Utilities.DataStructures;
+using iNKORE.UI.WPF.Modern;
 using Microsoft.Extensions.Logging;
 
 namespace Ink_Canvas_Better.Services
@@ -35,14 +37,29 @@ namespace Ink_Canvas_Better.Services
         private void ChangeLanguage(CultureInfo cultureInfo)
         {
             string path = $"Themes/Language/{cultureInfo}.xaml";
-            ResourceDictionary newDict;
-            newDict = new ResourceDictionary { Source = new Uri(path, UriKind.Relative) };
-            var oldDict = Application.Current.Resources.MergedDictionaries.FirstOrDefault(d => d.Source?.OriginalString.Contains("Languages/") == true);
+            ResourceDictionary newDict = new ResourceDictionary { Source = new Uri(path, UriKind.Relative) };
+            var oldDict = Application.Current.Resources.MergedDictionaries.FirstOrDefault(d => d.Source?.OriginalString.Contains("Language/") == true);
             if (oldDict != null)
             {
                 Application.Current.Resources.MergedDictionaries.Remove(oldDict);
             }
             Application.Current.Resources.MergedDictionaries.Add(newDict);
+        }
+
+        public void ChangeTheme(int Theme)
+        {
+            switch (Theme)
+            {
+                case 0:
+                    ThemeManager.Current.ApplicationTheme = null;
+                    break;
+                case 1:
+                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
+                    break;
+                case 2:
+                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
+                    break;
+            }
         }
     }
 }

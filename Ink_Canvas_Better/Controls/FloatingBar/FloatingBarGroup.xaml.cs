@@ -34,40 +34,11 @@ public partial class FloatingBarGroup : UserControl, IFloatingBarComponentSettin
         FloatingBarGroupSettings.Items.Add(component);
         return this;
     }
-
-    #region Properties
-
-    #region Orientation
-
-    public Orientation Orientation
-    {
-        get { return (Orientation)GetValue(OrientationProperty); }
-        set { SetValue(OrientationProperty, value); }
-    }
-
-    public static readonly DependencyProperty OrientationProperty =
-        DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(FloatingBarGroup), new PropertyMetadata(Orientation.Horizontal));
-
-    #endregion
-
-    #region Spacing
-
-    public double Spacing
-    {
-        get { return (double)GetValue(SpacingProperty); }
-        set { SetValue(SpacingProperty, value); }
-    }
-
-    public static readonly DependencyProperty SpacingProperty =
-        DependencyProperty.Register(nameof(Spacing), typeof(double), typeof(FloatingBarGroup), new PropertyMetadata(0d));
-
-    #endregion
-
-    #endregion
-
 }
 
 public class FloatingBarGroupSettings
 {
     public ObservableCollection<IFloatingBarComponentSettingBase>? Items { get; set; } = [];
+    public double Spacing { get; set; } = 4.0;
+    public Orientation Orientation { get; set; } = Orientation.Vertical;
 }

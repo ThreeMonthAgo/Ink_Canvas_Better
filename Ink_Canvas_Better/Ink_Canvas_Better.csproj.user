@@ -14,6 +14,9 @@
     <Compile Update="Controls\FloatingBar\FloatingBarGroup.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\Settings\Appearance\AppearancePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\Settings\Home\HomePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

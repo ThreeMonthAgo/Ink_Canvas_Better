@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 using System.Windows;
+using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.Services;
 
 namespace Ink_Canvas_Better.Windows

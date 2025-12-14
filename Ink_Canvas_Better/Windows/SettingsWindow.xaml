@@ -10,6 +10,7 @@
         iuwm:WindowHelper.SystemBackdropType="Mica"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="{DynamicResource Text_SettingWindowTitle}"
+        Icon="/Themes/App.ico"
         Topmost="True"
         MinHeight="500"
         MinWidth="750"
@@ -35,12 +36,13 @@
                 <iuwm:NavigationViewItem.Icon>
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.PowerButton}"/>
                 </iuwm:NavigationViewItem.Icon>
-            </iuwm:NavigationViewItem>
+            </iuwm:NavigationViewItem>-->
             <iuwm:NavigationViewItem Name="SettingNaviagtion_Item_Appearance" Content="{DynamicResource Text_Appearance}" ToolTipService.ToolTip="{DynamicResource Text_Appearance}">
                 <iuwm:NavigationViewItem.Icon>
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.Color}"/>
                 </iuwm:NavigationViewItem.Icon>
             </iuwm:NavigationViewItem>
+            <!--
             <iuwm:NavigationViewItem Name="SettingNaviagtion_Item_PPT" Content="{DynamicResource Text_PPT}" ToolTipService.ToolTip="{DynamicResource Text_PPT}">
                 <iuwm:NavigationViewItem.Icon>
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.Slideshow}"/>

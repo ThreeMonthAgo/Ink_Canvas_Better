@@ -6,17 +6,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	<Version>2.0.0.0</Version>
-	<ApplicationIcon>Themes\Ink Canvas Better.ico</ApplicationIcon>
+	<ApplicationIcon>Themes\App.ico</ApplicationIcon>
     <UseWPF>true</UseWPF>
-	<EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
 </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Themes\Ink Canvas Better.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Themes\Ink Canvas Better.ico" />
+    <Resource Include="Themes\App.ico" />
   </ItemGroup>
 
   <ItemGroup>

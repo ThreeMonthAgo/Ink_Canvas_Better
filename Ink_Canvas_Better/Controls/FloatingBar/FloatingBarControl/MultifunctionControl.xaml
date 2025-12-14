@@ -8,40 +8,13 @@
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d" >
-    <Grid Background="AliceBlue" d:Background="AliceBlue" Width="64" Height="64">
-        <Popup PlacementRectangle="{Binding PlacementRectangle}"
-               PlacementTarget="{Binding PlacementTarget}"
-               IsOpen="{Binding IsOpen, Mode=TwoWay}"
-               StaysOpen="{Binding StaysOpen}"
-               PopupAnimation="{Binding PopupAnimation}"
-               Margin="4"
-               AllowsTransparency="True">
-            <Border CornerRadius="{Binding CornerRadius}"
-                    Background="{DynamicResource {x:Static iuwm:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
-                    BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
-                    BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}">
-                <StackPanel Orientation="Vertical" MinWidth="100">
-                    <Grid ColumnDefinitions="*,auto,auto">
-                        <TextBlock Text="{Binding Title}"
-                                   Grid.Column="0"
-                                   FontSize="20"/>
-                        <Button Grid.Column="1"/>
-                        <Button Grid.Column="2"/>
-                    </Grid>
-                    <ContentPresenter/>
-                </StackPanel>
-            </Border>
-        </Popup>
+    <Grid d:Background="AliceBlue" Width="64" Height="64">
         <StackPanel Name="StackPanel" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Image Source="{DynamicResource Image.FUI.Drag}"
                    d:Width="40"
                    d:Height="40"
-                   Width="{Binding ImageWidth}"
-                   Height="{Binding ImageHeight}"/>
-            <TextBlock FontSize="12"
-                       TextAlignment="Center"
-                       Text="No Text"
-                       Visibility="Collapsed"/>
+                   Width="{Binding ImageWidth, RelativeSource={RelativeSource AncestorType={x:Type local:MultifunctionControl}}}"
+                   Height="{Binding ImageHeight, RelativeSource={RelativeSource AncestorType={x:Type local:MultifunctionControl}}}"/>
         </StackPanel>
     </Grid>
 </UserControl>
