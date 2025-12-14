@@ -39,7 +39,7 @@
                     <iuw:SimpleStackPanel Orientation="Horizontal" Spacing="5">
                         <Button Click="ButtonLog_Click">
                             <StackPanel Orientation="Horizontal">
-                                <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.ReportDocument}" Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"/>
+                                <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.ReportDocument}"/>
                                 <TextBlock Text="{DynamicResource Text_OpenLogDir}" FontWeight="Bold"/>
                             </StackPanel>
                         </Button>

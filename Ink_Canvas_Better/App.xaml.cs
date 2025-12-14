@@ -117,7 +117,6 @@ namespace Ink_Canvas_Better
                 {
                     // Services
                     service.AddSingleton<SettingsService>();
-                    service.AddSingleton<ControlsService>();
                     service.AddSingleton<InkCanvasService>();
                     service.AddSingleton<ThemeService>();
                     // UI
@@ -127,6 +126,7 @@ namespace Ink_Canvas_Better
                     // Pages
                     service.AddSingleton<HomePage>();
                     service.AddSingleton<AppearancePage>();
+
                     // FloatingBarComponent
                     RegComponents<FloatingBar>(FloatingBar.Guid);
                     RegComponents<FloatingBarGroup>(FloatingBarGroup.Guid);

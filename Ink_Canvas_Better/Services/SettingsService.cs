@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Documents;
 using Ink_Canvas_Better.Controls.FloatingBar;
 using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.Services.JsonConverter;
-using Ink_Canvas_Better.Windows;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -33,7 +29,7 @@ namespace Ink_Canvas_Better.Services
 
         public Settings Settings { get; private set; } = new();
 
-        public SettingsService(ILogger<SettingsService> logger, ThemeService themeService)
+        public SettingsService(ILogger<SettingsService> logger)
         {
             this.logger = logger;
 
@@ -60,15 +56,13 @@ namespace Ink_Canvas_Better.Services
                 catch (Exception ex)
                 {
                     logger.LogWarning($"Load settings failed, creating a new one. {ex.Message}"); // TODO: Perhaps a need to inform the user?
-                    Settings = new() { IsInitializing = false };
-                    SaveSettings();
+                    ResetSettings();
                 }
             }
             else
             {
                 logger.LogWarning("Settings file not found, creating a new one.");
-                Settings = new() { IsInitializing = false };
-                SaveSettings();
+                ResetSettings();
             }
         }
 
@@ -87,7 +81,9 @@ namespace Ink_Canvas_Better.Services
 
         public void ResetSettings()
         {
-            throw new NotImplementedException();// TODO
+            Settings.Copy(new Settings());
+            SaveSettings();
+            logger.LogInformation($"Settings have been restored to defaults");
         }
     }
 
@@ -159,6 +155,14 @@ namespace Ink_Canvas_Better.Services
                 App.GetService<SettingsService>().SaveSettings();
             }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Copy(Settings settings)
+        {
+            foreach (var prop in this.GetType().GetProperties())
+            {
+                prop.SetValue(this, prop.GetValue(settings));
+            }
         }
 
         [JsonIgnore]

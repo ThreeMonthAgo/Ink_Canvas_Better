@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Text;
 using System.Windows;
 using Ink_Canvas_Better.Utilities.DataStructures;
+using iNKORE.UI.WPF.Helpers;
 using iNKORE.UI.WPF.Modern;
 using Microsoft.Extensions.Logging;
 
@@ -37,7 +38,7 @@ namespace Ink_Canvas_Better.Services
         private void ChangeLanguage(CultureInfo cultureInfo)
         {
             string path = $"Themes/Language/{cultureInfo}.xaml";
-            ResourceDictionary newDict = new ResourceDictionary { Source = new Uri(path, UriKind.Relative) };
+            ResourceDictionary newDict = new() { Source = new Uri(path, UriKind.Relative) };
             var oldDict = Application.Current.Resources.MergedDictionaries.FirstOrDefault(d => d.Source?.OriginalString.Contains("Language/") == true);
             if (oldDict != null)
             {
@@ -48,16 +49,27 @@ namespace Ink_Canvas_Better.Services
 
         public void ChangeTheme(int Theme)
         {
+            var d = Application.Current.Resources.MergedDictionaries;
             switch (Theme)
             {
                 case 0:
-                    ThemeManager.Current.ApplicationTheme = null;
-                    break;
                 case 1:
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
+                    d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/FluentUIIcons/FluentUIIcons.xaml", UriKind.Relative) });
+                    d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/DrawShapeImageDictionary.xaml", UriKind.Relative) });
+                    d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/OthersImageDictionary.xaml", UriKind.Relative) });
+                    d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/FluentUIIcons/FluentUIIcons.xaml", UriKind.Relative) });
+                    d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/DrawShapeImageDictionary.xaml", UriKind.Relative) });
+                    d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/OthersImageDictionary.xaml", UriKind.Relative) });
                     break;
                 case 2:
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
+                    d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/FluentUIIcons/FluentUIIcons.xaml", UriKind.Relative) });
+                    d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/DrawShapeImageDictionary.xaml", UriKind.Relative) });
+                    d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/OthersImageDictionary.xaml", UriKind.Relative) });
+                    d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/FluentUIIcons/FluentUIIcons.xaml", UriKind.Relative) });
+                    d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/DrawShapeImageDictionary.xaml", UriKind.Relative) });
+                    d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/OthersImageDictionary.xaml", UriKind.Relative) });
                     break;
             }
         }

@@ -18,7 +18,8 @@
             <TextBlock FontSize="12"
                        TextAlignment="Center"
                        Text="{DynamicResource Text_Setting}"
-                       Visibility="{Binding TextVisibility, RelativeSource={RelativeSource AncestorType={x:Type local:SettingsControl}}}"/>
+                       Visibility="{Binding TextVisibility, RelativeSource={RelativeSource AncestorType={x:Type local:SettingsControl}}}"
+                       Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"/>
         </StackPanel>
     </Grid>
 </UserControl>
