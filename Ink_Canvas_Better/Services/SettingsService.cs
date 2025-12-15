@@ -102,6 +102,9 @@ namespace Ink_Canvas_Better.Services
                             .Add(App.GetService<MultifunctionControl>())
                     )
                     .Add(App.GetService<FloatingBarGroup>()
+                            .Add(App.GetService<PenControl>())
+                    )
+                    .Add(App.GetService<FloatingBarGroup>()
                             .Add(App.GetService<SettingsControl>())
                     )
             ];

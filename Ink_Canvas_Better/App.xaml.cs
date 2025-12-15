@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Pages.Settings.Appearance;
+using Ink_Canvas_Better.Controls.FloatingBar.SubPanel;
 
 namespace Ink_Canvas_Better
 {
@@ -132,6 +133,10 @@ namespace Ink_Canvas_Better
                     RegComponents<FloatingBarGroup>(FloatingBarGroup.Guid);
                     RegComponents<MultifunctionControl>(MultifunctionControl.Guid);
                     RegComponents<SettingsControl>(SettingsControl.Guid);
+                    RegComponents<PenControl>(PenControl.Guid);
+
+                    // FloatingBarSubpanel
+                    RegComponents<PenSubpanel>(PenSubpanel.Guid);
 
                     void RegComponents<T>(string guid)
                     {

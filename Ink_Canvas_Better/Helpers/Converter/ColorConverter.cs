@@ -6,15 +6,26 @@ namespace Ink_Canvas_Better.Helpers.Converter
     {
         public static Color HexToColor(string hex)
         {
-            if (hex.StartsWith("#"))
-                hex = hex.Substring(1);
-
-            byte r = Convert.ToByte(hex.Substring(0, 2), 16);
-            byte g = Convert.ToByte(hex.Substring(2, 2), 16);
-            byte b = Convert.ToByte(hex.Substring(4, 2), 16);
-
-            return Color.FromRgb(r, g, b);
+            if (hex.StartsWith('#')) hex = hex[1..];
+            byte a, r, g, b;
+            if (hex.Length == 6)
+            {
+                a = 0xFF;
+                r = Convert.ToByte(hex[..2], 16);
+                g = Convert.ToByte(hex[2..4], 16);
+                b = Convert.ToByte(hex[4..6], 16);
+            }
+            else
+            {
+                a = Convert.ToByte(hex[..2], 16);
+                r = Convert.ToByte(hex[2..4], 16);
+                g = Convert.ToByte(hex[4..6], 16);
+                b = Convert.ToByte(hex[6..8], 16);
+            }
+            return Color.FromArgb(a, r, g, b);
         }
+
+        public static SolidColorBrush HexToSolidColorBrush(string hex) => new(HexToColor(hex));
 
         public static string ColorToHex(Color color)
         {

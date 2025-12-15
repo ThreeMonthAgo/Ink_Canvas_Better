@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Interface;
-using Ink_Canvas_Better.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar;
 public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase

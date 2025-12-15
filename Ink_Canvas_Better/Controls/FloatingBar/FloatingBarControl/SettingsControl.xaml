@@ -8,17 +8,17 @@
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d">
-    <Grid d:Background="AliceBlue" Width="64" Height="64">
+    <Grid d:Background="AliceBlue" Width="64" Height="64" Background="Transparent">
         <StackPanel Name="StackPanel" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Image Source="{DynamicResource Image.FUI.Settings}"
                    d:Width="40"
                    d:Height="40"
-                   Width="{Binding ImageWidth, RelativeSource={RelativeSource AncestorType={x:Type local:SettingsControl}}}"
-                   Height="{Binding ImageHeight, RelativeSource={RelativeSource AncestorType={x:Type local:SettingsControl}}}"/>
+                   Width="{Binding ImageWidth}"
+                   Height="{Binding ImageHeight}"/>
             <TextBlock FontSize="12"
                        TextAlignment="Center"
                        Text="{DynamicResource Text_Setting}"
-                       Visibility="{Binding TextVisibility, RelativeSource={RelativeSource AncestorType={x:Type local:SettingsControl}}}"
+                       Visibility="{Binding TextVisibility}"
                        Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"/>
         </StackPanel>
     </Grid>

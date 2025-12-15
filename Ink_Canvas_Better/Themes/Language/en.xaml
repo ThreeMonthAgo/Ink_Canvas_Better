@@ -31,7 +31,7 @@
         <s:String x:Key="Text_Simulative">Simulative</s:String>
         <s:String x:Key="Text_Customize">Customize</s:String>
         <s:String x:Key="Text_Alpha">Alpha</s:String>
-        <s:String x:Key="Text_Thickness">Thickness</s:String>
+        <s:String x:Key="Text_Thickness">Width</s:String>
         <s:String x:Key="Text_EraseByStroke">Stroke</s:String>
         <s:String x:Key="Text_EraseByPoint">Point</s:String>
         <s:String x:Key="Text_Square">Square</s:String>

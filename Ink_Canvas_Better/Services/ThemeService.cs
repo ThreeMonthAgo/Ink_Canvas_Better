@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Text;
 using System.Windows;
 using Ink_Canvas_Better.Utilities.DataStructures;
-using iNKORE.UI.WPF.Helpers;
 using iNKORE.UI.WPF.Modern;
 using Microsoft.Extensions.Logging;
 

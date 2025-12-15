@@ -8,10 +8,16 @@
     <Compile Update="Controls\FloatingBar\FloatingBarControl\MultifunctionControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\FloatingBar\FloatingBarControl\PenControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\FloatingBar\FloatingBarControl\SettingsControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\FloatingBar\FloatingBarGroup.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\FloatingBar\SubPanel\PenSubpanel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\Settings\Appearance\AppearancePage.xaml.cs">

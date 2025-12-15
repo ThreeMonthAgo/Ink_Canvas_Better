@@ -66,13 +66,11 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
 
     private void MultifuntionControl_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        floatingBar = Ink_Canvas_Better.Helpers.VisualTreeHelper.GetParent<FloatingBar>(this);
-        if (floatingBar == null)
-        {
-            return;
-        }
+        var t = Ink_Canvas_Better.Helpers.VisualTreeHelper.GetParent<FloatingBar>(this);
+        if (t == null) return;
+        floatingBar = t;
         _isMouseDown = true;
-        _mouseDownPos = e.GetPosition(null);
+        _mouseDownPos = e.GetPosition(App.GetService<MainWindow>());
         if (floatingBar.RenderTransform is not TranslateTransform transform)
         {
             transform = new TranslateTransform();
