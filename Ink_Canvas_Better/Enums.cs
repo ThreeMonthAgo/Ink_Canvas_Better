@@ -11,7 +11,6 @@ namespace Ink_Canvas_Better
         {
             None, // Cursor
             Ink, // Pen
-            Highlighter,
             Select,
             EraseByPoint,
             EraseByStroke,

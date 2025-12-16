@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Controls;
+using System.Windows.Ink;
 using System.Windows.Media;
 using Ink_Canvas_Better.Windows;
 using static Ink_Canvas_Better.Enums;
@@ -12,7 +13,6 @@ namespace Ink_Canvas_Better.Services
         private readonly SolidColorBrush NearlyTransparent = new(Color.FromArgb(1,255,255,255));
         private readonly SolidColorBrush Transparent = Brushes.Transparent;
         private readonly MainWindow mainWindow = mainWindow;
-
 
         private EditingMode _currentEditingMode;
         public EditingMode CurrentEditingMode
@@ -27,11 +27,12 @@ namespace Ink_Canvas_Better.Services
                 {
                     case EditingMode.None:
                         inkCanvas.Background = Transparent;
+                        inkCanvas.EditingMode = InkCanvasEditingMode.None;
                         break;
                     case EditingMode.Ink:
                         inkCanvas.Background = NearlyTransparent;
+                        inkCanvas.EditingMode = InkCanvasEditingMode.Ink;
                         break;
-                    case EditingMode.Highlighter:
                     case EditingMode.Select:
                     case EditingMode.EraseByPoint:
                     case EditingMode.EraseByStroke:

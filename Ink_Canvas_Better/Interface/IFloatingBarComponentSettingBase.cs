@@ -17,5 +17,7 @@ namespace Ink_Canvas_Better.Interface
         public string ComponentGuid { get; }
 
         public object Settings { get; set; }
+
+        public bool TryInvoke();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Windows;
+using System.Windows.Ink;
 using Ink_Canvas_Better.Services;
 
 namespace Ink_Canvas_Better.Windows
@@ -20,5 +21,7 @@ namespace Ink_Canvas_Better.Windows
             InitializeComponent();
             this.SourceInitialized += Helpers.Win32Helper.MainWindow_SourceInitialized;
         }
+
+        public DrawingAttributes CurrentDrawingAttributes { get; set; } = new();
     }
 }

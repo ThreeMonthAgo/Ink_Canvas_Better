@@ -24,9 +24,9 @@ namespace Ink_Canvas_Better
     /// </summary>
     public partial class App : Application
     {
-        ILogger logger;
-        MainWindow mainWindow;
-        SettingsService settingsService;
+        private readonly ILogger logger;
+        private readonly MainWindow mainWindow;
+        private readonly SettingsService settingsService;
 
         public static IHost Host;
 

@@ -21,6 +21,11 @@ public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
         Loaded += FloatingBar_Loaded;
     }
 
+    public bool TryInvoke()
+    {
+        throw new NotImplementedException();
+    }
+
     private void FloatingBar_Loaded(object sender, RoutedEventArgs e)
     {
         this.RenderTransform = new TranslateTransform();

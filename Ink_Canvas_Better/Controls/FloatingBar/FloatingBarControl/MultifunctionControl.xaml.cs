@@ -34,6 +34,11 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
         this.MouseUp += MultifuntionControl_MouseUp;
     }
 
+    public bool TryInvoke()
+    {
+        throw new NotImplementedException();
+    }
+
     #region Properties
 
     #region ImageWidth

@@ -34,6 +34,11 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
         this.Subpanel.IsOpen = true;
     }
 
+    public bool TryInvoke()
+    {
+        throw new NotImplementedException();
+    }
+
     #region Properties
 
     #region Source

@@ -20,7 +20,7 @@
     <iuw:SimpleStackPanel d:Background="AliceBlue" Orientation="Horizontal">
         <iuw:SimpleStackPanel>
             <iuw:SimpleStackPanel Orientation="Horizontal">
-                <iuwm:GridView Name="GridView_Colors" IsItemClickEnabled="True">
+                <iuwm:GridView Name="GridView_Colors" IsItemClickEnabled="True" SelectionChanged="GridView_Colors_SelectionChanged" SelectedIndex="{Binding GridViewSelectedIndex}">
                     <iuwm:GridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="6"/>
@@ -59,11 +59,12 @@
                         TickFrequency="5"
                         AutoToolTipPlacement="TopLeft"
                         Maximum="130"
-                        Minimum="1"/>
+                        Minimum="1"
+                        ValueChanged="Slider_Thickness_ValueChanged"/>
             </Grid>
         </iuw:SimpleStackPanel>
         <Grid Height="138" Width="138">
-            <Ellipse Fill="#555555" Height="{Binding ElementName=Slider_Thickness, Path=Value}" Width="{Binding ElementName=Slider_Thickness, Path=Value}"/>
+            <Ellipse Name="Ellipse_Preview" Fill="#555555" Height="{Binding ElementName=Slider_Thickness, Path=Value}" Width="{Binding ElementName=Slider_Thickness, Path=Value}"/>
         </Grid>
     </iuw:SimpleStackPanel>
 

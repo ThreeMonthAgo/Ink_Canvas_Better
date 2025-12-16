@@ -8,6 +8,7 @@
         xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
         iuwm:WindowHelper.UseModernWindowStyle="True"
         iuwm:WindowHelper.SystemBackdropType="Mica"
+        Topmost="True"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="{DynamicResource Text_SettingWindowTitle}"
         Icon="/Themes/App.ico"

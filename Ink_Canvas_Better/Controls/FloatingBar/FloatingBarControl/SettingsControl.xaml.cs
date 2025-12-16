@@ -27,6 +27,11 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
         this.MouseUp += SettingsControl_MouseUp;
     }
 
+    public bool TryInvoke()
+    {
+        throw new NotImplementedException();
+    }
+
     private void SettingsControl_Loaded(object sender, RoutedEventArgs e)
     {
         this.settingsWindow = App.GetService<SettingsWindow>();

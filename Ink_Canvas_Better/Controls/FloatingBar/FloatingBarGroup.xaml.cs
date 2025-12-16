@@ -29,6 +29,11 @@ public partial class FloatingBarGroup : UserControl, IFloatingBarComponentSettin
         InitializeComponent();
     }
 
+    public bool TryInvoke()
+    {
+        throw new NotImplementedException();
+    }
+
     public FloatingBarGroup Add(IFloatingBarComponentSettingBase component)
     {
         FloatingBarGroupSettings.Items.Add(component);
