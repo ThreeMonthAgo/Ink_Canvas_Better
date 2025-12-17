@@ -7,16 +7,18 @@ namespace Ink_Canvas_Better.Utilities.DataStructures
 {
     /// <summary>
     /// A bidirectional associative container that maintains a one-to-one mapping between elements of type TFirst and TSecond. Based on List
+    /// </summary>
+    /// <remarks>
     /// <para>
-    /// <b>Key Design Considerations:</b><br/>
-    /// <list>
-    ///   <item>1. Type safety: TFirst and TSecond must be distinct types to prevent ambiguity in bidirectional lookups.</item>
-    ///   <item>2. Performance characteristics: All search operations utilize linear scanning with O(n) complexity, making this implementation suitable only for small collections.</item>
-    ///   <item>3. Recommended usage: Maximum recommended size is 20 elements.</item>
-    ///   <item>4. Memory efficiency: Stores elements in two parallel List collections, providing compact memory layout at the cost of search performance.</item>
+    /// <b>Key Design Considerations:</b>
+    /// <list type="bullet">
+    ///   <item>Type safety: TFirst and TSecond must be distinct types to prevent ambiguity in bidirectional lookups.</item>
+    ///   <item>Performance characteristics: All search operations utilize linear scanning with O(n) complexity, making this implementation suitable only for small collections.</item>
+    ///   <item>Recommended usage: Maximum recommended size is 20 elements.</item>
+    ///   <item>Memory efficiency: Stores elements in two parallel List collections, providing compact memory layout at the cost of search performance.</item>
     /// </list>
     /// </para>
-    /// </summary>
+    /// </remarks>
     public readonly struct BiDictionary<TFirst, TSecond> : IEnumerable<KeyValuePair<TFirst, TSecond>>
     {
         public readonly List<TFirst> Firsts = [];
@@ -41,7 +43,7 @@ namespace Ink_Canvas_Better.Utilities.DataStructures
             Seconds.Add(second);
         }
 
-        public readonly void Remove(int index)
+        public readonly void RemoveAt(int index)
         {
             Firsts.RemoveAt(index);
             Seconds.RemoveAt(index);

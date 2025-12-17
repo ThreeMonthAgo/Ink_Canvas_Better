@@ -60,6 +60,7 @@
                         AutoToolTipPlacement="TopLeft"
                         Maximum="130"
                         Minimum="1"
+                        Value="{Binding Thickness}"
                         ValueChanged="Slider_Thickness_ValueChanged"/>
             </Grid>
         </iuw:SimpleStackPanel>

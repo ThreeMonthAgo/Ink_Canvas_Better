@@ -1,10 +1,14 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
+using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 /// <summary>
@@ -27,28 +31,14 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
         this.MouseUp += SettingsControl_MouseUp;
     }
 
-    public bool TryInvoke()
-    {
-        throw new NotImplementedException();
-    }
+    public bool TryInvoke() => true;
 
     private void SettingsControl_Loaded(object sender, RoutedEventArgs e)
     {
         this.settingsWindow = App.GetService<SettingsWindow>();
     }
 
-    private void SettingsControl_MouseUp(object sender, MouseButtonEventArgs e)
-    {
-        if (settingsWindow.IsActive)
-        {
-            settingsWindow.Focus();
-        }
-        else
-        {
-            settingsWindow.Show();
-            settingsWindow.Activate();
-        }
-    }
+    private void SettingsControl_MouseUp(object sender, MouseButtonEventArgs e) => settingsWindow.Show();
 
     #region Properties
 
@@ -94,7 +84,16 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
     #endregion
 }
 
-public class SettingsControlSettings
+public class SettingsControlSettings : INotifyPropertyChanged
 {
+    public event PropertyChangedEventHandler? PropertyChanged;
 
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        if (!IsInitializing) App.GetService<SettingsService>().SaveSettings();
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    [JsonIgnore]
+    public bool IsInitializing { get; set; } = true;
 }

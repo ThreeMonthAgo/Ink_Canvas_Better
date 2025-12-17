@@ -19,9 +19,6 @@ using Ink_Canvas_Better.Controls.FloatingBar.SubPanel;
 
 namespace Ink_Canvas_Better
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         private readonly ILogger logger;
@@ -31,11 +28,14 @@ namespace Ink_Canvas_Better
         public static IHost Host;
 
         /// <summary>
-        /// StartupArgs:
-        /// <list type="bullet">
-        /// -m multiple
-        /// </list>
+        /// StartupArgs
         /// </summary>
+        /// <remarks>
+        /// Args:
+        /// <list type="bullet">
+        ///     <item>-m multiple</item>
+        /// </list>
+        /// </remarks>
         public static string[]? StartupArgs { get; set; } = null;
         public static string RootPath { get; } = Environment.GetEnvironmentVariable("APPDATA") + "\\Ink Canvas Better\\";
 

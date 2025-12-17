@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,7 +10,9 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
+using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 /// <summary>
@@ -34,10 +38,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
         this.MouseUp += MultifuntionControl_MouseUp;
     }
 
-    public bool TryInvoke()
-    {
-        throw new NotImplementedException();
-    }
+    public bool TryInvoke() => true;
 
     #region Properties
 
@@ -107,7 +108,16 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     }
 }
 
-public class MultifunctionControlSettings
+public class MultifunctionControlSettings : INotifyPropertyChanged
 {
+    public event PropertyChangedEventHandler? PropertyChanged;
 
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        if (!IsInitializing) App.GetService<SettingsService>().SaveSettings();
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    [JsonIgnore]
+    public bool IsInitializing { get; set; } = true;
 }

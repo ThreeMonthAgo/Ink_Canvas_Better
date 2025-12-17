@@ -1,23 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using Ink_Canvas_Better.Services;
+﻿
+namespace Ink_Canvas_Better.Interface;
 
-namespace Ink_Canvas_Better.Interface
+/// <summary>
+/// All floating bar component settings must implement this interface to be recognized by the application.
+/// </summary>
+public interface IFloatingBarComponentSettingBase
 {
     /// <summary>
-    /// All floating bar component settings must implement this interface to be recognized by the application.
+    /// Specific guid of the component, please ensure its uniqueness.
     /// </summary>
-    public interface IFloatingBarComponentSettingBase
-    {
-        /// <summary>
-        /// Specific guid of the component, please ensure its uniqueness.
-        /// </summary>
-        public string ComponentGuid { get; }
+    /// <remarks>
+    /// What's more, a static Guid is a must, just like:
+    /// <example>
+    /// <code>
+    ///     public static string Guid { get; } = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+    ///     public string ComponentGuid => Guid;
+    /// </code>
+    /// </example>
+    /// </remarks> 
+    public string ComponentGuid { get; }
 
-        public object Settings { get; set; }
+    /// <summary>
+    /// Settings of the component.
+    /// </summary>
+    /// <remarks>
+    /// Suggestion:
+    /// <code>
+    ///     public object Settings { get; set; } = new ComponentSettings();
+    ///     public ComponentSettings ComponentSettings => Settings as ComponentSettings;
+    /// </code>
+    /// </remarks>
+    /// 
+    public object Settings { get; set; }
 
-        public bool TryInvoke();
-    }
+    /// <summary>
+    /// Provides a way to invoke it without knowing its type. Return true if invoke successfully.
+    /// </summary>
+    /// <remarks>
+    /// <b>Please return <c>true</c> instead of throwing NotImplementedException when the control has nothing to do.</b>
+    /// </remarks>
+    /// <returns>
+    /// <c>true</c> if invoke successfully<br/>
+    /// <c>false</c> if happens something wrong<br/>
+    /// </returns>
+    public bool TryInvoke();
 }

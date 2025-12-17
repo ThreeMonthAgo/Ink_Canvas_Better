@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,12 +11,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Ink_Canvas_Better.Controls.FloatingBar.SubPanel;
 using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
+using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
-/// <summary>
-/// PenControl.xaml 的交互逻辑
-/// </summary>
 public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
 {
     public static string Guid { get; } = "87F7581C-364A-49D7-93C3-3355A8415D38";
@@ -32,11 +33,20 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     private void PenControl_MouseUp(object sender, MouseButtonEventArgs e)
     {
         this.Subpanel.IsOpen = true;
+        PenControlSettings.IsInitializing = false;
     }
 
     public bool TryInvoke()
     {
-        throw new NotImplementedException();
+        try
+        {
+            foreach (var item in PenControlSettings.Subpanels) item.TryInvoke();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 
     #region Properties
@@ -156,15 +166,36 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty PopupAnimationProperty =
-        DependencyProperty.Register(nameof(PopupAnimation), typeof(PopupAnimation), typeof(PenControl), new PropertyMetadata(PopupAnimation.Slide));
+        DependencyProperty.Register(nameof(PopupAnimation), typeof(PopupAnimation), typeof(PenControl), new PropertyMetadata(PopupAnimation.Fade));
 
     #endregion
 
     #endregion
 }
 
-public class PenControlSettings
+public class PenControlSettings : INotifyPropertyChanged
 {
-    public IFloatingBarComponentSettingBase SubpanelUI { get; set; } = App.GetService<PenSubpanel>();
+    private ObservableCollection<IFloatingBarComponentSettingBase> _subpanels = [App.GetService<PenSubpanel>()];
+
+    #region
+
+    public ObservableCollection<IFloatingBarComponentSettingBase> Subpanels
+    {
+        get { return _subpanels; }
+        set { _subpanels = value; OnPropertyChanged(); }
+    }
+
+    #endregion
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        if (!IsInitializing) App.GetService<SettingsService>().SaveSettings();
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    [JsonIgnore]
+    public bool IsInitializing { get; set; } = true;
 }
 
