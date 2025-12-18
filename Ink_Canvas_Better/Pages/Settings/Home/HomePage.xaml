@@ -63,8 +63,8 @@
                             <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.GuestUser}"/>
                         </iuwm:SettingsCard.HeaderIcon>
                         <iuw:SimpleStackPanel Orientation="Horizontal">
-                            <iuwm:HyperlinkButton Content="{DynamicResource Text_Author}" RaiseHyperlinkClicks="False" FontSize="12" Click="HyperlinkButton_Author_Click"/>
-                            <iuwm:HyperlinkButton Content="{DynamicResource Text_Author1}" RaiseHyperlinkClicks="False" FontSize="12" Click="HyperlinkButton_Author_Click"/>
+                            <iuwm:HyperlinkButton Content="ThreeMonthAgo" RaiseHyperlinkClicks="False" FontSize="12" Click="HyperlinkButton_Author_Click"/>
+                            <iuwm:HyperlinkButton Content="BaiYang2238" RaiseHyperlinkClicks="False" FontSize="12" Click="HyperlinkButton_Author_Click"/>
                         </iuw:SimpleStackPanel>
                     </iuwm:SettingsCard>
                     <iuwm:SettingsCard

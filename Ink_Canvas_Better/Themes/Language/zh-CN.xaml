@@ -4,8 +4,6 @@
                     xml:space="preserve">
     <!-- About -->
     <s:String x:Key="Text_ProductName">Ink Canvas Better</s:String>
-    <s:String x:Key="Text_Author">ThreeMonthAgo</s:String>
-    <s:String x:Key="Text_Author1">BaiYang2238</s:String>
     <s:String x:Key="Text_CurrentLanguage">简体中文</s:String>
 
     <!-- Floating bar -->
@@ -25,6 +23,7 @@
     <s:String x:Key="Text_Touch">触屏设置</s:String>
     <s:String x:Key="Text_ExitPPT">退出PPT</s:String>
         <!-- subpanel -->
+        <s:String x:Key="Text_Color">颜色</s:String>
         <s:String x:Key="Text_ColorPicker">颜色选择器</s:String>
         <s:String x:Key="Text_InkStyle">模拟笔锋</s:String>
         <s:String x:Key="Text_InkToShape">墨迹识别</s:String>

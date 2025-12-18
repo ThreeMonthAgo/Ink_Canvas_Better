@@ -68,9 +68,24 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
             }
         }
 
-        private void GridView_Colors_SelectionChanged(object sender, SelectionChangedEventArgs e) => this.TryInvoke();
+        private void GridView_Colors_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Toggle_Color.IsChecked == true)
+            {
+                Popup_ColorPicker.IsOpen = false;
+                Popup_ColorPicker.PlacementTarget = (UIElement)GridView_Colors.SelectedItem;
+                Popup_ColorPicker.IsOpen = true;
+            }
+            else if (Popup_ColorPicker.IsOpen == true) Popup_ColorPicker.IsOpen = false;
+            this.TryInvoke();
+        }
 
         private void Slider_Thickness_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => this.TryInvoke();
+
+        private void Button_Color_Click(object sender, RoutedEventArgs e)
+        {
+            Popup_ColorPicker.IsOpen = false;
+        }
     }
 
     public class PenSubpanelSettings : INotifyPropertyChanged

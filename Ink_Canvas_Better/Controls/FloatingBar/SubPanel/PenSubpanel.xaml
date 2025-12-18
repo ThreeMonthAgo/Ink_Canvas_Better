@@ -20,6 +20,18 @@
     <iuw:SimpleStackPanel d:Background="AliceBlue" Orientation="Horizontal">
         <iuw:SimpleStackPanel>
             <iuw:SimpleStackPanel Orientation="Horizontal">
+                <Popup Name="Popup_ColorPicker" Placement="Top" AllowsTransparency="True">
+                    <Border CornerRadius="4"
+                            Background="{DynamicResource {x:Static iuwm:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
+                            BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
+                            BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}"
+                            Padding="4">
+                        <StackPanel>
+                            <iuw:SquarePicker Height="180" Width="180"/>
+                            <Button Content="{DynamicResource Text_Confirm}" VerticalAlignment="Center" Click="Button_Color_Click"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
                 <iuwm:GridView Name="GridView_Colors" IsItemClickEnabled="True" SelectionChanged="GridView_Colors_SelectionChanged" SelectedIndex="{Binding GridViewSelectedIndex}">
                     <iuwm:GridView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -43,8 +55,10 @@
                 </iuwm:GridView>
                 <iuw:SimpleStackPanel Spacing="4">
                     <!-- TODO -->
-                    <ToggleButton Width="44" Height="44"/>
-                    <ToggleButton Width="44" Height="44"/>
+                    <ToggleButton Width="44" Height="44" Padding="0" Name="Toggle_Color">
+                        <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.Color_24_Regular}" Content="{DynamicResource Text_Color}" Orientation="Vertical" Spacing="0" FontSize="10"/>
+                    </ToggleButton>
+                    <ToggleButton Width="44" Height="44" Visibility="Collapsed"/>
                 </iuw:SimpleStackPanel>
             </iuw:SimpleStackPanel>
             <Grid ColumnDefinitions="Auto,4,*" RowDefinitions="Auto,Auto">

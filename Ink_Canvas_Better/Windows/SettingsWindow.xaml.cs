@@ -10,9 +10,6 @@ using iUWM = iNKORE.UI.WPF.Modern;
 
 namespace Ink_Canvas_Better.Windows
 {
-    /// <summary>
-    /// SettingsWindow.xaml 的交互逻辑
-    /// </summary>
     public partial class SettingsWindow : Window
     {
         private HomePage homePage;
@@ -68,7 +65,7 @@ namespace Ink_Canvas_Better.Windows
         /// <summary>
         /// Show the SettingsWindow or activate it if miniized
         /// </summary>
-        public void ShowSettingsWindow()
+        public void ShowWindow()
         {
             if (this.WindowState == WindowState.Minimized) this.WindowState = WindowState.Normal;
             if (!this.IsVisible) this.Show();

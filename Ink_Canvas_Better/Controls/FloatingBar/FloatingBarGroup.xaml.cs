@@ -18,9 +18,7 @@ using Ink_Canvas_Better.Services;
 using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar;
-/// <summary>
-/// FloatingBarGroup.xaml 的交互逻辑
-/// </summary>
+
 public partial class FloatingBarGroup : UserControl, IFloatingBarComponentSettingBase
 {
     public static string Guid { get; } = "B1E2F3A4-5678-90AB-CDEF-1234567890AB";

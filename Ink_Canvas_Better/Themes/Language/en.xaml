@@ -4,8 +4,6 @@
                     xml:space="preserve">
     <!-- About -->
     <s:String x:Key="Text_ProductName">Ink Canvas Better</s:String>
-    <s:String x:Key="Text_Author">ThreeMonthAgo</s:String>
-    <s:String x:Key="Text_Author1">BaiYang2238</s:String>
     <s:String x:Key="Text_CurrentLanguage">English</s:String>
 
     <!-- Floating bar -->
@@ -25,6 +23,7 @@
     <s:String x:Key="Text_Touch">Touch</s:String>
     <s:String x:Key="Text_ExitPPT">Exit</s:String>
         <!-- subpanel -->
+        <s:String x:Key="Text_Color">Color</s:String>
         <s:String x:Key="Text_ColorPicker">Color Picker</s:String>
         <s:String x:Key="Text_InkStyle">Ink Style</s:String>
         <s:String x:Key="Text_InkToShape">Ink to Shape</s:String>

@@ -11,9 +11,7 @@ using Ink_Canvas_Better.Windows;
 using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
-/// <summary>
-/// SettingsControl.xaml 的交互逻辑
-/// </summary>
+
 public partial class SettingsControl : UserControl, IFloatingBarComponentSettingBase
 {
     private SettingsWindow settingsWindow;
@@ -38,7 +36,7 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
         this.settingsWindow = App.GetService<SettingsWindow>();
     }
 
-    private void SettingsControl_MouseUp(object sender, MouseButtonEventArgs e) => settingsWindow.Show();
+    private void SettingsControl_MouseUp(object sender, MouseButtonEventArgs e) => settingsWindow.ShowWindow();
 
     #region Properties
 

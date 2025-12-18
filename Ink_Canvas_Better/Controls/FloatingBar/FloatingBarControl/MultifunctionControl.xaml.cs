@@ -15,9 +15,7 @@ using Ink_Canvas_Better.Windows;
 using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
-/// <summary>
-/// MultifunctionControl.xaml 的交互逻辑
-/// </summary>
+
 public partial class MultifunctionControl : UserControl, IFloatingBarComponentSettingBase
 {
     public static string Guid { get; } = "03C5FD8D-2880-40F7-BAC5-9D83C347162C";
