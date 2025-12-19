@@ -70,7 +70,7 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
 
     private void MultifuntionControl_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        var t = Ink_Canvas_Better.Helpers.VisualTreeHelper.GetParent<FloatingBar>(this);
+        var t = Ink_Canvas_Better.Helpers.VisualTreeHelper.GetVisualParent<FloatingBar>(this);
         if (t == null) return;
         floatingBar = t;
         _isMouseDown = true;

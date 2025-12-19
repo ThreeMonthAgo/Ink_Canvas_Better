@@ -31,11 +31,11 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
             DataContext = PenSubpanelSettings;
 
             Loaded += PenSubpanel_Loaded;
+            _isLoaded = true;
         }
 
         private void PenSubpanel_Loaded(object sender, RoutedEventArgs e)
         {
-            _isLoaded = true;
             PenSubpanelSettings.IsInitializing = false;
             Ellipse_Preview.Fill = PenSubpanelSettings.ColorCollection[PenSubpanelSettings.GridViewSelectedIndex];
         }
@@ -46,19 +46,20 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
             {
                 try
                 {
-                    var inkCanvasService = App.GetService<InkCanvasService>();
+                    var mainWindow = App.GetService<MainWindow>();
                     var seletedIndex = PenSubpanelSettings.GridViewSelectedIndex;
                     // UI
                     Ellipse_Preview.Fill = PenSubpanelSettings.ColorCollection[seletedIndex];
                     // InkCanvas
-                    inkCanvasService.CurrentDrawingAttributes.Color = PenSubpanelSettings.ColorCollection[seletedIndex].Color;
-                    inkCanvasService.CurrentDrawingAttributes.Width = inkCanvasService.CurrentDrawingAttributes.Height = Slider_Thickness.Value;
-                    inkCanvasService.CurrentEditingMode = Enums.EditingMode.Ink;
+                    mainWindow.Settings.CurrentDrawingAttributes.Color = PenSubpanelSettings.ColorCollection[seletedIndex].Color;
+                    mainWindow.Settings.CurrentDrawingAttributes.Width = mainWindow.Settings.CurrentDrawingAttributes.Height = Slider_Thickness.Value;
+                    mainWindow.CurrentEditingMode = Enums.EditingMode.Ink;
                     return true;
                 }
                 catch (Exception e)
                 {
                     App.GetService<ILogger>().LogWarning(e.ToString());
+                    Debug.WriteLine(e.ToString());
                     return false;
                 }
             }
