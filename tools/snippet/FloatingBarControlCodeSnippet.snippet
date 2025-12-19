@@ -22,28 +22,46 @@
                <![CDATA[
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using Ink_Canvas_Better.Controls.FloatingBar.SubPanel;
 using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
+using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
-
 public partial class $FloatingBarControlName$ : UserControl, IFloatingBarComponentSettingBase
 {
+    private MainWindow mainWindow;
+
     public static string Guid { get; } = "$Guid$";
-    public string ComponentGuid => Guid; 
+    public string ComponentGuid => Guid;
     public object Settings { get; set; } = new $FloatingBarControlName$Settings();
     public $FloatingBarControlName$Settings $FloatingBarControlName$Settings => Settings as $FloatingBarControlName$Settings;
 
     public $FloatingBarControlName$()
     {
         InitializeComponent();
+
+        this.Loaded += $FloatingBarControlName$_Loaded;
+    }
+
+    private void $FloatingBarControlName$_Loaded(object sender, RoutedEventArgs e)
+    {
+        $FloatingBarControlName$Settings.IsInitializing = false;
+    }
+
+    public bool TryInvoke()
+    {
+        return true;
     }
 
     #region Properties
@@ -115,19 +133,6 @@ public partial class $FloatingBarControlName$ : UserControl, IFloatingBarCompone
 
     // Popup Properties
 
-    #region Title
-
-    public string Title
-    {
-        get { return (string)GetValue(TitleProperty); }
-        set { SetValue(TitleProperty, value); }
-    }
-
-    public static readonly DependencyProperty TitleProperty =
-        DependencyProperty.Register(nameof(Title), typeof(string), typeof($FloatingBarControlName$), new PropertyMetadata("Subpanel"));
-
-    #endregion
-
     #region IsOpen
 
     public bool IsOpen
@@ -154,32 +159,6 @@ public partial class $FloatingBarControlName$ : UserControl, IFloatingBarCompone
 
     #endregion
 
-    #region PlacementTarget
-
-    public UIElement PlacementTarget
-    {
-        get { return (UIElement)GetValue(PlacementTargetProperty); }
-        set { SetValue(PlacementTargetProperty, value); }
-    }
-
-    public static readonly DependencyProperty PlacementTargetProperty =
-        DependencyProperty.Register(nameof(PlacementTarget), typeof(UIElement), typeof($FloatingBarControlName$), new PropertyMetadata(null));
-
-    #endregion
-
-    #region TitleBarHeight
-
-    public double TitleBarHeight
-    {
-        get { return (double)GetValue(TitleBarHeightProperty); }
-        set { SetValue(TitleBarHeightProperty, value); }
-    }
-
-    public static readonly DependencyProperty TitleBarHeightProperty =
-        DependencyProperty.Register(nameof(TitleBarHeight), typeof(double), typeof($FloatingBarControlName$), new PropertyMetadata(36d));
-
-    #endregion
-
     #region CornerRadius
 
     public CornerRadius CornerRadius
@@ -193,19 +172,6 @@ public partial class $FloatingBarControlName$ : UserControl, IFloatingBarCompone
 
     #endregion
 
-    #region Placement
-
-    public PlacementMode Placement
-    {
-        get { return (PlacementMode)GetValue(PlacementProperty); }
-        set { SetValue(PlacementProperty, value); }
-    }
-
-    public static readonly DependencyProperty PlacementProperty =
-        DependencyProperty.Register(nameof(Placement), typeof(PlacementMode), typeof($FloatingBarControlName$), new PropertyMetadata(PlacementMode.Top));
-
-    #endregion
-
     #region PopupAnimation
 
     public PopupAnimation PopupAnimation
@@ -215,30 +181,29 @@ public partial class $FloatingBarControlName$ : UserControl, IFloatingBarCompone
     }
 
     public static readonly DependencyProperty PopupAnimationProperty =
-        DependencyProperty.Register(nameof(PopupAnimation), typeof(PopupAnimation), typeof($FloatingBarControlName$), new PropertyMetadata(PopupAnimation.Slide));
+        DependencyProperty.Register(nameof(PopupAnimation), typeof(PopupAnimation), typeof($FloatingBarControlName$), new PropertyMetadata(PopupAnimation.Fade));
 
     #endregion
 
-    #region PlacementRectangle
+    #endregion
 
-    public Rect PlacementRectangle
+    private void Button_HidePopup(object sender, RoutedEventArgs e) => this.IsOpen = false;
+}
+
+public class $FloatingBarControlName$Settings : INotifyPropertyChanged
+{
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
-        get { return (Rect)GetValue(PlacementRectangleProperty); }
-        set { SetValue(PlacementRectangleProperty, value); }
+        if (!IsInitializing) App.GetService<SettingsService>().SaveSettings();
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    public static readonly DependencyProperty PlacementRectangleProperty =
-        DependencyProperty.Register(nameof(PlacementRectangle), typeof(Rect), typeof($FloatingBarControlName$), new PropertyMetadata(new Rect(0, 0, 0, 0)));
-
-    #endregion
-
-    #endregion
+    [JsonIgnore]
+    public bool IsInitializing { get; set; } = true;
 }
 
-public class $FloatingBarControlName$Settings
-{
-
-}
 
                ]]>
            </Code>

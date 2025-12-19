@@ -22,37 +22,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behavior="clr-namespace:Ink_Canvas_Better.Behaviors"
              xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl"
+             xmlns:subpanel="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar.SubPanel"
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d">
-    <Grid Background="AliceBlue" d:Background="AliceBlue" Width="64" Height="64">
-        <Popup PlacementRectangle="{Binding PlacementRectangle}"
-               PlacementTarget="{Binding PlacementTarget}"
+    <Grid Name="Grid" Background="Transparent" d:Background="AliceBlue" Width="64" Height="64">
+        <Popup Name="Subpanel"
+               Placement="Top"
+               PlacementTarget="{Binding ElementName=Grid}"
                IsOpen="{Binding IsOpen, Mode=TwoWay}"
                StaysOpen="{Binding StaysOpen}"
                PopupAnimation="{Binding PopupAnimation}"
-               Margin="4"
                AllowsTransparency="True">
-            <Border CornerRadius="{Binding CornerRadius}"
-                    Background="{DynamicResource {x:Static iuwm:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
-                    BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
-                    BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}">
-                <StackPanel Orientation="Vertical" MinWidth="100">
-                    <Grid ColumnDefinitions="*,auto,auto">
-                        <TextBlock Text="{Binding Title}"
-                                   Grid.Column="0"
-                                   FontSize="20"/>
-                        <Button Grid.Column="1"/>
-                        <Button Grid.Column="2"/>
-                    </Grid>
-                    <ContentPresenter/>
-                </StackPanel>
+            <Border Padding="0,4">
+                <Border CornerRadius="{Binding CornerRadius}"
+                        Background="{DynamicResource {x:Static iuwm:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
+                        BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
+                        BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}"
+                        Padding="4">
+                    <StackPanel Orientation="Vertical" MinWidth="100">
+                        <Grid ColumnDefinitions="*,auto,4,auto" Name="Grid_TitleBar">
+                            <bh:Interaction.Behaviors>
+                                <behavior:DragBehavior/>
+                            </bh:Interaction.Behaviors>
+                            <TextBlock VerticalAlignment="Center"
+                                       Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"
+                                       Text="Title"
+                                       Grid.Column="0"
+                                       FontSize="24"/>
+                            <ToggleButton Grid.Column="1" Width="26" Height="26" Style="{StaticResource PinToggleButtonStyle}" IsChecked="{Binding ElementName=Subpanel, Path=StaysOpen, Mode=TwoWay}">
+                                <Grid>
+                                    <Image Source="{DynamicResource Image.FUI.PinOff}" Style="{StaticResource PinOffButtonImageStyle}"/>
+                                    <Image Source="{DynamicResource Image.FUI.Pin}" Style="{StaticResource PinButtonImageStyle}"/>
+                                </Grid>
+                            </ToggleButton>
+                            <Button Grid.Column="3" Width="26" Height="26" Style="{StaticResource CloseButtonStyle}" Click="Button_HidePopup">
+                                <Image Source="{DynamicResource Image.FUI.Dismiss}"/>
+                            </Button>
+                        </Grid>
+                        <ItemsControl ItemsSource="{Binding $FloatingBarControlName$Settings.Subpanels}"/>
+                    </StackPanel>
+                </Border>
             </Border>
         </Popup>
-        <StackPanel Name="StackPanel" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-		    <!-- Change the Source please -->
-            <Image Source="{DynamicResource Image.FUI.Drag}"
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image Source="{DynamicResource Image.FUI.CalligraphyPen}"
                    d:Width="40"
                    d:Height="40"
                    Width="{Binding ImageWidth}"
@@ -60,10 +77,12 @@
             <TextBlock FontSize="12"
                        TextAlignment="Center"
                        Text="No Text"
+                       Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"
                        Visibility="{Binding TextVisibility}"/>
         </StackPanel>
     </Grid>
 </UserControl>
+
                ]]>
            </Code>
        </Snippet>

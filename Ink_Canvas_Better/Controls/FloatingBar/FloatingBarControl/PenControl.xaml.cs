@@ -105,7 +105,7 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     }
 
     public static readonly DependencyProperty TextVisibilityProperty =
-        DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof(PenControl), new PropertyMetadata(Visibility.Visible));
+        DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof(PenControl), new PropertyMetadata(Visibility.Collapsed));
 
     #endregion
 
