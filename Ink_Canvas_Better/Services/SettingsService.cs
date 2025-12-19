@@ -14,27 +14,20 @@ using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Services
 {
-    public class SettingsService
+    public class SettingsService(ILogger<SettingsService> logger)
     {
-        private readonly ILogger<SettingsService> logger;
         private readonly JsonSerializerSettings jsonSerializerSettings = new()
         {
             Converters = [
                 new FloartingBarCollectionConverter(),
                 new FloatingBarComponentSettingsConverter(),
+                new IListConverter(),
             ]
         };
 
         public string SettingsFilePath = "Settings.json";
 
         public Settings Settings { get; private set; } = new();
-
-        public SettingsService(ILogger<SettingsService> logger)
-        {
-            this.logger = logger;
-
-            LoadSettings();
-        }
 
         public void LoadSettings()
         {

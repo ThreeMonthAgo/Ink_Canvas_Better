@@ -51,19 +51,11 @@ namespace Ink_Canvas_Better.Services.JsonConverter
 
         public override void WriteJson(JsonWriter writer, ObservableCollection<IFloatingBarComponentSettingBase>? value, JsonSerializer serializer)
         {
-            if (value == null)
-            {
-                writer.WriteNull();
-                return;
-            }
-
             writer.WriteStartArray();
-
             foreach (var item in value)
             {
                 serializer.Serialize(writer, item);
             }
-
             writer.WriteEndArray();
         }
     }

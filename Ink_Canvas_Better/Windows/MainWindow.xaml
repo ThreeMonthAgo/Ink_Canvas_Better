@@ -19,9 +19,9 @@
             Name="MW_InkCanvas"
             Background="Transparent"
             Cursor="Pen"
-            DefaultDrawingAttributes="{Binding CurrentDrawingAttributes}"
+            DefaultDrawingAttributes="{Binding inkCanvasService.CurrentDrawingAttributes}"
             ForceCursor="False"
             IsManipulationEnabled="True"/>
-        <iuwm:ItemsRepeater Name="MW_ItemsPresenter" ItemsSource="{Binding Settings.FloatingBarCollection}"/>
+        <iuwm:ItemsRepeater Name="MW_ItemsPresenter" ItemsSource="{Binding settingsService.Settings.FloatingBarCollection}"/>
     </Grid>
 </Window>

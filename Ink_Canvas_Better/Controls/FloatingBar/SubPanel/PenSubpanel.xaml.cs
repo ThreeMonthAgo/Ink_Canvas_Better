@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -36,7 +37,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
         {
             _isLoaded = true;
             PenSubpanelSettings.IsInitializing = false;
-            Ellipse_Preview.Fill = ((Rectangle)GridView_Colors.SelectedItem).Fill;
+            Ellipse_Preview.Fill = PenSubpanelSettings.ColorCollection[PenSubpanelSettings.GridViewSelectedIndex];
         }
 
         public bool TryInvoke()
@@ -45,14 +46,13 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
             {
                 try
                 {
-                    var mainWindow = App.GetService<MainWindow>();
                     var inkCanvasService = App.GetService<InkCanvasService>();
-                    var b = (Rectangle)GridView_Colors.SelectedItem;
+                    var seletedIndex = PenSubpanelSettings.GridViewSelectedIndex;
                     // UI
-                    Ellipse_Preview.Fill = ((Rectangle)GridView_Colors.SelectedItem).Fill;
+                    Ellipse_Preview.Fill = PenSubpanelSettings.ColorCollection[seletedIndex];
                     // InkCanvas
-                    mainWindow.CurrentDrawingAttributes.Color = ((SolidColorBrush)b.Fill).Color;
-                    mainWindow.CurrentDrawingAttributes.Width = mainWindow.CurrentDrawingAttributes.Height = Slider_Thickness.Value;
+                    inkCanvasService.CurrentDrawingAttributes.Color = PenSubpanelSettings.ColorCollection[seletedIndex].Color;
+                    inkCanvasService.CurrentDrawingAttributes.Width = inkCanvasService.CurrentDrawingAttributes.Height = Slider_Thickness.Value;
                     inkCanvasService.CurrentEditingMode = Enums.EditingMode.Ink;
                     return true;
                 }
@@ -72,8 +72,10 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
         {
             if (Toggle_Color.IsChecked == true)
             {
+                var seletedIndex = PenSubpanelSettings.GridViewSelectedIndex;
                 Popup_ColorPicker.IsOpen = false;
-                Popup_ColorPicker.PlacementTarget = (UIElement)GridView_Colors.SelectedItem;
+                Popup_ColorPicker.PlacementTarget = GridView_Colors.ItemContainerGenerator.ContainerFromIndex(seletedIndex) as UIElement;
+                SqColorPicker.SelectedColor = PenSubpanelSettings.ColorCollection[seletedIndex].Color;
                 Popup_ColorPicker.IsOpen = true;
             }
             else if (Popup_ColorPicker.IsOpen == true) Popup_ColorPicker.IsOpen = false;
@@ -86,23 +88,34 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
         {
             Popup_ColorPicker.IsOpen = false;
         }
+
+        private void SqColorPicker_ColorChanged(object sender, RoutedEventArgs e)
+        {
+            var seletedIndex = PenSubpanelSettings.GridViewSelectedIndex;
+            PenSubpanelSettings.ColorCollection[seletedIndex].Color = SqColorPicker.SelectedColor;
+            this.TryInvoke();
+        }
+
     }
 
     public class PenSubpanelSettings : INotifyPropertyChanged
     {
         private int _gridViewSelectedIndex = 0;
-        private SolidColorBrush _color0 = ColorConverter.HexToSolidColorBrush("#FFFFFF");
-        private SolidColorBrush _color1 = ColorConverter.HexToSolidColorBrush("#000000");
-        private SolidColorBrush _color2 = ColorConverter.HexToSolidColorBrush("#A72C1D");
-        private SolidColorBrush _color3 = ColorConverter.HexToSolidColorBrush("#E03B27");
-        private SolidColorBrush _color4 = ColorConverter.HexToSolidColorBrush("#EFC046");
-        private SolidColorBrush _color5 = ColorConverter.HexToSolidColorBrush("#FCFC58");
-        private SolidColorBrush _color6 = ColorConverter.HexToSolidColorBrush("#A0CB64");
-        private SolidColorBrush _color7 = ColorConverter.HexToSolidColorBrush("#59AA5C");
-        private SolidColorBrush _color8 = ColorConverter.HexToSolidColorBrush("#61ADE9");
-        private SolidColorBrush _color9 = ColorConverter.HexToSolidColorBrush("#4170B8");
-        private SolidColorBrush _color10 = ColorConverter.HexToSolidColorBrush("#19275C");
-        private SolidColorBrush _color11 = ColorConverter.HexToSolidColorBrush("#673C98");
+        private ObservableCollection<SolidColorBrush> _colorCollection =
+            [
+                ColorConverter.HexToSolidColorBrush("#FFFFFF"),
+                ColorConverter.HexToSolidColorBrush("#000000"),
+                ColorConverter.HexToSolidColorBrush("#A72C1D"),
+                ColorConverter.HexToSolidColorBrush("#E03B27"),
+                ColorConverter.HexToSolidColorBrush("#EFC046"),
+                ColorConverter.HexToSolidColorBrush("#FCFC58"),
+                ColorConverter.HexToSolidColorBrush("#A0CB64"),
+                ColorConverter.HexToSolidColorBrush("#59AA5C"),
+                ColorConverter.HexToSolidColorBrush("#61ADE9"),
+                ColorConverter.HexToSolidColorBrush("#4170B8"),
+                ColorConverter.HexToSolidColorBrush("#19275C"),
+                ColorConverter.HexToSolidColorBrush("#673C98"),
+            ];
         private int _thickness = 1;
 
         #region
@@ -113,76 +126,10 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
             set {  _gridViewSelectedIndex = value; OnPropertyChanged(); }
         }
 
-        public SolidColorBrush Color0
+        public ObservableCollection<SolidColorBrush> ColorCollection
         {
-            get { return _color0; }
-            set { _color0 = value; OnPropertyChanged(); }
-        } 
-
-        public SolidColorBrush Color1
-        {
-            get { return _color1; }
-            set { _color1 = value; OnPropertyChanged(); }
-        } 
-
-        public SolidColorBrush Color2
-        {
-            get { return _color2; }
-            set { _color2 = value; OnPropertyChanged(); }
-        } 
-
-        public SolidColorBrush Color3
-        {
-            get { return _color3; }
-            set { _color3 = value; OnPropertyChanged(); }
-        } 
-
-        public SolidColorBrush Color4
-        {
-            get { return _color4; }
-            set { _color4 = value; OnPropertyChanged(); }
-        } 
-
-        public SolidColorBrush Color5
-        {
-            get { return _color5; }
-            set { _color5 = value; OnPropertyChanged(); }
-        } 
-
-        public SolidColorBrush Color6
-        {
-            get { return _color6; }
-            set { _color6 = value; OnPropertyChanged(); }
-        } 
-
-        public SolidColorBrush Color7
-        {
-            get { return _color7; }
-            set { _color7 = value; OnPropertyChanged(); }
-        } 
-
-        public SolidColorBrush Color8
-        {
-            get { return _color8; }
-            set { _color8 = value; OnPropertyChanged(); }
-        } 
-
-        public SolidColorBrush Color9
-        {
-            get { return _color9; }
-            set { _color9 = value; OnPropertyChanged(); }
-        } 
-
-        public SolidColorBrush Color10
-        {
-            get { return _color10; }
-            set { _color10 = value; OnPropertyChanged(); }
-        }
-
-        public SolidColorBrush Color11
-        {
-            get { return _color11; }
-            set { _color11 = value; OnPropertyChanged(); }
+            get { return _colorCollection; }
+            set { _colorCollection = value; OnPropertyChanged(); }
         }
 
         public int Thickness

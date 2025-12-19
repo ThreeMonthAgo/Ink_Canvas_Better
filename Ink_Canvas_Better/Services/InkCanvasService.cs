@@ -12,7 +12,6 @@ namespace Ink_Canvas_Better.Services
     {
         private readonly SolidColorBrush NearlyTransparent = new(Color.FromArgb(1,255,255,255));
         private readonly SolidColorBrush Transparent = Brushes.Transparent;
-        private readonly MainWindow mainWindow = mainWindow;
 
         private EditingMode _currentEditingMode;
         public EditingMode CurrentEditingMode
@@ -42,6 +41,7 @@ namespace Ink_Canvas_Better.Services
             }
         }
 
+        public DrawingAttributes CurrentDrawingAttributes { get; set; } = new();
 
     }
 }

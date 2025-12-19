@@ -26,32 +26,27 @@
                             BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
                             BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}"
                             Padding="4">
-                        <StackPanel>
-                            <iuw:SquarePicker Height="180" Width="180"/>
-                            <Button Content="{DynamicResource Text_Confirm}" VerticalAlignment="Center" Click="Button_Color_Click"/>
-                        </StackPanel>
+                        <iuw:SimpleStackPanel>
+                            <iuw:SquarePicker Height="180" Width="180" Name="SqColorPicker" ColorChanged="SqColorPicker_ColorChanged"/>
+                            <Button Content="{DynamicResource Text_Confirm}" Click="Button_Color_Click" Width="180"/>
+                        </iuw:SimpleStackPanel>
                     </Border>
                 </Popup>
-                <iuwm:GridView Name="GridView_Colors" IsItemClickEnabled="True" SelectionChanged="GridView_Colors_SelectionChanged" SelectedIndex="{Binding GridViewSelectedIndex}">
+                <iuwm:GridView Name="GridView_Colors"
+                               IsItemClickEnabled="True"
+                               ItemsSource="{Binding ColorCollection}"
+                               SelectionChanged="GridView_Colors_SelectionChanged"
+                               SelectedIndex="{Binding GridViewSelectedIndex}">
                     <iuwm:GridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="6"/>
                         </ItemsPanelTemplate>
                     </iuwm:GridView.ItemsPanel>
-                    <iuwm:GridView.Items>
-                        <Rectangle Style="{StaticResource Colors}" Fill="{Binding Color0}" d:Fill="AntiqueWhite"/>
-                        <Rectangle Style="{StaticResource Colors}" Fill="{Binding Color1}" d:Fill="AntiqueWhite"/>
-                        <Rectangle Style="{StaticResource Colors}" Fill="{Binding Color2}" d:Fill="AntiqueWhite"/>
-                        <Rectangle Style="{StaticResource Colors}" Fill="{Binding Color3}" d:Fill="AntiqueWhite"/>
-                        <Rectangle Style="{StaticResource Colors}" Fill="{Binding Color4}" d:Fill="AntiqueWhite"/>
-                        <Rectangle Style="{StaticResource Colors}" Fill="{Binding Color5}" d:Fill="AntiqueWhite"/>
-                        <Rectangle Style="{StaticResource Colors}" Fill="{Binding Color6}" d:Fill="AntiqueWhite"/>
-                        <Rectangle Style="{StaticResource Colors}" Fill="{Binding Color7}" d:Fill="AntiqueWhite"/>
-                        <Rectangle Style="{StaticResource Colors}" Fill="{Binding Color8}" d:Fill="AntiqueWhite"/>
-                        <Rectangle Style="{StaticResource Colors}" Fill="{Binding Color9}" d:Fill="AntiqueWhite"/>
-                        <Rectangle Style="{StaticResource Colors}" Fill="{Binding Color10}" d:Fill="AntiqueWhite"/>
-                        <Rectangle Style="{StaticResource Colors}" Fill="{Binding Color11}" d:Fill="AntiqueWhite"/>
-                    </iuwm:GridView.Items>
+                    <iuwm:GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Rectangle Style="{StaticResource Colors}" Fill="{Binding}"/>
+                        </DataTemplate>
+                    </iuwm:GridView.ItemTemplate>
                 </iuwm:GridView>
                 <iuw:SimpleStackPanel Spacing="4">
                     <!-- TODO -->

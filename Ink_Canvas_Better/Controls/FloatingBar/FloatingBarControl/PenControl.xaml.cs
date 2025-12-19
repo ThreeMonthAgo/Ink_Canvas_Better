@@ -18,6 +18,8 @@ using Newtonsoft.Json;
 namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
 {
+    private InkCanvasService _inkCanvasService;
+
     public static string Guid { get; } = "87F7581C-364A-49D7-93C3-3355A8415D38";
     public string ComponentGuid => Guid;
     public object Settings { get; set; } = new PenControlSettings();
@@ -27,13 +29,30 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     {
         InitializeComponent();
 
+        this.Loaded += PenControl_Loaded;
         this.MouseUp += PenControl_MouseUp;
+    }
+
+    private void PenControl_Loaded(object sender, RoutedEventArgs e)
+    {
+        _inkCanvasService = App.GetService<InkCanvasService>();
+        PenControlSettings.IsInitializing = false;
     }
 
     private void PenControl_MouseUp(object sender, MouseButtonEventArgs e)
     {
-        this.Subpanel.IsOpen = true;
-        PenControlSettings.IsInitializing = false;
+        if (_inkCanvasService.CurrentEditingMode != Enums.EditingMode.Ink)
+        {
+            _inkCanvasService.CurrentEditingMode = Enums.EditingMode.Ink;
+        }
+        else
+        {
+            this.Subpanel.IsOpen = true;
+        }
+        foreach (var item in PenControlSettings.Subpanels)
+        {
+            item.TryInvoke();
+        }
     }
 
     public bool TryInvoke()

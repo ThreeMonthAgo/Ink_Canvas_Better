@@ -101,7 +101,6 @@ namespace Ink_Canvas_Better
             }
 
             mainWindow.Show();
-
             logger.LogInformation($"===== Ink Canvas Better (v{settingsService.Settings.AppVersion}) is running =====");
         }
 
@@ -163,6 +162,7 @@ namespace Ink_Canvas_Better
                     });
                 }).
                 Build();
+            GetService<SettingsService>().LoadSettings();
         }
 
         #region GetService
