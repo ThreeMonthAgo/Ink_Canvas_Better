@@ -26,7 +26,8 @@ Ink Canvas Better is a WPF-based screen annotation software that offers support 
 
 Before using or distributing this software, please ensure you read and understand the relevant open-source license.
 
-[Download](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/releases/latest) --- [Manual](./Document/Manual.md)
+- [Download](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/releases/latest)
+- [Manual](./Document/Manual.md)
 
 ## FQA
 
@@ -38,12 +39,12 @@ If you previously had `WPS Office` installed and this issue appeared after unins
 Additionally, please note that PowerPoint files in protected (read-only) mode will not be recognized.  
 
 ### The application won't launch after installation?
-Please verify that you have the `.Net 8.0 runtime` or a newer version installed on your computer. If not, please download it from the [official website](https://dotnet.microsoft.com/en-us/download/dotnet/8.0/runtime)  
+Please verify that you have the `.Net 10.0 runtime` or a newer version installed on your computer. If not, please download it from the [official website](https://dotnet.microsoft.com/en-us/download/dotnet/10.0/runtime)  
 
 ### Where should I submit feature requests and bug reports?
 For feature requests and bug reports, please submit them via the Issues section on GitHub.  
 We welcome constructive feedback and reasonable suggestions for new features. The developer will review and address them as time permits. Please be aware that this is a non-commercial project, and developer resources are limited. We appreciate your patience and ask that you refrain from pressing for updates.  
-Feature Requests: [https://github.com/ThreeMonthAgo/Ink_Canvas_Better/labels/enhancement/new](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/labels/enhancement/new)  
-Bug Reports: [https://github.com/ThreeMonthAgo/Ink_Canvas_Better/labels/bug/new](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/labels/bug/new)
+Feature Requests: [https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new?labels=enhancement](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new?labels=enhancement)  
+Bug Reports: [https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new?labels=bug](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new?labels=bug)
 
 We also welcome code contributions if you have the ability and interest to participate in development.

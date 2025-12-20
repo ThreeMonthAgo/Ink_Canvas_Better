@@ -26,7 +26,8 @@ Ink Canvas Better 是一款基于 WPF 的屏幕批注软件，支持 `WPS` 和 `
 
 使用和分发本软件前，请您应当且务必知晓相关开源协议
 
-[直接下载](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/releases/latest) --- [使用说明](./Document/Manual.md)
+- [直接下载](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/releases/latest)
+- [使用说明](./Document/Manual.md)
 
 ## FQA
 
@@ -38,12 +39,12 @@ Ink Canvas Better 是一款基于 WPF 的屏幕批注软件，支持 `WPS` 和 `
 另外，处在保护（只读）模式的PPT不会被识别  
 
 ### 安装后程序无法正常启动？
-请检查你的电脑上是否安装了 `.Net 8.0 runtime` 或更高版本。若没有，请前往官网下载 [.Net 8.0 runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0/runtime)  
+请检查你的电脑上是否安装了 `.Net 10.0 runtime` 或更高版本。若没有，请前往[官网下载](https://dotnet.microsoft.com/en-us/download/dotnet/10.0/runtime)  
 
 ### 我该在何处提出功能需求和错误报告？
 如果有功能需求和错误报告，请在 GitHub 上提交 Issues  
 对新功能的有效意见和合理建议，开发者会适时回复并进行开发。本软件并非商业性质软件，且开发者精力有限，请勿催促开发者  
-功能需求：[https://github.com/ThreeMonthAgo/Ink_Canvas_Better/labels/enhancement/new](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/labels/enhancement/new)  
-错误报告：[https://github.com/ThreeMonthAgo/Ink_Canvas_Better/labels/bug/new](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/labels/bug/new)
+功能需求：[https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new?labels=enhancement](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new?labels=enhancement)  
+错误报告：[https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new?labels=bug](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new?labels=bug)
 
 当然，如果你有能力参与开发的话，也欢迎提交代码
