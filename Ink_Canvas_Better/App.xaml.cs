@@ -132,6 +132,7 @@ namespace Ink_Canvas_Better
                     RegComponents<MultifunctionControl>(MultifunctionControl.Guid);
                     RegComponents<SettingsControl>(SettingsControl.Guid);
                     RegComponents<PenControl>(PenControl.Guid);
+                    RegComponents<CursorControl>(CursorControl.Guid);
 
                     // FloatingBarSubpanel
                     RegComponents<PenSubpanel>(PenSubpanel.Guid);

@@ -5,6 +5,9 @@
     <Compile Update="Controls\FloatingBar\FloatingBar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\FloatingBar\FloatingBarControl\CursorControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\FloatingBar\FloatingBarControl\MultifunctionControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

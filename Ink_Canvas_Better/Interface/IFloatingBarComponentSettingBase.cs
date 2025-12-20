@@ -23,14 +23,6 @@ public interface IFloatingBarComponentSettingBase
     /// <summary>
     /// Settings of the component.
     /// </summary>
-    /// <remarks>
-    /// Suggestion:
-    /// <code>
-    ///     public object Settings { get; set; } = new ComponentSettings();
-    ///     public ComponentSettings ComponentSettings => Settings as ComponentSettings;
-    /// </code>
-    /// </remarks>
-    /// 
     public object Settings { get; set; }
 
     /// <summary>

@@ -19,7 +19,6 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
     public static string Guid { get; } = "8AA94A7A-4847-4ED2-930F-292A7BFBA7CB";
     public string ComponentGuid => Guid;
     public object Settings { get; set; } = new SettingsControlSettings();
-    public SettingsControlSettings SettingsControlSettings => Settings as SettingsControlSettings;
 
     public SettingsControl()
     {
@@ -40,32 +39,6 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
 
     #region Properties
 
-    #region ImageWidth
-
-    public double ImageWidth
-    {
-        get { return (double)GetValue(ImageWidthProperty); }
-        set { SetValue(ImageWidthProperty, value); }
-    }
-
-    public static readonly DependencyProperty ImageWidthProperty =
-        DependencyProperty.Register("ImageWidth", typeof(double), typeof(SettingsControl), new PropertyMetadata(40d));
-
-    #endregion
-
-    #region ImageHeight
-
-    public double ImageHeight
-    {
-        get { return (double)GetValue(ImageHeightProperty); }
-        set { SetValue(ImageHeightProperty, value); }
-    }
-
-    public static readonly DependencyProperty ImageHeightProperty =
-        DependencyProperty.Register("ImageHeight", typeof(double), typeof(SettingsControl), new PropertyMetadata(40d));
-
-    #endregion
-
     #region TextVisibility
 
     public Visibility TextVisibility
@@ -75,7 +48,7 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
     }
 
     public static readonly DependencyProperty TextVisibilityProperty =
-        DependencyProperty.Register(nameof(TextVisibility), typeof(Visibility), typeof(SettingsControl), new PropertyMetadata(Visibility.Visible));
+        DependencyProperty.Register(nameof(TextVisibility), typeof(Visibility), typeof(SettingsControl), new PropertyMetadata(Visibility.Collapsed));
 
     #endregion
 

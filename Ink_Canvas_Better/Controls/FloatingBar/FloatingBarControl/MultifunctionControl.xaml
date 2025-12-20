@@ -11,10 +11,8 @@
     <Grid d:Background="AliceBlue" Width="64" Height="64" Background="Transparent">
         <StackPanel Name="StackPanel" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Image Source="{DynamicResource Image.FUI.Drag}"
-                   d:Width="40"
-                   d:Height="40"
-                   Width="{Binding ImageWidth}"
-                   Height="{Binding ImageHeight}"/>
+                   Width="40"
+                   Height="40"/>
         </StackPanel>
     </Grid>
 </UserControl>

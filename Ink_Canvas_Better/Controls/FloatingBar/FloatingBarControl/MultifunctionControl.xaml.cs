@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using Ink_Canvas_Better.Interface;
@@ -21,7 +19,6 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     public static string Guid { get; } = "03C5FD8D-2880-40F7-BAC5-9D83C347162C";
     public string ComponentGuid => Guid; 
     public object Settings { get; set; } = new MultifunctionControlSettings();
-    public MultifunctionControlSettings MultifunctionControlSettings => Settings as MultifunctionControlSettings;
 
     FloatingBar floatingBar;
 
@@ -38,46 +35,21 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
 
     public bool TryInvoke() => true;
 
-    #region Properties
-
-    #region ImageWidth
-
-    public double ImageWidth
-    {
-        get { return (double)GetValue(ImageWidthProperty); }
-        set { SetValue(ImageWidthProperty, value); }
-    }
-
-    public static readonly DependencyProperty ImageWidthProperty =
-        DependencyProperty.Register("ImageWidth", typeof(double), typeof(MultifunctionControl), new PropertyMetadata(40d));
-
-    #endregion
-
-    #region ImageHeight
-
-    public double ImageHeight
-    {
-        get { return (double)GetValue(ImageHeightProperty); }
-        set { SetValue(ImageHeightProperty, value); }
-    }
-
-    public static readonly DependencyProperty ImageHeightProperty =
-        DependencyProperty.Register("ImageHeight", typeof(double), typeof(MultifunctionControl), new PropertyMetadata(40d));
-
-    #endregion
-
-    #endregion
-
     private void MultifuntionControl_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        var t = Ink_Canvas_Better.Helpers.VisualTreeHelper.GetVisualParent<FloatingBar>(this);
+        var t = Helpers.VisualTreeHelper.GetVisualParent<FloatingBar>(this);
         if (t == null) return;
         floatingBar = t;
         _isMouseDown = true;
-        _mouseDownPos = e.GetPosition(App.GetService<MainWindow>());
-        if (floatingBar.RenderTransform is not TranslateTransform transform)
+        _mouseDownPos = e.GetPosition(null);
+        TranslateTransform transform = null;
+        foreach (var item in ((TransformGroup)floatingBar.RenderTransform).Children)
         {
-            transform = new TranslateTransform();
+            if (item.GetType() == typeof(TranslateTransform))
+            {
+                transform = (TranslateTransform)item;
+                break;
+            }
         }
         _mouseDownControlPos = new Point(transform.X, transform.Y);
         this.MouseMove += MultifuntionControl_MouseMove;
@@ -89,7 +61,15 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     {
         if (_isMouseDown)
         {
-            TranslateTransform transform = (TranslateTransform)floatingBar.RenderTransform;
+            TranslateTransform transform = null;
+            foreach (var item in ((TransformGroup)floatingBar.RenderTransform).Children)
+            {
+                if (item.GetType() == typeof(TranslateTransform))
+                {
+                    transform = (TranslateTransform)item;
+                    break;
+                }
+            }
             _currentMousePos = e.GetPosition(null);
             transform.X = _mouseDownControlPos.X + _currentMousePos.X - _mouseDownPos.X;
             transform.Y = _mouseDownControlPos.Y + _currentMousePos.Y - _mouseDownPos.Y;

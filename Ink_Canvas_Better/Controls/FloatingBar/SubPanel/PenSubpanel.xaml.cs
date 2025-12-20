@@ -22,13 +22,12 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
         public static string Guid { get; } = "0683F0B3-9EE7-4E0A-A645-66B157239A03";
         public string ComponentGuid => Guid;
         public object Settings { get; set; } = new PenSubpanelSettings();
-        public PenSubpanelSettings PenSubpanelSettings => Settings as PenSubpanelSettings;
         private bool _isLoaded = false;
 
         public PenSubpanel()
         {
             InitializeComponent();
-            DataContext = PenSubpanelSettings;
+            DataContext = Settings;
 
             Loaded += PenSubpanel_Loaded;
             _isLoaded = true;
@@ -36,8 +35,8 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
 
         private void PenSubpanel_Loaded(object sender, RoutedEventArgs e)
         {
-            PenSubpanelSettings.IsInitializing = false;
-            Ellipse_Preview.Fill = PenSubpanelSettings.ColorCollection[PenSubpanelSettings.GridViewSelectedIndex];
+            (Settings as PenSubpanelSettings).IsInitializing = false;
+            Ellipse_Preview.Fill = (Settings as PenSubpanelSettings).ColorCollection[(Settings as PenSubpanelSettings).GridViewSelectedIndex];
         }
 
         public bool TryInvoke()
@@ -47,11 +46,11 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
                 try
                 {
                     var mainWindow = App.GetService<MainWindow>();
-                    var seletedIndex = PenSubpanelSettings.GridViewSelectedIndex;
+                    var seletedIndex = (Settings as PenSubpanelSettings).GridViewSelectedIndex;
                     // UI
-                    Ellipse_Preview.Fill = PenSubpanelSettings.ColorCollection[seletedIndex];
+                    Ellipse_Preview.Fill = (Settings as PenSubpanelSettings).ColorCollection[seletedIndex];
                     // InkCanvas
-                    mainWindow.Settings.CurrentDrawingAttributes.Color = PenSubpanelSettings.ColorCollection[seletedIndex].Color;
+                    mainWindow.Settings.CurrentDrawingAttributes.Color = (Settings as PenSubpanelSettings).ColorCollection[seletedIndex].Color;
                     mainWindow.Settings.CurrentDrawingAttributes.Width = mainWindow.Settings.CurrentDrawingAttributes.Height = Slider_Thickness.Value;
                     mainWindow.CurrentEditingMode = Enums.EditingMode.Ink;
                     return true;
@@ -73,10 +72,10 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
         {
             if (Toggle_Color.IsChecked == true)
             {
-                var seletedIndex = PenSubpanelSettings.GridViewSelectedIndex;
+                var seletedIndex = (Settings as PenSubpanelSettings).GridViewSelectedIndex;
                 Popup_ColorPicker.IsOpen = false;
                 Popup_ColorPicker.PlacementTarget = GridView_Colors.ItemContainerGenerator.ContainerFromIndex(seletedIndex) as UIElement;
-                SqColorPicker.SelectedColor = PenSubpanelSettings.ColorCollection[seletedIndex].Color;
+                SqColorPicker.SelectedColor = (Settings as PenSubpanelSettings).ColorCollection[seletedIndex].Color;
                 Popup_ColorPicker.IsOpen = true;
             }
             else if (Popup_ColorPicker.IsOpen == true) Popup_ColorPicker.IsOpen = false;
@@ -92,8 +91,8 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.SubPanel
 
         private void SqColorPicker_ColorChanged(object sender, RoutedEventArgs e)
         {
-            var seletedIndex = PenSubpanelSettings.GridViewSelectedIndex;
-            PenSubpanelSettings.ColorCollection[seletedIndex].Color = SqColorPicker.SelectedColor;
+            var seletedIndex = (Settings as PenSubpanelSettings).GridViewSelectedIndex;
+            (Settings as PenSubpanelSettings).ColorCollection[seletedIndex].Color = SqColorPicker.SelectedColor;
             this.TryInvoke();
         }
 

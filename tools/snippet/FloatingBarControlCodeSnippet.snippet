@@ -45,7 +45,6 @@ public partial class $FloatingBarControlName$ : UserControl, IFloatingBarCompone
     public static string Guid { get; } = "$Guid$";
     public string ComponentGuid => Guid;
     public object Settings { get; set; } = new $FloatingBarControlName$Settings();
-    public $FloatingBarControlName$Settings $FloatingBarControlName$Settings => Settings as $FloatingBarControlName$Settings;
 
     public $FloatingBarControlName$()
     {
@@ -56,7 +55,7 @@ public partial class $FloatingBarControlName$ : UserControl, IFloatingBarCompone
 
     private void $FloatingBarControlName$_Loaded(object sender, RoutedEventArgs e)
     {
-        $FloatingBarControlName$Settings.IsInitializing = false;
+        (Settings as $FloatingBarControlName$Settings).IsInitializing = false;
     }
 
     public bool TryInvoke()
@@ -65,19 +64,6 @@ public partial class $FloatingBarControlName$ : UserControl, IFloatingBarCompone
     }
 
     #region Properties
-
-    #region Source
-
-    public ImageSource Source
-    {
-        get { return (ImageSource)GetValue(SourceProperty); }
-        set { SetValue(SourceProperty, value); }
-    }
-
-    public static readonly DependencyProperty SourceProperty =
-        DependencyProperty.Register("Source", typeof(ImageSource), typeof($FloatingBarControlName$), new PropertyMetadata(null));
-
-    #endregion
 
     #region Text
 
@@ -102,32 +88,6 @@ public partial class $FloatingBarControlName$ : UserControl, IFloatingBarCompone
 
     public static readonly DependencyProperty TextVisibilityProperty =
         DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof($FloatingBarControlName$), new PropertyMetadata(Visibility.Collapsed));
-
-    #endregion
-
-    #region ImageWidth
-
-    public double ImageWidth
-    {
-        get { return (double)GetValue(ImageWidthProperty); }
-        set { SetValue(ImageWidthProperty, value); }
-    }
-
-    public static readonly DependencyProperty ImageWidthProperty =
-        DependencyProperty.Register("ImageWidth", typeof(double), typeof($FloatingBarControlName$), new PropertyMetadata(40d));
-
-    #endregion
-
-    #region ImageHeight
-
-    public double ImageHeight
-    {
-        get { return (double)GetValue(ImageHeightProperty); }
-        set { SetValue(ImageHeightProperty, value); }
-    }
-
-    public static readonly DependencyProperty ImageHeightProperty =
-        DependencyProperty.Register("ImageHeight", typeof(double), typeof($FloatingBarControlName$), new PropertyMetadata(40d));
 
     #endregion
 

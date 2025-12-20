@@ -23,7 +23,6 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     public static string Guid { get; } = "87F7581C-364A-49D7-93C3-3355A8415D38";
     public string ComponentGuid => Guid;
     public object Settings { get; set; } = new PenControlSettings();
-    public PenControlSettings PenControlSettings => Settings as PenControlSettings;
 
     public PenControl()
     {
@@ -36,7 +35,7 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     private void PenControl_Loaded(object sender, RoutedEventArgs e)
     {
         mainWindow = App.GetService<MainWindow>();
-        PenControlSettings.IsInitializing = false;
+        (Settings as PenControlSettings).IsInitializing = false;
     }
 
     private void PenControl_MouseUp(object sender, MouseButtonEventArgs e)
@@ -49,7 +48,7 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
         {
             this.IsOpen = true;
         }
-        foreach (var item in PenControlSettings.Subpanels)
+        foreach (var item in (Settings as PenControlSettings).Subpanels)
         {
             item.TryInvoke();
         }
@@ -59,7 +58,7 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     {
         try
         {
-            foreach (var item in PenControlSettings.Subpanels) item.TryInvoke();
+            foreach (var item in (Settings as PenControlSettings).Subpanels) item.TryInvoke();
             return true;
         }
         catch (Exception)
@@ -69,19 +68,6 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     }
 
     #region Properties
-
-    #region Source
-
-    public ImageSource Source
-    {
-        get { return (ImageSource)GetValue(SourceProperty); }
-        set { SetValue(SourceProperty, value); }
-    }
-
-    public static readonly DependencyProperty SourceProperty =
-        DependencyProperty.Register("Source", typeof(ImageSource), typeof(PenControl), new PropertyMetadata(null));
-
-    #endregion
 
     #region Text
 
@@ -106,32 +92,6 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
 
     public static readonly DependencyProperty TextVisibilityProperty =
         DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof(PenControl), new PropertyMetadata(Visibility.Collapsed));
-
-    #endregion
-
-    #region ImageWidth
-
-    public double ImageWidth
-    {
-        get { return (double)GetValue(ImageWidthProperty); }
-        set { SetValue(ImageWidthProperty, value); }
-    }
-
-    public static readonly DependencyProperty ImageWidthProperty =
-        DependencyProperty.Register("ImageWidth", typeof(double), typeof(PenControl), new PropertyMetadata(40d));
-
-    #endregion
-
-    #region ImageHeight
-
-    public double ImageHeight
-    {
-        get { return (double)GetValue(ImageHeightProperty); }
-        set { SetValue(ImageHeightProperty, value); }
-    }
-
-    public static readonly DependencyProperty ImageHeightProperty =
-        DependencyProperty.Register("ImageHeight", typeof(double), typeof(PenControl), new PropertyMetadata(40d));
 
     #endregion
 

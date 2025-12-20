@@ -30,6 +30,12 @@ namespace Ink_Canvas_Better.Windows
 
             InitializeComponent();
             this.SourceInitialized += MainWindow_SourceInitialized;
+            this.Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.CurrentEditingMode = Enums.EditingMode.None;
         }
 
         private void MainWindow_SourceInitialized(object? sender, EventArgs e)

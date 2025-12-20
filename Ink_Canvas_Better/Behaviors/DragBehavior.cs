@@ -75,7 +75,7 @@ namespace Ink_Canvas_Better.Behaviors
 
             double deltaX = currentPosition.X - _lastMousePosition.X;
             double deltaY = currentPosition.Y - _lastMousePosition.Y;
-
+            
             _controlToDrag.HorizontalOffset += deltaX;
             _controlToDrag.VerticalOffset += deltaY;
         }

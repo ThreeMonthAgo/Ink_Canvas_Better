@@ -24,7 +24,6 @@ public partial class FloatingBarGroup : UserControl, IFloatingBarComponentSettin
     public static string Guid { get; } = "B1E2F3A4-5678-90AB-CDEF-1234567890AB";
     public string ComponentGuid => Guid;
     public object Settings { get; set; } = new FloatingBarGroupSettings();
-    public FloatingBarGroupSettings FloatingBarGroupSettings => Settings as FloatingBarGroupSettings;
 
     public FloatingBarGroup()
     {
@@ -35,14 +34,14 @@ public partial class FloatingBarGroup : UserControl, IFloatingBarComponentSettin
 
     private void FloatingBarGroup_Loaded(object sender, RoutedEventArgs e)
     {
-        FloatingBarGroupSettings.IsInitializing = false;
+        (Settings as FloatingBarGroupSettings).IsInitializing = false;
     }
 
     public bool TryInvoke() => true;
 
     public FloatingBarGroup Add(IFloatingBarComponentSettingBase component)
     {
-        FloatingBarGroupSettings.Items.Add(component);
+        (Settings as FloatingBarGroupSettings).Items.Add(component);
         return this;
     }
 }

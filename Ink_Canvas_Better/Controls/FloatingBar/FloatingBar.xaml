@@ -8,11 +8,17 @@
              xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d">
-    <ItemsControl ItemsSource="{Binding FloatingBarSettings.Items}">
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform ScaleX="{Binding Settings.Scale}" ScaleY="{Binding Settings.Scale}"/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </UserControl.RenderTransform>
+    <ItemsControl ItemsSource="{Binding Settings.Items}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <iuw:SimpleStackPanel Spacing="{Binding FloatingBarSettings.Spacing, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}"
-                                      Orientation="{Binding FloatingBarSettings.Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}"
+                <iuw:SimpleStackPanel Spacing="{Binding Settings.Spacing, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}"
+                                      Orientation="{Binding Settings.Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}"
                                       VerticalAlignment="Top"
                                       HorizontalAlignment="Left"/>
             </ItemsPanelTemplate>

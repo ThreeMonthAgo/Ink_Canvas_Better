@@ -16,7 +16,6 @@ public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
     public static string Guid { get; } = "D4F5C8A1-6E2B-4F3A-9C1E-2B7D8F9A0B1C";
     public string ComponentGuid => Guid;
     public object Settings { get; set; } = new FloatingBarSettings();
-    public FloatingBarSettings FloatingBarSettings => Settings as FloatingBarSettings;
 
     public FloatingBar()
     {
@@ -29,13 +28,12 @@ public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
 
     private void FloatingBar_Loaded(object sender, RoutedEventArgs e)
     {
-        this.RenderTransform = new TranslateTransform();
-        FloatingBarSettings.IsInitializing = false;
+        (Settings as FloatingBarSettings).IsInitializing = false;
     }
 
     public FloatingBar Add(IFloatingBarComponentSettingBase component)
     {
-        FloatingBarSettings.Items.Add(component);
+        (Settings as FloatingBarSettings).Items.Add(component);
         return this;
     }
 }
@@ -45,6 +43,7 @@ public class FloatingBarSettings : INotifyPropertyChanged
     private ObservableCollection<IFloatingBarComponentSettingBase>? _items = [];
     private double _spacing = 4.0;
     private Orientation _orientation = Orientation.Horizontal;
+    private double _scale = 1.0;
 
     #region
 
@@ -64,6 +63,12 @@ public class FloatingBarSettings : INotifyPropertyChanged
     {
         get { return _orientation; }
         set { _orientation = value; OnPropertyChanged(); }
+    }
+
+    public double Scale
+    {
+        get { return _scale; }
+        set { _scale = value; OnPropertyChanged(); }
     }
 
     #endregion

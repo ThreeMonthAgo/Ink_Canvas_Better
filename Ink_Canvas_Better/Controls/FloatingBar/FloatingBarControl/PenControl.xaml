@@ -45,17 +45,15 @@
                                 <Image Source="{DynamicResource Image.FUI.Dismiss}"/>
                             </Button>
                         </Grid>
-                        <ItemsControl ItemsSource="{Binding PenControlSettings.Subpanels}"/>
+                        <ItemsControl ItemsSource="{Binding Settings.Subpanels}"/>
                     </StackPanel>
                 </Border>
             </Border>
         </Popup>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Image Source="{DynamicResource Image.FUI.CalligraphyPen}"
-                   d:Width="40"
-                   d:Height="40"
-                   Width="{Binding ImageWidth}"
-                   Height="{Binding ImageHeight}"/>
+                   Width="40"
+                   Height="40"/>
             <TextBlock FontSize="12"
                        TextAlignment="Center"
                        Text="{DynamicResource Text_Pen}"

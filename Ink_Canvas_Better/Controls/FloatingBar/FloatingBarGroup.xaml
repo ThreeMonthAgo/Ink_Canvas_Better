@@ -12,11 +12,11 @@
             BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
             BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}"
             CornerRadius="8">
-        <ItemsControl ItemsSource="{Binding FloatingBarGroupSettings.Items}">
+        <ItemsControl ItemsSource="{Binding Settings.Items}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <iuw:SimpleStackPanel Spacing="{Binding FloatingBarGroupSettings.Spacing, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBarGroup}}}"
-                                          Orientation="{Binding FloatingBarSettings.Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}"/>
+                    <iuw:SimpleStackPanel Spacing="{Binding Settings.Spacing, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBarGroup}}}"
+                                          Orientation="{Binding Settings.Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
