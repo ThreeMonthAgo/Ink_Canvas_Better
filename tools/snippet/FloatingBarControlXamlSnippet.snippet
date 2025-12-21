@@ -46,22 +46,15 @@
                     <StackPanel Orientation="Vertical" MinWidth="100">
                         <Grid ColumnDefinitions="*,auto,4,auto" Name="Grid_TitleBar">
                             <bh:Interaction.Behaviors>
-                                <behavior:DragBehavior/>
+                                <behavior:DragBehavior TypeOfControlToDrag="{x:Type Popup}" IsUseLogicalTreeHelper="True"/>
                             </bh:Interaction.Behaviors>
                             <TextBlock VerticalAlignment="Center"
                                        Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"
                                        Text="Title"
                                        Grid.Column="0"
                                        FontSize="24"/>
-                            <ToggleButton Grid.Column="1" Width="26" Height="26" Style="{StaticResource PinToggleButtonStyle}" IsChecked="{Binding ElementName=Subpanel, Path=StaysOpen, Mode=TwoWay}">
-                                <Grid>
-                                    <Image Source="{DynamicResource Image.FUI.PinOff}" Style="{StaticResource PinOffButtonImageStyle}"/>
-                                    <Image Source="{DynamicResource Image.FUI.Pin}" Style="{StaticResource PinButtonImageStyle}"/>
-                                </Grid>
-                            </ToggleButton>
-                            <Button Grid.Column="3" Width="26" Height="26" Style="{StaticResource CloseButtonStyle}" Click="Button_HidePopup">
-                                <Image Source="{DynamicResource Image.FUI.Dismiss}"/>
-                            </Button>
+                            <ToggleButton Style="{StaticResource PinToggleButtonStyle}" Grid.Column="1" Width="26" Height="26" IsChecked="{Binding ElementName=Subpanel, Path=StaysOpen, Mode=TwoWay}"/>
+                            <Button Style="{StaticResource CloseButtonStyle}" Grid.Column="3" Width="26" Height="26" Click="Button_HidePopup"/>
                         </Grid>
                         <ItemsControl ItemsSource="{Binding $FloatingBarControlName$Settings.Subpanels}"/>
                     </StackPanel>

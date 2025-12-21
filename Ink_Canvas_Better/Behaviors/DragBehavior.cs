@@ -1,23 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 using System.Windows.Media;
-using Ink_Canvas_Better.Windows;
 using Microsoft.Xaml.Behaviors;
 
 namespace Ink_Canvas_Better.Behaviors
 {
-    // TODO: Support more control
-    public class DragBehavior : Behavior<FrameworkElement>
+    public class DragBehavior : Behavior<Thumb>
     {
-        private Popup _controlToDrag;
-        private bool _isDragging;
-        private Point _lastMousePosition;
+        /// <summary>
+        /// The type of the control that you want to drag.
+        /// </summary>
+        /// <remarks>
+        /// <b>Warning:</b> Some special type (e.g. <see cref="Popup"/>) needs to use LogicalTreeHelper, please set "<see cref="IsUseLogicalTreeHelper"/>" to true.
+        /// </remarks>
+        public Type TypeOfControlToDrag
+        {
+            get { return _typeOfControlToDrag; }
+            set { _typeOfControlToDrag = value; }
+        }
+        private Type _typeOfControlToDrag;
+
+        /// <summary>
+        /// For use in some special conditions.
+        /// </summary>
+        public bool IsUseLogicalTreeHelper
+        {
+            get { return _isUseLogicalTreeHelper; }
+            set { _isUseLogicalTreeHelper = value; }
+        }
+        private bool _isUseLogicalTreeHelper = false;
 
         public bool IsEnabled
         {
@@ -31,69 +45,69 @@ namespace Ink_Canvas_Better.Behaviors
         protected override void OnAttached()
         {
             base.OnAttached();
-
             if (IsEnabled)
             {
-                AssociatedObject.MouseDown += OnMouseDown;
-                AssociatedObject.MouseUp += OnMouseMove;
-                AssociatedObject.MouseUp += OnMouseUp;
-                AssociatedObject.LostMouseCapture += OnLostMouseCapture;
+                AssociatedObject.DragDelta += AssociatedObject_DragDelta;
             }
         }
 
         protected override void OnDetaching()
         {
             base.OnDetaching();
-
-            AssociatedObject.MouseDown -= OnMouseDown;
-            AssociatedObject.MouseMove -= OnMouseMove;
-            AssociatedObject.MouseUp -= OnMouseUp;
-            AssociatedObject.LostMouseCapture -= OnLostMouseCapture;
+            AssociatedObject.DragDelta -= AssociatedObject_DragDelta;
         }
 
-        private void OnMouseDown(object sender, MouseButtonEventArgs e)
+        private void AssociatedObject_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            var t = Helpers.VisualTreeHelper.GetLogicalParent<Popup>(AssociatedObject);
-            if (t != null)
+            // Get control to drag
+            object temp = _isUseLogicalTreeHelper ? Helpers.VisualTreeHelper.GetLogicalParent(AssociatedObject, _typeOfControlToDrag) : Helpers.VisualTreeHelper.GetVisualParent(AssociatedObject, _typeOfControlToDrag);
+            if (temp == null) return;
+            if (_typeOfControlToDrag == typeof(Popup))
             {
-                _controlToDrag = t;
+                // Popup requires special handling.
+                var controlToDrag = temp as Popup;
+                controlToDrag.HorizontalOffset += e.HorizontalChange;
+                controlToDrag.VerticalOffset += e.VerticalChange;
+                return;
             }
-            else return;
-
-            _isDragging = true;
-            _lastMousePosition = e.GetPosition(null);
-
-            AssociatedObject.CaptureMouse();
-            e.Handled = true;
-        }
-
-        private void OnMouseMove(object sender, MouseEventArgs e)
-        {
-            if (!_isDragging || _controlToDrag == null) return;
-
-            Point currentPosition = e.GetPosition(null);
-
-            double deltaX = currentPosition.X - _lastMousePosition.X;
-            double deltaY = currentPosition.Y - _lastMousePosition.Y;
-            
-            _controlToDrag.HorizontalOffset += deltaX;
-            _controlToDrag.VerticalOffset += deltaY;
-        }
-
-        private void OnMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            EndDrag();
-        }
-
-        private void OnLostMouseCapture(object sender, MouseEventArgs e)
-        {
-            EndDrag();
-        }
-
-        private void EndDrag()
-        {
-            _isDragging = false;
-            AssociatedObject.ReleaseMouseCapture();
+            else
+            {
+                // Get TranslateTransform
+                var controlToDrag = temp as Control;
+                TranslateTransform translateTransform;
+                if (controlToDrag.RenderTransform is TranslateTransform tt)
+                {
+                    translateTransform = tt;
+                }
+                else if (controlToDrag.RenderTransform is TransformGroup tg)
+                {
+                    foreach (var item in tg.Children)
+                    {
+                        if (item is TranslateTransform)
+                        {
+                            translateTransform = item as TranslateTransform;
+                            break;
+                        }
+                    }
+                    translateTransform = new();
+                    tg.Children.Add(translateTransform);
+                }
+                else
+                {
+                    translateTransform = new();
+                    controlToDrag.RenderTransform = new TransformGroup()
+                    {
+                        Children = [
+                            controlToDrag.RenderTransform,
+                            translateTransform
+                            ]
+                    };
+                }
+                // drag
+                translateTransform.X += e.HorizontalChange;
+                translateTransform.Y += e.VerticalChange;
+                return;
+            }
         }
     }
 }

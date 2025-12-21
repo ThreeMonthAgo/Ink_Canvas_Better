@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace Ink_Canvas_Better.Helpers
 {
@@ -22,11 +19,18 @@ namespace Ink_Canvas_Better.Helpers
             }
         }
 
-        public static DependencyObject GetVisualParent(DependencyObject child, Collection<Type> types)
+        public static object GetVisualParent(DependencyObject child, Type targetType)
         {
             DependencyObject? parentObject = System.Windows.Media.VisualTreeHelper.GetParent(child);
             if (parentObject == null) return null;
-            return types.Contains(parentObject.GetType()) ? parentObject : GetVisualParent(parentObject, types);
+            if (parentObject.GetType() == targetType)
+            {
+                return parentObject;
+            }
+            else
+            {
+                return GetVisualParent(parentObject, targetType);
+            }
         }
 
         public static T? GetLogicalParent<T>(DependencyObject child) where T : DependencyObject
@@ -43,5 +47,18 @@ namespace Ink_Canvas_Better.Helpers
             }
         }
 
+        public static object GetLogicalParent(DependencyObject child, Type targetType)
+        {
+            DependencyObject? parentObject = System.Windows.LogicalTreeHelper.GetParent(child);
+            if (parentObject == null) return null;
+            if (parentObject.GetType() == targetType)
+            {
+                return parentObject;
+            }
+            else
+            {
+                return GetLogicalParent(parentObject, targetType);
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,66 +23,15 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
 
     FloatingBar floatingBar;
 
-    private bool _isMouseDown = false;
-    private Point _mouseDownPos, _mouseUpPos, _mouseDownControlPos, _currentMousePos;
-
     public MultifunctionControl()
     {
         InitializeComponent();
-
-        this.MouseDown += MultifuntionControl_MouseDown;
-        this.MouseUp += MultifuntionControl_MouseUp;
     }
 
     public bool TryInvoke() => true;
 
-    private void MultifuntionControl_MouseDown(object sender, MouseButtonEventArgs e)
+    private void Thumb_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
     {
-        var t = Helpers.VisualTreeHelper.GetVisualParent<FloatingBar>(this);
-        if (t == null) return;
-        floatingBar = t;
-        _isMouseDown = true;
-        _mouseDownPos = e.GetPosition(null);
-        TranslateTransform transform = null;
-        foreach (var item in ((TransformGroup)floatingBar.RenderTransform).Children)
-        {
-            if (item.GetType() == typeof(TranslateTransform))
-            {
-                transform = (TranslateTransform)item;
-                break;
-            }
-        }
-        _mouseDownControlPos = new Point(transform.X, transform.Y);
-        this.MouseMove += MultifuntionControl_MouseMove;
-        this.CaptureMouse();
-        e.Handled = true;
-    }
-
-    private void MultifuntionControl_MouseMove(object sender, MouseEventArgs e)
-    {
-        if (_isMouseDown)
-        {
-            TranslateTransform transform = null;
-            foreach (var item in ((TransformGroup)floatingBar.RenderTransform).Children)
-            {
-                if (item.GetType() == typeof(TranslateTransform))
-                {
-                    transform = (TranslateTransform)item;
-                    break;
-                }
-            }
-            _currentMousePos = e.GetPosition(null);
-            transform.X = _mouseDownControlPos.X + _currentMousePos.X - _mouseDownPos.X;
-            transform.Y = _mouseDownControlPos.Y + _currentMousePos.Y - _mouseDownPos.Y;
-        }
-    }
-
-    private void MultifuntionControl_MouseUp(object sender, MouseButtonEventArgs e)
-    {
-        this.MouseMove -= MultifuntionControl_MouseMove;
-        this.ReleaseMouseCapture();
-        _isMouseDown = false;
-        _mouseUpPos = e.GetPosition(null);
         // TODO: fold the floatingbar
     }
 }

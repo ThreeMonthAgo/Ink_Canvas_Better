@@ -32,15 +32,16 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-            <!-- Button and ToggleButton-->
+            <!-- Button and ToggleButton -->
             <Style x:Key="PinToggleButtonStyle" TargetType="{x:Type ToggleButton}">
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ToggleButton}">
-                            <ContentPresenter
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
+                            <Grid>
+                                <Image Source="{DynamicResource Image.FUI.PinOff}" Style="{StaticResource PinOffButtonImageStyle}"/>
+                                <Image Source="{DynamicResource Image.FUI.Pin}" Style="{StaticResource PinButtonImageStyle}"/>
+                            </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True"/>
                             </ControlTemplate.Triggers>
@@ -53,9 +54,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
+                            <Image Source="{DynamicResource Image.FUI.Dismiss}"/>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True"/>
                             </ControlTemplate.Triggers>
