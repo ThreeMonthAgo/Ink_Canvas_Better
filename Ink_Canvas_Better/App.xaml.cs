@@ -1,21 +1,17 @@
 ﻿using System.Collections.Concurrent;
-using System.Configuration;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.Windows;
-using System.Windows.Media.Imaging;
-using Ink_Canvas_Better.Controls.FloatingBar;
-using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
-using Ink_Canvas_Better.Pages.Settings.Home;
-using Ink_Canvas_Better.Services;
-using Ink_Canvas_Better.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Ink_Canvas_Better.Controls.FloatingBar;
+using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
+using Ink_Canvas_Better.Controls.FloatingBar.SubPanel;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Pages.Settings.Appearance;
-using Ink_Canvas_Better.Controls.FloatingBar.SubPanel;
+using Ink_Canvas_Better.Pages.Settings.Home;
+using Ink_Canvas_Better.Services;
+using Ink_Canvas_Better.Windows;
 
 namespace Ink_Canvas_Better
 {

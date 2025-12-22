@@ -32,13 +32,17 @@
                                        Text="{DynamicResource Text_Pen}"
                                        Grid.Column="0"
                                        FontSize="24"/>
-                            <Thumb Background="Transparent">
+                            <Thumb Background="Transparent" Opacity="0.2">
                                 <bh:Interaction.Behaviors>
                                     <behavior:DragBehavior TypeOfControlToDrag="{x:Type Popup}" IsUseLogicalTreeHelper="True"/>
                                 </bh:Interaction.Behaviors>
                             </Thumb>
                             <ToggleButton Grid.Column="1" Width="26" Height="26" Style="{StaticResource PinToggleButtonStyle}" IsChecked="{Binding ElementName=Subpanel, Path=StaysOpen, Mode=TwoWay}"/>
-                            <Button Grid.Column="3" Width="26" Height="26" Style="{StaticResource CloseButtonStyle}" Click="Button_HidePopup"/>
+                            <Button Grid.Column="3" Width="26" Height="26" Style="{StaticResource CloseButtonStyle}">
+                                <bh:Interaction.Behaviors>
+                                    <behavior:CloseButtonBehavior/>
+                                </bh:Interaction.Behaviors>
+                            </Button>
                         </Grid>
                         <ItemsControl ItemsSource="{Binding Settings.Subpanels}"/>
                     </StackPanel>

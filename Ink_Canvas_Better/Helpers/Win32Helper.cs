@@ -1,5 +1,7 @@
 ﻿using System.Windows;
-using System.Windows.Interop;
+using System.Runtime.InteropServices;
+using Ink_Canvas_Better.Utilities.DataStructures;
+using iNKORE.UI.WPF.Modern.Native;
 
 namespace Ink_Canvas_Better.Helpers
 {
@@ -10,13 +12,92 @@ namespace Ink_Canvas_Better.Helpers
         public const int GWL_EXSTYLE = -20;
         public const int WS_EX_TOOLWINDOW = 0x00000080;
 
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        [DllImport("user32.dll")]
         public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        [DllImport("user32.dll")]
         public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
         #endregion
 
+        #region Monitors
+
+        private static List<Screen> _screens;
+
+        /// <summary>
+        /// Gets information about all display monitors connected to the system.
+        /// </summary>
+        /// <returns>A list of <see cref="Screen"/> objects representing each monitor.</returns>
+        public static List<Screen> GetScreens()
+        {
+            _screens = [];
+
+            DisplayDevicesMethods.EnumDisplayMonitors(
+                IntPtr.Zero,
+                IntPtr.Zero,
+                MonitorEnumProc,
+                IntPtr.Zero);
+
+            return _screens;
+        }
+
+        private static bool MonitorEnumProc(IntPtr hMonitor, IntPtr hdcMonitor, RECT rect, IntPtr dwData)
+        {
+            DisplayDevicesMethods.MonitorInfo mi = new();
+            if (DisplayDevicesMethods.GetMonitorInfo(hMonitor, mi))
+            {
+                _screens.Add(new Screen(
+                    (mi.dwFlags & 1) == 1, // Flag 1 indicates primary monitor
+                    mi.rcMonitor.left,
+                    mi.rcMonitor.top,
+                    mi.rcMonitor.Width,
+                    mi.rcMonitor.Height));
+            }
+            return true;
+        }
+
+        internal static class DisplayDevicesMethods
+        {
+            internal delegate bool EnumMonitorsDelegate(
+                IntPtr hMonitor,
+                IntPtr hdcMonitor,
+                RECT rect,
+                IntPtr dwData);
+
+            /// <summary>
+            /// Enumerates display monitors in the system.
+            /// </summary>
+            [DllImport("user32.dll")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            internal static extern bool EnumDisplayMonitors(
+                IntPtr hdc,
+                IntPtr lprcClip,
+                EnumMonitorsDelegate lpfnEnum,
+                IntPtr dwData);
+
+            /// <summary>
+            /// Retrieves information about a display monitor.
+            /// </summary>
+            /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            internal static extern bool GetMonitorInfo(
+                IntPtr hmonitor,
+                [In, Out] MonitorInfo info);
+
+            /// <summary>
+            /// Contains information about a display monitor.
+            /// </summary>
+            [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]
+            internal class MonitorInfo
+            {
+                internal int cbSize = Marshal.SizeOf<MonitorInfo>();
+                internal RECT rcMonitor = new();
+                internal RECT rcWork = new();
+                internal int dwFlags;
+            }
+        }
+
+        #endregion
     }
 }

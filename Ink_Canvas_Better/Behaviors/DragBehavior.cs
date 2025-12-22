@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using Microsoft.Xaml.Behaviors;
+using iNKORE.UI.WPF.Helpers;
+using LogicalTreeHelper = Ink_Canvas_Better.Helpers.LogicalTreeHelper;
 
 namespace Ink_Canvas_Better.Behaviors
 {
@@ -60,7 +62,7 @@ namespace Ink_Canvas_Better.Behaviors
         private void AssociatedObject_DragDelta(object sender, DragDeltaEventArgs e)
         {
             // Get control to drag
-            object temp = _isUseLogicalTreeHelper ? Helpers.VisualTreeHelper.GetLogicalParent(AssociatedObject, _typeOfControlToDrag) : Helpers.VisualTreeHelper.GetVisualParent(AssociatedObject, _typeOfControlToDrag);
+            object temp = _isUseLogicalTreeHelper ? LogicalTreeHelper.FindAscendant(AssociatedObject, _typeOfControlToDrag) : VisualTree.FindAscendant(AssociatedObject, _typeOfControlToDrag);
             if (temp == null) return;
             if (_typeOfControlToDrag == typeof(Popup))
             {

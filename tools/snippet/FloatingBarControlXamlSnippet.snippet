@@ -45,16 +45,22 @@
                         Padding="4">
                     <StackPanel Orientation="Vertical" MinWidth="100">
                         <Grid ColumnDefinitions="*,auto,4,auto" Name="Grid_TitleBar">
-                            <bh:Interaction.Behaviors>
-                                <behavior:DragBehavior TypeOfControlToDrag="{x:Type Popup}" IsUseLogicalTreeHelper="True"/>
-                            </bh:Interaction.Behaviors>
                             <TextBlock VerticalAlignment="Center"
                                        Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"
                                        Text="Title"
                                        Grid.Column="0"
                                        FontSize="24"/>
+                            <Thumb Background="Transparent" Opacity="0.2">
+                                <bh:Interaction.Behaviors>
+                                    <behavior:DragBehavior TypeOfControlToDrag="{x:Type Popup}" IsUseLogicalTreeHelper="True"/>
+                                </bh:Interaction.Behaviors>
+                            </Thumb>
                             <ToggleButton Style="{StaticResource PinToggleButtonStyle}" Grid.Column="1" Width="26" Height="26" IsChecked="{Binding ElementName=Subpanel, Path=StaysOpen, Mode=TwoWay}"/>
-                            <Button Style="{StaticResource CloseButtonStyle}" Grid.Column="3" Width="26" Height="26" Click="Button_HidePopup"/>
+                            <Button Style="{StaticResource CloseButtonStyle}" Grid.Column="3" Width="26" Height="26" Click="Button_HidePopup">
+                                <bh:Interaction.Behaviors>
+                                    <behavior:CloseButtonBehavior/>
+                                </bh:Interaction.Behaviors>
+							</Button>
                         </Grid>
                         <ItemsControl ItemsSource="{Binding $FloatingBarControlName$Settings.Subpanels}"/>
                     </StackPanel>

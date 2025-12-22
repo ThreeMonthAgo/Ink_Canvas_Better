@@ -150,8 +150,6 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     #endregion
 
     #endregion
-
-    private void Button_HidePopup(object sender, RoutedEventArgs e) => this.IsOpen = false;
 }
 
 public class PenControlSettings : INotifyPropertyChanged

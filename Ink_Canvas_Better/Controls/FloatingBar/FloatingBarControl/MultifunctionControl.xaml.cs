@@ -21,8 +21,6 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     public string ComponentGuid => Guid; 
     public object Settings { get; set; } = new MultifunctionControlSettings();
 
-    FloatingBar floatingBar;
-
     public MultifunctionControl()
     {
         InitializeComponent();
