@@ -3,7 +3,7 @@
 /// <summary>
 /// Used for multi-screen display support
 /// </summary>
-internal sealed class Screen(bool isPrimary, int x, int y, int width, int height)
+public sealed class Screen(bool isPrimary, int x, int y, int width, int height)
 {
     /// <summary>
     /// Gets a value indicating whether this screen is the primary display.

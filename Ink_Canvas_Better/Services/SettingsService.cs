@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using Ink_Canvas_Better.Controls.FloatingBar;
 using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Interface;
@@ -14,8 +15,10 @@ using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Services
 {
-    public class SettingsService(ILogger<SettingsService> logger)
+    public class SettingsService
     {
+        private readonly ILogger<SettingsService> logger;
+
         private readonly JsonSerializerSettings jsonSerializerSettings = new()
         {
             Converters = [
@@ -28,6 +31,30 @@ namespace Ink_Canvas_Better.Services
         public string SettingsFilePath = "Settings.json";
 
         public Settings Settings { get; private set; } = new();
+
+        public SettingsService(ILogger<SettingsService> logger)
+        {
+            this.logger = logger;
+
+            Settings.PropertyChanged += Settings_PropertyChanged;
+        }
+
+        private void Settings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(Settings.Theme):
+                    App.GetService<ThemeService>().ChangeTheme(Settings.Theme);
+                    break;
+                case nameof(Settings.CultureInfo):
+                    App.GetService<ThemeService>().ChangeCultureInfo(Settings.CultureInfo);
+                    break;
+            }
+            if (!Settings.IsInitializing)
+            {
+                App.GetService<SettingsService>().SaveSettings();
+            }
+        }
 
         public void LoadSettings()
         {
@@ -89,19 +116,7 @@ namespace Ink_Canvas_Better.Services
     {
         private Version _appVersion = Application.ResourceAssembly.GetName().Version ??= new Version(0, 0, 0, 0); // 0.0.0.0 => something is wrong
         private Version _settingsVersion = new(2, 0, 0, 0); // Current settings version
-        private ObservableCollection<IFloatingBarComponentSettingBase> _floatingBarCollection = [
-                App.GetService<FloatingBar>()
-                    .Add(App.GetService<FloatingBarGroup>()
-                            .Add(App.GetService<MultifunctionControl>())
-                    )
-                    .Add(App.GetService<FloatingBarGroup>()
-                            .Add(App.GetService<CursorControl>())
-                            .Add(App.GetService<PenControl>())
-                    )
-                    .Add(App.GetService<FloatingBarGroup>()
-                            .Add(App.GetService<SettingsControl>())
-                    )
-            ];
+        private ObservableCollection<IFloatingBarComponentSettingBase> _floatingBarCollection = [ CreateDefaultFloatingBar() ];
         private string _logDirPath = "./Logs/";
         private CultureInfo _cultureInfo = new("en");
         private int _theme = 0; // UI theme; 0 => Auto
@@ -132,13 +147,13 @@ namespace Ink_Canvas_Better.Services
         public CultureInfo CultureInfo
         {
             get { return _cultureInfo; }
-            set { _cultureInfo = value; App.GetService<ThemeService>().ChangeCultureInfo(CultureInfo); OnPropertyChanged(); }
+            set { _cultureInfo = value; OnPropertyChanged(); }
         }
 
         public int Theme
         {
             get { return _theme; }
-            set { _theme = value; App.GetService<ThemeService>().ChangeTheme(Theme); OnPropertyChanged(); }
+            set { _theme = value; OnPropertyChanged(); }
         }
 
         #endregion
@@ -146,13 +161,10 @@ namespace Ink_Canvas_Better.Services
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            if (!IsInitializing)
-            {
-                App.GetService<SettingsService>().SaveSettings();
-            }
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        [JsonIgnore]
+        public bool IsInitializing { get; set; } = true;
 
         public void Copy(Settings settings)
         {
@@ -162,8 +174,23 @@ namespace Ink_Canvas_Better.Services
             }
         }
 
-        [JsonIgnore]
-        public bool IsInitializing { get; set; } = true;
+        public static FloatingBar CreateDefaultFloatingBar(int screenindex = 0)
+        {
+            var floatingBar =
+                App.GetService<FloatingBar>()
+                    .Add(App.GetService<FloatingBarGroup>()
+                        .Add(App.GetService<MultifunctionControl>())
+                    )
+                    .Add(App.GetService<FloatingBarGroup>()
+                        .Add(App.GetService<CursorControl>())
+                        .Add(App.GetService<PenControl>())
+                    )
+                    .Add(App.GetService<FloatingBarGroup>()
+                        .Add(App.GetService<SettingsControl>())
+                    );
+            (floatingBar.Settings as FloatingBarSettings).ScreenIndex = screenindex;
+            return floatingBar;
+        }
     }
 
     #endregion

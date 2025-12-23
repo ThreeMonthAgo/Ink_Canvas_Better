@@ -22,6 +22,8 @@
             DefaultDrawingAttributes="{Binding Settings.CurrentDrawingAttributes}"
             ForceCursor="False"
             IsManipulationEnabled="True"/>
-        <iuwm:ItemsRepeater Name="MW_ItemsPresenter" ItemsSource="{Binding SettingsService.Settings.FloatingBarCollection}"/>
+        <Grid ColumnDefinitions="auto">
+            <iuwm:ItemsRepeater Grid.Column="0" Name="MW_ItemsPresenter" ItemsSource="{Binding SettingsService.Settings.FloatingBarCollection}"/>
+        </Grid>
     </Grid>
 </Window>

@@ -5,7 +5,6 @@ using System.Threading;
 using System.Windows;
 using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Utilities.DataStructures;
-using Ink_Canvas_Better.Windows;
 
 namespace Ink_Canvas_Better.Services
 {
@@ -13,34 +12,27 @@ namespace Ink_Canvas_Better.Services
     {
         SettingsService settingsService;
 
-        // TODO
-        public void CreateMainWindows()
+        public void CheckFloatingBars()
         {
             List<Screen> screens = Win32Helper.GetScreens();
             settingsService = App.GetService<SettingsService>();
-
-            if (screens.Count == 0)
+            var floatingBars = settingsService.Settings.FloatingBarCollection;
+            if (floatingBars.Count < screens.Count)
             {
-                var window = new MainWindow(settingsService);
-                window.Show();
-                return;
-            }
-
-            foreach (var screen in screens)
-            {
-                var window = new MainWindow(settingsService)
+                for (int i = floatingBars.Count; i < screens.Count; i++)
                 {
-                    WindowStartupLocation = WindowStartupLocation.Manual,
-                    Left = screen.X,
-                    Top = screen.Y,
-                    Width = screen.Width,
-                    Height = screen.Height,
-                    WindowStyle = WindowStyle.None,
-                    ResizeMode = ResizeMode.NoResize
-                };
-                window.Show();
+                    floatingBars.Add(Settings.CreateDefaultFloatingBar(i));
+                }
             }
+            while (floatingBars.Count > screens.Count)
+            {
+                floatingBars.RemoveAt(floatingBars.Count - 1);
+            }
+        }
 
+        public Screen GetScreen(int index)
+        {
+            return Win32Helper.GetScreens()[index];
         }
     }
 }

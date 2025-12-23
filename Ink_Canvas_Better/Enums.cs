@@ -17,5 +17,20 @@ namespace Ink_Canvas_Better
             Shape
         }
 
+        public enum DockPlacement
+        {
+            Top,
+            Bottom,
+            AboveTaskBar,
+            Left,
+            Right,
+
+            TopLeft,
+            TopRight,
+            AboveTaskBarLeft,
+            AboveTaskBarRight,
+            BottomLeft,
+            BottomRight,
+        }
     }
 }
