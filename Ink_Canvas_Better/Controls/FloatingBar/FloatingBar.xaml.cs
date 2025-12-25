@@ -2,13 +2,11 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.Services;
-using Ink_Canvas_Better.Utilities.DataStructures;
 using Newtonsoft.Json;
 using static Ink_Canvas_Better.Enums;
 
@@ -24,18 +22,6 @@ public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
         InitializeComponent();
 
         Loaded += FloatingBar_Loaded;
-        (Settings as FloatingBarSettings).PropertyChanged += FloatingBar_PropertyChanged;
-    }
-
-    private void FloatingBar_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case "ScreenIndex":
-
-            default:
-                break;
-        }
     }
 
     public bool TryInvoke() => true;
@@ -43,7 +29,7 @@ public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
     private void FloatingBar_Loaded(object sender, RoutedEventArgs e)
     {
         (Settings as FloatingBarSettings).IsInitializing = false;
-        Dock(DockPlacement.AboveTaskBar);
+        Dock();
     }
 
     public FloatingBar Add(IFloatingBarComponentSettingBase component)
@@ -52,7 +38,7 @@ public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
         return this;
     }
 
-    public void Dock(DockPlacement dockPlacement)
+    public void Dock(DockPlacement dockPlacement = DockPlacement.Unset)
     {
         // get translateTransform
         var tg = this.RenderTransform as TransformGroup;
@@ -73,37 +59,60 @@ public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
         }
         if (tt == null) return;
         // dock
-        var multiscreenService =  App.GetService<MultiscreenService>();
-        Screen screen = multiscreenService.GetScreen((Settings as FloatingBarSettings).ScreenIndex);
+        var scWidth = SystemParameters.PrimaryScreenWidth;
+        var scHeight = SystemParameters.PrimaryScreenHeight;
+        // var wkaWidth = SystemParameters.WorkArea.Width;
+        var wkaHeight = SystemParameters.WorkArea.Height;
+        var realWidth = this.ActualWidth * st.ScaleX;
+        var realHeight = this.ActualHeight * st.ScaleY;
+        if (dockPlacement == DockPlacement.Unset)
+        {
+            dockPlacement = (Settings as FloatingBarSettings).DockPlacement;
+        }
         switch (dockPlacement)
-        { // TODO
+        {
             case DockPlacement.Top:
-                tt.X = screen.X + (screen.Width / 2) - ((this.ActualWidth * st.ScaleX) / 2);
+                tt.X = (scWidth / 2) - (realWidth / 2);
                 tt.Y = 0;
                 break;
             case DockPlacement.Bottom:
-                tt.X = screen.X + (screen.Width / 2) - ((this.ActualWidth * st.ScaleX) / 2);
-                tt.Y = screen.Height - (this.ActualHeight * st.ScaleX);
+                tt.X = (scWidth / 2) - (realWidth / 2);
+                tt.Y = scHeight - realHeight;
                 break;
             case DockPlacement.AboveTaskBar:
-                tt.X = screen.X + (screen.Width / 2) - ((this.ActualWidth * st.ScaleX) / 2);
-                tt.Y = screen.Y + SystemParameters.WorkArea.Height - (this.ActualHeight * st.ScaleX);
+                tt.X = (scWidth / 2) - (realWidth / 2);
+                tt.Y = wkaHeight - realHeight;
                 break;
             case DockPlacement.Left:
+                tt.X = 0;
+                tt.Y = (scHeight / 2) - (realHeight / 2);
                 break;
             case DockPlacement.Right:
+                tt.X = scWidth - realWidth;
+                tt.Y = (scHeight / 2) - (realHeight / 2);
                 break;
             case DockPlacement.TopLeft:
+                tt.X = tt.Y = 0;
                 break;
             case DockPlacement.TopRight:
+                tt.X = scWidth - realWidth;
+                tt.Y = 0;
                 break;
             case DockPlacement.AboveTaskBarLeft:
+                tt.X = 0;
+                tt.Y = wkaHeight - realHeight;
                 break;
             case DockPlacement.AboveTaskBarRight:
+                tt.X = scWidth - realWidth;
+                tt.Y = wkaHeight - realHeight;
                 break;
             case DockPlacement.BottomLeft:
+                tt.X = scWidth - realWidth;
+                tt.Y = scHeight - realHeight;
                 break;
             case DockPlacement.BottomRight:
+                tt.X = scWidth - realWidth;
+                tt.Y = scHeight - realHeight;
                 break;
         }
     }

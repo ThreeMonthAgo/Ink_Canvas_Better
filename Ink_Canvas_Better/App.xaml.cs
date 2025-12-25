@@ -6,7 +6,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ink_Canvas_Better.Controls.FloatingBar;
 using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
-using Ink_Canvas_Better.Controls.FloatingBar.SubPanel;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Pages.Settings.Appearance;
 using Ink_Canvas_Better.Pages.Settings.Home;
@@ -104,10 +103,9 @@ namespace Ink_Canvas_Better
                     // Services
                     service.AddSingleton<SettingsService>();
                     service.AddSingleton<ThemeService>();
-                    service.AddSingleton<MultiscreenService>();
                     // UI
-                    service.AddSingleton<MainWindow>();
                     service.AddSingleton<SettingsWindow>();
+                    service.AddSingleton<MainWindow>();
                     service.AddSingleton<LanguageWindow>();
                     // Pages
                     service.AddSingleton<HomePage>();
@@ -120,9 +118,6 @@ namespace Ink_Canvas_Better
                     RegComponents<SettingsControl>(SettingsControl.Guid);
                     RegComponents<PenControl>(PenControl.Guid);
                     RegComponents<CursorControl>(CursorControl.Guid);
-
-                    // FloatingBarSubpanel
-                    RegComponents<PenSubpanel>(PenSubpanel.Guid);
 
                     void RegComponents<T>(string guid)
                     {

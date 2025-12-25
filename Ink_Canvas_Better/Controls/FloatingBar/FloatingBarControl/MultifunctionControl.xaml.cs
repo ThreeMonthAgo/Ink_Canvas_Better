@@ -24,6 +24,8 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
     public MultifunctionControl()
     {
         InitializeComponent();
+
+        DataContext = Settings;
     }
 
     public bool TryInvoke() => true;

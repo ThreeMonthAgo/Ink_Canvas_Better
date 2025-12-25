@@ -20,9 +20,6 @@
     <Compile Update="Controls\FloatingBar\FloatingBarGroup.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\FloatingBar\SubPanel\PenSubpanel.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Pages\Settings\Appearance\AppearancePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

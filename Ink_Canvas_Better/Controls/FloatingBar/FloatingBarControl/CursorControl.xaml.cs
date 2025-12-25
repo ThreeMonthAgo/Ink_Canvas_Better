@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
-using Ink_Canvas_Better.Controls.FloatingBar.SubPanel;
 using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
@@ -30,6 +24,7 @@ public partial class CursorControl : UserControl, IFloatingBarComponentSettingBa
     {
         InitializeComponent();
 
+        DataContext = Settings;
         this.Loaded += CursorControl_Loaded;
         this.MouseUp += CursorControl_MouseUp;
     }
@@ -48,36 +43,6 @@ public partial class CursorControl : UserControl, IFloatingBarComponentSettingBa
         mainWindow.CurrentEditingMode = Enums.EditingMode.None;
         return true;
     }
-
-    #region Properties
-
-    #region Text
-
-    public string Text
-    {
-        get { return (string)GetValue(TextProperty); }
-        set { SetValue(TextProperty, value); }
-    }
-
-    public static readonly DependencyProperty TextProperty =
-        DependencyProperty.Register("Text", typeof(string), typeof(CursorControl), new PropertyMetadata("Text"));
-
-    #endregion
-
-    #region TextVisibility
-
-    public Visibility TextVisibility
-    {
-        get { return (Visibility)GetValue(TextVisibilityProperty); }
-        set { SetValue(TextVisibilityProperty, value); }
-    }
-
-    public static readonly DependencyProperty TextVisibilityProperty =
-        DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof(CursorControl), new PropertyMetadata(Visibility.Collapsed));
-
-    #endregion
-
-    #endregion
 }
 
 public class CursorControlSettings : INotifyPropertyChanged
@@ -92,6 +57,9 @@ public class CursorControlSettings : INotifyPropertyChanged
 
     [JsonIgnore]
     public bool IsInitializing { get; set; } = true;
+
+    [JsonIgnore]
+    public Visibility TextVisibility { get; set; } = Visibility.Collapsed;
 }
 
 

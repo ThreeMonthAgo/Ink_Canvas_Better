@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Ink_Canvas_Better.Logging;
 
@@ -29,7 +30,14 @@ public sealed class FileLogger(Func<FileLoggerConfiguration> getCurrentConfig) :
                 {
                     Directory.CreateDirectory(config.LogDirectoryPath);
                 }
-                StreamWriter sw = new(config.LogDirectoryPath + $"{DateTime.Now:yyyy-MM-dd}.log", true);
+                StreamWriter sw = new(
+                    path: config.LogDirectoryPath + $"{DateTime.Now:yyyy-MM-dd}.log",
+                    encoding: System.Text.Encoding.UTF8,
+                    options: new FileStreamOptions() {
+                        Mode = FileMode.Append,
+                        Share = FileShare.ReadWrite,
+                        Access = FileAccess.Write
+                    });
                 sw.WriteLine(string.Format("{0} [{1}] {2} {3}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), logLevel, state, exception));
                 sw.Close();
             });

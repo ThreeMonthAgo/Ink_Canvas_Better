@@ -31,6 +31,8 @@ namespace Ink_Canvas_Better
             AboveTaskBarRight,
             BottomLeft,
             BottomRight,
+
+            Unset // reserve
         }
     }
 }

@@ -8,10 +8,15 @@ using Ink_Canvas_Better.Utilities.DataStructures;
 
 namespace Ink_Canvas_Better.Services
 {
+    /// <summary>
+    /// Don't use it because I don't konw how to support multi-screen well yet.
+    /// </summary>
+    [Obsolete("Don't use it because I don't konw how to support multi-screen well yet.")]
     public class MultiscreenService
     {
         SettingsService settingsService;
 
+        [Obsolete("Don't use it because I don't konw how to support multi-screen well yet.")]
         public void CheckFloatingBars()
         {
             List<Screen> screens = Win32Helper.GetScreens();
@@ -30,6 +35,7 @@ namespace Ink_Canvas_Better.Services
             }
         }
 
+        [Obsolete("Don't use it because I don't konw how to support multi-screen well yet.")]
         public Screen GetScreen(int index)
         {
             return Win32Helper.GetScreens()[index];

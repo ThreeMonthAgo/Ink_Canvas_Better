@@ -24,6 +24,7 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
     {
         InitializeComponent();
 
+        DataContext = Settings;
         this.Loaded += SettingsControl_Loaded;
         this.MouseUp += SettingsControl_MouseUp;
     }
@@ -36,23 +37,6 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
     }
 
     private void SettingsControl_MouseUp(object sender, MouseButtonEventArgs e) => settingsWindow.ShowWindow();
-
-    #region Properties
-
-    #region TextVisibility
-
-    public Visibility TextVisibility
-    {
-        get { return (Visibility)GetValue(TextVisibilityProperty); }
-        set { SetValue(TextVisibilityProperty, value); }
-    }
-
-    public static readonly DependencyProperty TextVisibilityProperty =
-        DependencyProperty.Register(nameof(TextVisibility), typeof(Visibility), typeof(SettingsControl), new PropertyMetadata(Visibility.Collapsed));
-
-    #endregion
-
-    #endregion
 }
 
 public class SettingsControlSettings : INotifyPropertyChanged
@@ -67,4 +51,7 @@ public class SettingsControlSettings : INotifyPropertyChanged
 
     [JsonIgnore]
     public bool IsInitializing { get; set; } = true;
+
+    [JsonIgnore]
+    public Visibility TextVisibility { get; set; } = Visibility.Collapsed;
 }

@@ -9,11 +9,11 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using Ink_Canvas_Better.Controls.FloatingBar.SubPanel;
 using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Windows;
 using Newtonsoft.Json;
+using ColorConverter = Ink_Canvas_Better.Helpers.Converter.ColorConverter;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
@@ -28,6 +28,7 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     {
         InitializeComponent();
 
+        DataContext = Settings;
         this.Loaded += PenControl_Loaded;
         this.MouseUp += PenControl_MouseUp;
     }
@@ -36,6 +37,7 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     {
         mainWindow = App.GetService<MainWindow>();
         (Settings as PenControlSettings).IsInitializing = false;
+        (Settings as PenControlSettings).EllipseFill = (Settings as PenControlSettings).ColorCollection[(Settings as PenControlSettings).GridViewSelectedIndex];
     }
 
     private void PenControl_MouseUp(object sender, MouseButtonEventArgs e)
@@ -46,19 +48,24 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
         }
         else
         {
-            this.IsOpen = true;
+            (Settings as PenControlSettings).IsOpen = true;
         }
-        foreach (var item in (Settings as PenControlSettings).Subpanels)
-        {
-            item.TryInvoke();
-        }
+        this.TryInvoke();
     }
 
     public bool TryInvoke()
     {
+        if ((Settings as PenControlSettings).IsInitializing) return false;
         try
         {
-            foreach (var item in (Settings as PenControlSettings).Subpanels) item.TryInvoke();
+            var mainWindow = App.GetService<MainWindow>();
+            var seletedIndex = (Settings as PenControlSettings).GridViewSelectedIndex;
+            // UI
+            (Settings as PenControlSettings).EllipseFill = (Settings as PenControlSettings).ColorCollection[seletedIndex];
+            // InkCanvas
+            mainWindow.Settings.CurrentDrawingAttributes.Color = (Settings as PenControlSettings).ColorCollection[seletedIndex].Color;
+            mainWindow.Settings.CurrentDrawingAttributes.Width = mainWindow.Settings.CurrentDrawingAttributes.Height = Slider_Thickness.Value;
+            mainWindow.CurrentEditingMode = Enums.EditingMode.Ink;
             return true;
         }
         catch (Exception)
@@ -67,101 +74,68 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
         }
     }
 
-    #region Properties
-
-    #region Text
-
-    public string Text
+    private void GridView_Colors_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        get { return (string)GetValue(TextProperty); }
-        set { SetValue(TextProperty, value); }
+        if (Toggle_Color.IsChecked == true)
+        {
+            var seletedIndex = (Settings as PenControlSettings).GridViewSelectedIndex;
+            Popup_ColorPicker.IsOpen = false;
+            Popup_ColorPicker.PlacementTarget = GridView_Colors.ItemContainerGenerator.ContainerFromIndex(seletedIndex) as UIElement;
+            SqColorPicker.SelectedColor = (Settings as PenControlSettings).ColorCollection[seletedIndex].Color;
+            Popup_ColorPicker.IsOpen = true;
+        }
+        else if (Popup_ColorPicker.IsOpen == true) Popup_ColorPicker.IsOpen = false;
+        this.TryInvoke();
     }
 
-    public static readonly DependencyProperty TextProperty =
-        DependencyProperty.Register("Text", typeof(string), typeof(PenControl), new PropertyMetadata("Text"));
+    private void Slider_Thickness_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => this.TryInvoke();
 
-    #endregion
-
-    #region TextVisibility
-
-    public Visibility TextVisibility
+    private void SqColorPicker_ColorChanged(object sender, RoutedEventArgs e)
     {
-        get { return (Visibility)GetValue(TextVisibilityProperty); }
-        set { SetValue(TextVisibilityProperty, value); }
+        var seletedIndex = (Settings as PenControlSettings).GridViewSelectedIndex;
+        (Settings as PenControlSettings).ColorCollection[seletedIndex].Color = SqColorPicker.SelectedColor;
+        this.TryInvoke();
     }
-
-    public static readonly DependencyProperty TextVisibilityProperty =
-        DependencyProperty.Register("TextVisibility", typeof(Visibility), typeof(PenControl), new PropertyMetadata(Visibility.Collapsed));
-
-    #endregion
-
-    // Popup Properties
-
-    #region IsOpen
-
-    public bool IsOpen
-    {
-        get { return (bool)GetValue(IsOpenProperty); }
-        set { SetValue(IsOpenProperty, value); }
-    }
-
-    public static readonly DependencyProperty IsOpenProperty =
-        DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(PenControl), new PropertyMetadata(false));
-
-    #endregion
-
-    #region StaysOpen
-
-    public bool StaysOpen
-    {
-        get { return (bool)GetValue(StaysOpenProperty); }
-        set { SetValue(StaysOpenProperty, value); }
-    }
-
-    public static readonly DependencyProperty StaysOpenProperty =
-        DependencyProperty.Register(nameof(StaysOpen), typeof(bool), typeof(PenControl), new PropertyMetadata(false));
-
-    #endregion
-
-    #region CornerRadius
-
-    public CornerRadius CornerRadius
-    {
-        get { return (CornerRadius)GetValue(CornerRadiusProperty); }
-        set { SetValue(CornerRadiusProperty, value); }
-    }
-
-    public static readonly DependencyProperty CornerRadiusProperty =
-        DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(PenControl), new PropertyMetadata(new CornerRadius(4d)));
-
-    #endregion
-
-    #region PopupAnimation
-
-    public PopupAnimation PopupAnimation
-    {
-        get { return (PopupAnimation)GetValue(PopupAnimationProperty); }
-        set { SetValue(PopupAnimationProperty, value); }
-    }
-
-    public static readonly DependencyProperty PopupAnimationProperty =
-        DependencyProperty.Register(nameof(PopupAnimation), typeof(PopupAnimation), typeof(PenControl), new PropertyMetadata(PopupAnimation.Fade));
-
-    #endregion
-
-    #endregion
 }
 
 public class PenControlSettings : INotifyPropertyChanged
 {
-    private ObservableCollection<IFloatingBarComponentSettingBase> _subpanels = [App.GetService<PenSubpanel>()];
+    private int _gridViewSelectedIndex = 0;
+    private ObservableCollection<SolidColorBrush> _colorCollection =
+        [
+            ColorConverter.HexToSolidColorBrush("#FFFFFF"),
+            ColorConverter.HexToSolidColorBrush("#000000"),
+            ColorConverter.HexToSolidColorBrush("#A72C1D"),
+            ColorConverter.HexToSolidColorBrush("#E03B27"),
+            ColorConverter.HexToSolidColorBrush("#EFC046"),
+            ColorConverter.HexToSolidColorBrush("#FCFC58"),
+            ColorConverter.HexToSolidColorBrush("#A0CB64"),
+            ColorConverter.HexToSolidColorBrush("#59AA5C"),
+            ColorConverter.HexToSolidColorBrush("#61ADE9"),
+            ColorConverter.HexToSolidColorBrush("#4170B8"),
+            ColorConverter.HexToSolidColorBrush("#19275C"),
+            ColorConverter.HexToSolidColorBrush("#673C98"),
+            ];
+    private int _thickness = 1;
 
     #region
 
-    public ObservableCollection<IFloatingBarComponentSettingBase> Subpanels
+    public int GridViewSelectedIndex
     {
-        get { return _subpanels; }
-        set { _subpanels = value; OnPropertyChanged(); }
+        get { return _gridViewSelectedIndex; }
+        set { _gridViewSelectedIndex = value; OnPropertyChanged(); }
+    }
+
+    public ObservableCollection<SolidColorBrush> ColorCollection
+    {
+        get { return _colorCollection; }
+        set { _colorCollection = value; OnPropertyChanged(); }
+    }
+
+    public int Thickness
+    {
+        get { return _thickness; }
+        set { _thickness = value; OnPropertyChanged(); }
     }
 
     #endregion
@@ -176,5 +150,20 @@ public class PenControlSettings : INotifyPropertyChanged
 
     [JsonIgnore]
     public bool IsInitializing { get; set; } = true;
+
+    [JsonIgnore]
+    public bool IsOpen { get; set; } = false;
+
+    [JsonIgnore]
+    public bool StaysOpen { get; set; } = false;
+
+    [JsonIgnore]
+    public PopupAnimation PopupAnimation { get; set; } = PopupAnimation.Fade;
+
+    [JsonIgnore]
+    public SolidColorBrush EllipseFill { get; set; }
+
+    [JsonIgnore]
+    public Visibility TextVisibility { get; set; } = Visibility.Collapsed;
 }
 
