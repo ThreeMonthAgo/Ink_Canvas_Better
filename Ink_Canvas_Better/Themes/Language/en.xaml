@@ -10,7 +10,6 @@
     <s:String x:Key="Text_Cursor">Cursor</s:String>
     <s:String x:Key="Text_Clear">Clear</s:String>
     <s:String x:Key="Text_Pen">Pen</s:String>
-    <s:String x:Key="Text_Highlighter">Marker</s:String>
     <s:String x:Key="Text_Eraser">Eraser</s:String>
     <s:String x:Key="Text_Pick">Pick</s:String>
     <s:String x:Key="Text_Shape">Shape</s:String>
@@ -31,8 +30,9 @@
         <s:String x:Key="Text_Customize">Customize</s:String>
         <s:String x:Key="Text_Alpha">Alpha</s:String>
         <s:String x:Key="Text_Thickness">Width</s:String>
-        <s:String x:Key="Text_EraseByStroke">Stroke</s:String>
-        <s:String x:Key="Text_EraseByPoint">Point</s:String>
+        <s:String x:Key="Text_EraseByStroke">Ink Eraser</s:String>
+        <s:String x:Key="Text_EraseBySquarePoint">Square Eraser</s:String>
+        <s:String x:Key="Text_EraseByEllipsePoint">Ellipse Eraser</s:String>
         <s:String x:Key="Text_Square">Square</s:String>
         <s:String x:Key="Text_Circular">Circular</s:String>
         <s:String x:Key="Text_2DSahpes">2D Shapes</s:String>

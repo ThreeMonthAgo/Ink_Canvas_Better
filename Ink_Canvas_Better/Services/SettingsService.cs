@@ -1,24 +1,15 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using Ink_Canvas_Better.Controls.FloatingBar;
-using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
-using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.Services.JsonConverter;
 using Ink_Canvas_Better.ViewModels;
-using Ink_Canvas_Better.ViewModels.Controls.FloatingBar;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Services
 {
-    public class SettingsService
+    public class SettingsService(ILogger<SettingsService> logger)
     {
-        private readonly ILogger<SettingsService> logger;
+        private readonly ILogger<SettingsService> logger = logger;
 
         private readonly JsonSerializerSettings jsonSerializerSettings = new()
         {
@@ -32,30 +23,6 @@ namespace Ink_Canvas_Better.Services
         public string SettingsFilePath = "Settings.json";
 
         public Settings Settings { get; private set; } = new();
-
-        public SettingsService(ILogger<SettingsService> logger)
-        {
-            this.logger = logger;
-
-            Settings.PropertyChanged += Settings_PropertyChanged;
-        }
-
-        private void Settings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case nameof(Settings.Theme):
-                    App.GetService<ThemeService>().ChangeTheme(Settings.Theme);
-                    break;
-                case nameof(Settings.CultureInfo):
-                    App.GetService<ThemeService>().ChangeCultureInfo(Settings.CultureInfo);
-                    break;
-            }
-            if (!Settings.IsInitializing)
-            {
-                App.GetService<SettingsService>().SaveSettings();
-            }
-        }
 
         public void LoadSettings()
         {

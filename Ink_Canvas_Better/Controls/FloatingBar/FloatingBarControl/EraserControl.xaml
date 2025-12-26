@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl.EraserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl"
+             xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
+             xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
+             xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behavior="clr-namespace:Ink_Canvas_Better.Behaviors"
+             xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModels.Controls.FloatingBar.FloatingBarControl"
+             d:DataContext="{d:DesignInstance Type=vm:EraserControlVM}"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="ToggleButton" x:Key="ToggleButton_EraserTypeStyle" BasedOn="{StaticResource {x:Static iuwm:ThemeKeys.DefaultToggleButtonStyleKey}}">
+            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Name="Grid" Background="Transparent" d:Background="AliceBlue" Width="64" Height="64">
+        <Popup Name="Subpanel"
+               Placement="Top"
+               PlacementTarget="{Binding ElementName=Grid}"
+               IsOpen="{Binding IsOpen, Mode=TwoWay}"
+               StaysOpen="False"
+               PopupAnimation="Fade"
+               AllowsTransparency="True">
+            <Border Padding="0,4">
+                <Border CornerRadius="4"
+                        Background="{DynamicResource {x:Static iuwm:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
+                        BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
+                        BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}"
+                        Padding="4">
+                    <StackPanel Orientation="Vertical" MinWidth="100">
+                        <Grid ColumnDefinitions="*,auto,4,auto" Name="Grid_TitleBar">
+                            <TextBlock VerticalAlignment="Center"
+                                       Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"
+                                       Text="{DynamicResource Text_Eraser}"
+                                       Grid.Column="0"
+                                       FontSize="24"/>
+                            <Thumb Background="Transparent" Opacity="0.2">
+                                <bh:Interaction.Behaviors>
+                                    <behavior:DragBehavior TypeOfControlToDrag="{x:Type Popup}" IsUseLogicalTreeHelper="True"/>
+                                </bh:Interaction.Behaviors>
+                            </Thumb>
+                            <ToggleButton Grid.Column="1" Width="26" Height="26" Style="{StaticResource PinToggleButtonStyle}" IsChecked="{Binding ElementName=Subpanel, Path=StaysOpen, Mode=TwoWay}"/>
+                            <Button Grid.Column="3" Width="26" Height="26" Style="{StaticResource CloseButtonStyle}">
+                                <bh:Interaction.Behaviors>
+                                    <behavior:CloseButtonBehavior/>
+                                </bh:Interaction.Behaviors>
+                            </Button>
+                        </Grid>
+                        <!--#region Subpanel-->
+                        <iuw:SimpleStackPanel d:Background="AliceBlue" Orientation="Horizontal">
+                            <iuw:SimpleStackPanel>
+                                <ToggleButton Style="{StaticResource ToggleButton_EraserTypeStyle}">
+                                    <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.Eraser_20_Regular}"
+                                                      Content="{DynamicResource Text_EraseByStroke}"/>
+                                </ToggleButton>
+                                <ToggleButton Style="{StaticResource ToggleButton_EraserTypeStyle}">
+                                    <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.CircleEraser_20_Filled}"
+                                                      Content="{DynamicResource Text_EraseByEllipsePoint}"/>
+                                </ToggleButton>
+                                <ToggleButton Style="{StaticResource ToggleButton_EraserTypeStyle}">
+                                    <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.SquareEraser_20_Filled}"
+                                                      Content="{DynamicResource Text_EraseBySquarePoint}"/>
+                                </ToggleButton>
+                                <Grid ColumnDefinitions="Auto,4,*" RowDefinitions="Auto">
+                                    <TextBlock Grid.Row="0" Grid.Column="0"
+                                               Text="{DynamicResource Text_Thickness}"
+                                               VerticalAlignment="Center"
+                                               FontSize="16"
+                                               Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"/>
+                                    <Slider Grid.Row="0" Grid.Column="2" Name="Slider_Thickness" Orientation="Horizontal"
+                                            TickPlacement="Both"
+                                            IsMoveToPointEnabled="True"
+                                            TickFrequency="5"
+                                            AutoToolTipPlacement="TopLeft"
+                                            Maximum="170"
+                                            Minimum="1"
+                                            Value="{Binding Thickness}"
+                                            ValueChanged="Slider_Thickness_ValueChanged"/>
+                                </Grid>
+                            </iuw:SimpleStackPanel>
+                            <Grid Height="170" Width="170">
+                                <Rectangle Fill="#A2A2A2"
+                                           Height="{Binding ElementName=Slider_Thickness, Path=Value}"
+                                           Width="{Binding ElementName=Slider_Thickness, Path=Value}"/>
+                                <Ellipse Fill="#A2A2A2"
+                                         Height="{Binding ElementName=Slider_Thickness, Path=Value}"
+                                         Width="{Binding ElementName=Slider_Thickness, Path=Value}"/>
+                            </Grid>
+                        </iuw:SimpleStackPanel>
+                        <!--#endregion Subpanel-->
+                    </StackPanel>
+                </Border>
+            </Border>
+        </Popup>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" MouseUp="EraserControl_MouseUp">
+            <Image Source="{DynamicResource Image.FUI.CalligraphyPen}"
+                   Width="40"
+                   Height="40"/>
+            <TextBlock FontSize="12"
+                       TextAlignment="Center"
+                       Text="{DynamicResource Text_Pen}"
+                       Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"
+                       Visibility="{Binding TextVisibility}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

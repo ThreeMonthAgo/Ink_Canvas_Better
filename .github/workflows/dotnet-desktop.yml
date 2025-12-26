@@ -44,6 +44,6 @@ jobs:
     - name: Upload to artifact
       uses: actions/upload-artifact@main
       with:
-        name: Ink Canvas Better
+        name: Ink Canvas Better (Automated Build)
         path: Ink_Canvas_Better/bin/Release
         

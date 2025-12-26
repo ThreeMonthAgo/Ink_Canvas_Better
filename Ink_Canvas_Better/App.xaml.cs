@@ -118,6 +118,7 @@ namespace Ink_Canvas_Better
                     RegComponents<SettingsControl>(SettingsControl.Guid);
                     RegComponents<PenControl>(PenControl.Guid);
                     RegComponents<CursorControl>(CursorControl.Guid);
+                    RegComponents<EraserControl>(EraserControl.Guid);
 
                     void RegComponents<T>(string guid)
                     {

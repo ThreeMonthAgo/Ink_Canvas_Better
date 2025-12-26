@@ -14,12 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better", "Ink_Ca
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{5189581F-9FDF-4F89-AA6E-0426FA71EA76}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "snippet", "snippet", "{6726D133-A79A-48E7-915B-D2B5465ADA10}"
-	ProjectSection(SolutionItems) = preProject
-		tools\snippet\FloatingBarControlCodeSnippet.snippet = tools\snippet\FloatingBarControlCodeSnippet.snippet
-		tools\snippet\FloatingBarControlXamlSnippet.snippet = tools\snippet\FloatingBarControlXamlSnippet.snippet
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{47B35A8E-D3C5-4255-8E83-A3403B59B86D}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\dotnet-desktop.yml = .github\workflows\dotnet-desktop.yml
@@ -45,7 +39,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5189581F-9FDF-4F89-AA6E-0426FA71EA76} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{6726D133-A79A-48E7-915B-D2B5465ADA10} = {5189581F-9FDF-4F89-AA6E-0426FA71EA76}
 		{47B35A8E-D3C5-4255-8E83-A3403B59B86D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

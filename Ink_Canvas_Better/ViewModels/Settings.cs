@@ -7,6 +7,7 @@ using System.Windows;
 using Ink_Canvas_Better.Controls.FloatingBar;
 using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.ViewModels.Controls.FloatingBar;
 using Newtonsoft.Json;
 
@@ -23,6 +24,24 @@ public class Settings : INotifyPropertyChanged
     private string _logDirPath = "./Logs/";
     private CultureInfo _cultureInfo = new("en");
     private int _theme = 0; // UI theme; 0 => Auto
+
+    public Settings()
+    {
+        this.PropertyChanged += Settings_PropertyChanged;
+    }
+
+    private void Settings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        switch (e.PropertyName)
+        {
+            case nameof(Theme):
+                App.GetService<ThemeService>().ChangeTheme(Theme);
+                break;
+            case nameof(CultureInfo):
+                App.GetService<ThemeService>().ChangeCultureInfo(CultureInfo);
+                break;
+        }
+    }
 
     #region
 
@@ -64,7 +83,10 @@ public class Settings : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    {
+        if (!IsInitializing) App.GetService<SettingsService>().SaveSettings();
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
     [JsonIgnore]
     public bool IsInitializing { get; set; } = true;
@@ -87,6 +109,7 @@ public class Settings : INotifyPropertyChanged
                 .Add(App.GetService<FloatingBarGroup>()
                     .Add(App.GetService<CursorControl>())
                     .Add(App.GetService<PenControl>())
+                    .Add(App.GetService<EraserControl>())
                 )
                 .Add(App.GetService<FloatingBarGroup>()
                     .Add(App.GetService<SettingsControl>())

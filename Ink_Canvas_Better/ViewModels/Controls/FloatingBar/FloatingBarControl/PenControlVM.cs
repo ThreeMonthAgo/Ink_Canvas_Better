@@ -29,6 +29,7 @@ internal class PenControlVM : INotifyPropertyChanged
             ColorConverter.HexToSolidColorBrush("#673C98"),
         ];
     private int _thickness = 1;
+    private byte _alpha = 0xFF;
 
     // ignored below
     private bool _isOpen = false;
@@ -55,6 +56,11 @@ internal class PenControlVM : INotifyPropertyChanged
         set { _thickness = value; OnPropertyChanged(); }
     }
 
+    public byte Alpha
+    {
+        get { return _alpha; }
+        set { _alpha = value; OnPropertyChanged(); }
+    }
 
     [JsonIgnore]
     public bool IsOpen

@@ -10,7 +10,6 @@
     <s:String x:Key="Text_Cursor">鼠标</s:String>
     <s:String x:Key="Text_Clear">清空</s:String>
     <s:String x:Key="Text_Pen">笔</s:String>
-    <s:String x:Key="Text_Highlighter">荧光笔</s:String>
     <s:String x:Key="Text_Eraser">橡皮擦</s:String>
     <s:String x:Key="Text_Pick">圈选</s:String>
     <s:String x:Key="Text_Shape">图形</s:String>
@@ -32,7 +31,8 @@
         <s:String x:Key="Text_Alpha">不透明度</s:String>
         <s:String x:Key="Text_Thickness">粗细</s:String>
         <s:String x:Key="Text_EraseByStroke">墨迹擦</s:String>
-        <s:String x:Key="Text_EraseByPoint">面积擦</s:String>
+        <s:String x:Key="Text_EraseBySquarePoint">方形擦</s:String>
+        <s:String x:Key="Text_EraseByEllipsePoint">椭圆擦</s:String>
         <s:String x:Key="Text_Square">方形</s:String>
         <s:String x:Key="Text_Circular">圆形</s:String>
         <s:String x:Key="Text_2DSahpes">平面图形</s:String>

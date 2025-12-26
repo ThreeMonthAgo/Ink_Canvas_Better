@@ -34,5 +34,12 @@ namespace Ink_Canvas_Better
 
             Unset // reserve
         }
+
+        public enum EraserMode
+        {
+            Stroke,
+            SquarePoint,
+            EllipsePoint
+        }
     }
 }

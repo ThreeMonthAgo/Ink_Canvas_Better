@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.ViewModels.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Windows;
@@ -21,7 +22,6 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
 
         DataContext = Settings;
         this.Loaded += PenControl_Loaded;
-        this.MouseUp += PenControl_MouseUp;
     }
 
     private void PenControl_Loaded(object sender, RoutedEventArgs e)
@@ -36,13 +36,12 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     {
         if (mainWindow.CurrentEditingMode != Enums.EditingMode.Ink)
         {
-            mainWindow.CurrentEditingMode = Enums.EditingMode.Ink;
+            this.TryInvoke();
         }
         else
         {
             (Settings as PenControlVM).IsOpen = true;
         }
-        this.TryInvoke();
     }
 
     public bool TryInvoke()
@@ -56,7 +55,12 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
             // UI
             st.EllipseFill = st.ColorCollection[seletedIndex];
             // InkCanvas
-            mainWindow.Settings.CurrentDrawingAttributes.Color = st.ColorCollection[seletedIndex].Color;
+            mainWindow.Settings.CurrentDrawingAttributes.Color = Color.FromArgb(
+                st.Alpha,
+                st.ColorCollection[seletedIndex].Color.R,
+                st.ColorCollection[seletedIndex].Color.G,
+                st.ColorCollection[seletedIndex].Color.B
+                );
             mainWindow.Settings.CurrentDrawingAttributes.Width = mainWindow.Settings.CurrentDrawingAttributes.Height = Slider_Thickness.Value;
             mainWindow.CurrentEditingMode = Enums.EditingMode.Ink;
             return true;
@@ -83,6 +87,8 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
     }
 
     private void Slider_Thickness_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => this.TryInvoke();
+
+    private void Slider_Alpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => this.TryInvoke();
 
     private void SqColorPicker_ColorChanged(object sender, RoutedEventArgs e)
     {
