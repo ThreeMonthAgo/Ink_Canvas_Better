@@ -140,7 +140,7 @@
                 </Border>
             </Border>
         </Popup>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" MouseUp="PenControl_MouseUp">
+        <StackPanel Background="Transparent" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" MouseUp="PenControl_MouseUp">
             <Image Source="{DynamicResource Image.FUI.CalligraphyPen}"
                    Width="40"
                    Height="40"/>

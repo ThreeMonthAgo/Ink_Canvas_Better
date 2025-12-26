@@ -11,6 +11,7 @@ internal class EraserControlVM : INotifyPropertyChanged
 {
     private int _thickness = 20;
     private Visibility _textVisibility = Visibility.Collapsed;
+    private int _gridViewSelectedIndex = 0;
 
     // ignored below
     private bool _isOpen = false;
@@ -21,6 +22,12 @@ internal class EraserControlVM : INotifyPropertyChanged
     {
         get { return _thickness; }
         set { _thickness = value; OnPropertyChanged(); }
+    }
+
+    public int GridViewSelectedIndex
+    {
+        get { return _gridViewSelectedIndex; }
+        set { _gridViewSelectedIndex = value; OnPropertyChanged(); }
     }
 
     [JsonIgnore]

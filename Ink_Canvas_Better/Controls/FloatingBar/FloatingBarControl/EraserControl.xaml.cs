@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -56,11 +57,40 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl
 
         public bool TryInvoke()
         {
-            if ((Settings as EraserControlVM).IsInitializing) return false;
-            mainWindow.CurrentEditingMode = Enums.EditingMode.EraseByPoint;
-            return true;
+            var st = Settings as EraserControlVM;
+            if (st.IsInitializing) return false;
+            try
+            {
+                switch (st.GridViewSelectedIndex)
+                {
+                    case 0:
+                        mainWindow.CurrentEditingMode = Enums.EditingMode.EraseByStroke;
+                        break;
+                    case 1:
+                        mainWindow.Settings.CurrentDrawingAttributes.StylusTip = StylusTip.Ellipse;
+                        mainWindow.MW_InkCanvas.EraserShape = new EllipseStylusShape(st.Thickness, st.Thickness);
+                        mainWindow.CurrentEditingMode = Enums.EditingMode.Ink; // necessary
+                        mainWindow.CurrentEditingMode = Enums.EditingMode.EraseByPoint;
+                        break;
+                    case 2:
+                        mainWindow.Settings.CurrentDrawingAttributes.StylusTip = StylusTip.Rectangle;
+                        mainWindow.MW_InkCanvas.EraserShape = new RectangleStylusShape(st.Thickness, st.Thickness);
+                        mainWindow.CurrentEditingMode = Enums.EditingMode.Ink; // necessary
+                        mainWindow.CurrentEditingMode = Enums.EditingMode.EraseByPoint;
+                        break;
+                    default:
+                        return false;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         private void Slider_Thickness_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => this.TryInvoke();
+
+        private void GridView_EraserType_SelectionChanged(object sender, SelectionChangedEventArgs e) => this.TryInvoke();
     }
 }

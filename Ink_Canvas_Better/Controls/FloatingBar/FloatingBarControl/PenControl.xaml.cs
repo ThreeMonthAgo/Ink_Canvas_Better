@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using Ink_Canvas_Better.Interface;
@@ -61,6 +62,7 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
                 st.ColorCollection[seletedIndex].Color.G,
                 st.ColorCollection[seletedIndex].Color.B
                 );
+            mainWindow.Settings.CurrentDrawingAttributes.StylusTip = StylusTip.Ellipse;
             mainWindow.Settings.CurrentDrawingAttributes.Width = mainWindow.Settings.CurrentDrawingAttributes.Height = Slider_Thickness.Value;
             mainWindow.CurrentEditingMode = Enums.EditingMode.Ink;
             return true;

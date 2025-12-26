@@ -12,7 +12,7 @@
              d:DataContext="{d:DesignInstance Type=vm:CursorControlVM}"
              mc:Ignorable="d">
     <Grid Name="Grid" Background="Transparent" d:Background="AliceBlue" Width="64" Height="64">
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Background="Transparent" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" MouseUp="CursorControl_MouseUp">
             <Image Source="{DynamicResource Image.FUI.Cursor}"
                    Width="40"
                    Height="40"/>

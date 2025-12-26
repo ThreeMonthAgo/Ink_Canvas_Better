@@ -11,15 +11,6 @@
              xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModels.Controls.FloatingBar.FloatingBarControl"
              d:DataContext="{d:DesignInstance Type=vm:EraserControlVM}"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <Style TargetType="ToggleButton" x:Key="ToggleButton_EraserTypeStyle" BasedOn="{StaticResource {x:Static iuwm:ThemeKeys.DefaultToggleButtonStyleKey}}">
-            <Setter Property="MinWidth" Value="200"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        </Style>
-    </UserControl.Resources>
-
     <Grid Name="Grid" Background="Transparent" d:Background="AliceBlue" Width="64" Height="64">
         <Popup Name="Subpanel"
                Placement="Top"
@@ -56,18 +47,21 @@
                         <!--#region Subpanel-->
                         <iuw:SimpleStackPanel d:Background="AliceBlue" Orientation="Horizontal">
                             <iuw:SimpleStackPanel>
-                                <ToggleButton Style="{StaticResource ToggleButton_EraserTypeStyle}">
-                                    <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.Eraser_20_Regular}"
-                                                      Content="{DynamicResource Text_EraseByStroke}"/>
-                                </ToggleButton>
-                                <ToggleButton Style="{StaticResource ToggleButton_EraserTypeStyle}">
-                                    <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.CircleEraser_20_Filled}"
-                                                      Content="{DynamicResource Text_EraseByEllipsePoint}"/>
-                                </ToggleButton>
-                                <ToggleButton Style="{StaticResource ToggleButton_EraserTypeStyle}">
-                                    <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.SquareEraser_20_Filled}"
-                                                      Content="{DynamicResource Text_EraseBySquarePoint}"/>
-                                </ToggleButton>
+                                <iuwm:GridView Name="GridView_EraserType" SelectionChanged="GridView_EraserType_SelectionChanged" SelectedIndex="{Binding GridViewSelectedIndex}">
+                                    <iuwm:GridView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <iuw:SimpleStackPanel Orientation="Vertical" MinWidth="200"/>
+                                        </ItemsPanelTemplate>
+                                    </iuwm:GridView.ItemsPanel>
+                                    <iuwm:GridView.Items>
+                                        <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.Eraser_20_Regular}"
+                                                          Content="{DynamicResource Text_EraseByStroke}"/>
+                                        <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.CircleEraser_20_Filled}"
+                                                          Content="{DynamicResource Text_EraseByEllipsePoint}"/>
+                                        <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.SquareEraser_20_Filled}"
+                                                          Content="{DynamicResource Text_EraseBySquarePoint}"/>
+                                    </iuwm:GridView.Items>
+                                </iuwm:GridView>
                                 <Grid ColumnDefinitions="Auto,4,*" RowDefinitions="Auto">
                                     <TextBlock Grid.Row="0" Grid.Column="0"
                                                Text="{DynamicResource Text_Thickness}"
@@ -99,13 +93,13 @@
                 </Border>
             </Border>
         </Popup>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" MouseUp="EraserControl_MouseUp">
-            <Image Source="{DynamicResource Image.FUI.CalligraphyPen}"
+        <StackPanel Background="Transparent" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" MouseUp="EraserControl_MouseUp">
+            <Image Source="{DynamicResource Image.FUI.Eraser}"
                    Width="40"
                    Height="40"/>
             <TextBlock FontSize="12"
                        TextAlignment="Center"
-                       Text="{DynamicResource Text_Pen}"
+                       Text="{DynamicResource Text_Eraser}"
                        Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"
                        Visibility="{Binding TextVisibility}"/>
         </StackPanel>

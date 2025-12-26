@@ -22,7 +22,6 @@ public partial class CursorControl : UserControl, IFloatingBarComponentSettingBa
 
         DataContext = Settings;
         this.Loaded += CursorControl_Loaded;
-        this.MouseUp += CursorControl_MouseUp;
     }
 
     private void CursorControl_MouseUp(object sender, MouseButtonEventArgs e) => TryInvoke();

@@ -65,9 +65,15 @@ namespace Ink_Canvas_Better.Windows
                         inkCanvas.Background = NearlyTransparent;
                         inkCanvas.EditingMode = InkCanvasEditingMode.Ink;
                         break;
-                    case EditingMode.Select:
                     case EditingMode.EraseByPoint:
+                        inkCanvas.Background = NearlyTransparent;
+                        inkCanvas.EditingMode = InkCanvasEditingMode.EraseByPoint;
+                        break;
                     case EditingMode.EraseByStroke:
+                        inkCanvas.Background = NearlyTransparent;
+                        inkCanvas.EditingMode = InkCanvasEditingMode.EraseByStroke;
+                        break;
+                    case EditingMode.Select:
                     case EditingMode.Shape:
                         throw new NotImplementedException();
                 }
