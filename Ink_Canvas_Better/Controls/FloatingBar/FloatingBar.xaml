@@ -6,15 +6,16 @@
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
              xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar"
              xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModels.Controls.FloatingBar"
+             d:DataContext="{d:DesignInstance Type=vm:FloatingBarVM}"
              mc:Ignorable="d">
     <UserControl.RenderTransform>
         <TransformGroup>
-            <ScaleTransform ScaleX="{Binding Settings.Scale}" ScaleY="{Binding Settings.Scale}"/>
+            <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
             <TranslateTransform/>
         </TransformGroup>
     </UserControl.RenderTransform>
-    <ItemsControl ItemsSource="{Binding Settings.Items}">
+    <ItemsControl ItemsSource="{Binding Items}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <iuw:SimpleStackPanel Spacing="{Binding Settings.Spacing, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}"

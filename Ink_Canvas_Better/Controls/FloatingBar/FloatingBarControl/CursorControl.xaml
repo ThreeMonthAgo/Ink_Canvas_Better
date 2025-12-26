@@ -8,7 +8,8 @@
              xmlns:behavior="clr-namespace:Ink_Canvas_Better.Behaviors"
              xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl"
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
-             d:DataContext="{d:DesignInstance Type=local:CursorControlSettings}"
+             xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModels.Controls.FloatingBar.FloatingBarControl"
+             d:DataContext="{d:DesignInstance Type=vm:CursorControlVM}"
              mc:Ignorable="d">
     <Grid Name="Grid" Background="Transparent" d:Background="AliceBlue" Width="64" Height="64">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">

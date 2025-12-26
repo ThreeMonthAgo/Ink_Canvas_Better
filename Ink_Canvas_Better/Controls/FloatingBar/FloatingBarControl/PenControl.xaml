@@ -9,7 +9,8 @@
              xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl"
              xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
-             d:DataContext="{d:DesignInstance Type=local:PenControlSettings}"
+             xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModels.Controls.FloatingBar.FloatingBarControl"
+             d:DataContext="{d:DesignInstance Type=vm:PenControlVM}"
              mc:Ignorable="d">
     <UserControl.Resources>
         <Style TargetType="Rectangle" x:Key="Colors">
@@ -25,8 +26,8 @@
                Placement="Top"
                PlacementTarget="{Binding ElementName=Grid}"
                IsOpen="{Binding IsOpen, Mode=TwoWay}"
-               StaysOpen="{Binding StaysOpen}"
-               PopupAnimation="{Binding PopupAnimation}"
+               StaysOpen="False"
+               PopupAnimation="Fade"
                AllowsTransparency="True">
             <Border Padding="0,4">
                 <Border CornerRadius="4"

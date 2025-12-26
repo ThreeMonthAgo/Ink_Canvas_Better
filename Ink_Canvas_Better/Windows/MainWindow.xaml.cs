@@ -1,14 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Ink;
 using System.Windows.Interop;
 using System.Windows.Media;
 using Ink_Canvas_Better.Services;
-using Newtonsoft.Json;
+using Ink_Canvas_Better.ViewModels.Windows;
 using static Ink_Canvas_Better.Enums;
 
 namespace Ink_Canvas_Better.Windows
@@ -20,7 +16,7 @@ namespace Ink_Canvas_Better.Windows
 
         public SettingsService SettingsService { get; }
 
-        public MainWindowSettings Settings { get; } = new() { IsInitializing = false };
+        public MainWindowVM Settings { get; } = new() { IsInitializing = false };
 
         public MainWindow(SettingsService settingsService)
         {
@@ -79,31 +75,5 @@ namespace Ink_Canvas_Better.Windows
         }
 
         #endregion
-    }
-
-    public class MainWindowSettings : INotifyPropertyChanged
-    {
-        private DrawingAttributes _currentDrawingAttributes = new();
-
-        #region
-
-        public DrawingAttributes CurrentDrawingAttributes
-        {
-            get { return _currentDrawingAttributes; }
-            set { _currentDrawingAttributes = value; OnPropertyChanged(); }
-        }
-
-        #endregion
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            if (!IsInitializing) App.GetService<SettingsService>().SaveSettings();
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        [JsonIgnore]
-        public bool IsInitializing { get; set; } = true;
     }
 }

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Windows;
 using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Utilities.DataStructures;
+using Ink_Canvas_Better.ViewModels;
 
 namespace Ink_Canvas_Better.Services
 {

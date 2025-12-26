@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Ink_Canvas_Better.Interface;
-using Ink_Canvas_Better.Services;
-using Newtonsoft.Json;
+using Ink_Canvas_Better.ViewModels.Controls.FloatingBar;
 using static Ink_Canvas_Better.Enums;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar;
@@ -15,12 +11,13 @@ public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
 {
     public static string Guid { get; } = "D4F5C8A1-6E2B-4F3A-9C1E-2B7D8F9A0B1C";
     public string ComponentGuid => Guid;
-    public object Settings { get; set; } = new FloatingBarSettings();
+    public object Settings { get; set; } = new FloatingBarVM();
 
     public FloatingBar()
     {
         InitializeComponent();
 
+        DataContext = Settings;
         Loaded += FloatingBar_Loaded;
     }
 
@@ -28,13 +25,13 @@ public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
 
     private void FloatingBar_Loaded(object sender, RoutedEventArgs e)
     {
-        (Settings as FloatingBarSettings).IsInitializing = false;
+        (Settings as FloatingBarVM).IsInitializing = false;
         Dock();
     }
 
     public FloatingBar Add(IFloatingBarComponentSettingBase component)
     {
-        (Settings as FloatingBarSettings).Items.Add(component);
+        (Settings as FloatingBarVM).Items.Add(component);
         return this;
     }
 
@@ -67,7 +64,7 @@ public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
         var realHeight = this.ActualHeight * st.ScaleY;
         if (dockPlacement == DockPlacement.Unset)
         {
-            dockPlacement = (Settings as FloatingBarSettings).DockPlacement;
+            dockPlacement = (Settings as FloatingBarVM).DockPlacement;
         }
         switch (dockPlacement)
         {
@@ -116,65 +113,4 @@ public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
                 break;
         }
     }
-}
-
-public class FloatingBarSettings : INotifyPropertyChanged
-{
-    private ObservableCollection<IFloatingBarComponentSettingBase>? _items = [];
-    private double _spacing = 4.0;
-    private Orientation _orientation = Orientation.Horizontal;
-    private double _scale = 1.0;
-    private int _screenIndex = 0;
-    private DockPlacement _dockPlacement = DockPlacement.AboveTaskBar;
-
-    #region
-
-    public ObservableCollection<IFloatingBarComponentSettingBase>? Items
-    {
-        get { return _items; }
-        set { _items = value; OnPropertyChanged(); }
-    }
-
-    public double Spacing
-    {
-        get { return _spacing; }
-        set { _spacing = value; OnPropertyChanged(); }
-    }
-
-    public Orientation Orientation
-    {
-        get { return _orientation; }
-        set { _orientation = value; OnPropertyChanged(); }
-    }
-
-    public double Scale
-    {
-        get { return _scale; }
-        set { _scale = value; OnPropertyChanged(); }
-    }
-
-    public int ScreenIndex
-    {
-        get { return _screenIndex; }
-        set { _screenIndex = value; OnPropertyChanged(); }
-    }
-
-    public DockPlacement DockPlacement
-    {
-        get { return _dockPlacement; }
-        set { _dockPlacement = value; OnPropertyChanged(); }
-    }
-
-    #endregion
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        if (!IsInitializing) App.GetService<SettingsService>().SaveSettings();
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    [JsonIgnore]
-    public bool IsInitializing { get; set; } = true;
 }

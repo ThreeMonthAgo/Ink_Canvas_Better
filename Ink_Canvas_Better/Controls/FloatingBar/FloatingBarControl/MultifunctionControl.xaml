@@ -9,7 +9,8 @@
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
              xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:behavior="clr-namespace:Ink_Canvas_Better.Behaviors"
-             d:DataContext="{d:DesignInstance Type=local:MultifunctionControlSettings}"
+             xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModels.Controls.FloatingBar.FloatingBarControl"
+             d:DataContext="{d:DesignInstance Type=vm:MultifunctionControlVM}"
              mc:Ignorable="d" >
     <Grid d:Background="AliceBlue" Width="64" Height="64" Background="Transparent">
         <StackPanel Name="StackPanel" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">

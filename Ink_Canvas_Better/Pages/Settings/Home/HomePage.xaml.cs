@@ -11,8 +11,8 @@ namespace Ink_Canvas_Better.Pages.Settings.Home
 {
     public partial class HomePage : Page
     {
-        private SettingsService settingsService;
-        private LanguageWindow languageWindow;
+        private readonly SettingsService settingsService;
+        private readonly LanguageWindow languageWindow;
 
         public HomePage(SettingsService settingsService, LanguageWindow languageWindow)
         {
