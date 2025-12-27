@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.ViewModels.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Windows;
 
@@ -12,15 +13,20 @@ public partial class CursorControl : UserControl, IFloatingBarComponentSettingBa
 {
     private MainWindow mainWindow;
 
-    public static string Guid { get; } = "D034499E-882E-41DF-BE4B-C7446870A93C";
-    public string ComponentGuid => Guid;
     public object Settings { get; set; } = new CursorControlVM();
 
     public CursorControl()
     {
+        foreach (DictionaryEntry resource in Application.Current.Resources)
+        {
+            if (!this.Resources.Contains(resource.Key))
+            {
+                this.Resources.Add(resource.Key, resource.Value);
+            }
+        }
         InitializeComponent();
 
-        DataContext = Settings;
+        this.DataContext = Settings;
         this.Loaded += CursorControl_Loaded;
     }
 
@@ -35,7 +41,7 @@ public partial class CursorControl : UserControl, IFloatingBarComponentSettingBa
 
     public bool TryInvoke()
     {
-        mainWindow.CurrentEditingMode = Enums.EditingMode.None;
+        mainWindow.Settings.CurrentEditingMode = Enums.EditingMode.None;
         return true;
     }
 }

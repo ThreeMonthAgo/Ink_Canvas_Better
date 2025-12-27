@@ -1,25 +1,10 @@
-﻿
-namespace Ink_Canvas_Better.Interface;
+﻿namespace Ink_Canvas_Better.Utilities.Interface;
 
 /// <summary>
 /// All floating bar component settings must implement this interface to be recognized by the application.
 /// </summary>
 public interface IFloatingBarComponentSettingBase
 {
-    /// <summary>
-    /// Specific guid of the component, please ensure its uniqueness.
-    /// </summary>
-    /// <remarks>
-    /// What's more, a static Guid is a must, just like:
-    /// <example>
-    /// <code>
-    ///     public static string Guid { get; } = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
-    ///     public string ComponentGuid => Guid;
-    /// </code>
-    /// </example>
-    /// </remarks> 
-    public string ComponentGuid { get; }
-
     /// <summary>
     /// Settings of the component.
     /// </summary>

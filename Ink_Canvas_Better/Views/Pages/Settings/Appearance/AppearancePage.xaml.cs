@@ -7,7 +7,7 @@ namespace Ink_Canvas_Better.Pages.Settings.Appearance
     public partial class AppearancePage : Page
     {
         private readonly SettingsService settingsService;
-        public ViewModels.Settings Settings => settingsService.Settings;
+        public Model.Settings Settings => settingsService.Settings;
 
         public AppearancePage(SettingsService settingsService)
         {

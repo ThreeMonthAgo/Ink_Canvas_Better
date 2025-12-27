@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Text;
 using System.Windows;
 using Ink_Canvas_Better.Pages.Settings.Appearance;
 using Ink_Canvas_Better.Pages.Settings.Home;
@@ -12,8 +9,8 @@ namespace Ink_Canvas_Better.Windows
 {
     public partial class SettingsWindow : Window
     {
-        private HomePage homePage;
-        private AppearancePage appearancePage;
+        private readonly HomePage homePage;
+        private readonly AppearancePage appearancePage;
 
         public SettingsWindow(HomePage homePage, AppearancePage appearancePage)
         {

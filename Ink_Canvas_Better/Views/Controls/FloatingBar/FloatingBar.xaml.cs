@@ -1,23 +1,31 @@
 ﻿using System;
+using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Utilities.Bases;
+using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.ViewModels.Controls.FloatingBar;
 using static Ink_Canvas_Better.Enums;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar;
+
 public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
 {
-    public static string Guid { get; } = "D4F5C8A1-6E2B-4F3A-9C1E-2B7D8F9A0B1C";
-    public string ComponentGuid => Guid;
     public object Settings { get; set; } = new FloatingBarVM();
 
     public FloatingBar()
     {
+        foreach (DictionaryEntry resource in Application.Current.Resources)
+        {
+            if (!this.Resources.Contains(resource.Key))
+            {
+                this.Resources.Add(resource.Key, resource.Value);
+            }
+        }
         InitializeComponent();
 
-        DataContext = Settings;
+        this.DataContext = Settings;
         Loaded += FloatingBar_Loaded;
     }
 
@@ -29,7 +37,7 @@ public partial class FloatingBar : UserControl, IFloatingBarComponentSettingBase
         Dock();
     }
 
-    public FloatingBar Add(IFloatingBarComponentSettingBase component)
+    public FloatingBar Add(ViewModelBase component)
     {
         (Settings as FloatingBarVM).Items.Add(component);
         return this;

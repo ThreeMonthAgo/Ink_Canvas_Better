@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
+using Ink_Canvas_Better.Model;
 using Ink_Canvas_Better.Services.JsonConverter;
-using Ink_Canvas_Better.ViewModels;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -14,8 +14,7 @@ namespace Ink_Canvas_Better.Services
         private readonly JsonSerializerSettings jsonSerializerSettings = new()
         {
             Converters = [
-                new FloartingBarCollectionConverter(),
-                new FloatingBarComponentSettingsConverter(),
+                new ViewModelBaseConverter(),
                 new IListConverter(),
             ]
         };

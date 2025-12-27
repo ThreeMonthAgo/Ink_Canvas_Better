@@ -1,26 +1,23 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using Ink_Canvas_Better.Controls.FloatingBar;
-using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
-using Ink_Canvas_Better.Interface;
 using Ink_Canvas_Better.Services;
-using Ink_Canvas_Better.ViewModels.Controls.FloatingBar;
+using Ink_Canvas_Better.ViewModels.Windows;
+using Ink_Canvas_Better.Windows;
 using Newtonsoft.Json;
 
-namespace Ink_Canvas_Better.ViewModels;
+namespace Ink_Canvas_Better.Model;
 
 /// <summary>
 /// The application settings
 /// </summary>
-public class Settings : INotifyPropertyChanged
+public class Settings
 {
     private Version _appVersion = Application.ResourceAssembly.GetName().Version ??= new Version(0, 0, 0, 0); // 0.0.0.0 => something is wrong
     private Version _settingsVersion = new(2, 0, 0, 0); // Current settings version
-    private ObservableCollection<IFloatingBarComponentSettingBase> _floatingBarCollection = [CreateDefaultFloatingBar()];
+    private MainWindowVM _mainWindowVM = (MainWindowVM)App.GetService<MainWindow>().DataContext;
     private string _logDirPath = "./Logs/";
     private CultureInfo _cultureInfo = new("en");
     private int _theme = 0; // UI theme; 0 => Auto
@@ -48,41 +45,61 @@ public class Settings : INotifyPropertyChanged
     public Version SettingsVersion
     {
         get { return _settingsVersion; }
-        set { _settingsVersion = value; OnPropertyChanged(); }
+        set { SetProperty(ref _settingsVersion, value); }
     }
+
     public Version AppVersion
     {
         get { return _appVersion; }
-        set { _appVersion = value; OnPropertyChanged(); }
+        set { SetProperty(ref _appVersion, value); }
     }
-    public ObservableCollection<IFloatingBarComponentSettingBase> FloatingBarCollection
+
+    public MainWindowVM MainWindowVM
     {
-        get { return _floatingBarCollection; }
-        set { _floatingBarCollection = value; OnPropertyChanged(); }
+        get { return _mainWindowVM; }
+        set { SetProperty(ref _mainWindowVM, value); }
     }
+
     public string LogDirPath
     {
         get { return _logDirPath; }
-        set { _logDirPath = value; OnPropertyChanged(); }
+        set { SetProperty(ref _logDirPath, value); }
     }
 
     public CultureInfo CultureInfo
     {
         get { return _cultureInfo; }
-        set { _cultureInfo = value; OnPropertyChanged(); }
+        set { SetProperty(ref _cultureInfo, value); }
     }
 
     public int Theme
     {
         get { return _theme; }
-        set { _theme = value; OnPropertyChanged(); }
+        set { SetProperty(ref _theme, value); }
     }
 
     #endregion
 
+    protected virtual void SetProperty<T>(
+        ref T field,
+        T newValue,
+        [CallerMemberName] string? propertyName = null,
+        bool force = true)
+    {
+        if (EqualityComparer<T>.Default.Equals(field, newValue))
+        {
+            if (force) OnPropertyChanged(propertyName);
+        }
+        else
+        {
+            field = newValue;
+            OnPropertyChanged(propertyName);
+        }
+    }
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null, bool force = true)
     {
         if (!IsInitializing) App.GetService<SettingsService>().SaveSettings();
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -93,28 +110,9 @@ public class Settings : INotifyPropertyChanged
 
     public void Copy(Settings settings)
     {
-        foreach (var prop in this.GetType().GetProperties())
+        foreach (var prop in typeof(Settings).GetProperties())
         {
             prop.SetValue(this, prop.GetValue(settings));
         }
-    }
-
-    public static FloatingBar CreateDefaultFloatingBar(int screenindex = 0)
-    {
-        var floatingBar =
-            App.GetService<FloatingBar>()
-                .Add(App.GetService<FloatingBarGroup>()
-                    .Add(App.GetService<MultifunctionControl>())
-                )
-                .Add(App.GetService<FloatingBarGroup>()
-                    .Add(App.GetService<CursorControl>())
-                    .Add(App.GetService<PenControl>())
-                    .Add(App.GetService<EraserControl>())
-                )
-                .Add(App.GetService<FloatingBarGroup>()
-                    .Add(App.GetService<SettingsControl>())
-                );
-        (floatingBar.Settings as FloatingBarVM).ScreenIndex = screenindex;
-        return floatingBar;
     }
 }

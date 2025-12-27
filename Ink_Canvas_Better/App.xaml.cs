@@ -4,8 +4,6 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Ink_Canvas_Better.Controls.FloatingBar;
-using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Pages.Settings.Appearance;
 using Ink_Canvas_Better.Pages.Settings.Home;
@@ -32,22 +30,15 @@ namespace Ink_Canvas_Better
         /// </list>
         /// </remarks>
         public static string[]? StartupArgs { get; set; } = null;
-        public static string RootPath { get; } = Environment.GetEnvironmentVariable("APPDATA") + "\\Ink Canvas Better\\";
-
-        /// <summary>
-        /// Used for check
-        /// </summary>
-        public readonly static ConcurrentDictionary<string, Type> RegisteredControls = new();
 
         public App()
         {
-            InitializeComponent();
             Init();
+            InitializeComponent();
 
             this.logger = GetService<ILogger<App>>();
             this.settingsService = GetService<SettingsService>();
             this.mainWindow = GetService<MainWindow>();
-
             this.Startup += new StartupEventHandler(App_Startup);
             this.Exit += new ExitEventHandler(App_OnExit);
         }
@@ -103,6 +94,7 @@ namespace Ink_Canvas_Better
                     // Services
                     service.AddSingleton<SettingsService>();
                     service.AddSingleton<ThemeService>();
+                    service.AddSingleton<ComponentService>();
                     // UI
                     service.AddSingleton<SettingsWindow>();
                     service.AddSingleton<MainWindow>();
@@ -110,25 +102,25 @@ namespace Ink_Canvas_Better
                     // Pages
                     service.AddSingleton<HomePage>();
                     service.AddSingleton<AppearancePage>();
+                    // Obslated
+                    //// FloatingBarComponent
+                    //RegComponents<FloatingBar>(FloatingBar.Guid);
+                    //RegComponents<FloatingBarGroup>(FloatingBarGroup.Guid);
+                    //RegComponents<MultifunctionControl>(MultifunctionControl.Guid);
+                    //RegComponents<SettingsControl>(SettingsControl.Guid);
+                    //RegComponents<PenControl>(PenControl.Guid);
+                    //RegComponents<CursorControl>(CursorControl.Guid);
+                    //RegComponents<EraserControl>(EraserControl.Guid);
 
-                    // FloatingBarComponent
-                    RegComponents<FloatingBar>(FloatingBar.Guid);
-                    RegComponents<FloatingBarGroup>(FloatingBarGroup.Guid);
-                    RegComponents<MultifunctionControl>(MultifunctionControl.Guid);
-                    RegComponents<SettingsControl>(SettingsControl.Guid);
-                    RegComponents<PenControl>(PenControl.Guid);
-                    RegComponents<CursorControl>(CursorControl.Guid);
-                    RegComponents<EraserControl>(EraserControl.Guid);
-
-                    void RegComponents<T>(string guid)
-                    {
-                        if (RegisteredControls.ContainsKey(guid) | !RegisteredControls.TryAdd(guid, typeof(T)))
-                        {
-                            Debug.WriteLine($"Component with guid {{{guid}}} failed to register");
-                            return;
-                        }
-                        service.AddTransient(typeof(T));
-                    }
+                    //void RegComponents<T>(string guid)
+                    //{
+                    //    if (RegisteredControls.ContainsKey(guid) | !RegisteredControls.TryAdd(guid, typeof(T)))
+                    //    {
+                    //        Debug.WriteLine($"Component with guid {{{guid}}} failed to register");
+                    //        return;
+                    //    }
+                    //    service.AddTransient(typeof(T));
+                    //}
                 }).
                 ConfigureLogging((context, logging) =>
                 {
@@ -145,6 +137,7 @@ namespace Ink_Canvas_Better
                     });
                 }).
                 Build();
+            GetService<ComponentService>().RegisterComponents();
             GetService<SettingsService>().LoadSettings();
         }
 

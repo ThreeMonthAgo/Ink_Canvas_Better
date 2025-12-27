@@ -1,50 +1,42 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Controls;
-using Ink_Canvas_Better.Interface;
-using Ink_Canvas_Better.Services;
+using Ink_Canvas_Better.Controls.FloatingBar;
+using Ink_Canvas_Better.Services.JsonConverter;
+using Ink_Canvas_Better.Utilities.Attributes;
+using Ink_Canvas_Better.Utilities.Bases;
 using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.ViewModels.Controls.FloatingBar;
 
-internal class FloatingBarGroupVM : INotifyPropertyChanged
+[Component(
+    viewType: typeof(FloatingBarGroup),
+    guid: "B1E2F3A4-5678-90AB-CDEF-1234567890AB")]
+public class FloatingBarGroupVM : ViewModelBase
 {
-    private ObservableCollection<IFloatingBarComponentSettingBase>? _items = [];
+    private ObservableCollection<ViewModelBase>? _items = [];
     private double _spacing = 4.0;
     private Orientation _orientation = Orientation.Vertical;
 
     #region
 
-    public ObservableCollection<IFloatingBarComponentSettingBase>? Items
+    public ObservableCollection<ViewModelBase>? Items
     {
         get { return _items; }
-        set { _items = value; OnPropertyChanged(); }
+        set { SetProperty(ref _items, value); }
     }
 
     public double Spacing
     {
         get { return _spacing; }
-        set { _spacing = value; OnPropertyChanged(); }
+        set { SetProperty(ref _spacing, value); }
     }
 
     public Orientation Orientation
     {
         get { return _orientation; }
-        set { _orientation = value; OnPropertyChanged(); }
+        set { SetProperty(ref _orientation, value); }
     }
 
     #endregion
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        if (!IsInitializing) App.GetService<SettingsService>().SaveSettings();
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    [JsonIgnore]
-    public bool IsInitializing { get; set; } = true;
 }

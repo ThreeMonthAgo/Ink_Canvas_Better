@@ -1,27 +1,34 @@
 ﻿using System;
+using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
-using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.ViewModels.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Windows;
 
 namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
+
 public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
 {
     private MainWindow mainWindow;
 
-    public static string Guid { get; } = "87F7581C-364A-49D7-93C3-3355A8415D38";
-    public string ComponentGuid => Guid;
     public object Settings { get; set; } = new PenControlVM();
 
     public PenControl()
     {
+        foreach (DictionaryEntry resource in Application.Current.Resources)
+        {
+            if (!this.Resources.Contains(resource.Key))
+            {
+                this.Resources.Add(resource.Key, resource.Value);
+            }
+        }
         InitializeComponent();
 
-        DataContext = Settings;
+        this.DataContext = Settings;
         this.Loaded += PenControl_Loaded;
     }
 
@@ -35,7 +42,7 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
 
     private void PenControl_MouseUp(object sender, MouseButtonEventArgs e)
     {
-        if (mainWindow.CurrentEditingMode != Enums.EditingMode.Ink)
+        if (mainWindow.Settings.CurrentEditingMode != Enums.EditingMode.Ink)
         {
             this.TryInvoke();
         }
@@ -64,7 +71,7 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
                 );
             mainWindow.Settings.CurrentDrawingAttributes.StylusTip = StylusTip.Ellipse;
             mainWindow.Settings.CurrentDrawingAttributes.Width = mainWindow.Settings.CurrentDrawingAttributes.Height = Slider_Thickness.Value;
-            mainWindow.CurrentEditingMode = Enums.EditingMode.Ink;
+            mainWindow.Settings.CurrentEditingMode = Enums.EditingMode.Ink;
             return true;
         }
         catch (Exception)

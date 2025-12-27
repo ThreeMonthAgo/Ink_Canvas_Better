@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Ink_Canvas_Better.Interface;
+using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.ViewModels.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.Windows;
 
@@ -12,15 +13,20 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
 {
     private SettingsWindow settingsWindow;
 
-    public static string Guid { get; } = "8AA94A7A-4847-4ED2-930F-292A7BFBA7CB";
-    public string ComponentGuid => Guid;
     public object Settings { get; set; } = new SettingsControlVM();
 
     public SettingsControl()
     {
+        foreach (DictionaryEntry resource in Application.Current.Resources)
+        {
+            if (!this.Resources.Contains(resource.Key))
+            {
+                this.Resources.Add(resource.Key, resource.Value);
+            }
+        }
         InitializeComponent();
 
-        DataContext = Settings;
+        this.DataContext = Settings;
         this.Loaded += SettingsControl_Loaded;
         this.MouseUp += SettingsControl_MouseUp;
     }

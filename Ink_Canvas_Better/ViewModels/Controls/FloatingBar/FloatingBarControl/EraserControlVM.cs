@@ -1,13 +1,17 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
-using Ink_Canvas_Better.Services;
+using Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
+using Ink_Canvas_Better.Services.JsonConverter;
+using Ink_Canvas_Better.Utilities.Attributes;
+using Ink_Canvas_Better.Utilities.Bases;
 using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.ViewModels.Controls.FloatingBar.FloatingBarControl;
 
-internal class EraserControlVM : INotifyPropertyChanged
+[Component(
+    viewType: typeof(EraserControl),
+    guid: "F4A558A1-ABF1-4493-8D14-8D0D18363B72")]
+public class EraserControlVM : ViewModelBase
 {
     private int _thickness = 20;
     private Visibility _textVisibility = Visibility.Collapsed;
@@ -21,39 +25,28 @@ internal class EraserControlVM : INotifyPropertyChanged
     public int Thickness
     {
         get { return _thickness; }
-        set { _thickness = value; OnPropertyChanged(); }
+        set { SetProperty(ref _thickness, value); }
     }
 
     public int GridViewSelectedIndex
     {
         get { return _gridViewSelectedIndex; }
-        set { _gridViewSelectedIndex = value; OnPropertyChanged(); }
+        set { SetProperty(ref _gridViewSelectedIndex, value); }
     }
 
     [JsonIgnore]
     public bool IsOpen
     {
         get { return _isOpen; }
-        set { _isOpen = value; OnPropertyChanged(); }
+        set { SetProperty(ref _isOpen, value); }
     }
 
     [JsonIgnore]
     public Visibility TextVisibility
     {
         get { return _textVisibility; }
-        set { _textVisibility = value; OnPropertyChanged(); }
+        set { SetProperty(ref _textVisibility, value); }
     }
 
     #endregion
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        if (!IsInitializing) App.GetService<SettingsService>().SaveSettings();
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    [JsonIgnore]
-    public bool IsInitializing { get; set; } = true;
 }

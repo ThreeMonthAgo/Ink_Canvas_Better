@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ink_Canvas_Better.Windows"
+        xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModels.Windows"
         xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
         mc:Ignorable="d"
         WindowStyle="None"
@@ -12,18 +13,18 @@
         Topmost="True"
         AllowsTransparency="True"
         Background="Transparent"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        d:DataContext="{d:DesignInstance Type=vm:MainWindowVM}"
         Title="{DynamicResource Text_ProductName}">
     <Grid Background="Transparent">
         <InkCanvas
             Name="MW_InkCanvas"
             Background="Transparent"
             Cursor="Pen"
-            DefaultDrawingAttributes="{Binding Settings.CurrentDrawingAttributes}"
+            DefaultDrawingAttributes="{Binding CurrentDrawingAttributes}"
             ForceCursor="False"
             IsManipulationEnabled="True"/>
         <Grid ColumnDefinitions="auto">
-            <iuwm:ItemsRepeater Grid.Column="0" Name="MW_ItemsPresenter" ItemsSource="{Binding SettingsService.Settings.FloatingBarCollection}"/>
+            <iuwm:ItemsRepeater Grid.Column="0" Name="MW_ItemsPresenter" ItemsSource="{Binding FloatingBarCollection}"/>
         </Grid>
     </Grid>
 </Window>

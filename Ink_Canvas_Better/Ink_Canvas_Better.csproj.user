@@ -2,34 +2,34 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="Controls\FloatingBar\FloatingBar.xaml.cs">
+    <Compile Update="Views\Controls\FloatingBar\FloatingBar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\FloatingBar\FloatingBarControl\CursorControl.xaml.cs">
+    <Compile Update="Views\Controls\FloatingBar\FloatingBarControl\CursorControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\FloatingBar\FloatingBarControl\EraserControl.xaml.cs">
+    <Compile Update="Views\Controls\FloatingBar\FloatingBarControl\EraserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\FloatingBar\FloatingBarControl\MultifunctionControl.xaml.cs">
+    <Compile Update="Views\Controls\FloatingBar\FloatingBarControl\MultifunctionControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\FloatingBar\FloatingBarControl\PenControl.xaml.cs">
+    <Compile Update="Views\Controls\FloatingBar\FloatingBarControl\PenControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\FloatingBar\FloatingBarControl\SettingsControl.xaml.cs">
+    <Compile Update="Views\Controls\FloatingBar\FloatingBarControl\SettingsControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\FloatingBar\FloatingBarGroup.xaml.cs">
+    <Compile Update="Views\Controls\FloatingBar\FloatingBarGroup.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Pages\Settings\Appearance\AppearancePage.xaml.cs">
+    <Compile Update="Views\Pages\Settings\Appearance\AppearancePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Pages\Settings\Home\HomePage.xaml.cs">
+    <Compile Update="Views\Pages\Settings\Home\HomePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\SettingsWindow.xaml.cs">
+    <Compile Update="Views\Windows\SettingsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
