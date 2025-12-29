@@ -13,7 +13,7 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
 {
     private SettingsWindow settingsWindow;
 
-    public object Settings { get; set; } = new SettingsControlVM();
+    public object Settings => DataContext as SettingsControlVM;
 
     public SettingsControl()
     {
@@ -26,7 +26,6 @@ public partial class SettingsControl : UserControl, IFloatingBarComponentSetting
         }
         InitializeComponent();
 
-        this.DataContext = Settings;
         this.Loaded += SettingsControl_Loaded;
         this.MouseUp += SettingsControl_MouseUp;
     }

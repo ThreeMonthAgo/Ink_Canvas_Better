@@ -24,7 +24,8 @@
             ForceCursor="False"
             IsManipulationEnabled="True"/>
         <Grid ColumnDefinitions="auto">
-            <iuwm:ItemsRepeater Grid.Column="0" Name="MW_ItemsPresenter" ItemsSource="{Binding FloatingBarCollection}"/>
+            <ContentControl Grid.Column="0" Content="{Binding FloatingBarCollection[0]}"/>
+            <!--<iuwm:ItemsRepeater Grid.Column="0" Name="MW_ItemsPresenter" ItemsSource="{Binding FloatingBarCollection}"/>-->
         </Grid>
     </Grid>
 </Window>

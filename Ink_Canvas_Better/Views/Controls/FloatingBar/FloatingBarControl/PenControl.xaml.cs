@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
@@ -15,20 +16,11 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
 {
     private MainWindow mainWindow;
 
-    public object Settings { get; set; } = new PenControlVM();
+    public object Settings => DataContext as PenControlVM;
 
     public PenControl()
     {
-        foreach (DictionaryEntry resource in Application.Current.Resources)
-        {
-            if (!this.Resources.Contains(resource.Key))
-            {
-                this.Resources.Add(resource.Key, resource.Value);
-            }
-        }
         InitializeComponent();
-
-        this.DataContext = Settings;
         this.Loaded += PenControl_Loaded;
     }
 
@@ -54,6 +46,7 @@ public partial class PenControl : UserControl, IFloatingBarComponentSettingBase
 
     public bool TryInvoke()
     {
+        return false;
         var st = Settings as PenControlVM;
         if (st.IsInitializing) return false;
         try

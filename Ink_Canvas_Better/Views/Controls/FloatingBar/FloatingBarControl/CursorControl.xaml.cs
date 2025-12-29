@@ -13,7 +13,7 @@ public partial class CursorControl : UserControl, IFloatingBarComponentSettingBa
 {
     private MainWindow mainWindow;
 
-    public object Settings { get; set; } = new CursorControlVM();
+    public object Settings => DataContext as CursorControlVM;
 
     public CursorControl()
     {
@@ -26,7 +26,6 @@ public partial class CursorControl : UserControl, IFloatingBarComponentSettingBa
         }
         InitializeComponent();
 
-        this.DataContext = Settings;
         this.Loaded += CursorControl_Loaded;
     }
 

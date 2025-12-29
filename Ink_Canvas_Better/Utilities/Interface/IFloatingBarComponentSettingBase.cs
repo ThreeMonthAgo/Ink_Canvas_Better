@@ -8,7 +8,7 @@ public interface IFloatingBarComponentSettingBase
     /// <summary>
     /// Settings of the component.
     /// </summary>
-    public object Settings { get; set; }
+    //public object Settings { get; set; }
 
     /// <summary>
     /// Provides a way to invoke it without knowing its type. Return true if invoke successfully.

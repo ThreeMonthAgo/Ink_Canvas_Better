@@ -9,7 +9,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBar.FloatingBarControl;
 
 public partial class MultifunctionControl : UserControl, IFloatingBarComponentSettingBase
 {
-    public object Settings { get; set; } = new MultifunctionControlVM();
+    public object Settings => DataContext as MultifunctionControlVM;
 
     public MultifunctionControl()
     {
@@ -21,8 +21,6 @@ public partial class MultifunctionControl : UserControl, IFloatingBarComponentSe
             }
         }
         InitializeComponent();
-
-        this.DataContext = Settings;
     }
 
     public bool TryInvoke() => true;

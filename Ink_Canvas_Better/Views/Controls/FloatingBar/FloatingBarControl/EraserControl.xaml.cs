@@ -14,7 +14,7 @@ public partial class EraserControl : UserControl, IFloatingBarComponentSettingBa
 {
     private MainWindow mainWindow;
 
-    public object Settings { get; set; } = new EraserControlVM();
+    public object Settings => DataContext as EraserControlVM;
 
     public EraserControl()
     {
@@ -27,7 +27,6 @@ public partial class EraserControl : UserControl, IFloatingBarComponentSettingBa
         }
         InitializeComponent();
 
-        this.DataContext = Settings;
         this.Loaded += EeaserControl_Loaded;
     }
 
@@ -51,6 +50,7 @@ public partial class EraserControl : UserControl, IFloatingBarComponentSettingBa
 
     public bool TryInvoke()
     {
+        return false;
         var st = Settings as EraserControlVM;
         if (st.IsInitializing) return false;
         try

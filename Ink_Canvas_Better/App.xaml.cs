@@ -14,11 +14,7 @@ namespace Ink_Canvas_Better
 {
     public partial class App : Application
     {
-        private readonly ILogger logger;
-        private readonly MainWindow mainWindow;
-        private readonly SettingsService settingsService;
-
-        public static IHost Host;
+        private static IHost Host;
 
         /// <summary>
         /// StartupArgs
@@ -33,14 +29,14 @@ namespace Ink_Canvas_Better
 
         public App()
         {
-            Init();
             InitializeComponent();
+            Init();
 
-            this.logger = GetService<ILogger<App>>();
-            this.settingsService = GetService<SettingsService>();
-            this.mainWindow = GetService<MainWindow>();
+            this.MainWindow = GetService<MainWindow>();
             this.Startup += new StartupEventHandler(App_Startup);
             this.Exit += new ExitEventHandler(App_OnExit);
+            GetService<ComponentService>().RegisterComponents();
+            GetService<SettingsService>().LoadSettings();
         }
 
         void App_Startup(object sender, StartupEventArgs e)
@@ -49,16 +45,16 @@ namespace Ink_Canvas_Better
             #region log
             this.DispatcherUnhandledException += (sender, e) =>
             {
-                logger.LogCritical(e.Exception.ToString());
+                GetService<ILogger<App>>().LogCritical(e.Exception.ToString());
                 e.Handled = true;
             };
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
             {
-                logger.LogWarning(e.ToString());
+                GetService<ILogger<App>>().LogWarning(e.ToString());
             };
             TaskScheduler.UnobservedTaskException += (sender, e) =>
             {
-                logger.LogError(e.Exception.ToString());
+                GetService<ILogger<App>>().LogError(e.Exception.ToString());
                 e.SetObserved();
             };
             #endregion
@@ -66,23 +62,23 @@ namespace Ink_Canvas_Better
             Mutex _ = new(true, "Ink_Canvas_Better", out bool ret);
             if (!ret && !StartupArgs.Contains("-m")) // -m multiple
             {
-                logger.LogInformation("Detected existing instance");
+                GetService<ILogger<App>>().LogInformation("Detected existing instance");
                 iNKORE.UI.WPF.Modern.Controls.MessageBox.Show(
                     "Another instance of Ink Canvas Better is already running.",
                     "Ink Canvas Better",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
-                logger.LogInformation("Ink Canvas Batter automatically closed");
+                GetService<ILogger<App>>().LogInformation("Ink Canvas Batter automatically closed");
                 Environment.Exit(0);
             }
 
-            mainWindow.Show();
-            logger.LogInformation($"===== Ink Canvas Better (v{settingsService.Settings.AppVersion}) is running =====");
+            MainWindow.Show();
+            GetService<ILogger<App>>().LogInformation($"===== Ink Canvas Better (v{GetService<SettingsService>().Settings.AppVersion}) is running =====");
         }
 
         void App_OnExit(object sender, ExitEventArgs e)
         {
-            logger.LogInformation("===== Ink Canvas Better exited =====");
+            GetService<ILogger<App>>().LogInformation("===== Ink Canvas Better exited =====");
         }
 
         public static void Init()
@@ -102,25 +98,6 @@ namespace Ink_Canvas_Better
                     // Pages
                     service.AddSingleton<HomePage>();
                     service.AddSingleton<AppearancePage>();
-                    // Obslated
-                    //// FloatingBarComponent
-                    //RegComponents<FloatingBar>(FloatingBar.Guid);
-                    //RegComponents<FloatingBarGroup>(FloatingBarGroup.Guid);
-                    //RegComponents<MultifunctionControl>(MultifunctionControl.Guid);
-                    //RegComponents<SettingsControl>(SettingsControl.Guid);
-                    //RegComponents<PenControl>(PenControl.Guid);
-                    //RegComponents<CursorControl>(CursorControl.Guid);
-                    //RegComponents<EraserControl>(EraserControl.Guid);
-
-                    //void RegComponents<T>(string guid)
-                    //{
-                    //    if (RegisteredControls.ContainsKey(guid) | !RegisteredControls.TryAdd(guid, typeof(T)))
-                    //    {
-                    //        Debug.WriteLine($"Component with guid {{{guid}}} failed to register");
-                    //        return;
-                    //    }
-                    //    service.AddTransient(typeof(T));
-                    //}
                 }).
                 ConfigureLogging((context, logging) =>
                 {
@@ -137,8 +114,6 @@ namespace Ink_Canvas_Better
                     });
                 }).
                 Build();
-            GetService<ComponentService>().RegisterComponents();
-            GetService<SettingsService>().LoadSettings();
         }
 
         #region GetService

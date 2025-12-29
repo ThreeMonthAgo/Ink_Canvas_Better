@@ -10,7 +10,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBar;
 
 public partial class FloatingBarGroup : UserControl, IFloatingBarComponentSettingBase
 {
-    public object Settings { get; set; } = new FloatingBarGroupVM();
+    public object Settings => DataContext as FloatingBarGroupVM;
 
     public FloatingBarGroup()
     {
@@ -23,7 +23,6 @@ public partial class FloatingBarGroup : UserControl, IFloatingBarComponentSettin
         }
         InitializeComponent();
 
-        this.DataContext = Settings;
         this.Loaded += FloatingBarGroup_Loaded;
     }
 
