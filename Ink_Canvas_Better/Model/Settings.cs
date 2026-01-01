@@ -4,8 +4,8 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using Ink_Canvas_Better.Services;
-using Ink_Canvas_Better.ViewModels.Windows;
-using Ink_Canvas_Better.Windows;
+using Ink_Canvas_Better.Utilities.Interface;
+using Ink_Canvas_Better.ViewModel.Windows;
 using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Model;
@@ -17,7 +17,7 @@ public class Settings
 {
     private Version _appVersion = Application.ResourceAssembly.GetName().Version ??= new Version(0, 0, 0, 0); // 0.0.0.0 => something is wrong
     private Version _settingsVersion = new(2, 0, 0, 0); // Current settings version
-    private MainWindowVM _mainWindowVM = (MainWindowVM)App.GetService<MainWindow>().DataContext;
+    private MainWindowVM _mainWindowVM = new MainWindowVM();
     private string _logDirPath = "./Logs/";
     private CultureInfo _cultureInfo = new("en");
     private int _theme = 0; // UI theme; 0 => Auto
@@ -32,10 +32,10 @@ public class Settings
         switch (e.PropertyName)
         {
             case nameof(Theme):
-                App.GetService<ThemeService>().ChangeTheme(Theme);
+                IApp.GetService<ThemeService>().ChangeTheme(Theme);
                 break;
             case nameof(CultureInfo):
-                App.GetService<ThemeService>().ChangeCultureInfo(CultureInfo);
+                IApp.GetService<ThemeService>().ChangeCultureInfo(CultureInfo);
                 break;
         }
     }
@@ -101,7 +101,7 @@ public class Settings
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null, bool force = true)
     {
-        if (!IsInitializing) App.GetService<SettingsService>().SaveSettings();
+        if (!IsInitializing) IApp.GetService<SettingsService>().SaveSettings();
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 

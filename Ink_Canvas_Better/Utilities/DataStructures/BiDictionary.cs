@@ -16,7 +16,7 @@ namespace Ink_Canvas_Better.Utilities.DataStructures;
 /// </list>
 /// </para>
 /// </remarks>
-public struct BiDictionary<TFirst, TSecond> : IEnumerable<KeyValuePair<TFirst, TSecond>>
+public readonly struct BiDictionary<TFirst, TSecond> : IEnumerable<KeyValuePair<TFirst, TSecond>>
 {
     public readonly List<TFirst> Firsts = [];
     public readonly List<TSecond> Seconds = [];

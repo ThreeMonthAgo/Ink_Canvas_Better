@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
+             xmlns:local="clr-namespace:Ink_Canvas_Better.View.Controls.FloatingBar"
+             xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
+             xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behavior="clr-namespace:Ink_Canvas_Better.Behaviors"
+             xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar"
+             d:DataContext="{d:DesignInstance Type=vm:FloatingBarVM}"
+             mc:Ignorable="d">
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </UserControl.RenderTransform>
+    <iuw:SimpleStackPanel Orientation="{Binding Orientation}" Spacing="{Binding Spacing}">
+        <Border Background="{DynamicResource {x:Static iuwm:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
+                BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
+                BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}"
+                CornerRadius="8">
+            <iuw:SimpleStackPanel Orientation="{Binding Orientation}">
+                <Grid d:Background="AliceBlue" Width="64" Height="64" Background="Transparent">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Image Source="{DynamicResource Image.FUI.Drag}" Width="40" Height="40"/>
+                    </StackPanel>
+                    <Thumb Opacity="0">
+                        <bh:Interaction.Behaviors>
+                            <behavior:DragBehavior TypeOfControlToDrag="{x:Type local:FloatingBar}"/>
+                        </bh:Interaction.Behaviors>
+                    </Thumb>
+                </Grid>
+            </iuw:SimpleStackPanel>
+        </Border>
+        <ItemsControl ItemsSource="{Binding Items}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <iuw:SimpleStackPanel Spacing="{Binding Settings.Spacing, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}"
+                                          Orientation="{Binding Settings.Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </iuw:SimpleStackPanel>
+</UserControl>

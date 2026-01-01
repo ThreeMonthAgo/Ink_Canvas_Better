@@ -1,7 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Ink_Canvas_Better.Services;
 using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Utilities.Bases;
@@ -37,7 +35,6 @@ public abstract class ViewModelBase : INotifyPropertyChanged
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null, bool force = true)
     {
-        if (!IsInitializing) App.GetService<SettingsService>().SaveSettings();
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 

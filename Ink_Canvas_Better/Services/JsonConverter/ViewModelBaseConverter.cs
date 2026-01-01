@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using System.Text;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
 using Ink_Canvas_Better.Utilities.Interface;
@@ -25,11 +23,11 @@ public class ViewModelBaseConverter : Newtonsoft.Json.JsonConverter
             throw new JsonSerializationException("Guid is required for deserialization");
         }
         string guid = guidToken.ToString();
-        if (!App.GetService<ComponentService>().RegisteredComponents.TryGetValue(guid, out Type type))
+        if (!IApp.GetService<ComponentService>().RegisteredComponents.TryGetValue(guid, out Type type))
         {
             throw new JsonSerializationException($"Component with guid {{{guid}}} is not registered");
         }
-        var instance = ActivatorUtilities.CreateInstance(App.GetService<IServiceProvider>(), type);
+        var instance = ActivatorUtilities.CreateInstance(IApp.GetService<IServiceProvider>(), type);
         jobj.Remove("Guid");
         using (var jsonReader = jobj.CreateReader())
         {
@@ -45,7 +43,6 @@ public class ViewModelBaseConverter : Newtonsoft.Json.JsonConverter
             writer.WriteNull();
             return;
         }
-
         writer.WriteStartObject();
         // write Guid
         var componentAttribute = value.GetType().GetCustomAttribute<ComponentAttribute>();
@@ -57,14 +54,10 @@ public class ViewModelBaseConverter : Newtonsoft.Json.JsonConverter
         }
         // write other properties
         var p = value.GetType().GetProperties();
-        
         foreach (var p1 in p)
         {
             // Skip properties with [JsonIgnore] attribute
-            if (p1.GetCustomAttribute<JsonIgnoreAttribute>() != null)
-            {
-                continue;
-            }
+            if (p1.GetCustomAttribute<JsonIgnoreAttribute>() != null) continue;
             // write
             try
             {

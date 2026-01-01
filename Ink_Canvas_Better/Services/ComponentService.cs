@@ -16,7 +16,7 @@ public class ComponentService(ILogger<ComponentService> logger)
     /// <summary>
     /// registers all components marked with the ComponentAttribute in the current AppDomain assemblies.
     /// </summary>
-    public void RegisterComponents()
+    public void DetectAndRegisterComponents()
     {
         var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 

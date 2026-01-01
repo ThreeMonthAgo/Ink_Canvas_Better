@@ -8,20 +8,50 @@
 	<Version>2.0.0.0</Version>
 	<ApplicationIcon>Themes\App.ico</ApplicationIcon>
     <UseWPF>true</UseWPF>
-</PropertyGroup>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.10.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ink_Canvas_Better.Logging\Ink_Canvas_Better.Logging.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Themes\App.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.10.2.1" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Ink_Canvas_Better.Logging\Ink_Canvas_Better.Logging.csproj" />
+    <Compile Update="View\Controls\FloatingBar\FloatingBar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Controls\FloatingBar\FloatingBarControl\CursorControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Controls\FloatingBar\FloatingBarControl\EraserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Controls\FloatingBar\FloatingBarControl\PenControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Controls\FloatingBar\FloatingBarControl\SettingsControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Controls\FloatingBar\FloatingBarGroup.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Pages\Settings\Appearance\AppearancePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Pages\Settings\Home\HomePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Windows\SettingsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

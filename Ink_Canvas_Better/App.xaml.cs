@@ -1,101 +1,86 @@
-﻿using System.Collections.Concurrent;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
+using Ink_Canvas_Better.Logging;
+using Ink_Canvas_Better.Services;
+using Ink_Canvas_Better.Utilities.Interface;
+using Ink_Canvas_Better.View.Pages.Settings.Appearance;
+using Ink_Canvas_Better.View.Pages.Settings.Home;
+using Ink_Canvas_Better.View.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Ink_Canvas_Better.Logging;
-using Ink_Canvas_Better.Pages.Settings.Appearance;
-using Ink_Canvas_Better.Pages.Settings.Home;
-using Ink_Canvas_Better.Services;
-using Ink_Canvas_Better.Windows;
 
 namespace Ink_Canvas_Better
 {
-    public partial class App : Application
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : Application, IApp
     {
-        private static IHost Host;
-
-        /// <summary>
-        /// StartupArgs
-        /// </summary>
-        /// <remarks>
-        /// Args:
-        /// <list type="bullet">
-        ///     <item>-m multiple</item>
-        /// </list>
-        /// </remarks>
-        public static string[]? StartupArgs { get; set; } = null;
-
         public App()
         {
             InitializeComponent();
             Init();
 
-            this.MainWindow = GetService<MainWindow>();
-            this.Startup += new StartupEventHandler(App_Startup);
-            this.Exit += new ExitEventHandler(App_OnExit);
-            GetService<ComponentService>().RegisterComponents();
-            GetService<SettingsService>().LoadSettings();
+            IApp.GetService<ComponentService>().DetectAndRegisterComponents();
+            this.Startup += App_Startup;
         }
 
-        void App_Startup(object sender, StartupEventArgs e)
+        private void App_Startup(object sender, StartupEventArgs e)
         {
-            StartupArgs = e.Args;
+            IApp.StartupArgs = e.Args;
             #region log
             this.DispatcherUnhandledException += (sender, e) =>
             {
-                GetService<ILogger<App>>().LogCritical(e.Exception.ToString());
+                IApp.GetService<ILogger<App>>().LogCritical(e.Exception.ToString());
                 e.Handled = true;
             };
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
             {
-                GetService<ILogger<App>>().LogWarning(e.ToString());
+                IApp.GetService<ILogger<App>>().LogWarning(e.ToString());
             };
             TaskScheduler.UnobservedTaskException += (sender, e) =>
             {
-                GetService<ILogger<App>>().LogError(e.Exception.ToString());
+                IApp.GetService<ILogger<App>>().LogError(e.Exception.ToString());
                 e.SetObserved();
             };
             #endregion
 
             Mutex _ = new(true, "Ink_Canvas_Better", out bool ret);
-            if (!ret && !StartupArgs.Contains("-m")) // -m multiple
+            if (!ret && !IApp.StartupArgs.Contains("-m")) // -m multiple
             {
-                GetService<ILogger<App>>().LogInformation("Detected existing instance");
+                IApp.GetService<ILogger<App>>().LogInformation("Detected existing instance");
                 iNKORE.UI.WPF.Modern.Controls.MessageBox.Show(
                     "Another instance of Ink Canvas Better is already running.",
                     "Ink Canvas Better",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
-                GetService<ILogger<App>>().LogInformation("Ink Canvas Batter automatically closed");
+                IApp.GetService<ILogger<App>>().LogInformation("Ink Canvas Batter automatically closed");
                 Environment.Exit(0);
             }
 
+            this.MainWindow = IApp.GetService<MainWindow>();
             MainWindow.Show();
-            GetService<ILogger<App>>().LogInformation($"===== Ink Canvas Better (v{GetService<SettingsService>().Settings.AppVersion}) is running =====");
+            IApp.GetService<SettingsService>().LoadSettings();
+            IApp.GetService<ILogger<App>>().LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
         }
 
-        void App_OnExit(object sender, ExitEventArgs e)
+        private void Init()
         {
-            GetService<ILogger<App>>().LogInformation("===== Ink Canvas Better exited =====");
-        }
-
-        public static void Init()
-        {
-            Host = Microsoft.Extensions.Hosting.Host.
+            IApp.Host = Microsoft.Extensions.Hosting.Host.
                 CreateDefaultBuilder().
                 ConfigureServices((context, service) =>
                 {
                     // Services
+                    service.AddSingleton<ComponentService>();
                     service.AddSingleton<SettingsService>();
                     service.AddSingleton<ThemeService>();
-                    service.AddSingleton<ComponentService>();
-                    // UI
-                    service.AddSingleton<SettingsWindow>();
+
+                    // UI (Windows)
                     service.AddSingleton<MainWindow>();
+                    service.AddSingleton<SettingsWindow>();
                     service.AddSingleton<LanguageWindow>();
-                    // Pages
+
+                    // UI (Pages)
                     service.AddSingleton<HomePage>();
                     service.AddSingleton<AppearancePage>();
                 }).
@@ -115,39 +100,5 @@ namespace Ink_Canvas_Better
                 }).
                 Build();
         }
-
-        #region GetService
-
-        public static object GetService(Type t)
-        {
-            var s = Host?.Services.GetService(t);
-            if (s != null)
-            {
-                return s;
-            }
-            throw new ArgumentException($"Service {s} is null!");
-        }
-
-        public static object? TryGetService(Type t)
-        {
-            return Host?.Services.GetService(t);
-        }
-
-        public static T GetService<T>()
-        {
-            var s = Host?.Services.GetService(typeof(T));
-            if (s != null)
-            {
-                return (T)s;
-            }
-            throw new ArgumentException($"Service {typeof(T)} is null!");
-        }
-
-        public static T? TryGetService<T>()
-        {
-            return (T?)Host?.Services.GetService(typeof(T));
-        }
-
-        #endregion
     }
 }

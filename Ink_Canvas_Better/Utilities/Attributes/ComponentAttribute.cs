@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ink_Canvas_Better.Utilities.Attributes;
+﻿namespace Ink_Canvas_Better.Utilities.Attributes;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class ComponentAttribute(Type viewType, string guid) : Attribute
