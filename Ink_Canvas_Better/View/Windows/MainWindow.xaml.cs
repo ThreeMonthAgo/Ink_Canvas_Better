@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
@@ -27,7 +26,6 @@ namespace Ink_Canvas_Better.View.Windows
 
         private void Settings_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            Debug.WriteLine($"[MainWindow] PropertyChanged: {e.PropertyName}");
             switch (e.PropertyName)
             {
                 case nameof(Settings.CurrentEditingMode):

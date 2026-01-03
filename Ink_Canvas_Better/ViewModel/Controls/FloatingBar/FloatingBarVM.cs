@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
+using Ink_Canvas_Better.Utilities.DataStructures;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 using static Ink_Canvas_Better.Utilities.Enums.UI;
 
@@ -32,7 +32,10 @@ public class FloatingBarVM : ViewModelBase
     private Orientation _orientation = Orientation.Horizontal;
     private double _scale = 1.0;
     private int _screenIndex = 0; // unused, reserved for multi-monitor support
-    private DockPlacement _dockPlacement = DockPlacement.AboveTaskBar;
+    private DockPlacement _dockPlacement = new() {
+        VerticalAlignment = DockVerticalAlignment.AboveTaskBar,
+        HorizontalAlignment = DockHorizontalAlignment.Center
+    };
 
     #region
 

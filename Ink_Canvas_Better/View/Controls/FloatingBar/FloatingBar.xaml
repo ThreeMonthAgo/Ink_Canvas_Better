@@ -23,7 +23,7 @@
                 BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}"
                 CornerRadius="8">
             <iuw:SimpleStackPanel Orientation="{Binding Orientation}">
-                <Grid d:Background="AliceBlue" Width="64" Height="64" Background="Transparent">
+                <Grid d:Background="AliceBlue" Background="Transparent" Width="64" Height="64">
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Image Source="{DynamicResource Image.FUI.Drag}" Width="40" Height="40"/>
                     </StackPanel>

@@ -2,21 +2,20 @@
 
 public class UI
 {
-    public enum DockPlacement
+    public enum DockVerticalAlignment
     {
         Top,
+        Center,
         Bottom,
         AboveTaskBar,
+        Unset // reserve
+    }
+
+    public enum DockHorizontalAlignment
+    {
         Left,
+        Center,
         Right,
-
-        TopLeft,
-        TopRight,
-        AboveTaskBarLeft,
-        AboveTaskBarRight,
-        BottomLeft,
-        BottomRight,
-
         Unset // reserve
     }
 }

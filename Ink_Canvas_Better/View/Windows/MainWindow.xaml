@@ -23,6 +23,12 @@
             DefaultDrawingAttributes="{Binding CurrentDrawingAttributes}"
             ForceCursor="False"
             IsManipulationEnabled="True"/>
-        <ItemsControl ItemsSource="{Binding FloatingBarCollection}"/>
+        <ItemsControl ItemsSource="{Binding FloatingBarCollection}">
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
     </Grid>
 </Window>

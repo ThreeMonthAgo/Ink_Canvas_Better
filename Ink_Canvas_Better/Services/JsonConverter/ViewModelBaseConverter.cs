@@ -19,7 +19,6 @@ public class ViewModelBaseConverter : Newtonsoft.Json.JsonConverter
         var jobj = JObject.Load(reader);
         if (!jobj.TryGetValue("Guid", out JToken? guidToken))
         {
-            Debug.WriteLine($"{objectType}");
             throw new JsonSerializationException("Guid is required for deserialization");
         }
         string guid = guidToken.ToString();

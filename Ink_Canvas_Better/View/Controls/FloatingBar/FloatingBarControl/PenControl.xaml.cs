@@ -18,6 +18,7 @@ public partial class PenControl : UserControl
 
     public PenControlVM Settings => DataContext as PenControlVM;
 
+    // TODO: Bug => Subpanel-related settings are not saved/restored properly.
     public PenControl()
     {
         InitializeComponent();
