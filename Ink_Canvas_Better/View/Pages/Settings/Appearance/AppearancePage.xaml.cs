@@ -1,24 +1,16 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using Ink_Canvas_Better.Services;
+using Ink_Canvas_Better.Utilities.Interface;
 
 namespace Ink_Canvas_Better.View.Pages.Settings.Appearance
 {
     public partial class AppearancePage : Page
     {
-        private readonly SettingsService settingsService;
-        public Model.Settings Settings => settingsService.Settings;
+        public Model.Settings Settings => IApp.GetService<SettingsService>().Settings;
 
-        public AppearancePage(SettingsService settingsService)
+        public AppearancePage()
         {
-            this.settingsService = settingsService;
-
             InitializeComponent();
-        }
-
-        private void Theme_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            settingsService.Settings.Theme = ((ComboBox)sender).SelectedIndex;
         }
     }
 }

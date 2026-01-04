@@ -22,7 +22,7 @@ public partial class CursorControl : UserControl
         this.Loaded += CursorControl_Loaded;
     }
 
-    private void CursorControl_MouseUp(object sender, MouseButtonEventArgs e) => TryInvoke();
+    private void CursorControl_MouseUp(object sender, MouseButtonEventArgs e) => Apply();
 
     private void CursorControl_Loaded(object sender, RoutedEventArgs e)
     {
@@ -30,7 +30,7 @@ public partial class CursorControl : UserControl
         Settings.IsInitializing = false;
     }
 
-    public bool TryInvoke()
+    public bool Apply()
     {
         mainWindow.Settings.CurrentEditingMode = EditingMode.None;
         return true;

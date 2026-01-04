@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ink_Canvas_Better.View.Windows"
+        xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Windows"
         xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
         xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
         iuwm:WindowHelper.UseModernWindowStyle="True"
@@ -11,10 +12,9 @@
         Topmost="True"
         Title="{DynamicResource Text_SettingWindowTitle}"
         Icon="/Themes/App.ico"
-        MinHeight="500"
-        MinWidth="750"
-        Height="450"
-        Width="900"
+        d:DataContext="{d:DesignInstance Type=vm:SettingsWindowVM}"
+        MinHeight="500" MinWidth="750"
+        Height="450" Width="900"
         mc:Ignorable="d">
     <!-- Navigation -->
     <iuwm:NavigationView
@@ -25,29 +25,29 @@
         PaneDisplayMode="LeftCompact"
         PaneTitle="{DynamicResource Text_ProductName}">
         <iuwm:NavigationView.MenuItems>
-            <iuwm:NavigationViewItem Name="SettingNaviagtion_Item_Home" Content="{DynamicResource Text_Home}" ToolTipService.ToolTip="{DynamicResource Text_Home}">
+            <iuwm:NavigationViewItem Name="Home" Content="{DynamicResource Text_Home}" ToolTipService.ToolTip="{DynamicResource Text_Home}">
                 <iuwm:NavigationViewItem.Icon>
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.Home}"/>
                 </iuwm:NavigationViewItem.Icon>
             </iuwm:NavigationViewItem>
             <!-- TODO:
-            <iuwm:NavigationViewItem Name="SettingNaviagtion_Item_StartupAndUpdate" Content="{DynamicResource Text_StartupAndUpdate}" ToolTipService.ToolTip="{DynamicResource Text_StartupAndUpdate}">
+            <iuwm:NavigationViewItem Name="StartupAndUpdate" Content="{DynamicResource Text_StartupAndUpdate}" ToolTipService.ToolTip="{DynamicResource Text_StartupAndUpdate}">
                 <iuwm:NavigationViewItem.Icon>
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.PowerButton}"/>
                 </iuwm:NavigationViewItem.Icon>
             </iuwm:NavigationViewItem>-->
-            <iuwm:NavigationViewItem Name="SettingNaviagtion_Item_Appearance" Content="{DynamicResource Text_Appearance}" ToolTipService.ToolTip="{DynamicResource Text_Appearance}">
+            <iuwm:NavigationViewItem Name="Appearance" Content="{DynamicResource Text_Appearance}" ToolTipService.ToolTip="{DynamicResource Text_Appearance}">
                 <iuwm:NavigationViewItem.Icon>
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.Color}"/>
                 </iuwm:NavigationViewItem.Icon>
             </iuwm:NavigationViewItem>
             <!--
-            <iuwm:NavigationViewItem Name="SettingNaviagtion_Item_PPT" Content="{DynamicResource Text_PPT}" ToolTipService.ToolTip="{DynamicResource Text_PPT}">
+            <iuwm:NavigationViewItem Name="PPT" Content="{DynamicResource Text_PPT}" ToolTipService.ToolTip="{DynamicResource Text_PPT}">
                 <iuwm:NavigationViewItem.Icon>
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.Slideshow}"/>
                 </iuwm:NavigationViewItem.Icon>
             </iuwm:NavigationViewItem>
-            <iuwm:NavigationViewItem Name="SettingNaviagtion_Item_ExperimentalFeatures" Content="{DynamicResource Text_ExperimentalFeatures}" ToolTipService.ToolTip="{DynamicResource Text_ExperimentalFeatures}">
+            <iuwm:NavigationViewItem Name="ExperimentalFeatures" Content="{DynamicResource Text_ExperimentalFeatures}" ToolTipService.ToolTip="{DynamicResource Text_ExperimentalFeatures}">
                 <iuwm:NavigationViewItem.Icon>
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.Reminder}"/>
                 </iuwm:NavigationViewItem.Icon>
@@ -55,7 +55,7 @@
             -->
         </iuwm:NavigationView.MenuItems>
         <iuwm:NavigationView.Content>
-            <iuwm:Frame x:Name="SettingsFrame"/>
+            <iuwm:Frame Content="{Binding SelectedPage}"/>
         </iuwm:NavigationView.Content>
     </iuwm:NavigationView>
 </Window>

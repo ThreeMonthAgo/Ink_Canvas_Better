@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -17,7 +18,7 @@ public class Settings
 {
     private Version _appVersion = Application.ResourceAssembly.GetName().Version ??= new Version(0, 0, 0, 0); // 0.0.0.0 => something is wrong
     private Version _settingsVersion = new(2, 0, 0, 0); // Current settings version
-    private MainWindowVM _mainWindowVM = new MainWindowVM();
+    private MainWindowVM _mainWindowVM = new();
     private string _logDirPath = "./Logs/";
     private CultureInfo _cultureInfo = new("en");
     private int _theme = 0; // UI theme; 0 => Auto
@@ -101,6 +102,7 @@ public class Settings
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null, bool force = true)
     {
+        Debug.WriteLine(MainWindowVM.GetHashCode()); // wrong here: reference changed. see MainWindowVM
         if (!IsInitializing) IApp.GetService<SettingsService>().SaveSettings();
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

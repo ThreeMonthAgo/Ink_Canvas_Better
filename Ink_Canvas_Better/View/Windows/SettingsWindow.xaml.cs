@@ -1,25 +1,27 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 using Ink_Canvas_Better.View.Pages.Settings.Appearance;
 using Ink_Canvas_Better.View.Pages.Settings.Home;
+using Ink_Canvas_Better.ViewModel.Windows;
 using iUWM = iNKORE.UI.WPF.Modern;
 
 namespace Ink_Canvas_Better.View.Windows
 {
     public partial class SettingsWindow : Window
     {
-        private readonly HomePage homePage;
-        private readonly AppearancePage appearancePage;
+        private SettingsWindowVM Settings => DataContext as SettingsWindowVM;
 
-        public SettingsWindow(HomePage homePage, AppearancePage appearancePage)
+        public SettingsWindow()
         {
-            this.homePage = homePage;
-            this.appearancePage = appearancePage;
-
             InitializeComponent();
 
+            DataContext = new SettingsWindowVM();
             this.Loaded += SettingsWindow_Loaded;
+        }
+
+        private void SettingsWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Settings.IsInitializing = false;
         }
 
         /// <summary>
@@ -32,11 +34,6 @@ namespace Ink_Canvas_Better.View.Windows
             Hide();
         }
 
-        private void SettingsWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            SettingNaviagtion_Item_Home.IsSelected = true;
-        }
-
         /// <summary>
         /// Navgate
         /// </summary>
@@ -44,17 +41,17 @@ namespace Ink_Canvas_Better.View.Windows
         {
             switch (((iUWM.Controls.NavigationViewItem)sender.SelectedItem).Name)
             {
-                case "SettingNaviagtion_Item_Home":
-                    SettingsFrame.Navigate(homePage);
+                case "Home":
+                    Settings.SelectedPage = new HomePage();
                     break;
-                case "SettingNaviagtion_Item_StartupAndUpdate":
+                case "StartupAndUpdate":
                     break;
-                case "SettingNaviagtion_Item_Appearance":
-                    SettingsFrame.Navigate(appearancePage);
+                case "Appearance":
+                    Settings.SelectedPage = new AppearancePage();
                     break;
-                case "SettingNaviagtion_Item_PPT":
+                case "PPT":
                     break;
-                case "SettingNaviagtion_Item_ExperimentalFeatures":
+                case "ExperimentalFeatures":
                     break;
             }
         }

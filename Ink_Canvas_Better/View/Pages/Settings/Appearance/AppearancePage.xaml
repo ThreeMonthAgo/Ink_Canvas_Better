@@ -17,7 +17,7 @@
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.Light}"/>
                 </iuwm:SettingsCard.HeaderIcon>
                 <iuwm:SettingsCard.Content>
-                    <ComboBox Name="Theme_ComboBox" SelectionChanged="Theme_SelectionChanged" SelectedIndex="{Binding Settings.Theme}">
+                    <ComboBox Name="Theme_ComboBox" SelectedIndex="{Binding Settings.Theme}">
                         <ComboBoxItem Content="{DynamicResource Text_Setting_Auto}"/>
                         <ComboBoxItem Content="{DynamicResource Text_Setting_Light}"/>
                         <ComboBoxItem Content="{DynamicResource Text_Setting_Dark}"/>

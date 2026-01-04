@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Ink_Canvas_Better.Utilities.Interface;
@@ -24,6 +22,7 @@ public partial class SettingsControl : UserControl
 
     private void SettingsControl_Loaded(object sender, RoutedEventArgs e)
     {
+        Settings.IsInitializing = false;
         this.settingsWindow = IApp.GetService<SettingsWindow>();
     }
 

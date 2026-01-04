@@ -18,7 +18,6 @@ public partial class PenControl : UserControl
 
     public PenControlVM Settings => DataContext as PenControlVM;
 
-    // TODO: Bug => Subpanel-related settings are not saved/restored properly.
     public PenControl()
     {
         InitializeComponent();
@@ -28,8 +27,8 @@ public partial class PenControl : UserControl
     private void PenControl_Loaded(object sender, RoutedEventArgs e)
     {
         mainWindow = IApp.GetService<MainWindow>();
-        Settings.IsInitializing = false;
         Settings.EllipseFill = Settings.ColorCollection[Settings.GridViewSelectedIndex];
+        Settings.IsInitializing = false;
     }
 
     private void PenControl_MouseUp(object sender, MouseButtonEventArgs e)

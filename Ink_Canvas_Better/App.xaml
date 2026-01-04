@@ -65,6 +65,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <!--#endregion-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using Ink_Canvas_Better.Helpers;
+using Ink_Canvas_Better.Services;
+using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.ViewModel.Windows;
 using static Ink_Canvas_Better.Utilities.Enums.InkCanvas;
 
@@ -19,8 +21,7 @@ namespace Ink_Canvas_Better.View.Windows
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowVM();
-            Settings.PropertyChanged += Settings_PropertyChanged;
+
             this.Loaded += MainWindow_Loaded;
         }
 
@@ -66,6 +67,9 @@ namespace Ink_Canvas_Better.View.Windows
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            DataContext = IApp.GetService<SettingsService>().Settings.MainWindowVM;
+            Settings.PropertyChanged += Settings_PropertyChanged;
+            Settings.IsInitializing = false;
             var handle = new WindowInteropHelper((Window)sender).Handle;
             int extendedStyle = Win32Helper.GetWindowLong(handle, Win32Helper.GWL_EXSTYLE);
             _ = Win32Helper.SetWindowLong(

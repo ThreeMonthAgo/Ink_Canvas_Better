@@ -10,17 +10,21 @@ namespace Ink_Canvas_Better.View.Pages.Settings.Home
 {
     public partial class HomePage : Page
     {
-        private readonly SettingsService settingsService;
-        private readonly LanguageWindow languageWindow;
+        private SettingsService settingsService;
+        private LanguageWindow languageWindow;
 
-        public HomePage(SettingsService settingsService, LanguageWindow languageWindow)
+        public HomePage()
         {
-            this.settingsService = settingsService;
-            this.languageWindow = languageWindow;
-
             InitializeComponent();
 
             this.Loaded += Home_Loaded;
+        }
+
+        private void Home_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.settingsService = IApp.GetService<SettingsService>();
+            this.languageWindow = IApp.GetService<LanguageWindow>();
+            SettingsCard_About_1.Header = $"Ink Canvas Better v{settingsService.Settings.AppVersion}" + (settingsService.Settings.AppVersion.Revision > 0 ? " - beta" : "");
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
@@ -52,11 +56,6 @@ namespace Ink_Canvas_Better.View.Pages.Settings.Home
         private void SettingsCard_Github_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(new ProcessStartInfo("https://github.com/ThreeMonthAgo/Ink_Canvas_Better") { UseShellExecute = true });
-        }
-
-        private void Home_Loaded(object sender, RoutedEventArgs e)
-        {
-            SettingsCard_About_1.Header = $"Ink Canvas Better v{settingsService.Settings.AppVersion}" + (settingsService.Settings.AppVersion.Revision > 0 ? " - beta" : "");
         }
 
         private void SettingsCard_Language_Click(object sender, RoutedEventArgs e)

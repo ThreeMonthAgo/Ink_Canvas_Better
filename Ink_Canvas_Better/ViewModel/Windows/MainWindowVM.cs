@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Ink;
+using Ink_Canvas_Better.Services;
+using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 using Newtonsoft.Json;
@@ -75,6 +77,8 @@ public class MainWindowVM
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null, bool force = true)
     {
+        Debug.WriteLine(GetHashCode()); // wrong here: reference changed. see Model.Settings
+        if (!IsInitializing) IApp.GetService<SettingsService>().SaveSettings();
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
