@@ -29,9 +29,12 @@ namespace Ink_Canvas_Better.View.Windows
         {
             switch (e.PropertyName)
             {
-                case nameof(Settings.CurrentEditingMode):
-                case nameof(Settings.CurrentDrawingAttributes):
-                    UpdateInkCanvasEditingMode(Settings.CurrentEditingMode);
+                case nameof(Model.Settings.MainWindowVM):
+                    DataContext = IApp.GetService<SettingsService>().Settings.MainWindowVM;
+                    break;
+                case nameof(Model.Settings.MainWindowVM.CurrentEditingMode):
+                case nameof(Model.Settings.MainWindowVM.CurrentDrawingAttributes):
+                    UpdateInkCanvasEditingMode(IApp.GetService<SettingsService>().Settings.MainWindowVM.CurrentEditingMode);
                     break;
             }
         }
@@ -67,9 +70,9 @@ namespace Ink_Canvas_Better.View.Windows
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            DataContext = IApp.GetService<SettingsService>().Settings.MainWindowVM;
-            Settings.PropertyChanged += Settings_PropertyChanged;
-            Settings.IsInitializing = false;
+            var s = IApp.GetService<SettingsService>().Settings;
+            s.PropertyChanged += Settings_PropertyChanged;
+            s.IsInitializing = false;
             var handle = new WindowInteropHelper((Window)sender).Handle;
             int extendedStyle = Win32Helper.GetWindowLong(handle, Win32Helper.GWL_EXSTYLE);
             _ = Win32Helper.SetWindowLong(

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
@@ -49,18 +48,19 @@ public partial class PenControl : UserControl
         try
         {
             var seletedIndex = Settings.GridViewSelectedIndex;
+            var mainWindowVM = mainWindow.Settings;
             // UI
             Settings.EllipseFill = Settings.ColorCollection[seletedIndex];
             // InkCanvas
-            mainWindow.Settings.CurrentDrawingAttributes.Color = Color.FromArgb(
+            mainWindowVM.CurrentDrawingAttributes.Color = Color.FromArgb(
                 Settings.Alpha,
                 Settings.ColorCollection[seletedIndex].Color.R,
                 Settings.ColorCollection[seletedIndex].Color.G,
                 Settings.ColorCollection[seletedIndex].Color.B
                 );
-            mainWindow.Settings.CurrentDrawingAttributes.StylusTip = StylusTip.Ellipse;
-            mainWindow.Settings.CurrentDrawingAttributes.Width = mainWindow.Settings.CurrentDrawingAttributes.Height = Slider_Thickness.Value;
-            mainWindow.Settings.CurrentEditingMode = EditingMode.Ink;
+            mainWindowVM.CurrentDrawingAttributes.StylusTip = StylusTip.Ellipse;
+            mainWindowVM.CurrentDrawingAttributes.Width = mainWindowVM.CurrentDrawingAttributes.Height = Slider_Thickness.Value;
+            mainWindowVM.CurrentEditingMode = EditingMode.Ink;
         }
         catch (Exception) { }
     }

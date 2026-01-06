@@ -47,22 +47,23 @@ public partial class EraserControl : UserControl
         if (Settings == null || Settings.IsInitializing) return;
         try
         {
+            var mainWindowVM = mainWindow.Settings;
             switch (Settings.GridViewSelectedIndex)
             {
                 case 0:
-                    mainWindow.Settings.CurrentEditingMode = EditingMode.EraseByStroke;
+                    mainWindowVM.CurrentEditingMode = EditingMode.EraseByStroke;
                     break;
                 case 1:
-                    mainWindow.Settings.CurrentDrawingAttributes.StylusTip = StylusTip.Ellipse;
+                    mainWindowVM.CurrentDrawingAttributes.StylusTip = StylusTip.Ellipse;
                     mainWindow.InkCanvas.EraserShape = new EllipseStylusShape(Settings.Thickness, Settings.Thickness);
-                    mainWindow.Settings.CurrentEditingMode = EditingMode.Ink; // necessary
-                    mainWindow.Settings.CurrentEditingMode = EditingMode.EraseByPoint;
+                    mainWindowVM.CurrentEditingMode = EditingMode.Ink; // necessary
+                    mainWindowVM.CurrentEditingMode = EditingMode.EraseByPoint;
                     break;
                 case 2:
-                    mainWindow.Settings.CurrentDrawingAttributes.StylusTip = StylusTip.Rectangle;
+                    mainWindowVM.CurrentDrawingAttributes.StylusTip = StylusTip.Rectangle;
                     mainWindow.InkCanvas.EraserShape = new RectangleStylusShape(Settings.Thickness, Settings.Thickness);
-                    mainWindow.Settings.CurrentEditingMode = EditingMode.Ink; // necessary
-                    mainWindow.Settings.CurrentEditingMode = EditingMode.EraseByPoint;
+                    mainWindowVM.CurrentEditingMode = EditingMode.Ink; // necessary
+                    mainWindowVM.CurrentEditingMode = EditingMode.EraseByPoint;
                     break;
             }
         }

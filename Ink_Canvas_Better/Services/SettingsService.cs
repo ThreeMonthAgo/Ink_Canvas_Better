@@ -39,7 +39,7 @@ namespace Ink_Canvas_Better.Services
                     );
                     using var reader = new StreamReader(stream);
                     var json = reader.ReadToEnd();
-                    Settings = JsonConvert.DeserializeObject<Settings>(json, jsonSerializerSettings) ?? new();
+                    Settings.Copy(JsonConvert.DeserializeObject<Settings>(json, jsonSerializerSettings) ?? new());
                     Settings.IsInitializing = false;
                 }
                 catch (Exception ex)
