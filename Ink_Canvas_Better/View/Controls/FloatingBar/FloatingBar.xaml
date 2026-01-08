@@ -27,11 +27,7 @@
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Image Source="{DynamicResource Image.FUI.Drag}" Width="40" Height="40"/>
                     </StackPanel>
-                    <!-- TODO: Drag the FloatingBarWindow instead of Flaoting Bar -->
-                    <Thumb Opacity="0">
-                        <bh:Interaction.Behaviors>
-                            <behavior:DragBehavior TypeOfControlToDrag="{x:Type local:FloatingBar}"/>
-                        </bh:Interaction.Behaviors>
+                    <Thumb Opacity="0" DragDelta="Thumb_DragDelta">
                     </Thumb>
                 </Grid>
             </iuw:SimpleStackPanel>

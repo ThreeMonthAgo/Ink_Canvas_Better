@@ -7,6 +7,7 @@ using System.Windows;
 using Ink_Canvas_Better.Utilities.DataStructures;
 using iNKORE.UI.WPF.Modern;
 using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
 
 namespace Ink_Canvas_Better.Services
 {
@@ -52,7 +53,31 @@ namespace Ink_Canvas_Better.Services
             switch (Theme)
             {
                 case 0:
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
+                    {
+                        object registryValueObject = key?.GetValue("AppsUseLightTheme");
+                        if (registryValueObject is int appsUseLightTheme)
+                        {
+                            IsChangeToLight(appsUseLightTheme == 1); // 1 -> light; 0 -> dark
+                        }
+                        else
+                        {
+                            IsChangeToLight(true);
+                        }
+                    }
+                    break;
                 case 1:
+                    IsChangeToLight(true);
+                    break;
+                case 2:
+                    IsChangeToLight(false);
+                    break;
+            }
+
+            void IsChangeToLight(bool b)
+            {
+                if (b)
+                {
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
                     d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/FluentUIIcons/FluentUIIcons.xaml", UriKind.Relative) });
                     d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/DrawShapeImageDictionary.xaml", UriKind.Relative) });
@@ -60,8 +85,9 @@ namespace Ink_Canvas_Better.Services
                     d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/FluentUIIcons/FluentUIIcons.xaml", UriKind.Relative) });
                     d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/DrawShapeImageDictionary.xaml", UriKind.Relative) });
                     d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/OthersImageDictionary.xaml", UriKind.Relative) });
-                    break;
-                case 2:
+                }
+                else
+                {
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
                     d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/FluentUIIcons/FluentUIIcons.xaml", UriKind.Relative) });
                     d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/DrawShapeImageDictionary.xaml", UriKind.Relative) });
@@ -69,7 +95,7 @@ namespace Ink_Canvas_Better.Services
                     d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/FluentUIIcons/FluentUIIcons.xaml", UriKind.Relative) });
                     d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/DrawShapeImageDictionary.xaml", UriKind.Relative) });
                     d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/OthersImageDictionary.xaml", UriKind.Relative) });
-                    break;
+                }
             }
         }
     }

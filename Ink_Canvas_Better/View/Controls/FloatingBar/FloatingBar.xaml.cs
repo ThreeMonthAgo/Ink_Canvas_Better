@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Ink_Canvas_Better.Utilities.DataStructures;
+using Ink_Canvas_Better.Utilities.Interface;
+using Ink_Canvas_Better.View.Windows;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
 using static Ink_Canvas_Better.Utilities.Enums.UI;
 
@@ -31,58 +33,58 @@ public partial class FloatingBar : UserControl
         placement ??= Settings.DockPlacement;
         // get translateTransform
         var tg = this.RenderTransform as TransformGroup;
-        TranslateTransform tt = null;
         ScaleTransform st = null;
         foreach (var item in tg.Children)
         {
-            if (item is TranslateTransform translateTransform)
-            {
-                tt = translateTransform;
-                continue;
-            }
             if (item is ScaleTransform scaleTransform)
             {
                 st = scaleTransform;
-                continue;
             }
         }
-        if (tt == null) return;
         // Dock
+        var floatingBarWindow = IApp.GetService<FloatingBarWindow>();
         switch (placement.VerticalAlignment)
         {
             case DockVerticalAlignment.Top:
-                tt.Y = 0;
+                floatingBarWindow.Top = 0;
                 break;
             case DockVerticalAlignment.Center:
-                tt.Y = (scHeight() / 2) - (realHeight() / 2);
+                floatingBarWindow.Top = (scHeight() / 2) - (realHeight() / 2);
                 break;
             case DockVerticalAlignment.Bottom:
-                tt.Y = scHeight() - realHeight();
+                floatingBarWindow.Top = scHeight() - realHeight();
                 break;
             case DockVerticalAlignment.AboveTaskBar:
             case DockVerticalAlignment.Unset:
-                tt.Y = wkaHeight() - realHeight();
+                floatingBarWindow.Top = wkaHeight() - realHeight();
                 break;
         }
         switch (placement.HorizontalAlignment)
         {
             case DockHorizontalAlignment.Left:
-                tt.X = 0;
+                floatingBarWindow.Left = 0;
                 break;
             case DockHorizontalAlignment.Right:
-                tt.X = scWidth() - realWidth();
+                floatingBarWindow.Left = scWidth() - realWidth();
                 break;
             case DockHorizontalAlignment.Center:
             case DockHorizontalAlignment.Unset:
-                tt.X = (scWidth() / 2) - (realWidth() / 2);
+                floatingBarWindow.Left = (scWidth() / 2) - (realWidth() / 2);
                 break;
         }
 
         double scWidth() => SystemParameters.PrimaryScreenWidth;
         double scHeight() => SystemParameters.PrimaryScreenHeight;
-        double wkaWidth() => SystemParameters.WorkArea.Width;
+        //double wkaWidth() => SystemParameters.WorkArea.Width;  // unused
         double wkaHeight() => SystemParameters.WorkArea.Height;
         double realWidth() => this.ActualWidth * st.ScaleX;
         double realHeight() => this.ActualHeight * st.ScaleY;
+    }
+
+    private void Thumb_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+    {
+        var floatingBarWindow = IApp.GetService<FloatingBarWindow>();
+        floatingBarWindow.Left += e.HorizontalChange;
+        floatingBarWindow.Top += e.VerticalChange;
     }
 }

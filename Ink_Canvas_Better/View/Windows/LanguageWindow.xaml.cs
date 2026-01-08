@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using Ink_Canvas_Better.Services;
