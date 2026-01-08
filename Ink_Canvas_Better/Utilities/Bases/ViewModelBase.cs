@@ -15,13 +15,19 @@ public abstract class ViewModelBase : INotifyPropertyChanged
 {
     /// <summary>
     /// Sets the proprtty.
-    /// Invokes OnPropertyChanged if the value has changed or "force" is true.
+    /// Invokes OnPropertyChanged if the value has changed or "force" is true.                        
     /// </summary>
+    /// <param name="field">        Reference to the backing field.                                         </param>
+    /// <param name="newValue">     New value to set.                                                       </param>
+    /// <param name="onChanged">    Optional action to invoke after the value has changed.                  </param>
+    /// <param name="propertyName"> Name of the property (automatically provided by the compiler).          </param>
+    /// <param name="force">        If true, OnPropertyChanged is invoked even if the value hasn't changed. </param>
     protected virtual void SetProperty<T>(
         ref T field,
         T newValue,
-        [CallerMemberName] string? propertyName = null,
-        bool force = true)
+        Action? onChanged = null,
+        bool force = true,
+        [CallerMemberName] string? propertyName = null)
     {
         if (EqualityComparer<T>.Default.Equals(field, newValue))
         {

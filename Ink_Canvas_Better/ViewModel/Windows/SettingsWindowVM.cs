@@ -25,8 +25,9 @@ namespace Ink_Canvas_Better.ViewModel.Windows
         protected virtual void SetProperty<T>(
             ref T field,
             T newValue,
-            [CallerMemberName] string? propertyName = null,
-            bool force = true)
+            Action? onChanged = null,
+            bool force = true,
+            [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, newValue))
             {

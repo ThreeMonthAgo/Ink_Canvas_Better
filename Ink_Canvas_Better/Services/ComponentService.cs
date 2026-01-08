@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Utilities.Attributes;
+using Ink_Canvas_Better.Utilities.Bases;
 using Microsoft.Extensions.Logging;
 
 namespace Ink_Canvas_Better.Services;
@@ -12,6 +14,8 @@ public class ComponentService(ILogger<ComponentService> logger)
     ILogger<ComponentService> Logger = logger;
 
     public ConcurrentDictionary<string, Type> RegisteredComponents { get; } = [];
+
+    public ObservableCollection<ViewModelBase> CurrentComponents { get; private set; } = [];
 
     /// <summary>
     /// registers all components marked with the ComponentAttribute in the current AppDomain assemblies.

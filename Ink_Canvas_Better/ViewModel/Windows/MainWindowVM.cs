@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Ink;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
+using Ink_Canvas_Better.View.Windows;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 using Newtonsoft.Json;
@@ -33,19 +33,27 @@ public class MainWindowVM
             ]
         },
         ];
+    private StylusShape _eraserShape = new EllipseStylusShape(10, 10);
 
     #region
 
     public DrawingAttributes CurrentDrawingAttributes
     {
         get { return _currentDrawingAttributes; }
-        set { SetProperty(ref _currentDrawingAttributes, value); }
+        set { SetProperty(ref _currentDrawingAttributes, value, () =>
+        {
+            IApp.GetService<MainWindow>().UpdateInkCanvasEditingMode(CurrentEditingMode);
+        }); }
     }
 
+    [JsonIgnore]
     public EditingMode CurrentEditingMode
     {
         get { return _currentEditingMode; }
-        set { SetProperty(ref _currentEditingMode, value); }
+        set { SetProperty(ref _currentEditingMode, value, () =>
+        {
+            IApp.GetService<MainWindow>().UpdateInkCanvasEditingMode(value);
+        }); }
     }
 
     public ObservableCollection<FloatingBarVM> FloatingBarCollection
@@ -54,13 +62,23 @@ public class MainWindowVM
         set { SetProperty(ref _floatingBarCollection, value); }
     }
 
+    public StylusShape EraserShape
+    {
+        get { return _eraserShape; }
+        set { SetProperty(ref _eraserShape, value, () =>
+        {
+            IApp.GetService<MainWindow>().UpdateInkCanvasEraserShape(value);
+        }); }
+    }
+
     #endregion
 
     protected virtual void SetProperty<T>(
         ref T field,
         T newValue,
-        [CallerMemberName] string? propertyName = null,
-        bool force = true)
+        Action? onChanged = null,
+        bool force = true,
+        [CallerMemberName] string? propertyName = null)
     {
         if (EqualityComparer<T>.Default.Equals(field, newValue))
         {
@@ -71,13 +89,13 @@ public class MainWindowVM
             field = newValue;
             OnPropertyChanged(propertyName);
         }
+        onChanged?.Invoke();
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null, bool force = true)
     {
-        Debug.WriteLine(GetHashCode()); // wrong here: reference changed. see Model.Settings
         if (!IsInitializing) IApp.GetService<SettingsService>().SaveSettings();
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

@@ -4,8 +4,8 @@ using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
+using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
-using Ink_Canvas_Better.View.Windows;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 using static Ink_Canvas_Better.Utilities.Enums.InkCanvas;
 
@@ -13,8 +13,6 @@ namespace Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl;
 
 public partial class PenControl : UserControl
 {
-    private MainWindow mainWindow;
-
     public PenControlVM Settings => DataContext as PenControlVM;
 
     public PenControl()
@@ -25,14 +23,14 @@ public partial class PenControl : UserControl
 
     private void PenControl_Loaded(object sender, RoutedEventArgs e)
     {
-        mainWindow = IApp.GetService<MainWindow>();
         Settings.EllipseFill = Settings.ColorCollection[Settings.GridViewSelectedIndex];
         Settings.IsInitializing = false;
     }
 
     private void PenControl_MouseUp(object sender, MouseButtonEventArgs e)
     {
-        if (mainWindow.Settings.CurrentEditingMode != EditingMode.Ink)
+        var mainWindowVM = IApp.GetService<SettingsService>().Settings.MainWindowVM;
+        if (mainWindowVM.CurrentEditingMode != EditingMode.Ink)
         {
             this.Apply();
         }
@@ -48,7 +46,7 @@ public partial class PenControl : UserControl
         try
         {
             var seletedIndex = Settings.GridViewSelectedIndex;
-            var mainWindowVM = mainWindow.Settings;
+            var mainWindowVM = IApp.GetService<SettingsService>().Settings.MainWindowVM;
             // UI
             Settings.EllipseFill = Settings.ColorCollection[seletedIndex];
             // InkCanvas

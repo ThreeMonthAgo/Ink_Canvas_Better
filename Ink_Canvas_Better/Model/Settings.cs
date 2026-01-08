@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
+using Ink_Canvas_Better.View.Windows;
 using Ink_Canvas_Better.ViewModel.Windows;
 using Newtonsoft.Json;
 
@@ -58,7 +59,10 @@ public class Settings
     public MainWindowVM MainWindowVM
     {
         get { return _mainWindowVM; }
-        set { SetProperty(ref _mainWindowVM, value); }
+        set { SetProperty(ref _mainWindowVM, value, () =>
+        {
+            IApp.GetService<MainWindow>().DataContext = value;
+        }); }
     }
 
     public string LogDirPath
@@ -84,6 +88,7 @@ public class Settings
     protected virtual void SetProperty<T>(
         ref T field,
         T newValue,
+        Action? onChanged = null,
         [CallerMemberName] string? propertyName = null,
         bool force = true)
     {
@@ -96,13 +101,13 @@ public class Settings
             field = newValue;
             OnPropertyChanged(propertyName);
         }
+        onChanged?.Invoke();
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null, bool force = true)
     {
-        Debug.WriteLine(MainWindowVM.GetHashCode()); // wrong here: reference changed. see MainWindowVM
         if (!IsInitializing) IApp.GetService<SettingsService>().SaveSettings();
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
