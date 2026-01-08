@@ -11,12 +11,42 @@ namespace Ink_Canvas_Better.Helpers
 
         public const int GWL_EXSTYLE = -20;
         public const int WS_EX_TOOLWINDOW = 0x00000080;
+        public const int WS_EX_TRANSPARENT = 0x00000020;
 
         [DllImport("user32.dll")]
         public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
         [DllImport("user32.dll")]
         public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        public static int AddExtendedStyle(nint handle, int style)
+        {
+            int extendedStyle = GetWindowLong(handle, GWL_EXSTYLE);
+            return SetWindowLong(
+                handle,
+                GWL_EXSTYLE,
+                extendedStyle | style
+            );
+        }
+
+        public static int RemoveExtendedStyle(nint handle, int style)
+        {
+            int extendedStyle = GetWindowLong(handle, GWL_EXSTYLE);
+            return SetWindowLong(
+                handle,
+                GWL_EXSTYLE,
+                extendedStyle &~ style
+            );
+        }
+
+        public static int SetExtendedStyle(nint handle, int style)
+        {
+            return SetWindowLong(
+                handle,
+                GWL_EXSTYLE,
+                style
+            );
+        }
 
         #endregion
 

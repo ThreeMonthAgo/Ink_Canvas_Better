@@ -16,6 +16,7 @@ public class ViewModelBaseConverter : Newtonsoft.Json.JsonConverter
 
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
+        // Type resolution
         var jobj = JObject.Load(reader);
         if (!jobj.TryGetValue("Guid", out JToken? guidToken))
         {
@@ -26,13 +27,26 @@ public class ViewModelBaseConverter : Newtonsoft.Json.JsonConverter
         {
             throw new JsonSerializationException($"Component with guid {{{guid}}} is not registered");
         }
-        var instance = ActivatorUtilities.CreateInstance(IApp.GetService<IServiceProvider>(), type);
         jobj.Remove("Guid");
-        using (var jsonReader = jobj.CreateReader())
+        // Deserialize
+        if (existingValue != null)
         {
-            serializer.Populate(jsonReader, instance);
+            Debug.WriteLine("Reusing existing instance for deserialization");
+            using (var jsonReader = jobj.CreateReader())
+            {
+                serializer.Populate(jsonReader, existingValue);
+            }
+            return existingValue;
         }
-        return instance;
+        else
+        {
+            var instance = ActivatorUtilities.CreateInstance(IApp.GetService<IServiceProvider>(), type);
+            using (var jsonReader = jobj.CreateReader())
+            {
+                serializer.Populate(jsonReader, instance);
+            }
+            return instance;
+        }
     }
 
     public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)

@@ -60,6 +60,10 @@ namespace Ink_Canvas_Better
 
             this.MainWindow = IApp.GetService<MainWindow>();
             MainWindow.Show();
+            var floatingBarWindow = IApp.GetService<FloatingBarWindow>();
+            floatingBarWindow.Owner = IApp.GetService<MainWindow>();
+            floatingBarWindow.Show();
+
             IApp.GetService<SettingsService>().LoadSettings();
             IApp.GetService<ILogger<App>>().LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
         }
@@ -77,6 +81,7 @@ namespace Ink_Canvas_Better
 
                     // UI (Windows)
                     service.AddSingleton<MainWindow>();
+                    service.AddSingleton<FloatingBarWindow>();
                     service.AddSingleton<SettingsWindow>();
                     service.AddSingleton<LanguageWindow>();
 

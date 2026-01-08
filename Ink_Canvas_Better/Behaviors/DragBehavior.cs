@@ -61,9 +61,9 @@ namespace Ink_Canvas_Better.Behaviors
         private void AssociatedObject_DragDelta(object sender, DragDeltaEventArgs e)
         {
             // Get control to drag
-            object temp = _isUseLogicalTreeHelper ? LogicalTreeHelper.FindAscendant(AssociatedObject, _typeOfControlToDrag) : VisualTree.FindAscendant(AssociatedObject, _typeOfControlToDrag);
+            object temp = IsUseLogicalTreeHelper ? LogicalTreeHelper.FindAscendant(AssociatedObject, TypeOfControlToDrag) : VisualTree.FindAscendant(AssociatedObject, TypeOfControlToDrag);
             if (temp == null) return;
-            if (_typeOfControlToDrag == typeof(Popup))
+            if (TypeOfControlToDrag == typeof(Popup))
             {
                 // Popup requires special handling.
                 var controlToDrag = temp as Popup;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -62,6 +61,7 @@ public class Settings
         set { SetProperty(ref _mainWindowVM, value, () =>
         {
             IApp.GetService<MainWindow>().DataContext = value;
+            IApp.GetService<FloatingBarWindow>().DataContext = value;
         }); }
     }
 

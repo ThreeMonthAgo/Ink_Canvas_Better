@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Interop;
@@ -14,6 +15,7 @@ namespace Ink_Canvas_Better.View.Windows
     {
         private readonly SolidColorBrush NearlyTransparent = new(Color.FromArgb(1, 255, 255, 255));
         private readonly SolidColorBrush Transparent = Brushes.Transparent;
+        public nint handle;
 
         /// <summary>
         /// Avoid operating MainWindow directly, use
@@ -35,22 +37,46 @@ namespace Ink_Canvas_Better.View.Windows
                 case EditingMode.None:
                     inkCanvas.Background = Transparent;
                     inkCanvas.EditingMode = InkCanvasEditingMode.None;
+                    IsCursorMode(true);
                     break;
                 case EditingMode.Ink:
                     inkCanvas.Background = NearlyTransparent;
                     inkCanvas.EditingMode = InkCanvasEditingMode.Ink;
+                    IsCursorMode(false);
                     break;
                 case EditingMode.EraseByPoint:
                     inkCanvas.Background = NearlyTransparent;
                     inkCanvas.EditingMode = InkCanvasEditingMode.EraseByPoint;
+                    IsCursorMode(false);
                     break;
                 case EditingMode.EraseByStroke:
                     inkCanvas.Background = NearlyTransparent;
                     inkCanvas.EditingMode = InkCanvasEditingMode.EraseByStroke;
+                    IsCursorMode(false);
                     break;
                 case EditingMode.Select:
                 case EditingMode.Shape:
                     throw new NotImplementedException();
+            }
+
+            void IsCursorMode(bool b)
+            {
+                if (b)
+                {
+                    Win32Helper.AddExtendedStyle(handle, Win32Helper.WS_EX_TRANSPARENT);
+                    if (inkCanvas.Strokes.Count == 0)
+                    {
+                        this.Visibility = Visibility.Collapsed;
+                    }
+                }
+                else
+                {
+                    Win32Helper.RemoveExtendedStyle(handle, Win32Helper.WS_EX_TRANSPARENT);
+                    if (this.Visibility != Visibility.Visible)
+                    {
+                        this.Visibility = Visibility.Visible;
+                    }
+                }
             }
         }
 
@@ -64,13 +90,8 @@ namespace Ink_Canvas_Better.View.Windows
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            var handle = new WindowInteropHelper((Window)sender).Handle;
-            int extendedStyle = Win32Helper.GetWindowLong(handle, Win32Helper.GWL_EXSTYLE);
-            _ = Win32Helper.SetWindowLong(
-                handle,
-                Win32Helper.GWL_EXSTYLE,
-                extendedStyle | Win32Helper.WS_EX_TOOLWINDOW
-            );
+            this.handle = new WindowInteropHelper((Window)sender).Handle;
+            Win32Helper.SetExtendedStyle(handle, Win32Helper.WS_EX_TOOLWINDOW);
             IApp.GetService<SettingsService>().Settings.MainWindowVM.CurrentEditingMode = EditingMode.None;
         }
 
