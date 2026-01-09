@@ -1,0 +1,29 @@
+﻿<Window x:Class="ICBUITest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ICBUITest"
+        xmlns:controls="Ink_Canvas_Better.Controls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid RowDefinitions="auto,auto,*">
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Content="Pen" Click="Button_Pen_Click"/>
+            <Button Content="EraseByStroke" Click="Button_EraseByStroke_Click"/>
+            <Button Content="EraseByPoint" Click="Button_EraseByPoint_Click"/>
+            <Button Content="Select" Click="Button_Select_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="Width:"/>
+            <TextBox Name="TextBox_Width" InputScope="Number" MinWidth="40" Text="20" TextChanged="TextBox_Size_TextChanged"/>
+            <TextBlock Text="Height:"/>
+            <TextBox Name="TextBox_Height" InputScope="Number" MinWidth="40" Text="20" TextChanged="TextBox_Size_TextChanged"/>
+            <ComboBox Name="ComboBox_StrokeType"/>
+        </StackPanel>
+        <controls:ICBInkCanvas
+            Name="ICBInkCanvas"
+            Grid.Row="2"
+            DefaultStrokeType="{Binding ElementName=ComboBox_StrokeType, Path=SelectedItem}"/>
+    </Grid>
+</Window>

@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better", "Ink_Canvas_Better\Ink_Canvas_Better.csproj", "{B876A55B-F175-4F9F-87A8-999F33A26324}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better.Controls", "Ink_Canvas_Better.Controls\Ink_Canvas_Better.Controls.csproj", "{F74BC0D9-0C7C-4EA4-8591-552F9FDD2F28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICBUITest", "ICBUITest\ICBUITest.csproj", "{CC6BD467-C12C-4C9D-B86B-0D771A698DFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{B876A55B-F175-4F9F-87A8-999F33A26324}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B876A55B-F175-4F9F-87A8-999F33A26324}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B876A55B-F175-4F9F-87A8-999F33A26324}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F74BC0D9-0C7C-4EA4-8591-552F9FDD2F28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F74BC0D9-0C7C-4EA4-8591-552F9FDD2F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F74BC0D9-0C7C-4EA4-8591-552F9FDD2F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F74BC0D9-0C7C-4EA4-8591-552F9FDD2F28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC6BD467-C12C-4C9D-B86B-0D771A698DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC6BD467-C12C-4C9D-B86B-0D771A698DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC6BD467-C12C-4C9D-B86B-0D771A698DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC6BD467-C12C-4C9D-B86B-0D771A698DFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
