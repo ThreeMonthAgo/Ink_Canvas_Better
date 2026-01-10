@@ -18,10 +18,15 @@ public class ICBInkCanvas : InkCanvas
         switch (DefaultStrokeType)
         {
             case StrokeType.Default:
+                this.DynamicRenderer = new();
                 break;
             case StrokeType.TailStroke:
-                TailStroke TailStroke = new(e.Stroke.StylusPoints, this.DefaultDrawingAttributes);
-                SwitchStrokeType(e.Stroke, TailStroke);
+                TailStroke tailStroke = new(e.Stroke.StylusPoints, this.DefaultDrawingAttributes);
+                SwitchStrokeType(e.Stroke, tailStroke);
+                break;
+            case StrokeType.SpeedStroke:
+                SpeedStroke speedStroke = new(e.Stroke.StylusPoints, this.DefaultDrawingAttributes);
+                SwitchStrokeType(e.Stroke, speedStroke);
                 break;
             default:
                 throw new InvalidOperationException($"Unexpected StrokeType: {DefaultStrokeType}");
@@ -54,7 +59,8 @@ public class ICBInkCanvas : InkCanvas
 
     public enum StrokeType
     {
-        Default = 0,
-        TailStroke = 1,
+        Default,
+        TailStroke,
+        SpeedStroke,
     }
 }

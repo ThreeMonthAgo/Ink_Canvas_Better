@@ -12,7 +12,7 @@ class TailStroke : Stroke
     public int EffectLength { get; set; } = 10;
 
     /// <summary>
-    /// Create stroke with special tail.
+    /// Stroke with special tail.
     /// </summary>
     /// <remarks>
     /// Related StylusPlugin: (none)<br/>
@@ -20,45 +20,39 @@ class TailStroke : Stroke
     public TailStroke(StylusPointCollection rawStylusPoints, DrawingAttributes drawingAttributes)
         : base(rawStylusPoints, drawingAttributes)
     {
-
-        this.DrawingAttributes = drawingAttributes;
-
+        this.DrawingAttributes = drawingAttributes.Clone();
         var newStylusPoints = new StylusPointCollection();
         var count = rawStylusPoints.Count - 1;
-        var pressure = 0.1;
         if (count == 0) return;
         if (count >= EffectLength)
         {
             for (var i = 0; i < count - EffectLength; i++)
             {
-                var point = new StylusPoint(
-                    rawStylusPoints[i].X,
-                    rawStylusPoints[i].Y,
-                    rawStylusPoints[i].PressureFactor);
-                newStylusPoints.Add(point);
+                var pressure = rawStylusPoints[i].PressureFactor;
+                Add(rawStylusPoints[i], pressure, newStylusPoints);
             }
 
             for (var i = count - EffectLength; i <= count; i++)
             {
-                var point = new StylusPoint(
-                    rawStylusPoints[i].X,
-                    rawStylusPoints[i].Y,
-                    (float)((0.5 - pressure) * (count - i) / EffectLength + pressure));
-                newStylusPoints.Add(point);
+                var pressure = (float)(0.5 * (count - i) / EffectLength);
+                Add(rawStylusPoints[i], pressure, newStylusPoints);
             }
         }
         else
         {
             for (var i = 0; i <= count; i++)
             {
-                var point = new StylusPoint(
-                    rawStylusPoints[i].X,
-                    rawStylusPoints[i].Y,
-                    (float)(0.4 * (count - i) / count + pressure));
-                newStylusPoints.Add(point);
+                var pressure = (float)(0.5 * (count - i) / count);
+                Add(rawStylusPoints[i], pressure, newStylusPoints);
             }
         }
-
         StylusPoints = newStylusPoints;
+
+        // func
+        void Add(StylusPoint rawPoint, float pressureFactor, StylusPointCollection stylusPoints)
+        {
+            var point = new StylusPoint(rawPoint.X, rawPoint.Y, pressureFactor);
+            newStylusPoints.Add(point);
+        }
     }
 }

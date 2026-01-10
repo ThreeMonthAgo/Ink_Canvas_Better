@@ -16,14 +16,14 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <TextBlock Text="Width:"/>
-            <TextBox Name="TextBox_Width" InputScope="Number" MinWidth="40" Text="20" TextChanged="TextBox_Size_TextChanged"/>
+            <TextBox Name="TextBox_Width" InputScope="Number" MinWidth="40" Text="20"/>
             <TextBlock Text="Height:"/>
-            <TextBox Name="TextBox_Height" InputScope="Number" MinWidth="40" Text="20" TextChanged="TextBox_Size_TextChanged"/>
+            <TextBox Name="TextBox_Height" InputScope="Number" MinWidth="40" Text="20"/>
             <ComboBox Name="ComboBox_StrokeType"/>
+            <Button Content="Apply" Click="Button_Apply_Click"/>
         </StackPanel>
         <controls:ICBInkCanvas
             Name="ICBInkCanvas"
-            Grid.Row="2"
-            DefaultStrokeType="{Binding ElementName=ComboBox_StrokeType, Path=SelectedItem}"/>
+            Grid.Row="2"/>
     </Grid>
 </Window>

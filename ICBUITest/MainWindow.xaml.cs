@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Ink_Canvas_Better.Controls.ICBInkCanvas;
+using static Ink_Canvas_Better.Controls.ICBInkCanvas.ICBInkCanvas;
 
 namespace ICBUITest
 {
@@ -30,7 +32,7 @@ namespace ICBUITest
             var stkTypes = Enum.GetValues<ICBInkCanvas.StrokeType>();
             ComboBox_StrokeType.ItemsSource = stkTypes;
             ComboBox_StrokeType.SelectedIndex = 0;
-            TextBox_Size_TextChanged(null, null);
+            ApplyToICBInkCanvas();
         }
 
         private void Button_Pen_Click(object sender, RoutedEventArgs e)
@@ -53,11 +55,21 @@ namespace ICBUITest
             ICBInkCanvas.EditingMode = InkCanvasEditingMode.Select;
         }
 
-        private void TextBox_Size_TextChanged(object sender, TextChangedEventArgs e)
+        private void Button_Apply_Click(object sender, RoutedEventArgs e)
         {
             if (TextBox_Width == null || TextBox_Height == null || ICBInkCanvas == null) return;
+            try
+            {
+                ApplyToICBInkCanvas();
+            }
+            catch { }
+        }
+
+        private void ApplyToICBInkCanvas()
+        {
             ICBInkCanvas.DefaultDrawingAttributes.Width = double.Parse(TextBox_Width.Text);
             ICBInkCanvas.DefaultDrawingAttributes.Height = double.Parse(TextBox_Height.Text);
+            ICBInkCanvas.DefaultStrokeType = (StrokeType)ComboBox_StrokeType.SelectedItem;
         }
     }
 }
