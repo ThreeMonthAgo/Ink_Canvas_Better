@@ -13,6 +13,9 @@
             <Button Content="EraseByStroke" Click="Button_EraseByStroke_Click"/>
             <Button Content="EraseByPoint" Click="Button_EraseByPoint_Click"/>
             <Button Content="Select" Click="Button_Select_Click"/>
+            <Button Content="Redo" Click="Button_Redo_Click"/>
+            <Button Content="Undo" Click="Button_Undo_Click"/>
+            <Button Content="Clear" Click="Button_Clear_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <TextBlock Text="Width:"/>

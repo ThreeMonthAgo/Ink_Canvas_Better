@@ -6,11 +6,23 @@ using Ink_Canvas_Better.Controls.ICBInkCanvas.StrokeType;
 
 namespace Ink_Canvas_Better.Controls.ICBInkCanvas;
 
-public class ICBInkCanvas : InkCanvas
+public partial class ICBInkCanvas : InkCanvas
 {
+    public StrokeHistory History { get; }
+
     static ICBInkCanvas()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(ICBInkCanvas), new FrameworkPropertyMetadata(typeof(ICBInkCanvas)));
+    }
+
+    public ICBInkCanvas()
+    {
+        History = new(this);
+    }
+
+    protected override void OnStrokesReplaced(InkCanvasStrokesReplacedEventArgs e)
+    {
+        base.OnStrokesReplaced(e);
     }
 
     protected override void OnStrokeCollected(InkCanvasStrokeCollectedEventArgs e)
@@ -19,13 +31,16 @@ public class ICBInkCanvas : InkCanvas
         {
             case StrokeType.Default:
                 this.DynamicRenderer = new();
+                History.Add(e.Stroke);
                 break;
             case StrokeType.TailStroke:
                 TailStroke tailStroke = new(e.Stroke.StylusPoints, this.DefaultDrawingAttributes);
+                History.Add(tailStroke);
                 SwitchStrokeType(e.Stroke, tailStroke);
                 break;
             case StrokeType.SpeedStroke:
                 SpeedStroke speedStroke = new(e.Stroke.StylusPoints, this.DefaultDrawingAttributes);
+                History.Add(speedStroke);
                 SwitchStrokeType(e.Stroke, speedStroke);
                 break;
             default:
@@ -44,23 +59,9 @@ public class ICBInkCanvas : InkCanvas
         base.OnStrokeCollected(args);
     }
 
-    #region Properties
+    public void Redo() => History.Redo();
 
-    public StrokeType DefaultStrokeType
-    {
-        get { return (StrokeType)GetValue(DefaultStrokeTypeProperty); }
-        set { SetValue(DefaultStrokeTypeProperty, value); }
-    }
+    public void Undo() => History.Undo();
 
-    public static readonly DependencyProperty DefaultStrokeTypeProperty =
-        DependencyProperty.Register(nameof(DefaultStrokeType), typeof(StrokeType), typeof(ICBInkCanvas), new PropertyMetadata(StrokeType.Default));
-
-    #endregion
-
-    public enum StrokeType
-    {
-        Default,
-        TailStroke,
-        SpeedStroke,
-    }
+    public void Clear() => History.Clear();
 }

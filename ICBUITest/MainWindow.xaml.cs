@@ -71,5 +71,11 @@ namespace ICBUITest
             ICBInkCanvas.DefaultDrawingAttributes.Height = double.Parse(TextBox_Height.Text);
             ICBInkCanvas.DefaultStrokeType = (StrokeType)ComboBox_StrokeType.SelectedItem;
         }
+
+        private void Button_Redo_Click(object sender, RoutedEventArgs e) => ICBInkCanvas.Redo();
+
+        private void Button_Undo_Click(object sender, RoutedEventArgs e) => ICBInkCanvas.Undo();
+
+        private void Button_Clear_Click(object sender, RoutedEventArgs e) => ICBInkCanvas.Clear();
     }
 }
