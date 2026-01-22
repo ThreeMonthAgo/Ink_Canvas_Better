@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Controls;
@@ -31,11 +32,18 @@ public class StrokeHistory(InkCanvas inkCanvas)
         }
     }
 
-    public void Add(Stroke stk)
+    public void Add(StrokeCollection? addedStk, StrokeCollection? removedStk)
     {
-        HistoryTerm term = new(stk);
-        Add(term);
+        var term = new HistoryTerm()
+        {
+            Strokes = new(addedStk, removedStk)
+        };
+        this.Add(term);
     }
+
+    public void Add(StrokeCollection stks) => this.Add(stks, null);
+
+    public void Add(Stroke stk) => this.Add([stk], null);
 
     #endregion
 
@@ -43,18 +51,13 @@ public class StrokeHistory(InkCanvas inkCanvas)
     {
         if (Index < 0) return;
         var term = History[Index--];
-        if (term.MetaData.IsCleared)
+        if (term.Strokes.Item2 != null && term.Strokes.Item2.Count > 0)
         {
-            Index = History.Count - 1;
-            for (int i = 0; i <= Index; i++)
-            {
-                History[i].MetaData.IsCleared = false;
-                _inkCanvas.Strokes.Add(History[i].Stroke);
-            }
+            _inkCanvas.Strokes.Add(term.Strokes.Item2);
         }
-        else
+        if (term.Strokes.Item1 != null && term.Strokes.Item1.Count > 0)
         {
-            _inkCanvas.Strokes.Remove(term.Stroke);
+            _inkCanvas.Strokes.Remove(term.Strokes.Item1);
         }
     }
 
@@ -62,15 +65,12 @@ public class StrokeHistory(InkCanvas inkCanvas)
     {
         if (Index >= History.Count - 1) return;
         var term = History[++Index];
-        _inkCanvas.Strokes.Add(term.Stroke);
+        if (term.Strokes.Item1 != null) _inkCanvas.Strokes.Add(term.Strokes.Item1);
+        if (term.Strokes.Item2 != null) _inkCanvas.Strokes.Remove(term.Strokes.Item2);
     }
 
     public void Clear()
     {
-        foreach (var term in History)
-        {
-            term.MetaData.IsCleared = true;
-        }
         _inkCanvas.Strokes.Clear();
     }
 
@@ -81,17 +81,8 @@ public class StrokeHistory(InkCanvas inkCanvas)
     }
 }
 
-public class HistoryTerm(Stroke? stk)
+public class HistoryTerm
 {
-    public Stroke? Stroke = stk;
-    public HistoryTermMetaData MetaData = new();
+    //           Added             Removed
+    public Tuple<StrokeCollection, StrokeCollection> Strokes;
 }
-
-/// <summary>
-/// Provides information for a history term.
-/// </summary>
-public struct HistoryTermMetaData()
-{
-    public bool IsCleared = false;
-}
-

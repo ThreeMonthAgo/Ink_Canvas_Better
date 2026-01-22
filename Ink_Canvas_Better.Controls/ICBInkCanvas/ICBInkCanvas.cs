@@ -9,6 +9,8 @@ namespace Ink_Canvas_Better.Controls.ICBInkCanvas;
 public partial class ICBInkCanvas : InkCanvas
 {
     public StrokeHistory History { get; }
+    private bool _isHistory = false;
+    private bool _isClear = false;
 
     static ICBInkCanvas()
     {
@@ -18,11 +20,18 @@ public partial class ICBInkCanvas : InkCanvas
     public ICBInkCanvas()
     {
         History = new(this);
+        this.Strokes.StrokesChanged += Strokes_StrokesChanged;
     }
 
-    protected override void OnStrokesReplaced(InkCanvasStrokesReplacedEventArgs e)
+    private void Strokes_StrokesChanged(object sender, StrokeCollectionChangedEventArgs e)
     {
-        base.OnStrokesReplaced(e);
+        if (_isHistory) return;
+        if(this.EditingMode == InkCanvasEditingMode.EraseByPoint
+            || this.EditingMode == InkCanvasEditingMode.EraseByStroke
+            || _isClear)
+        {
+            History.Add(e.Added, e.Removed);
+        }
     }
 
     protected override void OnStrokeCollected(InkCanvasStrokeCollectedEventArgs e)
@@ -59,9 +68,16 @@ public partial class ICBInkCanvas : InkCanvas
         base.OnStrokeCollected(args);
     }
 
-    public void Redo() => History.Redo();
+    public void Redo() => SafetyVar(History.Redo, ref _isHistory);
 
-    public void Undo() => History.Undo();
+    public void Undo() => SafetyVar(History.Undo, ref _isHistory);
 
-    public void Clear() => History.Clear();
+    public void Clear() => SafetyVar(History.Clear, ref _isClear);
+
+    private void SafetyVar(Action f, ref bool b)
+    {
+        b = !b;
+        f();
+        b = !b;
+    }
 }
