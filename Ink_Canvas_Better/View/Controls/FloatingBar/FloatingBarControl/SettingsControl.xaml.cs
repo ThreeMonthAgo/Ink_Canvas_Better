@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 using Ink_Canvas_Better.View.Windows;
@@ -26,5 +25,5 @@ public partial class SettingsControl : UserControl
         this.settingsWindow = IApp.GetService<SettingsWindow>();
     }
 
-    private void SettingsControl_MouseUp(object sender, MouseButtonEventArgs e) => settingsWindow.ShowWindow();
+    private void SettingsControl_Click(object sender, RoutedEventArgs e) => settingsWindow.ShowWindow();
 }

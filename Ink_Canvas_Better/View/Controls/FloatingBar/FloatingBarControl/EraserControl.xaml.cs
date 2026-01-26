@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
-using System.Windows.Input;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
@@ -26,7 +24,7 @@ public partial class EraserControl : UserControl
         Settings.IsInitializing = false;
     }
 
-    private void EraserControl_MouseUp(object sender, MouseButtonEventArgs e)
+    private void EraserControl_Click(object sender, RoutedEventArgs e)
     {
         var mainWindowVM = IApp.GetService<SettingsService>().Settings.MainWindowVM;
         if (mainWindowVM.CurrentEditingMode != EditingMode.EraseByStroke
@@ -39,7 +37,6 @@ public partial class EraserControl : UserControl
             Settings.IsOpen = true;
         }
     }
-
     public void Apply()
     {
         if (Settings == null || Settings.IsInitializing) return;

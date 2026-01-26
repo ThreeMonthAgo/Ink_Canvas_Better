@@ -1,7 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 using static Ink_Canvas_Better.Utilities.Enums.InkCanvas;
@@ -20,7 +18,7 @@ public partial class CursorControl : UserControl
         this.Loaded += CursorControl_Loaded;
     }
 
-    private void CursorControl_MouseUp(object sender, MouseButtonEventArgs e) => Apply();
+    private void CursorControl_Click(object sender, RoutedEventArgs e) => Apply();
 
     private void CursorControl_Loaded(object sender, RoutedEventArgs e)
     {

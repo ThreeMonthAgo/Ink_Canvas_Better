@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
              xmlns:local="clr-namespace:Ink_Canvas_Better.View.Controls.FloatingBar"
+             xmlns:ICBControls="Ink_Canvas_Better.Controls"
              xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
-             xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:behavior="clr-namespace:Ink_Canvas_Better.Behaviors"
+             xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
              xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar"
              d:DataContext="{d:DesignInstance Type=vm:FloatingBarVM}"
              mc:Ignorable="d">
@@ -22,15 +21,13 @@
                 BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
                 BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}"
                 CornerRadius="8">
-            <iuw:SimpleStackPanel Orientation="{Binding Orientation}">
-                <Grid d:Background="AliceBlue" Background="Transparent" Width="64" Height="64">
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Image Source="{DynamicResource Image.FUI.Drag}" Width="40" Height="40"/>
-                    </StackPanel>
-                    <Thumb Opacity="0" DragDelta="Thumb_DragDelta">
-                    </Thumb>
-                </Grid>
-            </iuw:SimpleStackPanel>
+            <ICBControls:FloatingBarControl
+                TextVisibility="Collapsed"
+                ImageSource="{DynamicResource Image.FUI.Drag}">
+                <ICBControls:FloatingBarControl.ExtraContent>
+                    <Thumb Opacity="0" DragDelta="Thumb_DragDelta"/>
+                </ICBControls:FloatingBarControl.ExtraContent>
+            </ICBControls:FloatingBarControl>
         </Border>
         <ItemsControl ItemsSource="{Binding Items}">
             <ItemsControl.ItemsPanel>

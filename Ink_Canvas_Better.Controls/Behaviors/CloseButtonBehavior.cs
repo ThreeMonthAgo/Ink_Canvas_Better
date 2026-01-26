@@ -2,14 +2,14 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Microsoft.Xaml.Behaviors;
-using LogicalTreeHelper = Ink_Canvas_Better.Helpers.LogicalTreeHelper;
+using LogicalTreeHelper = Ink_Canvas_Better.Controls.Helpers.LogicalTreeHelper;
 
-namespace Ink_Canvas_Better.Behaviors
+namespace Ink_Canvas_Better.Controls.Behaviors
 {
     /// <summary>
     /// Used for <see cref="Popup"/>.
     /// </summary>
-    internal class CloseButtonBehavior : Behavior<Button>
+    public class CloseButtonBehavior : Behavior<Button>
     {
         public bool IsEnabled
         {

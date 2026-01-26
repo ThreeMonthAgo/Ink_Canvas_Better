@@ -27,7 +27,7 @@ public partial class PenControl : UserControl
         Settings.IsInitializing = false;
     }
 
-    private void PenControl_MouseUp(object sender, MouseButtonEventArgs e)
+    private void PenControl_Click(object sender, RoutedEventArgs e)
     {
         var mainWindowVM = IApp.GetService<SettingsService>().Settings.MainWindowVM;
         if (mainWindowVM.CurrentEditingMode != EditingMode.Ink)

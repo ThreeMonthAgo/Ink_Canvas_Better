@@ -5,9 +5,9 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using Microsoft.Xaml.Behaviors;
 using iNKORE.UI.WPF.Helpers;
-using LogicalTreeHelper = Ink_Canvas_Better.Helpers.LogicalTreeHelper;
+using LogicalTreeHelper = Ink_Canvas_Better.Controls.Helpers.LogicalTreeHelper;
 
-namespace Ink_Canvas_Better.Behaviors
+namespace Ink_Canvas_Better.Controls.Behaviors
 {
     public class DragBehavior : Behavior<Thumb>
     {

@@ -19,3 +19,4 @@ using System.Windows.Markup;
 
 [assembly: Guid("f0aee5d5-fb12-43e3-b19d-715ded677f7a")]
 [assembly: XmlnsDefinition("Ink_Canvas_Better.Controls", "Ink_Canvas_Better.Controls.ICBInkCanvas")]
+[assembly: XmlnsDefinition("Ink_Canvas_Better.Controls", "Ink_Canvas_Better.Controls.FloatingBarControls")]

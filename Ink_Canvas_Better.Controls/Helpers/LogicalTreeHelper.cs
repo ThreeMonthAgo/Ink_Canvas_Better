@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 
-namespace Ink_Canvas_Better.Helpers;
+namespace Ink_Canvas_Better.Controls.Helpers;
 
 /// <summary>
 /// Provides functions to find ascendant.
