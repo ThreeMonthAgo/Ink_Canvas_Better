@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl.RetraceControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl"
+             xmlns:ICBControls="Ink_Canvas_Better.Controls"
+             xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
+             xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
+             xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl"
+             d:DataContext="{d:DesignInstance Type=vm:RetraceControlVM}"
+             mc:Ignorable="d" >
+    <ICBControls:FloatingBarControl
+        ImageSource="{DynamicResource Image.FUI.History}"
+        IsOpen="{Binding IsOpen, Mode=TwoWay}"
+        Text="{DynamicResource Text_Retrace}"
+        TextVisibility="{Binding TextVisibility}"
+        Click="RetraceControl_Click">
+        <ICBControls:FloatingBarControl.PopupContent>
+            <iuw:SimpleStackPanel d:Background="AliceBlue" Orientation="Horizontal">
+                <Button Content="{DynamicResource Text_Redo}" Width="100" Click="Button_Redo_Click"/>
+                <Button Content="{DynamicResource Text_Undo}" Width="100" Click="Button_Undo_Click"/>
+            </iuw:SimpleStackPanel>
+        </ICBControls:FloatingBarControl.PopupContent>
+
+    </ICBControls:FloatingBarControl>
+</UserControl>

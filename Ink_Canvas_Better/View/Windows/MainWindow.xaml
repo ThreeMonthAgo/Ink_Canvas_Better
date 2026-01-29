@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Ink_Canvas_Better"
         xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
         xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Windows"
+        xmlns:ICBControl="Ink_Canvas_Better.Controls"
         mc:Ignorable="d"
         WindowStyle="None"
         WindowState="Maximized"
@@ -16,7 +17,7 @@
         d:DataContext="{d:DesignInstance Type=vm:MainWindowVM}"
         d:Height="450" d:Width="800">
     <Grid>
-        <InkCanvas
+        <ICBControl:ICBInkCanvas
             Name="InkCanvas"
             Background="Transparent"
             Cursor="Pen"

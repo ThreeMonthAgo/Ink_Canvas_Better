@@ -11,6 +11,7 @@
     <s:String x:Key="Text_Clear">清空</s:String>
     <s:String x:Key="Text_Pen">筆</s:String>
     <s:String x:Key="Text_Eraser">橡皮擦</s:String>
+    <s:String x:Key="Text_Retrace">追溯</s:String>
     <s:String x:Key="Text_Pick">圈選</s:String>
     <s:String x:Key="Text_Shape">圖形</s:String>
     <s:String x:Key="Text_Redo">退筆</s:String>

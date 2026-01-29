@@ -11,6 +11,7 @@
     <s:String x:Key="Text_Clear">Clear</s:String>
     <s:String x:Key="Text_Pen">Pen</s:String>
     <s:String x:Key="Text_Eraser">Eraser</s:String>
+    <s:String x:Key="Text_Retrace">Retrace</s:String>
     <s:String x:Key="Text_Pick">Pick</s:String>
     <s:String x:Key="Text_Shape">Shape</s:String>
     <s:String x:Key="Text_Redo">Redo</s:String>

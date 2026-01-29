@@ -94,6 +94,12 @@ namespace Ink_Canvas_Better.View.Windows
             IApp.GetService<SettingsService>().Settings.MainWindowVM.CurrentEditingMode = EditingMode.None;
         }
 
+        public void RedoStroks() => InkCanvas.Redo();
+
+        public void UndoStrokes() => InkCanvas.Undo();
+
+        public void ClearStrokes() => InkCanvas.Clear();
+
         #endregion
     }
 }

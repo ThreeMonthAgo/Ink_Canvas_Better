@@ -7,7 +7,7 @@ namespace Ink_Canvas_Better.Controls.ICBInkCanvas;
 
 public partial class ICBInkCanvas
 {
-    #region dp
+    #region Properties
 
     public StrokeType DefaultStrokeType
     {

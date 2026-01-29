@@ -9,6 +9,7 @@
         <ResourceDictionary Source="/Themes/Image/Light/FluentUIIcons/Calligraphy Pen.xaml"/>
         <ResourceDictionary Source="/Themes/Image/Light/FluentUIIcons/Settings.xaml"/>
         <ResourceDictionary Source="/Themes/Image/Light/FluentUIIcons/Eraser.xaml"/>
+        <ResourceDictionary Source="/Themes/Image/Light/FluentUIIcons/History.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
     

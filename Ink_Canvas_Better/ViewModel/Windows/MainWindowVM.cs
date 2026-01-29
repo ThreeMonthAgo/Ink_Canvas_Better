@@ -16,23 +16,7 @@ public class MainWindowVM
 {
     private DrawingAttributes _currentDrawingAttributes = new();
     private EditingMode _currentEditingMode;
-    private ObservableCollection<FloatingBarVM> _floatingBarCollection = [
-        new FloatingBarVM() { Items = [
-                new FloatingBarGroupVM(){
-                    Items = [
-                        new CursorControlVM(),
-                        new PenControlVM(),
-                        new EraserControlVM(),
-                    ]
-                },
-                new FloatingBarGroupVM(){
-                    Items = [
-                        new SettingsControlVM(),
-                    ]
-                },
-            ]
-        },
-        ];
+    private ObservableCollection<FloatingBarVM> _floatingBarCollection = [ new() ];
     private StylusShape _eraserShape = new EllipseStylusShape(10, 10);
 
     #region

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
@@ -8,30 +10,13 @@ using Newtonsoft.Json;
 namespace Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 
 [Component(
-    viewType: typeof(EraserControl),
-    guid: "F4A558A1-ABF1-4493-8D14-8D0D18363B72")]
-public class EraserControlVM : ViewModelBase
+    viewType: typeof(RetraceControl),
+    guid: "17942105-E0A2-493C-A1F5-F5A86EE8D7DC")]
+public class RetraceControlVM : ViewModelBase
 {
-    private int _thickness = 20;
-    private int _gridViewSelectedIndex = 0;
-
     // ignored below
     private bool _isOpen = false;
     private Visibility _textVisibility = Visibility.Collapsed;
-
-    #region
-
-    public int Thickness
-    {
-        get { return _thickness; }
-        set { SetProperty(ref _thickness, value); }
-    }
-
-    public int GridViewSelectedIndex
-    {
-        get { return _gridViewSelectedIndex; }
-        set { SetProperty(ref _gridViewSelectedIndex, value); }
-    }
 
     [JsonIgnore]
     public bool IsOpen
@@ -46,6 +31,4 @@ public class EraserControlVM : ViewModelBase
         get { return _textVisibility; }
         set { SetProperty(ref _textVisibility, value); }
     }
-
-    #endregion
 }

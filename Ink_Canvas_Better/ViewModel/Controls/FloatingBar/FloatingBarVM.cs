@@ -20,6 +20,7 @@ public class FloatingBarVM : ViewModelBase
                 new CursorControlVM(),
                 new PenControlVM(),
                 new EraserControlVM(),
+                new RetraceControlVM(),
             ]
         },
         new FloatingBarGroupVM(){
@@ -39,6 +40,9 @@ public class FloatingBarVM : ViewModelBase
 
     #region
 
+    /// <summary>
+    /// store viewmodels of items in the floating bar
+    /// </summary>
     public ObservableCollection<ViewModelBase>? Items
     {
         get { return _items; }
@@ -63,6 +67,9 @@ public class FloatingBarVM : ViewModelBase
         set { SetProperty(ref _scale, value); }
     }
 
+    /// <remarks>
+    /// unused, reserved for multi-monitor support
+    /// </remarks>
     public int ScreenIndex
     {
         get { return _screenIndex; }
