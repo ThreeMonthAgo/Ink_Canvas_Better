@@ -25,5 +25,10 @@ namespace ICBUITest
             InitializeComponent();
         }
 
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var c = sender as Control;
+            MainFrame.Navigate(new Uri($"Pages/{c.Name}Page.xaml", UriKind.Relative));
+        }
     }
 }

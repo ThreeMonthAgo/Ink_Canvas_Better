@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ICBUITest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <Menu>
-            <MenuItem Header="ICBInkCanvas"/>
+        Title="Ink_Canvas_Better.Gallery" Height="450" Width="800">
+    <Grid RowDefinitions="auto,*">
+        <Menu Grid.Row="0">
+            <MenuItem Header="Home" Name="Home" Click="MenuItem_Click"/>
+            <MenuItem Header="ICBInkCanvas" Name="ICBInkCanvas" Click="MenuItem_Click"/>
         </Menu>
-        <Frame Source="Pages/ICBInkCanvasPage.xaml"/>
-    </StackPanel>
+        <Frame Grid.Row="1" Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/HomePage.xaml"/>
+    </Grid>
 </Window>
