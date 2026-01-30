@@ -20,6 +20,7 @@ public class FloatingBarVM : ViewModelBase
                 new CursorControlVM(),
                 new PenControlVM(),
                 new EraserControlVM(),
+                new ClearControlVM(),
                 new RetraceControlVM(),
             ]
         },

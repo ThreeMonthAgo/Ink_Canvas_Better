@@ -10,6 +10,7 @@
         <ResourceDictionary Source="/Themes/Image/Light/FluentUIIcons/Settings.xaml"/>
         <ResourceDictionary Source="/Themes/Image/Light/FluentUIIcons/Eraser.xaml"/>
         <ResourceDictionary Source="/Themes/Image/Light/FluentUIIcons/History.xaml"/>
+        <ResourceDictionary Source="/Themes/Image/Light/FluentUIIcons/Clear.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
     
