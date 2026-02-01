@@ -27,8 +27,8 @@ namespace ICBUITest
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var c = sender as Control;
-            MainFrame.Navigate(new Uri($"Pages/{c.Name}Page.xaml", UriKind.Relative));
+            var c = sender as MenuItem;
+            MainFrame.Navigate(new Uri($"Pages/{(string)(c.Header)}Page.xaml", UriKind.Relative));
         }
     }
 }

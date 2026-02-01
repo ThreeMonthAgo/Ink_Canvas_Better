@@ -11,11 +11,14 @@
     <Grid d:Background="AliceBlue">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock TextAlignment="Center" FontSize="20">
-Ink_Canvas_Better.Gallery
+                Ink_Canvas_Better.Gallery
             </TextBlock>
-            <TextBlock>
-Used for testing custom controls.
-Not part of Ink_Canvas_Better.
+            <TextBlock TextAlignment="Center">
+                Examples of custom controls from Ink_Canvas_Better.Controls
+            </TextBlock>
+            <TextBlock TextAlignment="Center">
+                Used for testing custom controls.
+                Not part of Ink_Canvas_Better
             </TextBlock>
         </StackPanel>
     </Grid>

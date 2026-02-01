@@ -8,9 +8,10 @@
         Title="Ink_Canvas_Better.Gallery" Height="450" Width="800">
     <Grid RowDefinitions="auto,*">
         <Menu Grid.Row="0">
-            <MenuItem Header="Home" Name="Home" Click="MenuItem_Click"/>
-            <MenuItem Header="ICBInkCanvas" Name="ICBInkCanvas" Click="MenuItem_Click"/>
+            <MenuItem Header="Home" Click="MenuItem_Click"/>
+            <MenuItem Header="ICBInkCanvas" Click="MenuItem_Click"/>
+            <MenuItem Header="FloatingBarControl" Click="MenuItem_Click"/>
         </Menu>
-        <Frame Grid.Row="1" Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/HomePage.xaml"/>
+        <Frame Margin="4" Grid.Row="1" Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/HomePage.xaml"/>
     </Grid>
 </Window>
