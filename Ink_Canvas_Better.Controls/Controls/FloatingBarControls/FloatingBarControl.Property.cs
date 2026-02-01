@@ -51,6 +51,19 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
 
         #endregion
 
+        #region Icon
+
+        public FontIconData Icon
+        {
+            get { return (FontIconData)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
+        }
+
+        public static readonly DependencyProperty IconProperty =
+            DependencyProperty.Register(nameof(Icon), typeof(FontIconData), typeof(FloatingBarControl), new PropertyMetadata(null));
+
+        #endregion
+
         #region ExtraContent
 
         public object ExtraContent

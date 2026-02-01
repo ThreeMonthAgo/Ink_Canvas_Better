@@ -23,7 +23,7 @@
                 CornerRadius="8">
             <ICBControls:FloatingBarControl
                 TextVisibility="Collapsed"
-                ImageSource="{DynamicResource Image.FUI.Drag}">
+                Icon="{x:Static iuwm:FluentSystemIcons.Drag_24_Regular}">
                 <ICBControls:FloatingBarControl.ExtraContent>
                     <Thumb Opacity="0" DragDelta="Thumb_DragDelta"/>
                 </ICBControls:FloatingBarControl.ExtraContent>

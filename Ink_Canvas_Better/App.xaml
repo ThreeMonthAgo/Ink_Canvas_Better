@@ -12,61 +12,11 @@
 
                 <ResourceDictionary Source="/Themes/Image/Light/DrawShapeImageDictionary.xaml"/>
                 <ResourceDictionary Source="/Themes/Image/Light/OthersImageDictionary.xaml"/>
-                <ResourceDictionary Source="/Themes/Image/Light/FluentUIIcons/FluentUIIcons.xaml"/>
                 <ResourceDictionary Source="/Themes/Language/en.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!-- Converters -->
             <Converter:AlphaToOpactiyConverter x:Key="AlphaToOpacityConverter"/>
             <Converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            <!--#region Styles-->
-            <!-- Image -->
-            <Style x:Key="PinButtonImageStyle" TargetType="{x:Type Image}">
-                <Setter Property="Visibility" Value="Collapsed"/>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=StaysOpen, RelativeSource={RelativeSource AncestorType={x:Type Popup}}}" Value="False">
-                        <Setter Property="Visibility" Value="Visible"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-            <Style x:Key="PinOffButtonImageStyle" TargetType="{x:Type Image}">
-                <Setter Property="Visibility" Value="Collapsed"/>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=StaysOpen, RelativeSource={RelativeSource AncestorType={x:Type Popup}}}" Value="True">
-                        <Setter Property="Visibility" Value="Visible"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-            <!-- Button and ToggleButton -->
-            <Style x:Key="PinToggleButtonStyle" TargetType="{x:Type ToggleButton}">
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                            <Grid>
-                                <Image Source="{DynamicResource Image.FUI.PinOff}" Style="{StaticResource PinOffButtonImageStyle}"/>
-                                <Image Source="{DynamicResource Image.FUI.Pin}" Style="{StaticResource PinButtonImageStyle}"/>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True"/>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style x:Key="CloseButtonStyle" TargetType="{x:Type Button}">
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Source="{DynamicResource Image.FUI.Dismiss}"/>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True"/>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <!--#endregion-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

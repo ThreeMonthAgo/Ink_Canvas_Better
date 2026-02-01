@@ -67,10 +67,18 @@
                         </Popup>
                         <Grid Background="Transparent" x:Name="PART_Grid">
                             <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Image
-                                    Source="{TemplateBinding ImageSource}"
-                                    Width="40"
-                                    Height="40"/>
+                                <Grid>
+                                    <Image
+                                        Source="{TemplateBinding ImageSource}"
+                                        Width="40"
+                                        Height="40"/>
+                                    <iuwm:FontIcon
+                                        Icon="{TemplateBinding Icon}"
+                                        Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"
+                                        Width="40"
+                                        Height="40"
+                                        FontSize="40"/>
+                                </Grid>
                                 <TextBlock
                                     FontSize="12"
                                     TextAlignment="Center"

@@ -10,7 +10,7 @@
              d:DataContext="{d:DesignInstance Type=vm:SettingsControlVM}"
              mc:Ignorable="d">
     <ICBControls:FloatingBarControl
-        ImageSource="{DynamicResource Image.FUI.Settings}"
+        Icon="{x:Static iuwm:FluentSystemIcons.Settings_24_Regular}"
         Text="{DynamicResource Text_Setting}"
         TextVisibility="{Binding TextVisibility}"
         Click="SettingsControl_Click">

@@ -11,7 +11,7 @@
              d:DataContext="{d:DesignInstance Type=vm:RetraceControlVM}"
              mc:Ignorable="d" >
     <ICBControls:FloatingBarControl
-        ImageSource="{DynamicResource Image.FUI.History}"
+        Icon="{x:Static iuwm:FluentSystemIcons.History_24_Regular}"
         IsOpen="{Binding IsOpen, Mode=TwoWay}"
         Text="{DynamicResource Text_Retrace}"
         TextVisibility="{Binding TextVisibility}"

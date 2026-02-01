@@ -22,7 +22,7 @@
     </UserControl.Resources>
 
     <ICBControls:FloatingBarControl
-        ImageSource="{DynamicResource Image.FUI.CalligraphyPen}"
+        Icon="{x:Static iuwm:FluentSystemIcons.CalligraphyPen_24_Regular}"
         Text="{DynamicResource Text_Pen}"
         TextVisibility="{Binding TextVisibility}"
         IsOpen="{Binding IsOpen, Mode=TwoWay}"

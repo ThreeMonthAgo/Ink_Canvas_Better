@@ -21,7 +21,7 @@
     </UserControl.Resources>
     
     <ICBControls:FloatingBarControl
-        ImageSource="{DynamicResource Image.FUI.Eraser}"
+        Icon="{x:Static iuwm:FluentSystemIcons.EraserSegment_24_Regular}"
         Text="{DynamicResource Text_Eraser}"
         TextVisibility="{Binding TextVisibility}"
         IsOpen="{Binding IsOpen, Mode=TwoWay}"

@@ -4,16 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl"
+             xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
              xmlns:ICBControls="Ink_Canvas_Better.Controls"
              xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl"
              d:DataContext="{d:DesignInstance Type=vm:CursorControlVM}"
              mc:Ignorable="d">
     <ICBControls:FloatingBarControl
-        ImageSource="{DynamicResource Image.FUI.Cursor}"
+        Icon="{x:Static iuwm:FluentSystemIcons.Cursor_24_Regular}"
         Text="{DynamicResource Text_Cursor}"
         TextVisibility="{Binding TextVisibility}"
         Click="CursorControl_Click">
     </ICBControls:FloatingBarControl>
 </UserControl>
-
-               
