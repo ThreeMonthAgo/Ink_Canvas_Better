@@ -1,7 +1,8 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
 
-namespace Ink_Canvas_Better.Helpers.Converter;
+namespace Ink_Canvas_Better.Controls.Helpers.Converters;
+
 public class AlphaToOpactiyConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

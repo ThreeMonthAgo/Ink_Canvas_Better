@@ -10,6 +10,16 @@
              xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl"
              d:DataContext="{d:DesignInstance Type=vm:EraserControlVM}"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="IconAndText0" TargetType="{x:Type iuwm:IconAndText}">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="IconSize" Value="28"/>
+            <Setter Property="Orientation" Value="Vertical"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static iuwm:ThemeKeys.ButtonForegroundKey}}"/>
+        </Style>
+    </UserControl.Resources>
+    
     <ICBControls:FloatingBarControl
         ImageSource="{DynamicResource Image.FUI.Eraser}"
         Text="{DynamicResource Text_Eraser}"
@@ -20,27 +30,32 @@
         <ICBControls:FloatingBarControl.PopupContent>
             <iuw:SimpleStackPanel d:Background="AliceBlue" Orientation="Horizontal">
                 <iuw:SimpleStackPanel>
-                    <iuwm:GridView Name="GridView_EraserType" SelectionChanged="GridView_EraserType_SelectionChanged" SelectedIndex="{Binding GridViewSelectedIndex}">
-                        <iuwm:GridView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <iuw:SimpleStackPanel Orientation="Vertical" MinWidth="200"/>
-                            </ItemsPanelTemplate>
-                        </iuwm:GridView.ItemsPanel>
-                        <iuwm:GridView.Items>
-                            <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.Eraser_20_Regular}"
-                                              Content="{DynamicResource Text_EraseByStroke}"
-                                              FontSize="16"
-                                              IconSize="16"/>
-                            <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.CircleEraser_20_Filled}"
-                                              Content="{DynamicResource Text_EraseByEllipsePoint}"
-                                              FontSize="16"
-                                              IconSize="16"/>
-                            <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.SquareEraser_20_Filled}"
-                                              Content="{DynamicResource Text_EraseBySquarePoint}"
-                                              FontSize="16"
-                                              IconSize="16"/>
-                        </iuwm:GridView.Items>
-                    </iuwm:GridView>
+                    <iuw:SimpleStackPanel Orientation="Horizontal" Spacing="4">
+                        <Button Click="EraserControl_Clear" Padding="0" BorderThickness="0" VerticalAlignment="Top" Visibility="{Binding IsShowClearButton, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <iuwm:IconAndText
+                                Icon="{x:Static iuwm:FluentSystemIcons.Delete_24_Regular}"
+                                Content="{DynamicResource Text_Clear}"
+                                Style="{StaticResource IconAndText0}"/>
+                        </Button>
+                        <iuwm:GridView Name="GridView_EraserType" SelectionChanged="GridView_EraserType_SelectionChanged" SelectedIndex="{Binding GridViewSelectedIndex}">
+                            <iuwm:GridView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <iuw:SimpleStackPanel Orientation="Horizontal" MinWidth="200"/>
+                                </ItemsPanelTemplate>
+                            </iuwm:GridView.ItemsPanel>
+                            <iuwm:GridView.Items>
+                                <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.Eraser_20_Regular}"
+                                                  Content="{DynamicResource Text_EraseByStroke}"
+                                                  Style="{StaticResource IconAndText0}"/>
+                                <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.CircleEraser_20_Filled}"
+                                                  Content="{DynamicResource Text_EraseByEllipsePoint}"
+                                                  Style="{StaticResource IconAndText0}"/>
+                                <iuwm:IconAndText Icon="{x:Static iuwm:FluentSystemIcons.SquareEraser_20_Filled}"
+                                                  Content="{DynamicResource Text_EraseBySquarePoint}"
+                                                  Style="{StaticResource IconAndText0}"/>
+                            </iuwm:GridView.Items>
+                        </iuwm:GridView>
+                    </iuw:SimpleStackPanel>
                     <Grid ColumnDefinitions="Auto,4,*" RowDefinitions="Auto">
                         <TextBlock
                             Grid.Row="0" Grid.Column="0"

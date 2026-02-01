@@ -18,6 +18,7 @@ public class EraserControlVM : ViewModelBase
     // ignored below
     private bool _isOpen = false;
     private Visibility _textVisibility = Visibility.Collapsed;
+    private bool _isShowClearButton = true;
 
     #region
 
@@ -45,6 +46,13 @@ public class EraserControlVM : ViewModelBase
     {
         get { return _textVisibility; }
         set { SetProperty(ref _textVisibility, value); }
+    }
+
+    [JsonIgnore]
+    public bool IsShowClearButton
+    {
+        get { return _isShowClearButton; }
+        set { SetProperty(ref _isShowClearButton, value); }
     }
 
     #endregion

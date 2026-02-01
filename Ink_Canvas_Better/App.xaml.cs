@@ -28,6 +28,7 @@ namespace Ink_Canvas_Better
         private void App_Startup(object sender, StartupEventArgs e)
         {
             IApp.StartupArgs = e.Args;
+            var logger = IApp.GetService<ILogger<App>>();
             #region log
             this.DispatcherUnhandledException += (sender, e) =>
             {
@@ -48,13 +49,13 @@ namespace Ink_Canvas_Better
             Mutex _ = new(true, "Ink_Canvas_Better", out bool ret);
             if (!ret && !IApp.StartupArgs.Contains("-m")) // -m multiple
             {
-                IApp.GetService<ILogger<App>>().LogInformation("Detected existing instance");
+                logger.LogInformation("Detected existing instance");
                 iNKORE.UI.WPF.Modern.Controls.MessageBox.Show(
                     "Another instance of Ink Canvas Better is already running.",
                     "Ink Canvas Better",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
-                IApp.GetService<ILogger<App>>().LogInformation("Ink Canvas Batter automatically closed");
+                logger.LogInformation("Ink Canvas Batter automatically closed");
                 Environment.Exit(0);
             }
 
@@ -65,7 +66,7 @@ namespace Ink_Canvas_Better
             floatingBarWindow.Show();
 
             IApp.GetService<SettingsService>().LoadSettings();
-            IApp.GetService<ILogger<App>>().LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
+            logger.LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
         }
 
         private void Init()

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Ink_Canvas_Better"
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
-             xmlns:converter="clr-namespace:Ink_Canvas_Better.Helpers.Converter">
+             xmlns:Converter="Ink_Canvas_Better.Controls">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,7 +16,8 @@
                 <ResourceDictionary Source="/Themes/Language/en.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!-- Converters -->
-            <converter:AlphaToOpactiyConverter x:Key="AlphaToOpacityConverter"/>
+            <Converter:AlphaToOpactiyConverter x:Key="AlphaToOpacityConverter"/>
+            <Converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <!--#region Styles-->
             <!-- Image -->
             <Style x:Key="PinButtonImageStyle" TargetType="{x:Type Image}">

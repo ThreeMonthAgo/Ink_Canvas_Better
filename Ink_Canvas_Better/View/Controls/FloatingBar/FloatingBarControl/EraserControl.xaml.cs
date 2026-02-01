@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Ink;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
+using Ink_Canvas_Better.View.Windows;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 using static Ink_Canvas_Better.Utilities.Enums.InkCanvas;
 
@@ -68,4 +69,6 @@ public partial class EraserControl : UserControl
     private void Slider_Thickness_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => this.Apply();
 
     private void GridView_EraserType_SelectionChanged(object sender, SelectionChangedEventArgs e) => this.Apply();
+
+    private void EraserControl_Clear(object sender, RoutedEventArgs e) => IApp.GetService<MainWindow>().ClearStrokes();
 }
