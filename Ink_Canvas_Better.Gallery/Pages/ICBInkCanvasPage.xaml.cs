@@ -1,26 +1,20 @@
-﻿using System.Diagnostics;
-using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Ink_Canvas_Better.Controls.ICBInkCanvas;
 using static Ink_Canvas_Better.Controls.ICBInkCanvas.ICBInkCanvas;
 
-namespace ICBUITest
+namespace Ink_Canvas_Better.Gallery.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ICBInkCanvasPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ICBInkCanvasPage : Page
     {
-        public MainWindow()
+        public ICBInkCanvasPage()
         {
             InitializeComponent();
 
@@ -55,16 +49,6 @@ namespace ICBUITest
             ICBInkCanvas.EditingMode = InkCanvasEditingMode.Select;
         }
 
-        private void Button_Apply_Click(object sender, RoutedEventArgs e)
-        {
-            if (TextBox_Width == null || TextBox_Height == null || ICBInkCanvas == null) return;
-            try
-            {
-                ApplyToICBInkCanvas();
-            }
-            catch { }
-        }
-
         private void ApplyToICBInkCanvas()
         {
             ICBInkCanvas.DefaultDrawingAttributes.Width = double.Parse(TextBox_Width.Text);
@@ -77,5 +61,34 @@ namespace ICBUITest
         private void Button_Undo_Click(object sender, RoutedEventArgs e) => ICBInkCanvas.Undo();
 
         private void Button_Clear_Click(object sender, RoutedEventArgs e) => ICBInkCanvas.Clear();
+
+        private void ComboBox_StrokeType_SelectionChanged(object sender, SelectionChangedEventArgs e) => Apply();
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) => Apply();
+
+        private void Apply()
+        {
+            if (TextBox_Width == null || TextBox_Height == null || ICBInkCanvas == null) return;
+            if (!(func0(TextBox_Width) & func0(TextBox_Height))) return;
+            try
+            {
+                ApplyToICBInkCanvas();
+            }
+            catch { }
+
+            bool func0(TextBox c)
+            {
+                if (c.Text.Any(c => !char.IsDigit(c)))
+                {
+                    c.BorderBrush = Brushes.OrangeRed;
+                    return false;
+                }
+                else
+                {
+                    c.BorderBrush = Brushes.AliceBlue;
+                    return true;
+                }
+            }
+        }
     }
 }

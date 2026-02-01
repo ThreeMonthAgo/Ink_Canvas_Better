@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better", "Ink_Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better.Controls", "Ink_Canvas_Better.Controls\Ink_Canvas_Better.Controls.csproj", "{F74BC0D9-0C7C-4EA4-8591-552F9FDD2F28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICBUITest", "ICBUITest\ICBUITest.csproj", "{CC6BD467-C12C-4C9D-B86B-0D771A698DFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ink_Canvas_Better.Gallery", "Ink_Canvas_Better.Gallery\Ink_Canvas_Better.Gallery.csproj", "{CC6BD467-C12C-4C9D-B86B-0D771A698DFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
