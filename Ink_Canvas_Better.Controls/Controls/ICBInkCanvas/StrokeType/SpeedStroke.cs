@@ -10,16 +10,6 @@ namespace Ink_Canvas_Better.Controls.ICBInkCanvas.StrokeType;
 class SpeedStroke : Stroke
 {
     /// <summary>
-    /// Gets or sets a value indicating whether calculate distance roughly
-    /// (TODO: Unused)
-    /// </summary>
-    /// <remarks>
-    /// When enabled, distance calculation will use faster, less precise algorithms to improve
-    /// performance.
-    /// </remarks>
-    public bool IsApproximateCalculationEnabled { get; set; } = true;
-
-    /// <summary>
     /// Stroke with thickness that changes according to speed
     /// </summary>
     /// <remarks>

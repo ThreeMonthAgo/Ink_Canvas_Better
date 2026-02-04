@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using Ink_Canvas_Better.Services;
@@ -20,6 +22,7 @@ public class Settings
     private Version _settingsVersion = new(2, 0, 0, 0); // Current settings version
     private MainWindowVM _mainWindowVM = new();
     private string _logDirPath = "./Logs/";
+    private string? _dataDirPath; // null => C:\Users\<UserName>\AppData\Local\Ink Canvas Better
     private CultureInfo _cultureInfo = new("en");
     private int _theme = 0; // UI theme; 0 => Auto
 
@@ -69,6 +72,18 @@ public class Settings
     {
         get { return _logDirPath; }
         set { SetProperty(ref _logDirPath, value); }
+    }
+
+    public string DataDirPath
+    {
+        get
+        {
+            return _dataDirPath ?? Path.Combine( Environment.GetFolderPath(
+                Environment.SpecialFolder.LocalApplicationData,
+                Environment.SpecialFolderOption.Create),
+                "Ink Canvas Better");
+        }   
+        set { SetProperty(ref _dataDirPath, value); }
     }
 
     public CultureInfo CultureInfo

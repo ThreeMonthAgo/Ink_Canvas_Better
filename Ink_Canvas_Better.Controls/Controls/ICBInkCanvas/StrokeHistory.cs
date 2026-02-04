@@ -9,11 +9,10 @@ using System.Windows.Ink;
 
 namespace Ink_Canvas_Better.Controls.ICBInkCanvas;
 
-public class StrokeHistory(InkCanvas inkCanvas)
+public class StrokeHistory
 {
     public List<HistoryTerm> History = [];
     public int Index = -1; // -1 => History is empty
-    private readonly InkCanvas _inkCanvas = inkCanvas;
 
     #region Add
 
@@ -47,31 +46,31 @@ public class StrokeHistory(InkCanvas inkCanvas)
 
     #endregion
 
-    public void Redo()
+    public void Redo(InkCanvas inkCanvas)
     {
         if (Index < 0) return;
         var term = History[Index--];
         if (term.Strokes.Item2 != null && term.Strokes.Item2.Count > 0)
         {
-            _inkCanvas.Strokes.Add(term.Strokes.Item2);
+            inkCanvas.Strokes.Add(term.Strokes.Item2);
         }
         if (term.Strokes.Item1 != null && term.Strokes.Item1.Count > 0)
         {
-            _inkCanvas.Strokes.Remove(term.Strokes.Item1);
+            inkCanvas.Strokes.Remove(term.Strokes.Item1);
         }
     }
 
-    public void Undo()
+    public void Undo(InkCanvas inkCanvas)
     {
         if (Index >= History.Count - 1) return;
         var term = History[++Index];
-        if (term.Strokes.Item1 != null) _inkCanvas.Strokes.Add(term.Strokes.Item1);
-        if (term.Strokes.Item2 != null) _inkCanvas.Strokes.Remove(term.Strokes.Item2);
+        if (term.Strokes.Item1 != null) inkCanvas.Strokes.Add(term.Strokes.Item1);
+        if (term.Strokes.Item2 != null) inkCanvas.Strokes.Remove(term.Strokes.Item2);
     }
 
-    public void Clear()
+    public void Clear(InkCanvas inkCanvas)
     {
-        _inkCanvas.Strokes.Clear();
+        inkCanvas.Strokes.Clear();
     }
 
     public void ClearHistroy()

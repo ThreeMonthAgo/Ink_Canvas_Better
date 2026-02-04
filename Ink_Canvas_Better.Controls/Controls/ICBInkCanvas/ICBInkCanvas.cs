@@ -8,7 +8,7 @@ namespace Ink_Canvas_Better.Controls.ICBInkCanvas;
 
 public partial class ICBInkCanvas : InkCanvas
 {
-    public StrokeHistory History { get; }
+    public StrokeHistory History { get; set; }
     private bool _isHistory = false;
     private bool _isClear = false;
 
@@ -19,7 +19,7 @@ public partial class ICBInkCanvas : InkCanvas
 
     public ICBInkCanvas()
     {
-        History = new(this);
+        History = new();
         this.Strokes.StrokesChanged += Strokes_StrokesChanged;
     }
 
@@ -74,10 +74,10 @@ public partial class ICBInkCanvas : InkCanvas
 
     public void Clear() => SafetyVar(History.Clear, ref _isClear);
 
-    private void SafetyVar(Action f, ref bool b)
+    private void SafetyVar(Action<InkCanvas> f, ref bool b)
     {
         b = !b;
-        f();
+        f(this);
         b = !b;
     }
 }
