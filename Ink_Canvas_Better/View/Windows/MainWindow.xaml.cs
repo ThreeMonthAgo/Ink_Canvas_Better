@@ -62,7 +62,7 @@ namespace Ink_Canvas_Better.View.Windows
             {
                 if (b)
                 {
-                    Win32Helper.AddExtendedStyle(handle, Win32Helper.WS_EX_TRANSPARENT);
+                    DllHelper.AddExtendedStyle(handle, DllHelper.WS_EX_TRANSPARENT);
                     if (inkCanvas.Strokes.Count == 0)
                     {
                         this.Visibility = Visibility.Collapsed;
@@ -70,7 +70,7 @@ namespace Ink_Canvas_Better.View.Windows
                 }
                 else
                 {
-                    Win32Helper.RemoveExtendedStyle(handle, Win32Helper.WS_EX_TRANSPARENT);
+                    DllHelper.RemoveExtendedStyle(handle, DllHelper.WS_EX_TRANSPARENT);
                     if (this.Visibility != Visibility.Visible)
                     {
                         this.Visibility = Visibility.Visible;
@@ -90,7 +90,7 @@ namespace Ink_Canvas_Better.View.Windows
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.handle = new WindowInteropHelper((Window)sender).Handle;
-            Win32Helper.SetExtendedStyle(handle, Win32Helper.WS_EX_TOOLWINDOW);
+            DllHelper.SetExtendedStyle(handle, DllHelper.WS_EX_TOOLWINDOW);
             IApp.GetService<SettingsService>().Settings.MainWindowVM.CurrentEditingMode = EditingMode.None;
         }
 
@@ -99,6 +99,10 @@ namespace Ink_Canvas_Better.View.Windows
         public void UndoStrokes() => InkCanvas.Undo();
 
         public void ClearStrokes() => InkCanvas.Clear();
+
+        public void SaveStrokes() => IApp.GetService<InkCanvasService>().SaveData(InkCanvas);
+
+        public void LoadStrokes(string path) => IApp.GetService<InkCanvasService>().LoadData(InkCanvas, path);
 
         #endregion
     }

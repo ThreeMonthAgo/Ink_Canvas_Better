@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.10.2.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Office.Interop.PowerPoint" Version="15.0.4420.1018" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 

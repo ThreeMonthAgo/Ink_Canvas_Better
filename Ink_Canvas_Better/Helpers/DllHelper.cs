@@ -1,11 +1,11 @@
-﻿using System.Windows;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+using System.Security;
 using Ink_Canvas_Better.Utilities.DataStructures;
 using iNKORE.UI.WPF.Modern.Native;
 
 namespace Ink_Canvas_Better.Helpers
 {
-    internal class Win32Helper
+    internal class DllHelper
     {
         #region Windows
 
@@ -126,6 +126,34 @@ namespace Ink_Canvas_Better.Helpers
                 internal RECT rcWork = new();
                 internal int dwFlags;
             }
+        }
+
+        #endregion
+
+        #region ole
+
+        [DllImport("ole32.dll")]
+        private static extern void CLSIDFromProgID([MarshalAs(UnmanagedType.LPWStr)] string progId, out Guid clsid);
+
+        [DllImport("ole32.dll")]
+        private static extern void CLSIDFromProgIDEx([MarshalAs(UnmanagedType.LPWStr)] string progId, out Guid clsid);
+
+        [DllImport("oleaut32.dll")]
+        private static extern void GetActiveObject(ref Guid rclsid, IntPtr reserved, [MarshalAs(UnmanagedType.Interface)] out object ppunk);
+
+        public static object GetActiveObject(string progID)
+        {
+            Guid clsid;
+            try
+            {
+                CLSIDFromProgIDEx(progID, out clsid);
+            }
+            catch
+            {
+                CLSIDFromProgID(progID, out clsid);
+            }
+            GetActiveObject(ref clsid, IntPtr.Zero, out var obj);
+            return obj;
         }
 
         #endregion

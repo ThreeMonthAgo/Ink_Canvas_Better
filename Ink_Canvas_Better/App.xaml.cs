@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
@@ -67,6 +68,7 @@ namespace Ink_Canvas_Better
 
             IApp.GetService<SettingsService>().LoadSettings();
             logger.LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
+            Debug.WriteLine(IApp.GetService<PPTService>());
         }
 
         private void Init()
@@ -80,6 +82,7 @@ namespace Ink_Canvas_Better
                     service.AddSingleton<SettingsService>();
                     service.AddSingleton<ThemeService>();
                     service.AddSingleton<InkCanvasService>();
+                    service.AddSingleton<PPTService>();
 
                     // UI (Windows)
                     service.AddSingleton<MainWindow>();
