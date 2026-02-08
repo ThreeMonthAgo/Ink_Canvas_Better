@@ -133,10 +133,10 @@ namespace Ink_Canvas_Better.Helpers
         #region ole
 
         [DllImport("ole32.dll")]
-        private static extern void CLSIDFromProgID([MarshalAs(UnmanagedType.LPWStr)] string progId, out Guid clsid);
+        private static extern void CLSIDFromProgID([MarshalAs(UnmanagedType.LPWStr)] string progID, out Guid clsid);
 
         [DllImport("ole32.dll")]
-        private static extern void CLSIDFromProgIDEx([MarshalAs(UnmanagedType.LPWStr)] string progId, out Guid clsid);
+        private static extern void CLSIDFromProgIDEx([MarshalAs(UnmanagedType.LPWStr)] string progID, out Guid clsid);
 
         [DllImport("oleaut32.dll")]
         private static extern void GetActiveObject(ref Guid rclsid, IntPtr reserved, [MarshalAs(UnmanagedType.Interface)] out object ppunk);
