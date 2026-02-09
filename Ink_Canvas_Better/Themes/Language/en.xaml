@@ -48,6 +48,7 @@
     <s:String x:Key="Text_Appearance">Appearance</s:String>
     <s:String x:Key="Text_PPT">PPT</s:String>
     <s:String x:Key="Text_ExperimentalFeatures">Experimental Features</s:String>
+    <s:String x:Key="Text_Debug">Debug</s:String>
         <!-- Home -->
         <s:String x:Key="Text_Setting_AppDescription">Ink Canvas Better is a completely open-source and free drawing tool. If you have any suggestions or issues, please visit our GitHub page. Thank you for using it!</s:String>
         <s:String x:Key="Text_Setting_Author">Author</s:String>
@@ -62,6 +63,8 @@
         <s:String x:Key="Text_Setting_Auto">Auto</s:String>
         <s:String x:Key="Text_Setting_Light">Light</s:String>
         <s:String x:Key="Text_Setting_Dark">Dark</s:String>
+        <!-- Debug -->
+        <s:String x:Key="Text_Debug_Screen">Screen</s:String>
 
     <!-- Basic -->
     <s:String x:Key="Text_CloseApplication">Close Application</s:String>

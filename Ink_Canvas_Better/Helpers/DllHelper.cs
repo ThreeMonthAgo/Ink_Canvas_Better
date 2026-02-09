@@ -1,49 +1,46 @@
-﻿using System.Runtime.InteropServices;
-using System.Security;
-using Ink_Canvas_Better.Utilities.DataStructures;
-using iNKORE.UI.WPF.Modern.Native;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.Graphics.Gdi;
+using Windows.Win32.UI.WindowsAndMessaging;
 
 namespace Ink_Canvas_Better.Helpers
 {
-    internal class DllHelper
+    internal partial class DllHelper
     {
         #region Windows
 
-        public const int GWL_EXSTYLE = -20;
         public const int WS_EX_TOOLWINDOW = 0x00000080;
         public const int WS_EX_TRANSPARENT = 0x00000020;
 
-        [DllImport("user32.dll")]
-        public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-
-        [DllImport("user32.dll")]
-        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
-
-        public static int AddExtendedStyle(nint handle, int style)
+        public static int AddExtendedStyle(HWND hwnd, int style)
         {
-            int extendedStyle = GetWindowLong(handle, GWL_EXSTYLE);
-            return SetWindowLong(
-                handle,
-                GWL_EXSTYLE,
+            int extendedStyle = PInvoke.GetWindowLong(hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
+            return PInvoke.SetWindowLong(
+                hwnd,
+                WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE,
                 extendedStyle | style
             );
         }
 
-        public static int RemoveExtendedStyle(nint handle, int style)
+        public static int RemoveExtendedStyle(HWND hwnd, int style)
         {
-            int extendedStyle = GetWindowLong(handle, GWL_EXSTYLE);
-            return SetWindowLong(
-                handle,
-                GWL_EXSTYLE,
+            int extendedStyle = PInvoke.GetWindowLong(hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
+            return PInvoke.SetWindowLong(
+                hwnd,
+                WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE,
                 extendedStyle &~ style
             );
         }
 
-        public static int SetExtendedStyle(nint handle, int style)
+        public static int SetExtendedStyle(HWND hwnd, int style)
         {
-            return SetWindowLong(
-                handle,
-                GWL_EXSTYLE,
+            return PInvoke.SetWindowLong(
+                hwnd,
+                WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE,
                 style
             );
         }
@@ -52,107 +49,44 @@ namespace Ink_Canvas_Better.Helpers
 
         #region Monitors
 
-        private static List<Screen> _screens;
+        public static readonly ObservableCollection<RECT> Screens = [];
+        private static readonly unsafe MONITORENUMPROC proc = new(MonitorEnumProc); // Keep this alive
 
         /// <summary>
         /// Gets information about all display monitors connected to the system.
         /// </summary>
         /// <returns>A list of <see cref="Screen"/> objects representing each monitor.</returns>
-        public static List<Screen> GetScreens()
+        public static unsafe void CheckScreens()
         {
-            _screens = [];
-
-            DisplayDevicesMethods.EnumDisplayMonitors(
-                IntPtr.Zero,
-                IntPtr.Zero,
-                MonitorEnumProc,
-                IntPtr.Zero);
-
-            return _screens;
+            Screens.Clear();
+            BOOL fRes = PInvoke.EnumDisplayMonitors(HDC.Null, null, MonitorEnumProc, 0);
         }
 
-        private static bool MonitorEnumProc(IntPtr hMonitor, IntPtr hdcMonitor, RECT rect, IntPtr dwData)
+        private static unsafe BOOL MonitorEnumProc(HMONITOR hMonitor, HDC hdcMonitor, RECT* lprcMonitor, LPARAM dwData)
         {
-            DisplayDevicesMethods.MonitorInfo mi = new();
-            if (DisplayDevicesMethods.GetMonitorInfo(hMonitor, mi))
-            {
-                _screens.Add(new Screen(
-                    (mi.dwFlags & 1) == 1, // Flag 1 indicates primary monitor
-                    mi.rcMonitor.left,
-                    mi.rcMonitor.top,
-                    mi.rcMonitor.Width,
-                    mi.rcMonitor.Height));
-            }
+            MONITORINFOEXW info = default;
+            info.monitorInfo.cbSize = (uint)sizeof(MONITORINFO);
+            PInvoke.GetMonitorInfo(hMonitor, (MONITORINFO*)&info);
+            Screens.Add(*lprcMonitor);
             return true;
-        }
-
-        internal static class DisplayDevicesMethods
-        {
-            internal delegate bool EnumMonitorsDelegate(
-                IntPtr hMonitor,
-                IntPtr hdcMonitor,
-                RECT rect,
-                IntPtr dwData);
-
-            /// <summary>
-            /// Enumerates display monitors in the system.
-            /// </summary>
-            [DllImport("user32.dll")]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            internal static extern bool EnumDisplayMonitors(
-                IntPtr hdc,
-                IntPtr lprcClip,
-                EnumMonitorsDelegate lpfnEnum,
-                IntPtr dwData);
-
-            /// <summary>
-            /// Retrieves information about a display monitor.
-            /// </summary>
-            /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-            [DllImport("user32.dll", CharSet = CharSet.Auto)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            internal static extern bool GetMonitorInfo(
-                IntPtr hmonitor,
-                [In, Out] MonitorInfo info);
-
-            /// <summary>
-            /// Contains information about a display monitor.
-            /// </summary>
-            [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]
-            internal class MonitorInfo
-            {
-                internal int cbSize = Marshal.SizeOf<MonitorInfo>();
-                internal RECT rcMonitor = new();
-                internal RECT rcWork = new();
-                internal int dwFlags;
-            }
         }
 
         #endregion
 
         #region ole
 
-        [DllImport("ole32.dll")]
-        private static extern void CLSIDFromProgID([MarshalAs(UnmanagedType.LPWStr)] string progID, out Guid clsid);
-
-        [DllImport("ole32.dll")]
-        private static extern void CLSIDFromProgIDEx([MarshalAs(UnmanagedType.LPWStr)] string progID, out Guid clsid);
-
-        [DllImport("oleaut32.dll")]
-        private static extern void GetActiveObject(ref Guid rclsid, IntPtr reserved, [MarshalAs(UnmanagedType.Interface)] out object ppunk);
-
-        public static object GetActiveObject(string progID)
+        public static unsafe object GetActiveObject(string progID)
         {
             Guid clsid;
             try
             {
-                CLSIDFromProgIDEx(progID, out clsid);
+                PInvoke.CLSIDFromProgIDEx(progID, out clsid);
             }
             catch
             {
-                CLSIDFromProgID(progID, out clsid);
+                PInvoke.CLSIDFromProgID(progID, out clsid);
             }
-            GetActiveObject(ref clsid, IntPtr.Zero, out var obj);
+            PInvoke.GetActiveObject(in clsid, null, out object obj);
             return obj;
         }
 

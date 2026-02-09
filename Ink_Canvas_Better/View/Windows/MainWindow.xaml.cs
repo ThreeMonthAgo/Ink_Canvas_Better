@@ -6,6 +6,8 @@ using System.Windows.Media;
 using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
+using Windows.Win32.Foundation;
+using Windows.Win32.UI.WindowsAndMessaging;
 using static Ink_Canvas_Better.Utilities.Enums.InkCanvas;
 
 namespace Ink_Canvas_Better.View.Windows
@@ -62,7 +64,7 @@ namespace Ink_Canvas_Better.View.Windows
             {
                 if (b)
                 {
-                    DllHelper.AddExtendedStyle(handle, DllHelper.WS_EX_TRANSPARENT);
+                    DllHelper.AddExtendedStyle((HWND)handle, DllHelper.WS_EX_TRANSPARENT);
                     if (inkCanvas.Strokes.Count == 0)
                     {
                         this.Visibility = Visibility.Collapsed;
@@ -70,7 +72,7 @@ namespace Ink_Canvas_Better.View.Windows
                 }
                 else
                 {
-                    DllHelper.RemoveExtendedStyle(handle, DllHelper.WS_EX_TRANSPARENT);
+                    DllHelper.RemoveExtendedStyle((HWND)handle, DllHelper.WS_EX_TRANSPARENT);
                     if (this.Visibility != Visibility.Visible)
                     {
                         this.Visibility = Visibility.Visible;
@@ -90,7 +92,7 @@ namespace Ink_Canvas_Better.View.Windows
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.handle = new WindowInteropHelper((Window)sender).Handle;
-            DllHelper.SetExtendedStyle(handle, DllHelper.WS_EX_TOOLWINDOW);
+            DllHelper.SetExtendedStyle((HWND)handle, DllHelper.WS_EX_TOOLWINDOW);
             IApp.GetService<SettingsService>().Settings.MainWindowVM.CurrentEditingMode = EditingMode.None;
         }
 

@@ -1,0 +1,11 @@
+﻿
+GetWindowLong
+SetWindowLong
+
+EnumDisplayMonitors
+GetMonitorInfo
+MONITORINFOEXW
+
+CLSIDFromProgID
+CLSIDFromProgIDEx
+GetActiveObject

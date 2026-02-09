@@ -49,6 +49,7 @@
     <s:String x:Key="Text_Appearance">外觀</s:String>
     <s:String x:Key="Text_PPT">PPT</s:String>
     <s:String x:Key="Text_ExperimentalFeatures">實驗性功能</s:String>
+    <s:String x:Key="Text_Debug">調試</s:String>
         <!-- Home -->
         <s:String x:Key="Text_Setting_AppDescription">Ink Canvas Better 是一個完全開源免費的畫板工具。如果您有任何建議或問題，請訪問我們的 GitHub 頁面。感謝您的使用！</s:String>
         <s:String x:Key="Text_Setting_Author">作者</s:String>
@@ -62,6 +63,8 @@
         <s:String x:Key="Text_Setting_Auto">自動</s:String>
         <s:String x:Key="Text_Setting_Light">淺色</s:String>
         <s:String x:Key="Text_Setting_Dark">深色</s:String>
+        <!-- Debug -->
+        <s:String x:Key="Text_Debug_Screen">螢幕</s:String>
 
     <!-- Basic -->
     <s:String x:Key="Text_CloseApplication">關閉軟體</s:String>

@@ -8,6 +8,9 @@
     <Compile Update="View\Controls\FloatingBar\FloatingBarControl\RetraceControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Pages\Settings\Debug\DebugPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Windows\FloatingBarWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -53,6 +53,11 @@
                 </iuwm:NavigationViewItem.Icon>
             </iuwm:NavigationViewItem>
             -->
+            <iuwm:NavigationViewItem Name="Debug" Content="{DynamicResource Text_Debug}" ToolTipService.ToolTip="{DynamicResource Text_Debug}">
+                <iuwm:NavigationViewItem.Icon>
+                    <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.Bug}"/>
+                </iuwm:NavigationViewItem.Icon>
+            </iuwm:NavigationViewItem>
         </iuwm:NavigationView.MenuItems>
         <iuwm:NavigationView.Content>
             <iuwm:Frame Content="{Binding SelectedPage}"/>

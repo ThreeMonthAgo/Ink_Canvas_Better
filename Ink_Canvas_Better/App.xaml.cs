@@ -24,12 +24,18 @@ namespace Ink_Canvas_Better
 
             IApp.GetService<ComponentService>().DetectAndRegisterComponents();
             this.Startup += App_Startup;
+            this.Exit += App_Exit;
+        }
+
+        private void App_Exit(object sender, ExitEventArgs e)
+        {
+            IApp.GetService<MultiscreenService>().Dispose();
         }
 
         private void App_Startup(object sender, StartupEventArgs e)
         {
             IApp.StartupArgs = e.Args;
-            var logger = IApp.GetService<ILogger<App>>();
+
             #region log
             this.DispatcherUnhandledException += (sender, e) =>
             {
@@ -47,6 +53,7 @@ namespace Ink_Canvas_Better
             };
             #endregion
 
+            var logger = IApp.GetService<ILogger<App>>();
             Mutex _ = new(true, "Ink_Canvas_Better", out bool ret);
             if (!ret && !IApp.StartupArgs.Contains("-m")) // -m multiple
             {
@@ -69,6 +76,7 @@ namespace Ink_Canvas_Better
             IApp.GetService<SettingsService>().LoadSettings();
             logger.LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
             Debug.WriteLine(IApp.GetService<PPTService>());
+            Debug.WriteLine(IApp.GetService<MultiscreenService>());
         }
 
         private void Init()
@@ -83,6 +91,7 @@ namespace Ink_Canvas_Better
                     service.AddSingleton<ThemeService>();
                     service.AddSingleton<InkCanvasService>();
                     service.AddSingleton<PPTService>();
+                    service.AddSingleton<MultiscreenService>();
 
                     // UI (Windows)
                     service.AddSingleton<MainWindow>();

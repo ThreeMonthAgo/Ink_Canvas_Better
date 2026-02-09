@@ -16,7 +16,7 @@ public class PPTService
         Interval = 200
     };
 
-    private ILogger logger = IApp.GetService<ILogger<PPTService>>();
+    private readonly ILogger logger = IApp.GetService<ILogger<PPTService>>();
     private PPTApp? PPTApplication;
 
     public PPTService()
@@ -34,9 +34,7 @@ public class PPTService
             {
                 ConnectPPT();
                 logger.LogInformation($"PPT connected, path: {PPTApplication}");
-                Debug.WriteLine("Connected");
             }
-            Debug.WriteLine("Check");
         }
         catch (COMException ex)
         {
@@ -67,6 +65,7 @@ public class PPTService
             PPTApplication.PresentationOpen -= PPTApplication_PresentationOpen;
             PPTApplication.PresentationCloseFinal -= PPTApplication_PresentationCloseFinal;
             PPTApplication.SlideShowBegin -= PPTApplication_SlideShowBegin;
+            PPTApplication = null;
         }
         catch (Exception ex)
         {
@@ -76,17 +75,17 @@ public class PPTService
 
     private void PPTApplication_PresentationOpen(Presentation Pres)
     {
-        Debug.WriteLine("Hitted");
+
     }
 
     private void PPTApplication_PresentationCloseFinal(Presentation Pres)
     {
         DisconnectPPT();
-        Debug.WriteLine("Close");
+
     }
 
     private void PPTApplication_SlideShowBegin(SlideShowWindow Wn)
     {
-        Debug.WriteLine("Begin");
+
     }
 }

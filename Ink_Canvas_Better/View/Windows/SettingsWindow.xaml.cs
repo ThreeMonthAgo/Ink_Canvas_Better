@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using Ink_Canvas_Better.View.Pages.Settings.Appearance;
+using Ink_Canvas_Better.View.Pages.Settings.Debug;
 using Ink_Canvas_Better.View.Pages.Settings.Home;
 using Ink_Canvas_Better.ViewModel.Windows;
 using iUWM = iNKORE.UI.WPF.Modern;
@@ -52,6 +53,9 @@ namespace Ink_Canvas_Better.View.Windows
                 case "PPT":
                     break;
                 case "ExperimentalFeatures":
+                    break;
+                case "Debug":
+                    Settings.SelectedPage = new DebugPage();
                     break;
             }
         }
