@@ -19,8 +19,10 @@
                 </iuwm:SettingsExpander.HeaderIcon>
                 <iuwm:SettingsExpander.Items>
                     <iuwm:SettingsCard ContentAlignment="Left">
-                        <DataGrid ItemsSource="{Binding Screens}" AutoGenerateColumns="False" HeadersVisibility="Column">
+                        <DataGrid ItemsSource="{Binding Screens}" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True">
                             <DataGrid.Columns>
+                                <DataGridTextColumn Header="name"  Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="flag"  Binding="{Binding Flags}"/>
                                 <DataGridTextColumn Header="x"  Binding="{Binding X}"/>
                                 <DataGridTextColumn Header="y"  Binding="{Binding Y}"/>
                                 <DataGridTextColumn Header="width"  Binding="{Binding Width}"/>

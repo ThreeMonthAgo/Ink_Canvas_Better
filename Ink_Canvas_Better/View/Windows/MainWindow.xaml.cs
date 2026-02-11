@@ -7,7 +7,6 @@ using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
 using Windows.Win32.Foundation;
-using Windows.Win32.UI.WindowsAndMessaging;
 using static Ink_Canvas_Better.Utilities.Enums.InkCanvas;
 
 namespace Ink_Canvas_Better.View.Windows

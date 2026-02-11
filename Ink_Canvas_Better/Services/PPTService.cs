@@ -33,7 +33,7 @@ public class PPTService
             if (PPTApplication != null)
             {
                 ConnectPPT();
-                logger.LogInformation($"PPT connected, path: {PPTApplication}");
+                logger.LogInformation("PPT connected");
             }
         }
         catch (COMException ex)
@@ -47,6 +47,7 @@ public class PPTService
         try
         {
             PPTCheckTimer.Stop();
+            if (PPTApplication is null) throw new NullReferenceException();
             PPTApplication.PresentationOpen += PPTApplication_PresentationOpen;
             PPTApplication.PresentationCloseFinal += PPTApplication_PresentationCloseFinal;
             PPTApplication.SlideShowBegin += PPTApplication_SlideShowBegin;
@@ -62,9 +63,12 @@ public class PPTService
         try
         {
             PPTCheckTimer.Start();
-            PPTApplication.PresentationOpen -= PPTApplication_PresentationOpen;
-            PPTApplication.PresentationCloseFinal -= PPTApplication_PresentationCloseFinal;
-            PPTApplication.SlideShowBegin -= PPTApplication_SlideShowBegin;
+            if ( PPTApplication is not null)
+            {
+                PPTApplication.PresentationOpen -= PPTApplication_PresentationOpen;
+                PPTApplication.PresentationCloseFinal -= PPTApplication_PresentationCloseFinal;
+                PPTApplication.SlideShowBegin -= PPTApplication_SlideShowBegin;
+            }
             PPTApplication = null;
         }
         catch (Exception ex)
@@ -86,6 +90,6 @@ public class PPTService
 
     private void PPTApplication_SlideShowBegin(SlideShowWindow Wn)
     {
-
+        logger.LogInformation($"SlideShow Begin, path:{PPTApplication.ActivePresentation.FullName}");
     }
 }
