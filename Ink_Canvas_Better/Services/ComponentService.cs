@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using Ink_Canvas_Better.Helpers;
@@ -11,7 +10,7 @@ namespace Ink_Canvas_Better.Services;
 
 public class ComponentService(ILogger<ComponentService> logger)
 {
-    ILogger<ComponentService> Logger = logger;
+    private readonly ILogger<ComponentService> logger = logger;
 
     public ConcurrentDictionary<string, Type> RegisteredComponents { get; } = [];
 
@@ -38,10 +37,11 @@ public class ComponentService(ILogger<ComponentService> logger)
                     if (r)
                     {
                         DataTemplateHelper.RegisterDataTemplate(viewModelType, viewType);
+                        logger.LogTrace($"Data template registered (guid:{guid} viewmodel:{viewModelType.Name} view:{viewType.Name})");
                     }
                     else
                     {
-                        Logger.LogWarning($"Component with guid {guid} is already registered.");
+                        logger.LogWarning($"Component with guid {guid} has already registered.");
                     }
                 }
             }

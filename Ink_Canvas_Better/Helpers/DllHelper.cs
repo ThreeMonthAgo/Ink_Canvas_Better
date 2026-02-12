@@ -54,6 +54,8 @@ public partial class DllHelper
         internal int y;
         internal int width;
         internal int height;
+        internal int wkaWidth;
+        internal int wkaHeight;
 
         public readonly string Name => name;
         public readonly uint Flags => flags;
@@ -61,6 +63,8 @@ public partial class DllHelper
         public readonly int Y => y;
         public readonly int Width => width;
         public readonly int Height => height;
+        public readonly int WkaWidth => wkaWidth;
+        public readonly int WkaHeight => wkaHeight;
     }
 
     public static readonly ObservableCollection<MonitorInfo> Screens = [];
@@ -84,10 +88,12 @@ public partial class DllHelper
         {
             name = info.szDevice.ToString(),
             flags = info.monitorInfo.dwFlags,
-            x = (*lprcMonitor).X,
-            y = (*lprcMonitor).Y,
-            width = (*lprcMonitor).Width,
-            height = (*lprcMonitor).Height
+            x = info.monitorInfo.rcMonitor.X,
+            y = info.monitorInfo.rcMonitor.Y,
+            width = info.monitorInfo.rcMonitor.Width,
+            height = info.monitorInfo.rcMonitor.Height,
+            wkaWidth = info.monitorInfo.rcWork.Width,
+            wkaHeight = info.monitorInfo.rcWork.Height
         });
         return true;
     }

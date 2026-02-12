@@ -1,8 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using Ink_Canvas_Better.Services;
@@ -64,7 +62,6 @@ public class Settings
         set { SetProperty(ref _mainWindowVM, value, () =>
         {
             IApp.GetService<MainWindow>().DataContext = value;
-            IApp.GetService<FloatingBarWindow>().DataContext = value;
         }); }
     }
 

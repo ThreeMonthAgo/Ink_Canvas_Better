@@ -5,10 +5,9 @@ namespace Ink_Canvas_Better.Logging;
 
 public sealed class CompositeLogger(Func<CompositeLoggerConfiguration> getCurrentConfig) : ILogger
 {
-
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull => default!;
 
-    public bool IsEnabled(LogLevel logLevel) => true;
+    public bool IsEnabled(LogLevel logLevel) => logLevel >= getCurrentConfig().MinimumLogLevel;
 
     public void Log<TState>(
         LogLevel logLevel,
@@ -17,22 +16,37 @@ public sealed class CompositeLogger(Func<CompositeLoggerConfiguration> getCurren
         Exception? exception,
         Func<TState, Exception?, string> formatter)
     {
-        var _loggers = getCurrentConfig().Loggers;
-        foreach (var logger in _loggers)
+        if (!IsEnabled(logLevel))
         {
-            Task.Run(() =>
+            return;
+        }
+
+        var config = getCurrentConfig();
+        if (config.OutputTarget.HasFlag(OutputTarget.Debug))
+        {
+            Debug.WriteLine(string.Format("==> {0} [{1}] {2} {3}", DateTime.Now.ToString("HH:mm:ss.fff"), logLevel, state, exception));
+        }
+        if (config.OutputTarget.HasFlag(OutputTarget.Console))
+        {
+            Console.WriteLine(string.Format("==> {0} [{1}] {2} {3}", DateTime.Now.ToString("HH:mm:ss.fff"), logLevel, state, exception));
+        }
+        if (config.OutputTarget.HasFlag(OutputTarget.File))
+        {
+            if (!Directory.Exists(config.LogDirectoryPath))
             {
-                try
+                Directory.CreateDirectory(config.LogDirectoryPath);
+            }
+            StreamWriter sw = new(
+                path: config.LogDirectoryPath + $"{DateTime.Now:yyyy-MM-dd}.log",
+                encoding: System.Text.Encoding.UTF8,
+                options: new FileStreamOptions()
                 {
-                    logger.Log(logLevel, eventId, state, exception, formatter);
-                }
-                catch (Exception ex)
-                {
-#if DEBUG
-                    Debug.WriteLine($"Logger failed: {ex.Message}");
-#endif
-                }
-            });
+                    Mode = FileMode.Append,
+                    Share = FileShare.ReadWrite,
+                    Access = FileAccess.Write
+                });
+            sw.WriteLine(string.Format("{0} [{1}] {2} {3}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), logLevel, state, exception));
+            sw.Close();
         }
     }
 }

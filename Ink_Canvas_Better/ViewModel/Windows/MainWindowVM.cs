@@ -6,7 +6,6 @@ using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.View.Windows;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
-using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 using Newtonsoft.Json;
 using static Ink_Canvas_Better.Utilities.Enums.InkCanvas;
 

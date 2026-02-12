@@ -21,15 +21,12 @@ namespace Ink_Canvas_Better
         {
             InitializeComponent();
             Init();
-
-            IApp.GetService<ComponentService>().DetectAndRegisterComponents();
-            this.Startup += App_Startup;
-            this.Exit += App_Exit;
         }
 
         private void App_Exit(object sender, ExitEventArgs e)
         {
             IApp.GetService<MultiscreenService>().Dispose();
+            IApp.GetService<ILogger<App>>().LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) terminated =====");
         }
 
         private void App_Startup(object sender, StartupEventArgs e)
@@ -67,11 +64,9 @@ namespace Ink_Canvas_Better
                 Environment.Exit(0);
             }
 
+            IApp.GetService<ComponentService>().DetectAndRegisterComponents();
             this.MainWindow = IApp.GetService<MainWindow>();
             MainWindow.Show();
-            var floatingBarWindow = IApp.GetService<FloatingBarWindow>();
-            floatingBarWindow.Owner = IApp.GetService<MainWindow>();
-            floatingBarWindow.Show();
 
             IApp.GetService<SettingsService>().LoadSettings();
             logger.LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
@@ -81,9 +76,9 @@ namespace Ink_Canvas_Better
 
         private void Init()
         {
-            IApp.Host = Microsoft.Extensions.Hosting.Host.
-                CreateDefaultBuilder().
-                ConfigureServices((context, service) =>
+            IApp.Host = Microsoft.Extensions.Hosting.Host
+                .CreateDefaultBuilder()
+                .ConfigureServices((context, service) =>
                 {
                     // Services
                     service.AddSingleton<ComponentService>();
@@ -95,29 +90,30 @@ namespace Ink_Canvas_Better
 
                     // UI (Windows)
                     service.AddSingleton<MainWindow>();
-                    service.AddSingleton<FloatingBarWindow>();
                     service.AddSingleton<SettingsWindow>();
                     service.AddSingleton<LanguageWindow>();
 
                     // UI (Pages)
                     service.AddSingleton<HomePage>();
                     service.AddSingleton<AppearancePage>();
-                }).
-                ConfigureLogging((context, logging) =>
+                })
+                .ConfigureLogging((context, logging) =>
                 {
+                    logging.SetMinimumLevel(LogLevel.Trace);
                     logging.ClearProviders();
                     logging.AddCompositeLogger((configuration) =>
                     {
-                        configuration.Loggers =
-                        [
-                            new FileLogger(() => new FileLoggerConfiguration() { MinimumLogLevel = LogLevel.Information } ),
 #if DEBUG
-                            new ConsoleLogger(() => new ConsoleLoggerConfiguration() { MinimumLogLevel = LogLevel.Debug, OutputTarget = OutputTarget.Debug } ),
+                        configuration.MinimumLogLevel = LogLevel.Trace;
+                        configuration.OutputTarget = OutputTarget.Debug | OutputTarget.File;
+#else
+                        configuration.MinimumLogLevel = LogLevel.Information;
+                        configuration.OutputTarget = OutputTarget.File;
 #endif
-                        ];
                     });
-                }).
-                Build();
+                })
+                .Build();
+            IApp.GetService<ILogger<App>>().LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is starting up =====");
         }
     }
 }

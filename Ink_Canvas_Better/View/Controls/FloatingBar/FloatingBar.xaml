@@ -7,13 +7,18 @@
              xmlns:ICBControls="Ink_Canvas_Better.Controls"
              xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
+             xmlns:fb="clr-namespace:Ink_Canvas_Better.View.Controls.FloatingBar"
+             xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behavior="clr-namespace:Ink_Canvas_Better.Controls.Behaviors;assembly=Ink_Canvas_Better.Controls"
              xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar"
              d:DataContext="{d:DesignInstance Type=vm:FloatingBarVM}"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             SizeChanged="FloatingBar_SizeChanged"
+             Loaded="FloatingBar_Loaded">
     <UserControl.RenderTransform>
         <TransformGroup>
             <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
-            <TranslateTransform/>
+            <TranslateTransform X="{Binding X, Mode=OneWayToSource}" Y="{Binding Y, Mode=OneWayToSource}"/>
         </TransformGroup>
     </UserControl.RenderTransform>
     <iuw:SimpleStackPanel Orientation="{Binding Orientation}" Spacing="{Binding Spacing}">
@@ -25,7 +30,11 @@
                 TextVisibility="Collapsed"
                 Icon="{x:Static iuwm:FluentSystemIcons.Drag_24_Regular}">
                 <ICBControls:FloatingBarControl.ExtraContent>
-                    <Thumb Opacity="0" DragDelta="Thumb_DragDelta"/>
+                    <Thumb Opacity="0">
+                        <bh:Interaction.Behaviors>
+                            <behavior:DragBehavior TypeOfControlToDrag="{x:Type fb:FloatingBar}"/>
+                        </bh:Interaction.Behaviors>
+                    </Thumb>
                 </ICBControls:FloatingBarControl.ExtraContent>
             </ICBControls:FloatingBarControl>
         </Border>

@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
 using Ink_Canvas_Better.Utilities.DataStructures;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
+using Newtonsoft.Json;
 using static Ink_Canvas_Better.Utilities.Enums.UI;
 
 namespace Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
@@ -33,11 +34,17 @@ public class FloatingBarVM : ViewModelBase
     private double _spacing = 4.0;
     private Orientation _orientation = Orientation.Horizontal;
     private double _scale = 1.0;
-    private int _screenIndex = 0; // unused, reserved for multi-monitor support
+    private int _screenIndex = 0;
     private DockPlacement _dockPlacement = new() {
         VerticalAlignment = DockVerticalAlignment.AboveTaskBar,
         HorizontalAlignment = DockHorizontalAlignment.Center
     };
+
+    // ignored below
+    private double _x = 0;
+    private double _y = 0;
+    private double _width = 0;
+    private double _height = 0;
 
     #region
 
@@ -83,5 +90,75 @@ public class FloatingBarVM : ViewModelBase
         set { SetProperty(ref _dockPlacement, value); }
     }
 
+    [JsonIgnore]
+    public double X
+    {
+        get { return _x; }
+        set { SetProperty(ref _x, value); }
+    }
+
+    [JsonIgnore]
+    public double Y
+    {
+        get { return _y; }
+        set { SetProperty(ref _y, value); }
+    }
+
+    [JsonIgnore]
+    public double Width
+    {
+        get { return _width; }
+        set { SetProperty(ref _width, value); }
+    }
+
+    [JsonIgnore]
+    public double Height
+    {
+        get { return _height; }
+        set { SetProperty(ref _height, value); }
+    }
+
     #endregion
+
+    public void Dock(DockPlacement? placement = null)
+    {
+        placement ??= this.DockPlacement;
+        // Dock
+        switch (placement.VerticalAlignment)
+        {
+            case DockVerticalAlignment.Top:
+                this.Y = 0;
+                break;
+            case DockVerticalAlignment.Center:
+                this.Y = (scHeight() / 2) - (realHeight() / 2);
+                break;
+            case DockVerticalAlignment.Bottom:
+                this.Y = scHeight() - realHeight();
+                break;
+            case DockVerticalAlignment.AboveTaskBar:
+            case DockVerticalAlignment.Unset:
+                this.Y = wkaHeight() - realHeight();
+                break;
+        }
+        switch (placement.HorizontalAlignment)
+        {
+            case DockHorizontalAlignment.Left:
+                this.X = 0;
+                break;
+            case DockHorizontalAlignment.Right:
+                this.X = scWidth() - realWidth();
+                break;
+            case DockHorizontalAlignment.Center:
+            case DockHorizontalAlignment.Unset:
+                this.X = (scWidth() / 2) - (realWidth() / 2);
+                break;
+        }
+
+        double scWidth() => DllHelper.Screens[this.ScreenIndex].Width;
+        double scHeight() => DllHelper.Screens[this.ScreenIndex].Height;
+        //double wkaWidth() => DllHelper.Screens[this.ScreenIndex].WkaWidth;  // never used
+        double wkaHeight() => DllHelper.Screens[this.ScreenIndex].WkaHeight;
+        double realWidth() => this.Width * this.Scale;
+        double realHeight() => this.Height * this.Scale;
+    }
 }

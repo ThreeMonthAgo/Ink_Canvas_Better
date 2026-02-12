@@ -27,6 +27,8 @@
                                 <DataGridTextColumn Header="y"  Binding="{Binding Y}"/>
                                 <DataGridTextColumn Header="width"  Binding="{Binding Width}"/>
                                 <DataGridTextColumn Header="height"  Binding="{Binding Height}"/>
+                                <DataGridTextColumn Header="work area width"  Binding="{Binding WkaWidth}"/>
+                                <DataGridTextColumn Header="work area height"  Binding="{Binding WkaHeight}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </iuwm:SettingsCard>
