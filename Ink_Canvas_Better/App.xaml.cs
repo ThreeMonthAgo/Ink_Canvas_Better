@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Configuration;
+using System.Diagnostics;
 using System.Windows;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Services;
@@ -101,14 +102,18 @@ namespace Ink_Canvas_Better
                 {
                     logging.SetMinimumLevel(LogLevel.Trace);
                     logging.ClearProviders();
-                    logging.AddCompositeLogger((configuration) =>
+#if DEBUG
+                    logging.AddDebugLogger((config) =>
+                    {
+                        config.MinimumLogLevel = LogLevel.Trace;
+                    });
+#endif
+                    logging.AddFileLogger((config) =>
                     {
 #if DEBUG
-                        configuration.MinimumLogLevel = LogLevel.Trace;
-                        configuration.OutputTarget = OutputTarget.Debug | OutputTarget.File;
+                        config.MinimumLogLevel = LogLevel.Trace;
 #else
-                        configuration.MinimumLogLevel = LogLevel.Information;
-                        configuration.OutputTarget = OutputTarget.File;
+                        config.MinimumLogLevel = LogLevel.Information;
 #endif
                     });
                 })
