@@ -104,6 +104,12 @@ public class FloatingBarVM : ViewModelBase
         set { SetProperty(ref _y, value); }
     }
 
+    /// <remarks>
+    /// It's a one-way binding from the UI to the DataContext.
+    /// (Note: While the exact implementation differs, this analogy
+    /// helps illustrate the concept.) In other words, you cannot modify
+    /// the actual width by changing this property.
+    /// </remarks>
     [JsonIgnore]
     public double Width
     {
@@ -111,6 +117,12 @@ public class FloatingBarVM : ViewModelBase
         set { SetProperty(ref _width, value); }
     }
 
+    /// <remarks>
+    /// It's a one-way binding from the UI to the DataContext.
+    /// (Note: While the exact implementation differs, this analogy
+    /// helps illustrate the concept.) In other words, you cannot modify
+    /// the actual height by changing this property.
+    /// </remarks>
     [JsonIgnore]
     public double Height
     {

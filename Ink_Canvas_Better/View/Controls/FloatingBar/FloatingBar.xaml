@@ -18,7 +18,7 @@
     <UserControl.RenderTransform>
         <TransformGroup>
             <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
-            <TranslateTransform X="{Binding X, Mode=OneWayToSource}" Y="{Binding Y, Mode=OneWayToSource}"/>
+            <TranslateTransform X="{Binding X}" Y="{Binding Y}"/>
         </TransformGroup>
     </UserControl.RenderTransform>
     <iuw:SimpleStackPanel Orientation="{Binding Orientation}" Spacing="{Binding Spacing}">

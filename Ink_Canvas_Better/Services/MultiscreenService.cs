@@ -16,17 +16,17 @@ public class MultiscreenService : IDisposable
         this.logger = logger;
         this.settingsService = settingsService;
 
-        DllHelper.CheckScreens();
-        ApplyToMainWindow();
         SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
     }
 
-    private void SystemEvents_DisplaySettingsChanged(object? sender, EventArgs e)
+    public void Check()
     {
         logger.LogInformation("Display settings changed");
         DllHelper.CheckScreens();
         ApplyToMainWindow();
     }
+
+    private void SystemEvents_DisplaySettingsChanged(object? sender, EventArgs e) => Check();
 
     private void ApplyToMainWindow()
     {
@@ -57,7 +57,6 @@ public class MultiscreenService : IDisposable
             fb.Dock();
         }
         logger.LogTrace($"Floating bar amount: {fbCollection.Count}");
-        logger.LogTrace($"{fbCollection[0].X},{fbCollection[0].X},{fbCollection[0].Width},{fbCollection[0].Height}");
     }
 
     public void Dispose()

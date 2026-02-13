@@ -11,16 +11,16 @@
         WindowStyle="None"
         ShowInTaskbar="False"
         Topmost="True"
-        Left="0"
-        Top="0"
         AllowsTransparency="True"
         Background="Transparent"
+        Loaded="MainWindow_Loaded"
         d:DataContext="{d:DesignInstance Type=vm:MainWindowVM}"
-        d:Height="450" d:Width="800">
+        Left="0" Top="0" d:Height="450" d:Width="800">
     <Grid>
         <ICBControl:ICBInkCanvas
             Name="InkCanvas"
             Background="Transparent"
+            EditingMode="None"
             Cursor="Pen"
             DefaultDrawingAttributes="{Binding CurrentDrawingAttributes}"
             ForceCursor="False"

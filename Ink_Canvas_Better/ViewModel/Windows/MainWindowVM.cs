@@ -14,9 +14,11 @@ namespace Ink_Canvas_Better.ViewModel.Windows;
 public class MainWindowVM
 {
     private DrawingAttributes _currentDrawingAttributes = new();
-    private EditingMode _currentEditingMode;
     private ObservableCollection<FloatingBarVM> _floatingBarCollection = [ new() ];
     private StylusShape _eraserShape = new EllipseStylusShape(10, 10);
+
+    // ignored below
+    private EditingMode _currentEditingMode = EditingMode.None;
 
     #region
 
@@ -26,16 +28,6 @@ public class MainWindowVM
         set { SetProperty(ref _currentDrawingAttributes, value, () =>
         {
             IApp.GetService<MainWindow>().UpdateInkCanvasEditingMode(CurrentEditingMode);
-        }); }
-    }
-
-    [JsonIgnore]
-    public EditingMode CurrentEditingMode
-    {
-        get { return _currentEditingMode; }
-        set { SetProperty(ref _currentEditingMode, value, () =>
-        {
-            IApp.GetService<MainWindow>().UpdateInkCanvasEditingMode(value);
         }); }
     }
 
@@ -52,6 +44,19 @@ public class MainWindowVM
         {
             IApp.GetService<MainWindow>().UpdateInkCanvasEraserShape(value);
         }); }
+    }
+
+    [JsonIgnore]
+    public EditingMode CurrentEditingMode
+    {
+        get { return _currentEditingMode; }
+        set
+        {
+            SetProperty(ref _currentEditingMode, value, () =>
+            {
+                IApp.GetService<MainWindow>().UpdateInkCanvasEditingMode(value);
+            });
+        }
     }
 
     #endregion

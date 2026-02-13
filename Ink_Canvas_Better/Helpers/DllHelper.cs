@@ -12,6 +12,7 @@ public partial class DllHelper
 
     public const int WS_EX_TOOLWINDOW = 0x00000080;
     public const int WS_EX_TRANSPARENT = 0x00000020;
+    public const int WS_EX_NOACTIVATE = 0x08000000;
 
     public static int AddExtendedStyle(HWND hwnd, int style)
     {

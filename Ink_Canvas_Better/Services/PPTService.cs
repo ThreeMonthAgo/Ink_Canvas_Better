@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Utilities.Interface;
 using Microsoft.Extensions.Logging;
@@ -13,7 +12,7 @@ public class PPTService
     private readonly System.Timers.Timer PPTCheckTimer = new()
     {
         AutoReset = true,
-        Interval = 200
+        Interval = 500
     };
 
     private readonly ILogger logger = IApp.GetService<ILogger<PPTService>>();
@@ -22,7 +21,12 @@ public class PPTService
     public PPTService()
     {
         PPTCheckTimer.Elapsed += PPTCheckTimer_Elapsed;
-        PPTCheckTimer.Start();
+    }
+
+    public void RunCheckTimer(bool b)
+    {
+        if (b) PPTCheckTimer.Start();
+        else PPTCheckTimer.Stop();
     }
 
     private void PPTCheckTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
@@ -32,8 +36,10 @@ public class PPTService
             PPTApplication = DllHelper.GetActiveObject("PowerPoint.Application") as PPTApp;
             if (PPTApplication != null)
             {
-                ConnectPPT();
-                logger.LogInformation("PPT connected");
+                if (ConnectPPT())
+                {
+                    logger.LogInformation("PPT connected");
+                }
             }
         }
         catch (COMException ex)
@@ -42,19 +48,21 @@ public class PPTService
         }
     }
 
-    private void ConnectPPT()
+    private bool ConnectPPT()
     {
         try
         {
-            PPTCheckTimer.Stop();
             if (PPTApplication is null) throw new NullReferenceException();
             PPTApplication.PresentationOpen += PPTApplication_PresentationOpen;
             PPTApplication.PresentationCloseFinal += PPTApplication_PresentationCloseFinal;
             PPTApplication.SlideShowBegin += PPTApplication_SlideShowBegin;
+            RunCheckTimer(false);
+            return true;
         }
         catch (Exception ex)
         {
             logger.LogWarning("Occurs in PPTService.ConnectPPT() " + ex.ToString());
+            return false;
         }
     }
 
@@ -62,7 +70,7 @@ public class PPTService
     {
         try
         {
-            PPTCheckTimer.Start();
+            RunCheckTimer(true);
             if ( PPTApplication is not null)
             {
                 PPTApplication.PresentationOpen -= PPTApplication_PresentationOpen;

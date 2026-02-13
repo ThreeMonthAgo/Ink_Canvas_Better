@@ -33,6 +33,21 @@ namespace Ink_Canvas_Better
         {
             IApp.StartupArgs = e.Args;
 
+            var logger = IApp.GetService<ILogger<App>>();
+            Mutex _ = new(true, "Ink_Canvas_Better", out bool ret);
+            if (!ret && !IApp.StartupArgs.Contains("-m")) // -m multiple
+            {
+                logger.LogInformation("Detected existing instance");
+                iNKORE.UI.WPF.Modern.Controls.MessageBox.Show(
+                    "Another instance of Ink Canvas Better is already running.",
+                    "Ink Canvas Better",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                logger.LogInformation("Ink Canvas Batter automatically closed");
+                Environment.Exit(0);
+            }
+            logger.LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is starting up =====");
+
             #region log
             this.DispatcherUnhandledException += (sender, e) =>
             {
@@ -50,28 +65,14 @@ namespace Ink_Canvas_Better
             };
             #endregion
 
-            var logger = IApp.GetService<ILogger<App>>();
-            Mutex _ = new(true, "Ink_Canvas_Better", out bool ret);
-            if (!ret && !IApp.StartupArgs.Contains("-m")) // -m multiple
-            {
-                logger.LogInformation("Detected existing instance");
-                iNKORE.UI.WPF.Modern.Controls.MessageBox.Show(
-                    "Another instance of Ink Canvas Better is already running.",
-                    "Ink Canvas Better",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
-                logger.LogInformation("Ink Canvas Batter automatically closed");
-                Environment.Exit(0);
-            }
-
             IApp.GetService<ComponentService>().DetectAndRegisterComponents();
+            IApp.GetService<SettingsService>().LoadSettings();
             this.MainWindow = IApp.GetService<MainWindow>();
             MainWindow.Show();
+            IApp.GetService<MultiscreenService>().Check();
+            IApp.GetService<PPTService>().RunCheckTimer(true);
 
-            IApp.GetService<SettingsService>().LoadSettings();
             logger.LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
-            Debug.WriteLine(IApp.GetService<PPTService>());
-            Debug.WriteLine(IApp.GetService<MultiscreenService>());
         }
 
         private void Init()
@@ -113,7 +114,6 @@ namespace Ink_Canvas_Better
                     });
                 })
                 .Build();
-            IApp.GetService<ILogger<App>>().LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is starting up =====");
         }
     }
 }

@@ -31,7 +31,6 @@ public class ViewModelBaseConverter : Newtonsoft.Json.JsonConverter
         // Deserialize
         if (existingValue != null)
         {
-            Debug.WriteLine("Reusing existing instance for deserialization");
             using (var jsonReader = jobj.CreateReader())
             {
                 serializer.Populate(jsonReader, existingValue);

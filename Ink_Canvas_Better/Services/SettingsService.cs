@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using Ink_Canvas_Better.Helpers;
+﻿using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Model;
 using Ink_Canvas_Better.Services.JsonConverter;
 using Microsoft.Extensions.Logging;

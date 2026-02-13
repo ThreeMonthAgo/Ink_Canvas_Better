@@ -14,11 +14,7 @@ public partial class FloatingBar : UserControl
         SyncSize();
     }
 
-    private void FloatingBar_Loaded(object sender, RoutedEventArgs e)
-    {
-        Settings.IsInitializing = false;
-        Settings.Dock();
-    }
+    private void FloatingBar_Loaded(object sender, RoutedEventArgs e) => Settings.IsInitializing = false;
 
     private void FloatingBar_SizeChanged(object sender, SizeChangedEventArgs e) => SyncSize();
 
