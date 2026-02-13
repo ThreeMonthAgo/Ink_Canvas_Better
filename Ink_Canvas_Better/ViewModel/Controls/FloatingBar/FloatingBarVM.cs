@@ -165,7 +165,11 @@ public class FloatingBarVM : ViewModelBase
                 this.X = (scWidth() / 2) - (realWidth() / 2);
                 break;
         }
+        this.X += scX();
+        this.Y += scY();
 
+        double scX() => DllHelper.Screens[this.ScreenIndex].X;
+        double scY() => DllHelper.Screens[this.ScreenIndex].Y;
         double scWidth() => DllHelper.Screens[this.ScreenIndex].Width;
         double scHeight() => DllHelper.Screens[this.ScreenIndex].Height;
         //double wkaWidth() => DllHelper.Screens[this.ScreenIndex].WkaWidth;  // never used

@@ -48,8 +48,8 @@ public class MultiscreenService : IDisposable
         logger.LogInformation($"MainWindow has resized to {width}x{height}");
         // Floating bar
         var fbCollection = settingsService.Settings.MainWindowVM.FloatingBarCollection;
-        while (screenCount > fbCollection.Count) fbCollection.RemoveLast();
-        while (screenCount < fbCollection.Count) fbCollection.Add(new());
+        while (screenCount > fbCollection.Count) fbCollection.Add(new());
+        while (screenCount < fbCollection.Count) fbCollection.RemoveLast();
         for (int i = 0; i < screenCount; i++)
         {
             var fb = fbCollection[i];
@@ -57,6 +57,13 @@ public class MultiscreenService : IDisposable
             fb.Dock();
         }
         logger.LogTrace($"Floating bar amount: {fbCollection.Count}");
+        if (logger.IsEnabled(LogLevel.Trace))
+        {
+            for (int i = 0; i < fbCollection.Count; i++)
+            {
+                logger.LogTrace($"Floating bar {i}: x:{fbCollection[i].X} y:{fbCollection[i].Y}");
+            }
+        }
     }
 
     public void Dispose()
