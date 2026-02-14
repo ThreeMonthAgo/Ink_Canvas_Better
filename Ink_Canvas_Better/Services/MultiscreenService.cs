@@ -49,7 +49,7 @@ public class MultiscreenService : IDisposable
         // Floating bar
         var fbCollection = settingsService.Settings.MainWindowVM.FloatingBarCollection;
         while (screenCount > fbCollection.Count) fbCollection.Add(new());
-        while (screenCount < fbCollection.Count) fbCollection.RemoveLast();
+        // TODO: while (screenCount < fbCollection.Count) fbCollection.RemoveLast();
         for (int i = 0; i < screenCount; i++)
         {
             var fb = fbCollection[i];

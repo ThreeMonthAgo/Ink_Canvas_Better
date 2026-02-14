@@ -17,8 +17,8 @@
              Loaded="FloatingBar_Loaded">
     <UserControl.RenderTransform>
         <TransformGroup>
-            <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
-            <TranslateTransform X="{Binding X}" Y="{Binding Y}"/>
+            <ScaleTransform ScaleX="{Binding Scale, Mode=TwoWay}" ScaleY="{Binding Scale, Mode=TwoWay}"/>
+            <TranslateTransform X="{Binding X, Mode=TwoWay}" Y="{Binding Y, Mode=TwoWay}"/>
         </TransformGroup>
     </UserControl.RenderTransform>
     <iuw:SimpleStackPanel Orientation="{Binding Orientation}" Spacing="{Binding Spacing}">

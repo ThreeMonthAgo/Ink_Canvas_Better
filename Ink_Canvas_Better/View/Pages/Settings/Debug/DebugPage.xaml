@@ -34,6 +34,24 @@
                     </iuwm:SettingsCard>
                 </iuwm:SettingsExpander.Items>
             </iuwm:SettingsExpander>
+            <iuwm:SettingsExpander Header="FloatingBar" d:IsExpanded="True">
+                <iuwm:SettingsExpander.HeaderIcon>
+                    <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.InkingTool}"/>
+                </iuwm:SettingsExpander.HeaderIcon>
+                <iuwm:SettingsExpander.Items>
+                    <iuwm:SettingsCard ContentAlignment="Left">
+                        <DataGrid ItemsSource="{Binding FloatingBarCollection}" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="screen index"  Binding="{Binding ScreenIndex}"/>
+                                <DataGridTextColumn Header="x"  Binding="{Binding X}"/>
+                                <DataGridTextColumn Header="y"  Binding="{Binding Y}"/>
+                                <DataGridTextColumn Header="width"  Binding="{Binding Width}"/>
+                                <DataGridTextColumn Header="height"  Binding="{Binding Height}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </iuwm:SettingsCard>
+                </iuwm:SettingsExpander.Items>
+            </iuwm:SettingsExpander>
         </iuw:SimpleStackPanel>
     </ScrollViewer>
 </Page>
