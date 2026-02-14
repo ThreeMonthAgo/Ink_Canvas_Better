@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Services;
@@ -27,7 +26,7 @@ namespace Ink_Canvas_Better
         private void App_Exit(object sender, ExitEventArgs e)
         {
             IApp.GetService<MultiscreenService>().Dispose();
-            IApp.GetService<ILogger<App>>().LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) terminated =====");
+            IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) terminated =====");
         }
 
         private void App_Startup(object sender, StartupEventArgs e)
@@ -37,16 +36,16 @@ namespace Ink_Canvas_Better
             #region log
             this.DispatcherUnhandledException += (sender, e) =>
             {
-                IApp.GetService<ILogger<App>>().LogCritical(e.Exception.ToString());
+                IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Critical, e.Exception.ToString);
                 e.Handled = true;
             };
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
             {
-                IApp.GetService<ILogger<App>>().LogWarning(e.ToString());
+                IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Warning, e.ToString);
             };
             TaskScheduler.UnobservedTaskException += (sender, e) =>
             {
-                IApp.GetService<ILogger<App>>().LogError(e.Exception.ToString());
+                IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Error, e.Exception, e.ToString);
                 e.SetObserved();
             };
             #endregion
@@ -55,13 +54,13 @@ namespace Ink_Canvas_Better
             Mutex _ = new(true, "Ink_Canvas_Better", out bool ret);
             if (!ret && !IApp.StartupArgs.Contains("-m")) // -m multiple
             {
-                logger.LogInformation("Detected existing instance");
+                logger.WriteLog(LogLevel.Information, "Detected existing instance");
                 iNKORE.UI.WPF.Modern.Controls.MessageBox.Show(
                     "Another instance of Ink Canvas Better is already running.",
                     "Ink Canvas Better",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
-                logger.LogInformation("Ink Canvas Batter automatically closed");
+                logger.WriteLog(LogLevel.Information, "Ink Canvas Batter automatically closed");
                 Environment.Exit(0);
             }
 
@@ -70,7 +69,7 @@ namespace Ink_Canvas_Better
             MainWindow.Show();
 
             IApp.GetService<SettingsService>().LoadSettings();
-            logger.LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
+            logger.WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
             Debug.WriteLine(IApp.GetService<PPTService>());
             Debug.WriteLine(IApp.GetService<MultiscreenService>());
         }
@@ -118,7 +117,7 @@ namespace Ink_Canvas_Better
                     });
                 })
                 .Build();
-            IApp.GetService<ILogger<App>>().LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is starting up =====");
+            IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is starting up =====");
         }
     }
 }

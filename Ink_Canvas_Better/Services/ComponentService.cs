@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Reflection;
 using Ink_Canvas_Better.Helpers;
+using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
 using Microsoft.Extensions.Logging;
@@ -37,11 +38,11 @@ public class ComponentService(ILogger<ComponentService> logger)
                     if (r)
                     {
                         DataTemplateHelper.RegisterDataTemplate(viewModelType, viewType);
-                        logger.LogTrace($"Data template registered (guid:{guid} viewmodel:{viewModelType.Name} view:{viewType.Name})");
+                        logger.WriteLog(LogLevel.Trace, () => $"Data template registered (guid:{guid} viewmodel:{viewModelType.Name} view:{viewType.Name})");
                     }
                     else
                     {
-                        logger.LogWarning($"Component with guid {guid} has already registered.");
+                        logger.WriteLog(LogLevel.Warning, () => $"Component with guid {guid} has already registered.");
                     }
                 }
             }

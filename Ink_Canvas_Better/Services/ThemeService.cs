@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Windows;
+using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Utilities.DataStructures;
 using iNKORE.UI.WPF.Modern;
 using Microsoft.Extensions.Logging;
@@ -30,7 +31,7 @@ namespace Ink_Canvas_Better.Services
             }
             else
             {
-                logger.LogWarning($"CultureInfo {cultureInfo} is not supported");
+                logger.WriteLog(LogLevel.Warning, () => $"CultureInfo {cultureInfo} is not supported");
                 ChangeLanguage(SupportedLanguage.GetFirst(0));
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Ink_Canvas_Better.Helpers;
+using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Utilities.Interface;
 using Microsoft.Extensions.Logging;
 using Microsoft.Office.Interop.PowerPoint;
@@ -33,12 +34,12 @@ public class PPTService
             if (PPTApplication != null)
             {
                 ConnectPPT();
-                logger.LogInformation("PPT connected");
+                logger.WriteLog(LogLevel.Information, "PPT connected");
             }
         }
         catch (COMException ex)
         {
-            logger.LogWarning("Occurs in PPTService.PPTCheckTimer_Elapsed()" + ex.ToString());
+            logger.WriteLog(LogLevel.Warning, () => $"Occurs in PPTService.PPTCheckTimer_Elapsed() {ex}");
         }
     }
 
@@ -54,7 +55,7 @@ public class PPTService
         }
         catch (Exception ex)
         {
-            logger.LogWarning("Occurs in PPTService.ConnectPPT() " + ex.ToString());
+            logger.WriteLog(LogLevel.Warning, () => $"Occurs in PPTService.ConnectPPT() {ex}");
         }
     }
 
@@ -73,7 +74,7 @@ public class PPTService
         }
         catch (Exception ex)
         {
-            logger.LogWarning("Occurs in PPTService.DisconnectPPT() " + ex.ToString());
+            logger.WriteLog(LogLevel.Warning, () => $"Occurs in PPTService.DisconnectPPT() {ex}");
         }
     }
 
@@ -90,6 +91,6 @@ public class PPTService
 
     private void PPTApplication_SlideShowBegin(SlideShowWindow Wn)
     {
-        logger.LogInformation($"SlideShow Begin, path:{PPTApplication.ActivePresentation.FullName}");
+        logger.WriteLog(LogLevel.Information, () => $"SlideShow Begin, path:{PPTApplication.ActivePresentation.FullName}");
     }
 }

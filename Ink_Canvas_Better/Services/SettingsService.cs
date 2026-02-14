@@ -1,7 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using Ink_Canvas_Better.Helpers;
+﻿using Ink_Canvas_Better.Helpers;
+using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Model;
 using Ink_Canvas_Better.Services.JsonConverter;
 using Microsoft.Extensions.Logging;
@@ -35,7 +33,7 @@ namespace Ink_Canvas_Better.Services
             }
             catch (Exception ex)
             {
-                logger.LogWarning($"Load settings failed, creating a new one. {ex.Message}"); // TODO: Perhaps a need to inform the user?
+                logger.WriteLog(LogLevel.Warning, () => $"Load settings failed, creating a new one. {ex.Message}"); // TODO: Perhaps a need to inform the user?
                 ResetSettings();
             }
         }
@@ -50,7 +48,7 @@ namespace Ink_Canvas_Better.Services
         {
             Settings.Copy(new Settings());
             SaveSettings();
-            logger.LogInformation($"Settings have been restored to defaults");
+            logger.WriteLog(LogLevel.Information, $"Settings have been restored to defaults");
         }
     }
 }
