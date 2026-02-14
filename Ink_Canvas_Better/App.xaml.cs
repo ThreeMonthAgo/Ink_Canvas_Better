@@ -26,7 +26,7 @@ namespace Ink_Canvas_Better
         private void App_Exit(object sender, ExitEventArgs e)
         {
             IApp.GetService<MultiscreenService>().Dispose();
-            IApp.GetService<ILogger<App>>().LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) terminated =====");
+            IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) terminated =====");
         }
 
         private void App_Startup(object sender, StartupEventArgs e)
@@ -37,13 +37,13 @@ namespace Ink_Canvas_Better
             Mutex _ = new(true, "Ink_Canvas_Better", out bool ret);
             if (!ret && !IApp.StartupArgs.Contains("-m")) // -m multiple
             {
-                logger.LogInformation("Detected existing instance");
+                logger.WriteLog(LogLevel.Information, "Detected existing instance");
                 iNKORE.UI.WPF.Modern.Controls.MessageBox.Show(
                     "Another instance of Ink Canvas Better is already running.",
                     "Ink Canvas Better",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
-                logger.LogInformation("Ink Canvas Batter automatically closed");
+                logger.WriteLog(LogLevel.Information, "Ink Canvas Batter automatically closed");
                 Environment.Exit(0);
             }
             logger.LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is starting up =====");
@@ -51,16 +51,16 @@ namespace Ink_Canvas_Better
             #region log
             this.DispatcherUnhandledException += (sender, e) =>
             {
-                IApp.GetService<ILogger<App>>().LogCritical(e.Exception.ToString());
+                IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Critical, e.Exception.ToString);
                 e.Handled = true;
             };
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
             {
-                IApp.GetService<ILogger<App>>().LogWarning(e.ToString());
+                IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Warning, e.ToString);
             };
             TaskScheduler.UnobservedTaskException += (sender, e) =>
             {
-                IApp.GetService<ILogger<App>>().LogError(e.Exception.ToString());
+                IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Error, e.Exception, e.ToString);
                 e.SetObserved();
             };
             #endregion
@@ -102,18 +102,23 @@ namespace Ink_Canvas_Better
                 {
                     logging.SetMinimumLevel(LogLevel.Trace);
                     logging.ClearProviders();
-                    logging.AddCompositeLogger((configuration) =>
+#if DEBUG
+                    logging.AddDebugLogger((config) =>
+                    {
+                        config.MinimumLogLevel = LogLevel.Trace;
+                    });
+#endif
+                    logging.AddFileLogger((config) =>
                     {
 #if DEBUG
-                        configuration.MinimumLogLevel = LogLevel.Trace;
-                        configuration.OutputTarget = OutputTarget.Debug | OutputTarget.File;
+                        config.MinimumLogLevel = LogLevel.Trace;
 #else
-                        configuration.MinimumLogLevel = LogLevel.Information;
-                        configuration.OutputTarget = OutputTarget.File;
+                        config.MinimumLogLevel = LogLevel.Information;
 #endif
                     });
                 })
                 .Build();
+            IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is starting up =====");
         }
     }
 }
