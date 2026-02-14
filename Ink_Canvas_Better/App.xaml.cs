@@ -46,7 +46,7 @@ namespace Ink_Canvas_Better
                 logger.WriteLog(LogLevel.Information, "Ink Canvas Batter automatically closed");
                 Environment.Exit(0);
             }
-            logger.LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is starting up =====");
+            logger.WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is starting up =====");
 
             #region log
             this.DispatcherUnhandledException += (sender, e) =>
@@ -72,7 +72,7 @@ namespace Ink_Canvas_Better
             IApp.GetService<MultiscreenService>().Check();
             IApp.GetService<PPTService>().RunCheckTimer(true);
 
-            logger.LogInformation($"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
+            logger.WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
         }
 
         private void Init()
@@ -100,9 +100,9 @@ namespace Ink_Canvas_Better
                 })
                 .ConfigureLogging((context, logging) =>
                 {
-                    logging.SetMinimumLevel(LogLevel.Trace);
                     logging.ClearProviders();
 #if DEBUG
+                    logging.SetMinimumLevel(LogLevel.Trace);
                     logging.AddDebugLogger((config) =>
                     {
                         config.MinimumLogLevel = LogLevel.Trace;
@@ -110,15 +110,10 @@ namespace Ink_Canvas_Better
 #endif
                     logging.AddFileLogger((config) =>
                     {
-#if DEBUG
                         config.MinimumLogLevel = LogLevel.Trace;
-#else
-                        config.MinimumLogLevel = LogLevel.Information;
-#endif
                     });
                 })
                 .Build();
-            IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is starting up =====");
         }
     }
 }

@@ -61,6 +61,7 @@ public class PPTService
         catch (Exception ex)
         {
             logger.WriteLog(LogLevel.Warning, () => $"Occurs in PPTService.ConnectPPT() {ex}");
+            return false;
         }
     }
 

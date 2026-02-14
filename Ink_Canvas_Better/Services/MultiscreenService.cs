@@ -57,12 +57,12 @@ public class MultiscreenService : IDisposable
             fb.ScreenIndex = i;
             fb.Dock();
         }
-        logger.LogTrace($"Floating bar amount: {fbCollection.Count}");
+        logger.WriteLog(LogLevel.Trace, () => $"Floating bar amount: {fbCollection.Count}");
         if (logger.IsEnabled(LogLevel.Trace))
         {
             for (int i = 0; i < fbCollection.Count; i++)
             {
-                logger.LogTrace($"Floating bar {i}: x:{fbCollection[i].X} y:{fbCollection[i].Y}");
+                logger.WriteLog(LogLevel.Trace, () => $"Floating bar {i}: x:{fbCollection[i].X} y:{fbCollection[i].Y}");
             }
         }
     }
