@@ -26,6 +26,11 @@
             ForceCursor="False"
             IsManipulationEnabled="True"/>
         <ItemsControl ItemsSource="{Binding FloatingBarCollection}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid ColumnDefinitions="Auto" RowDefinitions="Auto"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
                     <Setter Property="HorizontalAlignment" Value="Left"/>

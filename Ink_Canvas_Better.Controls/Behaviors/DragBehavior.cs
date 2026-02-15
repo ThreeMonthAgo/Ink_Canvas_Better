@@ -74,7 +74,7 @@ namespace Ink_Canvas_Better.Controls.Behaviors
             {
                 // Get TranslateTransform
                 var controlToDrag = temp as Control;
-                TranslateTransform translateTransform;
+                TranslateTransform translateTransform = null;
                 if (controlToDrag.RenderTransform is TranslateTransform tt)
                 {
                     translateTransform = tt;
@@ -89,8 +89,11 @@ namespace Ink_Canvas_Better.Controls.Behaviors
                             break;
                         }
                     }
-                    translateTransform = new();
-                    tg.Children.Add(translateTransform);
+                    if (translateTransform is null)
+                    {
+                        translateTransform = new();
+                        tg.Children.Add(translateTransform);
+                    }
                 }
                 else
                 {

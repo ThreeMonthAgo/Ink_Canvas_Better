@@ -70,7 +70,7 @@ namespace Ink_Canvas_Better
             this.MainWindow = IApp.GetService<MainWindow>();
             MainWindow.Show();
             IApp.GetService<MultiscreenService>().Check();
-            IApp.GetService<PPTService>().RunCheckTimer(true);
+            IApp.GetService<PPTService>().Init();
 
             logger.WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
         }
