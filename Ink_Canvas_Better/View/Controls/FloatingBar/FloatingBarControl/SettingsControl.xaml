@@ -7,12 +7,13 @@
              xmlns:ICBControls="Ink_Canvas_Better.Controls"
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
              xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl"
+             Loaded="SettingsControl_Loaded"
              d:DataContext="{d:DesignInstance Type=vm:SettingsControlVM}"
              mc:Ignorable="d">
-    <ICBControls:FloatingBarControl
+    <ICBControls:FloatingBarButton
         Icon="{x:Static iuwm:FluentSystemIcons.Settings_24_Regular}"
         Text="{DynamicResource Text_Setting}"
         TextVisibility="{Binding TextVisibility}"
         Click="SettingsControl_Click">
-    </ICBControls:FloatingBarControl>
+    </ICBControls:FloatingBarButton>
 </UserControl>

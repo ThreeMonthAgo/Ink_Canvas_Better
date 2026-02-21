@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using iNKORE.UI.WPF.Modern.Common.IconKeys;
 using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Ink_Canvas_Better.Controls.FloatingBarControls
 {
-    public partial class FloatingBarControl
+    public partial class FloatingBarPopup
     {
         #region Propties
 
@@ -21,7 +18,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         }
 
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register(nameof(Text), typeof(string), typeof(FloatingBarControl), new PropertyMetadata("Text"));
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(FloatingBarPopup), new PropertyMetadata("Text"));
 
         #endregion
 
@@ -34,7 +31,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         }
 
         public static readonly DependencyProperty TextVisibilityProperty =
-            DependencyProperty.Register(nameof(TextVisibility), typeof(Visibility), typeof(FloatingBarControl), new PropertyMetadata(Visibility.Visible));
+            DependencyProperty.Register(nameof(TextVisibility), typeof(Visibility), typeof(FloatingBarPopup), new PropertyMetadata(Visibility.Visible));
 
         #endregion
 
@@ -47,7 +44,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         }
 
         public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register(nameof(ImageSource), typeof(ImageSource), typeof(FloatingBarControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ImageSource), typeof(ImageSource), typeof(FloatingBarPopup), new PropertyMetadata(null));
 
         #endregion
 
@@ -60,7 +57,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         }
 
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register(nameof(Icon), typeof(FontIconData), typeof(FloatingBarControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Icon), typeof(FontIconData), typeof(FloatingBarPopup), new PropertyMetadata(null));
 
         #endregion
 
@@ -73,7 +70,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         }
 
         public static readonly DependencyProperty ExtraContentProperty =
-            DependencyProperty.Register(nameof(ExtraContent), typeof(object), typeof(FloatingBarControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ExtraContent), typeof(object), typeof(FloatingBarPopup), new PropertyMetadata(null));
 
         #endregion
 
@@ -86,7 +83,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         }
 
         public static readonly DependencyProperty PopupContentProperty =
-            DependencyProperty.Register(nameof(PopupContent), typeof(object), typeof(FloatingBarControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PopupContent), typeof(object), typeof(FloatingBarPopup), new PropertyMetadata(null));
 
         #endregion
 
@@ -106,7 +103,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         }
 
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(FloatingBarControl), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(FloatingBarPopup), new PropertyMetadata(false));
 
         #endregion
 
@@ -119,11 +116,11 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         }
 
         public static readonly DependencyProperty StaysOpenProperty =
-            DependencyProperty.Register(nameof(StaysOpen), typeof(bool), typeof(FloatingBarControl), new PropertyMetadata(false, OnStaysOpenChanged));
+            DependencyProperty.Register(nameof(StaysOpen), typeof(bool), typeof(FloatingBarPopup), new PropertyMetadata(false, OnStaysOpenChanged));
 
         private static void OnStaysOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var floatingBarControl = d as FloatingBarControl;
+            var floatingBarControl = d as FloatingBarPopup;
             var fontIcon = floatingBarControl.GetTemplateChild("PART_ToggleButton_FontIcon") as FontIcon;
             fontIcon.Icon = (bool)(e.NewValue) ? SegoeFluentIcons.Pin : SegoeFluentIcons.Unpin;
         }
@@ -139,7 +136,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
         }
 
         public static readonly RoutedEvent ClickEvent =
-            EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(FloatingBarControl));
+            EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(FloatingBarPopup));
     }
 }
     

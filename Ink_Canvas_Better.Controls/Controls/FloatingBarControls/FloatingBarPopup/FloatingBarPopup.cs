@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
@@ -10,11 +7,11 @@ using System.Windows.Markup;
 namespace Ink_Canvas_Better.Controls.FloatingBarControls
 {
     [ContentProperty("PopupContent")]
-    public partial class FloatingBarControl : Control
+    public partial class FloatingBarPopup : Control
     {
-        static FloatingBarControl()
+        static FloatingBarPopup()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(FloatingBarControl), new FrameworkPropertyMetadata(typeof(FloatingBarControl)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(FloatingBarPopup), new FrameworkPropertyMetadata(typeof(FloatingBarPopup)));
         }
 
         public override void OnApplyTemplate()
@@ -22,10 +19,7 @@ namespace Ink_Canvas_Better.Controls.FloatingBarControls
             base.OnApplyTemplate();
 
             var grid = GetTemplateChild("PART_Grid") as Grid;
-            grid.MouseUp += (s, e) =>
-            {
-                RaiseEvent(new RoutedEventArgs(ClickEvent));
-            };
+            grid.MouseUp += (s, e) => RaiseEvent(new RoutedEventArgs(ClickEvent));
 
             var popup = GetTemplateChild("PART_Popup") as Popup;
             var mainGrid = GetTemplateChild("PART_MainGrid") as Grid;

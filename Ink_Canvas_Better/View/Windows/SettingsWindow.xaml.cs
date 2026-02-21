@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using Ink_Canvas_Better.View.Pages.Settings.Appearance;
 using Ink_Canvas_Better.View.Pages.Settings.Debug;
 using Ink_Canvas_Better.View.Pages.Settings.Home;
@@ -17,22 +16,11 @@ namespace Ink_Canvas_Better.View.Windows
             InitializeComponent();
 
             DataContext = new SettingsWindowVM();
-            this.Loaded += SettingsWindow_Loaded;
         }
 
         private void SettingsWindow_Loaded(object sender, RoutedEventArgs e)
         {
             Settings.IsInitializing = false;
-        }
-
-        /// <summary>
-        /// Hide the window instead of close it in order to avoid InvalidOperationException:
-        ///     System.Windows.Window.Show is called on a window that is closing or has been closed.
-        /// </summary>
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;
-            Hide();
         }
 
         /// <summary>
@@ -58,16 +46,6 @@ namespace Ink_Canvas_Better.View.Windows
                     Settings.SelectedPage = new DebugPage();
                     break;
             }
-        }
-
-        /// <summary>
-        /// Show the SettingsWindow or activate it if miniized
-        /// </summary>
-        public void ShowWindow()
-        {
-            if (this.WindowState == WindowState.Minimized) this.WindowState = WindowState.Normal;
-            if (!this.IsVisible) this.Show();
-            if (!this.IsActive) this.Activate();
         }
     }
 }

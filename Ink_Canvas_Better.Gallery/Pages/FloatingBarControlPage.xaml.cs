@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using Ink_Canvas_Better.Controls.FloatingBarControls;
 
 namespace Ink_Canvas_Better.Gallery.Pages
 {
@@ -18,15 +19,21 @@ namespace Ink_Canvas_Better.Gallery.Pages
             DataContext = vm;
         }
 
-        private void FloatingBarControl_WithPopup_Click(object sender, RoutedEventArgs e)
+        private void FloatingBarPopup_Click(object sender, RoutedEventArgs e)
         {
             vm.IsOpen_WithPopup = true;
+        }
+
+        private void FloatingBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            var c = sender as FloatingBarButton;
+            c.TextVisibility = c.TextVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 
     public class FloatingBarControlPageViewModel : INotifyPropertyChanged
     {
-        private bool isOpen_WithPopup { get; set; } = false;
+        private bool isOpen_WithPopup = false;
 
         public bool IsOpen_WithPopup
         {

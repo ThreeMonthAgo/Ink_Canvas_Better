@@ -13,16 +13,23 @@
 
     <StackPanel>
         <TextBlock Text="Note: iNKORE.UI.WPF.Modern is required" Foreground="OrangeRed"/>
-        <TextBlock Text="FloatingBarControl with Popup"/>
-        <controls:FloatingBarControl
+        <TextBlock Text="FloatingBarPopup"/>
+        <controls:FloatingBarPopup
             HorizontalAlignment="Left"
-            Click="FloatingBarControl_WithPopup_Click"
+            Click="FloatingBarPopup_Click"
             IsOpen="{Binding IsOpen_WithPopup, Mode=TwoWay}"
             Icon="{x:Static iuwm:FluentSystemIcons.Accessibility_16_Regular}"
             Text="Example">
-            <controls:FloatingBarControl.PopupContent>
+            <controls:FloatingBarPopup.PopupContent>
                 <TextBlock Text="This is the content of the popup"/>
-            </controls:FloatingBarControl.PopupContent>
-        </controls:FloatingBarControl>
+            </controls:FloatingBarPopup.PopupContent>
+        </controls:FloatingBarPopup>
+        <TextBlock Text="FloatingBarButton"/>
+        <controls:FloatingBarButton
+            HorizontalAlignment="Left"
+            Click="FloatingBarButton_Click"
+            Icon="{x:Static iuwm:FluentSystemIcons.Button_20_Regular}"
+            Text="Example">
+        </controls:FloatingBarButton>
     </StackPanel>
 </Page>

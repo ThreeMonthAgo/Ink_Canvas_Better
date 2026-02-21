@@ -13,12 +13,7 @@ public partial class EraserControl : UserControl
 {
     public EraserControlVM Settings => DataContext as EraserControlVM;
 
-    public EraserControl()
-    {
-        InitializeComponent();
-
-        this.Loaded += EeaserControl_Loaded;
-    }
+    public EraserControl() => InitializeComponent();
 
     private void EeaserControl_Loaded(object sender, RoutedEventArgs e)
     {
@@ -38,6 +33,7 @@ public partial class EraserControl : UserControl
             Settings.IsOpen = true;
         }
     }
+
     public void Apply()
     {
         if (Settings == null || Settings.IsInitializing) return;

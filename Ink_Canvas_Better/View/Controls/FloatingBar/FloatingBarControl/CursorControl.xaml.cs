@@ -11,23 +11,11 @@ public partial class CursorControl : UserControl
 {
     public CursorControlVM Settings => DataContext as CursorControlVM;
 
-    public CursorControl()
-    {
-        InitializeComponent();
-
-        this.Loaded += CursorControl_Loaded;
-    }
+    public CursorControl() => InitializeComponent();
 
     private void CursorControl_Click(object sender, RoutedEventArgs e) => Apply();
 
-    private void CursorControl_Loaded(object sender, RoutedEventArgs e)
-    {
-        Settings.IsInitializing = false;
-    }
+    private void CursorControl_Loaded(object sender, RoutedEventArgs e) => Settings.IsInitializing = false;
 
-    public bool Apply()
-    {
-        IApp.GetService<SettingsService>().Settings.MainWindowVM.CurrentEditingMode = EditingMode.None;
-        return true;
-    }
+    public void Apply() => IApp.GetService<SettingsService>().Settings.MainWindowVM.CurrentEditingMode = EditingMode.None;
 }

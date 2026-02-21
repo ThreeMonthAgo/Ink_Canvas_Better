@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Ink_Canvas_Better.Services;
 
@@ -18,12 +16,6 @@ namespace Ink_Canvas_Better.View.Windows
 
             InitializeComponent();
             LanguageListBox.ItemsSource = new List<String>(themeService.SupportedLanguage.Seconds);
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;
-            Hide();
         }
 
         private void LanguageListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

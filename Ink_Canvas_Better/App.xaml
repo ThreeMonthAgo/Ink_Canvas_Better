@@ -12,8 +12,8 @@
                 <iuwm:ThemeResources/>
                 <iuwm:XamlControlsResources/>
 
-                <ResourceDictionary Source="/Themes/Image/Light/DrawShapeImageDictionary.xaml"/>
-                <ResourceDictionary Source="/Themes/Image/Light/OthersImageDictionary.xaml"/>
+                <ResourceDictionary Source="/Themes/Image/DrawShapeImageDictionary.xaml"/>
+                <ResourceDictionary Source="/Themes/Image/OthersImageDictionary.xaml"/>
                 <ResourceDictionary Source="/Themes/Language/en.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!-- Converters -->

@@ -3,14 +3,13 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
-using Ink_Canvas_Better.View.Pages.Settings.Home;
 using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.ViewModel.Windows
 {
     internal class SettingsWindowVM : INotifyPropertyChanged
     {
-        private Page _selectedPage = new HomePage();
+        private Page _selectedPage;
 
         #region
 

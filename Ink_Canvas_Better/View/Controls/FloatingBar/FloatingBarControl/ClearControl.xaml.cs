@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.View.Windows;
+using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 
 namespace Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl
 {
@@ -10,6 +11,8 @@ namespace Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl
     /// </summary>
     public partial class ClearControl : UserControl
     {
+        public ClearControlVM Settings => DataContext as ClearControlVM;
+
         public ClearControl()
         {
             InitializeComponent();

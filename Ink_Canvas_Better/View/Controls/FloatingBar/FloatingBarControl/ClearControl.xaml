@@ -9,10 +9,10 @@
              xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl"
              d:DataContext="{d:DesignInstance Type=vm:ClearControlVM}"
              mc:Ignorable="d">
-    <ICBControls:FloatingBarControl
+    <ICBControls:FloatingBarButton
         Icon="{x:Static iuwm:FluentSystemIcons.Delete_24_Regular}"
         Text="{DynamicResource Text_Clear}"
         TextVisibility="{Binding TextVisibility}"
         Click="ClearControl_Click">
-    </ICBControls:FloatingBarControl>
+    </ICBControls:FloatingBarButton>
 </UserControl>

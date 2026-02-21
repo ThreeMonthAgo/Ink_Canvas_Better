@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
@@ -91,8 +90,6 @@ namespace Ink_Canvas_Better
 
                     // UI (Windows)
                     service.AddSingleton<MainWindow>();
-                    service.AddSingleton<SettingsWindow>();
-                    service.AddSingleton<LanguageWindow>();
 
                     // UI (Pages)
                     service.AddSingleton<HomePage>();

@@ -7,6 +7,7 @@
       xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
       mc:Ignorable="d"
       d:DesignWidth="800"
+      Loaded="Home_Loaded"
       Title="{DynamicResource Text_Home}">
 
     <ScrollViewer PanningMode="VerticalOnly">

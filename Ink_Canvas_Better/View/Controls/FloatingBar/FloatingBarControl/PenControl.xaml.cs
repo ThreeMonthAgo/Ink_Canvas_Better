@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
-using System.Windows.Input;
 using System.Windows.Media;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
@@ -15,11 +13,7 @@ public partial class PenControl : UserControl
 {
     public PenControlVM Settings => DataContext as PenControlVM;
 
-    public PenControl()
-    {
-        InitializeComponent();
-        this.Loaded += PenControl_Loaded;
-    }
+    public PenControl() => InitializeComponent();
 
     private void PenControl_Loaded(object sender, RoutedEventArgs e)
     {

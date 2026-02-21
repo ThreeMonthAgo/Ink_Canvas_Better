@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Text;
+﻿using System.Globalization;
 using System.Windows;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Utilities.DataStructures;
@@ -59,40 +55,20 @@ namespace Ink_Canvas_Better.Services
                         object registryValueObject = key?.GetValue("AppsUseLightTheme");
                         if (registryValueObject is int appsUseLightTheme)
                         {
-                            IsChangeToLight(appsUseLightTheme == 1); // 1 -> light; 0 -> dark
+                            ThemeManager.Current.ApplicationTheme = appsUseLightTheme == 1 ? ApplicationTheme.Light : ApplicationTheme.Dark;
                         }
                         else
                         {
-                            IsChangeToLight(true);
+                            ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
                         }
                     }
                     break;
                 case 1:
-                    IsChangeToLight(true);
+                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
                     break;
                 case 2:
-                    IsChangeToLight(false);
-                    break;
-            }
-
-            void IsChangeToLight(bool b)
-            {
-                if (b)
-                {
-                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
-                    d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/DrawShapeImageDictionary.xaml", UriKind.Relative) });
-                    d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/OthersImageDictionary.xaml", UriKind.Relative) });
-                    d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/DrawShapeImageDictionary.xaml", UriKind.Relative) });
-                    d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/OthersImageDictionary.xaml", UriKind.Relative) });
-                }
-                else
-                {
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
-                    d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/DrawShapeImageDictionary.xaml", UriKind.Relative) });
-                    d.Remove(new ResourceDictionary() { Source = new Uri("Themes/Image/Light/OthersImageDictionary.xaml", UriKind.Relative) });
-                    d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/DrawShapeImageDictionary.xaml", UriKind.Relative) });
-                    d.Add(new ResourceDictionary() { Source = new Uri("Themes/Image/Dark/OthersImageDictionary.xaml", UriKind.Relative) });
-                }
+                    break;
             }
         }
     }

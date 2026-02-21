@@ -8,6 +8,7 @@
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
              xmlns:ICBControls="Ink_Canvas_Better.Controls"
              xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl"
+             Loaded="EeaserControl_Loaded"
              d:DataContext="{d:DesignInstance Type=vm:EraserControlVM}"
              mc:Ignorable="d">
     <UserControl.Resources>
@@ -20,14 +21,14 @@
         </Style>
     </UserControl.Resources>
     
-    <ICBControls:FloatingBarControl
+    <ICBControls:FloatingBarPopup
         Icon="{x:Static iuwm:FluentSystemIcons.EraserSegment_24_Regular}"
         Text="{DynamicResource Text_Eraser}"
         TextVisibility="{Binding TextVisibility}"
         IsOpen="{Binding IsOpen, Mode=TwoWay}"
         StaysOpen="False"
         Click="EraserControl_Click">
-        <ICBControls:FloatingBarControl.PopupContent>
+        <ICBControls:FloatingBarPopup.PopupContent>
             <iuw:SimpleStackPanel d:Background="AliceBlue" Orientation="Horizontal">
                 <iuw:SimpleStackPanel>
                     <iuw:SimpleStackPanel Orientation="Horizontal" Spacing="4">
@@ -84,6 +85,6 @@
                              Width="{Binding Thickness}"/>
                 </Grid>
             </iuw:SimpleStackPanel>
-        </ICBControls:FloatingBarControl.PopupContent>
-    </ICBControls:FloatingBarControl>
+        </ICBControls:FloatingBarPopup.PopupContent>
+    </ICBControls:FloatingBarPopup>
 </UserControl>

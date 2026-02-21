@@ -4,10 +4,10 @@
                     xmlns:local="clr-namespace:Ink_Canvas_Better.Controls.FloatingBarControls"
                     xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
                     xmlns:behavior="clr-namespace:Ink_Canvas_Better.Controls.Behaviors">
-    <Style TargetType="{x:Type local:FloatingBarControl}">
+    <Style TargetType="{x:Type local:FloatingBarPopup}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:FloatingBarControl}">
+                <ControlTemplate TargetType="{x:Type local:FloatingBarPopup}">
                     <Grid x:Name="PART_MainGrid" Background="Transparent" Width="64" Height="64">
                         <Popup
                             x:Name="PART_Popup"

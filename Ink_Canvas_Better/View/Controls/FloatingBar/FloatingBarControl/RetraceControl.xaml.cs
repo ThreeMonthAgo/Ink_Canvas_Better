@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.View.Windows;
@@ -13,10 +10,7 @@ namespace Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl
     {
         public RetraceControlVM Settings => DataContext as RetraceControlVM;
 
-        public RetraceControl()
-        {
-            InitializeComponent();
-        }
+        public RetraceControl() => InitializeComponent();
 
         private void RetraceControl_Click(object sender, RoutedEventArgs e) => Settings.IsOpen = true;
 

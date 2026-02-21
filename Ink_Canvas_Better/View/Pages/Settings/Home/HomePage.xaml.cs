@@ -11,19 +11,12 @@ namespace Ink_Canvas_Better.View.Pages.Settings.Home
     public partial class HomePage : Page
     {
         private SettingsService settingsService;
-        private LanguageWindow languageWindow;
 
-        public HomePage()
-        {
-            InitializeComponent();
-
-            this.Loaded += Home_Loaded;
-        }
+        public HomePage() => InitializeComponent();
 
         private void Home_Loaded(object sender, RoutedEventArgs e)
         {
             this.settingsService = IApp.GetService<SettingsService>();
-            this.languageWindow = IApp.GetService<LanguageWindow>();
             SettingsCard_About_1.Header = $"Ink Canvas Better v{settingsService.Settings.AppVersion}" + (settingsService.Settings.AppVersion.Revision > 0 ? " - beta" : "");
         }
 
@@ -60,7 +53,7 @@ namespace Ink_Canvas_Better.View.Pages.Settings.Home
 
         private void SettingsCard_Language_Click(object sender, RoutedEventArgs e)
         {
-            languageWindow.ShowDialog();
+            settingsService.ShowLanguageWindow();
         }
 
         private void HyperlinkButton_Author_Click(object sender, RoutedEventArgs e)

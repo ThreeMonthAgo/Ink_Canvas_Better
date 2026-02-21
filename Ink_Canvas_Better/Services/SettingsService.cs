@@ -1,15 +1,21 @@
-﻿using Ink_Canvas_Better.Helpers;
+﻿using System.Diagnostics;
+using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Model;
 using Ink_Canvas_Better.Services.JsonConverter;
+using Ink_Canvas_Better.View.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Services
 {
-    public class SettingsService(ILogger<SettingsService> logger)
+    public class SettingsService(ILogger<SettingsService> logger, IServiceProvider serviceProvider)
     {
         private readonly ILogger<SettingsService> logger = logger;
+        private readonly IServiceProvider serviceProvider = serviceProvider;
+
+        #region Serialization & Deserialization
 
         private readonly JsonSerializerSettings jsonSerializerSettings = new()
         {
@@ -50,5 +56,41 @@ namespace Ink_Canvas_Better.Services
             SaveSettings();
             logger.WriteLog(LogLevel.Information, "Settings have been restored to defaults");
         }
+
+        #endregion
+
+        #region Windows
+
+        public SettingsWindow SettingsWindow { get; private set; }
+
+        public void ShowSettingsWindow()
+        {
+            if (SettingsWindow is null || !SettingsWindow.IsLoaded)
+            {
+                SettingsWindow = ActivatorUtilities.CreateInstance<SettingsWindow>(serviceProvider);
+                SettingsWindow.Show();
+            }
+            else
+            {
+                SettingsWindow.Activate();
+            }
+        }
+
+        public LanguageWindow LanguageWindow { get; private set; }
+
+        public void ShowLanguageWindow()
+        {
+            if (LanguageWindow is null || !LanguageWindow.IsLoaded)
+            {
+                LanguageWindow = ActivatorUtilities.CreateInstance<LanguageWindow>(serviceProvider);
+                LanguageWindow.ShowDialog();
+            }
+            else
+            {
+                LanguageWindow.Activate();
+            }
+        }
+
+        #endregion
     }
 }

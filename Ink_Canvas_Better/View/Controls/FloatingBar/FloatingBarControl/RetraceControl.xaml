@@ -10,18 +10,17 @@
              xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl"
              d:DataContext="{d:DesignInstance Type=vm:RetraceControlVM}"
              mc:Ignorable="d" >
-    <ICBControls:FloatingBarControl
+    <ICBControls:FloatingBarPopup
         Icon="{x:Static iuwm:FluentSystemIcons.History_24_Regular}"
         IsOpen="{Binding IsOpen, Mode=TwoWay}"
         Text="{DynamicResource Text_Retrace}"
         TextVisibility="{Binding TextVisibility}"
         Click="RetraceControl_Click">
-        <ICBControls:FloatingBarControl.PopupContent>
+        <ICBControls:FloatingBarPopup.PopupContent>
             <iuw:SimpleStackPanel d:Background="AliceBlue" Orientation="Horizontal">
                 <Button Content="{DynamicResource Text_Redo}" Width="100" Click="Button_Redo_Click"/>
                 <Button Content="{DynamicResource Text_Undo}" Width="100" Click="Button_Undo_Click"/>
             </iuw:SimpleStackPanel>
-        </ICBControls:FloatingBarControl.PopupContent>
-
-    </ICBControls:FloatingBarControl>
+        </ICBControls:FloatingBarPopup.PopupContent>
+    </ICBControls:FloatingBarPopup>
 </UserControl>

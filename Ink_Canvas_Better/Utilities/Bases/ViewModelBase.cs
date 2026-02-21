@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;

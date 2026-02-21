@@ -12,9 +12,10 @@
         Topmost="True"
         Title="{DynamicResource Text_SettingWindowTitle}"
         Icon="/Themes/App.ico"
-        d:DataContext="{d:DesignInstance Type=vm:SettingsWindowVM}"
-        MinHeight="500" MinWidth="750"
         Height="450" Width="900"
+        Loaded="SettingsWindow_Loaded"
+        MinHeight="500" MinWidth="750"
+        d:DataContext="{d:DesignInstance Type=vm:SettingsWindowVM}"
         mc:Ignorable="d">
     <!-- Navigation -->
     <iuwm:NavigationView
@@ -23,6 +24,7 @@
         IsBackButtonVisible="Collapsed"
         IsTabStop="False"
         PaneDisplayMode="LeftCompact"
+        SelectedItem="{Binding ElementName=Home, Mode=OneTime}"
         PaneTitle="{DynamicResource Text_ProductName}">
         <iuwm:NavigationView.MenuItems>
             <iuwm:NavigationViewItem Name="Home" Content="{DynamicResource Text_Home}" ToolTipService.ToolTip="{DynamicResource Text_Home}">

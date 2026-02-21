@@ -26,17 +26,17 @@
                 BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
                 BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}"
                 CornerRadius="8">
-            <ICBControls:FloatingBarControl
+            <ICBControls:FloatingBarButton
                 TextVisibility="Collapsed"
                 Icon="{x:Static iuwm:FluentSystemIcons.Drag_24_Regular}">
-                <ICBControls:FloatingBarControl.ExtraContent>
+                <ICBControls:FloatingBarButton.ExtraContent>
                     <Thumb Opacity="0">
                         <bh:Interaction.Behaviors>
                             <behavior:DragBehavior TypeOfControlToDrag="{x:Type fb:FloatingBar}"/>
                         </bh:Interaction.Behaviors>
                     </Thumb>
-                </ICBControls:FloatingBarControl.ExtraContent>
-            </ICBControls:FloatingBarControl>
+                </ICBControls:FloatingBarButton.ExtraContent>
+            </ICBControls:FloatingBarButton>
         </Border>
         <ItemsControl ItemsSource="{Binding Items}">
             <ItemsControl.ItemsPanel>

@@ -7,12 +7,13 @@
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
              xmlns:ICBControls="Ink_Canvas_Better.Controls"
              xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl"
+             Loaded="CursorControl_Loaded"
              d:DataContext="{d:DesignInstance Type=vm:CursorControlVM}"
              mc:Ignorable="d">
-    <ICBControls:FloatingBarControl
+    <ICBControls:FloatingBarButton
         Icon="{x:Static iuwm:FluentSystemIcons.Cursor_24_Regular}"
         Text="{DynamicResource Text_Cursor}"
         TextVisibility="{Binding TextVisibility}"
         Click="CursorControl_Click">
-    </ICBControls:FloatingBarControl>
+    </ICBControls:FloatingBarButton>
 </UserControl>

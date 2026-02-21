@@ -10,6 +10,7 @@
              xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
              xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
              xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl"
+             Loaded="PenControl_Loaded"
              d:DataContext="{d:DesignInstance Type=vm:PenControlVM}"
              mc:Ignorable="d">
     <UserControl.Resources>
@@ -21,14 +22,14 @@
         </Style>
     </UserControl.Resources>
 
-    <ICBControls:FloatingBarControl
+    <ICBControls:FloatingBarPopup
         Icon="{x:Static iuwm:FluentSystemIcons.CalligraphyPen_24_Regular}"
         Text="{DynamicResource Text_Pen}"
         TextVisibility="{Binding TextVisibility}"
         IsOpen="{Binding IsOpen, Mode=TwoWay}"
         StaysOpen="False"
         Click="PenControl_Click">
-        <ICBControls:FloatingBarControl.PopupContent>
+        <ICBControls:FloatingBarPopup.PopupContent>
             <iuw:SimpleStackPanel d:Background="AliceBlue" Orientation="Horizontal">
                 <iuw:SimpleStackPanel>
                     <iuw:SimpleStackPanel Orientation="Horizontal">
@@ -109,6 +110,6 @@
                              Opacity="{Binding Alpha, Converter={StaticResource AlphaToOpacityConverter}}"/>
                 </Grid>
             </iuw:SimpleStackPanel>
-        </ICBControls:FloatingBarControl.PopupContent>
-    </ICBControls:FloatingBarControl>
+        </ICBControls:FloatingBarPopup.PopupContent>
+    </ICBControls:FloatingBarPopup>
 </UserControl>
