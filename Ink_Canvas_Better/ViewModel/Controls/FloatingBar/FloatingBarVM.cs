@@ -13,9 +13,9 @@ namespace Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
 [Component(
     viewType: typeof(Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBar),
     guid: "D4F5C8A1-6E2B-4F3A-9C1E-2B7D8F9A0B1C")]
-public class FloatingBarVM : ViewModelBase
+public class FloatingBarVM : FloatingBarViewModelBase
 {
-    private ObservableCollection<ViewModelBase>? _items = [
+    private ObservableCollection<FloatingBarViewModelBase>? _items = [
         new FloatingBarGroupVM(){
             Items = [
                 new CursorControlVM(),
@@ -51,7 +51,7 @@ public class FloatingBarVM : ViewModelBase
     /// <summary>
     /// store viewmodels of items in the floating bar
     /// </summary>
-    public ObservableCollection<ViewModelBase>? Items
+    public ObservableCollection<FloatingBarViewModelBase>? Items
     {
         get { return _items; }
         set { SetProperty(ref _items, value); }
@@ -75,9 +75,6 @@ public class FloatingBarVM : ViewModelBase
         set { SetProperty(ref _scale, value); }
     }
 
-    /// <remarks>
-    /// unused, reserved for multi-monitor support
-    /// </remarks>
     public int ScreenIndex
     {
         get { return _screenIndex; }

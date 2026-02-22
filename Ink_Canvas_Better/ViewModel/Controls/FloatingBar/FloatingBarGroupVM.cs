@@ -1,25 +1,23 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
 using Ink_Canvas_Better.View.Controls.FloatingBar;
-using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
 
 [Component(
     viewType: typeof(FloatingBarGroup),
     guid: "B1E2F3A4-5678-90AB-CDEF-1234567890AB")]
-public class FloatingBarGroupVM : ViewModelBase
+public class FloatingBarGroupVM : FloatingBarViewModelBase
 {
-    private ObservableCollection<ViewModelBase>? _items = [];
+    private ObservableCollection<FloatingBarViewModelBase>? _items = [];
     private double _spacing = 4.0;
     private Orientation _orientation = Orientation.Vertical;
 
     #region
 
-    public ObservableCollection<ViewModelBase>? Items
+    public ObservableCollection<FloatingBarViewModelBase>? Items
     {
         get { return _items; }
         set { SetProperty(ref _items, value); }

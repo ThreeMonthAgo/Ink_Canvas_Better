@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
 using Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl;
@@ -12,7 +9,7 @@ namespace Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 [Component(
     viewType: typeof(RetraceControl),
     guid: "17942105-E0A2-493C-A1F5-F5A86EE8D7DC")]
-public class RetraceControlVM : ViewModelBase
+public class RetraceControlVM : FloatingBarViewModelBase
 {
     // ignored below
     private bool _isOpen = false;

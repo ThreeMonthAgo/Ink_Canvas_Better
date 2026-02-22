@@ -8,9 +8,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Ink_Canvas_Better.Services.JsonConverter;
 
-public class ViewModelBaseConverter : Newtonsoft.Json.JsonConverter
+public class FloatingBarViewModelBaseConverter : Newtonsoft.Json.JsonConverter
 {
-    public override bool CanConvert(Type objectType) => typeof(ViewModelBase).IsAssignableFrom(objectType);
+    public override bool CanConvert(Type objectType) => typeof(FloatingBarViewModelBase).IsAssignableFrom(objectType);
 
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {

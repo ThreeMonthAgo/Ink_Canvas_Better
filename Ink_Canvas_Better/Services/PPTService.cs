@@ -2,14 +2,13 @@
 using System.Runtime.InteropServices;
 using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Logging;
-using Ink_Canvas_Better.Utilities.Interface;
 using Microsoft.Extensions.Logging;
 using Microsoft.Office.Interop.PowerPoint;
 using PPTApp = Microsoft.Office.Interop.PowerPoint.Application;
 
 namespace Ink_Canvas_Better.Services;
 
-public class PPTService
+public class PPTService(ILogger<PPTService> logger)
 {
     private readonly System.Timers.Timer PPTCheckTimer = new()
     {
@@ -17,7 +16,7 @@ public class PPTService
         Interval = 1000
     };
 
-    private readonly ILogger logger = IApp.GetService<ILogger<PPTService>>();
+    private readonly ILogger logger = logger;
     private PPTApp? PPTApplication;
 
     public void Init()
@@ -90,18 +89,18 @@ public class PPTService
         }
     }
 
-    private void PPTApplication_PresentationOpen(Presentation Pres)
+    private void PPTApplication_PresentationOpen(Presentation p)
     {
 
     }
 
-    private void PPTApplication_PresentationCloseFinal(Presentation Pres)
+    private void PPTApplication_PresentationCloseFinal(Presentation p)
     {
         DisconnectPPT();
 
     }
 
-    private void PPTApplication_SlideShowBegin(SlideShowWindow Wn)
+    private void PPTApplication_SlideShowBegin(SlideShowWindow s)
     {
         logger.WriteLog(LogLevel.Information, () => $"SlideShow Begin, path:{PPTApplication.ActivePresentation.FullName}");
         Debug.WriteLine(PPTApplication.SlideShowWindows.Count);
@@ -109,6 +108,30 @@ public class PPTService
         {
             Debug.WriteLine(item.Width);
             Debug.WriteLine(item.Height);
+        }
+    }
+
+    public void Previous()
+    {
+        try
+        {
+            PPTApplication.ActivePresentation.SlideShowWindow.View.Previous();
+        }
+        catch (Exception ex)
+        {
+            logger.WriteLog(LogLevel.Error, ex.ToString);
+        }
+    }
+
+    public void Next()
+    {
+        try
+        {
+            PPTApplication.ActivePresentation.SlideShowWindow.View.Next();
+        }
+        catch (Exception ex)
+        {
+            logger.WriteLog(LogLevel.Error, ex.ToString);
         }
     }
 }

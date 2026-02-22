@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
 using Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl;
@@ -12,7 +9,7 @@ namespace Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 [Component(
     viewType: typeof(ClearControl),
     guid: "FF5724A4-8232-48BD-926D-73CBFB7DDDE5")]
-public class ClearControlVM : ViewModelBase
+public class ClearControlVM : FloatingBarViewModelBase
 {
     // ignored below
     private bool _isOpen = false;

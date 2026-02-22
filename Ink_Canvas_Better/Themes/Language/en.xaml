@@ -75,5 +75,7 @@
     <s:String x:Key="Text_Confirm">Confirm</s:String>
     <s:String x:Key="Text_On">On</s:String>
     <s:String x:Key="Text_Off">Off</s:String>
+    <s:String x:Key="Text_Previous">Previous</s:String>
+    <s:String x:Key="Text_Next">Next</s:String>
     
 </ResourceDictionary>

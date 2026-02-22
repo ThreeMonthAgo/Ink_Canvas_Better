@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
 using Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl;
@@ -10,7 +9,7 @@ namespace Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 [Component(
     viewType: typeof(EraserControl),
     guid: "F4A558A1-ABF1-4493-8D14-8D0D18363B72")]
-public class EraserControlVM : ViewModelBase
+public class EraserControlVM : FloatingBarViewModelBase
 {
     private int _thickness = 20;
     private int _gridViewSelectedIndex = 0;

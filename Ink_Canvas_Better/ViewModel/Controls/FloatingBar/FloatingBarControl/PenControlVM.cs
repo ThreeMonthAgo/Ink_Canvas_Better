@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Media;
 using Ink_Canvas_Better.Utilities.Attributes;
@@ -13,7 +12,7 @@ namespace Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 [Component(
     viewType: typeof(PenControl),
     guid: "87F7581C-364A-49D7-93C3-3355A8415D38")]
-public class PenControlVM : ViewModelBase
+public class PenControlVM : FloatingBarViewModelBase
 {
     private int _gridViewSelectedIndex = 0;
     private ObservableCollection<SolidColorBrush> _colorCollection =

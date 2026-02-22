@@ -75,5 +75,7 @@
     <s:String x:Key="Text_Confirm">確認</s:String>
     <s:String x:Key="Text_On">已啟用</s:String>
     <s:String x:Key="Text_Off">已停用</s:String>
+    <s:String x:Key="Text_Previous">上一頁</s:String>
+    <s:String x:Key="Text_Next">下一頁</s:String>
 
 </ResourceDictionary>

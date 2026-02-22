@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
 using Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl;
@@ -10,7 +9,7 @@ namespace Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 [Component(
     viewType: typeof(SettingsControl),
     guid: "8AA94A7A-4847-4ED2-930F-292A7BFBA7CB")]
-public class SettingsControlVM : ViewModelBase
+public class SettingsControlVM : FloatingBarViewModelBase
 {
     // ignored below
     private Visibility _textVisibility = Visibility.Collapsed;
