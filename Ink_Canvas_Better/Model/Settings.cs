@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
 using System.Windows;
 using Ink_Canvas_Better.Services;
@@ -40,10 +39,11 @@ public class Settings : ViewModelBase
     public MainWindowVM MainWindowVM
     {
         get { return _mainWindowVM; }
-        set { SetProperty(ref _mainWindowVM, value, () =>
+        set
         {
+            SetProperty(ref _mainWindowVM, value);
             IApp.GetService<MainWindow>().DataContext = value;
-        }); }
+        }
     }
 
     public string LogDirPath

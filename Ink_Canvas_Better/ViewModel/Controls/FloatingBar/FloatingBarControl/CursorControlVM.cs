@@ -20,7 +20,7 @@ public class CursorControlVM : FloatingBarViewModelBase
     public Visibility TextVisibility
     {
         get { return _textVisibility; }
-        set { SetProperty(ref _textVisibility, value); }
+        set { SetProperty(ref _textVisibility, value, false); }
     }
 
     #endregion

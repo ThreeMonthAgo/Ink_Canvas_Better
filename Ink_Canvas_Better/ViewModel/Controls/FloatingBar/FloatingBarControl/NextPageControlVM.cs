@@ -7,20 +7,14 @@ using Newtonsoft.Json;
 namespace Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 
 [Component(
-    viewType: typeof(ClearControl),
-    guid: "FF5724A4-8232-48BD-926D-73CBFB7DDDE5")]
-public class ClearControlVM : FloatingBarViewModelBase
+    viewType: typeof(NextPageControl),
+    guid: "69924F29-4EE7-401C-B983-08CFB49AB859")]
+public class NextPageControlVM : FloatingBarViewModelBase
 {
     // ignored below
-    private bool _isOpen = false;
     private Visibility _textVisibility = Visibility.Collapsed;
 
-    [JsonIgnore]
-    public bool IsOpen
-    {
-        get { return _isOpen; }
-        set { SetProperty(ref _isOpen, value, false); }
-    }
+    #region
 
     [JsonIgnore]
     public Visibility TextVisibility
@@ -28,4 +22,6 @@ public class ClearControlVM : FloatingBarViewModelBase
         get { return _textVisibility; }
         set { SetProperty(ref _textVisibility, value, false); }
     }
+
+    #endregion
 }

@@ -14,7 +14,7 @@ namespace Ink_Canvas_Better.View.Pages.Settings.Debug;
 public partial class DebugPage : Page
 {
     public static ObservableCollection<MonitorInfo> Screens => DllHelper.Screens;
-    public ObservableCollection<FloatingBarVM> FloatingBarCollection => IApp.GetService<SettingsService>().Settings.MainWindowVM.FloatingBarCollection;
+    public ObservableCollection<FloatingBarVM> FloatingBarCollection => IApp.GetService<SettingsService>().Settings.MainWindowVM.ToolBarCollection;
 
     public DebugPage()
     {

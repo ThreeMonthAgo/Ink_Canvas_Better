@@ -25,7 +25,21 @@
             DefaultDrawingAttributes="{Binding CurrentDrawingAttributes}"
             ForceCursor="False"
             IsManipulationEnabled="True"/>
-        <ItemsControl ItemsSource="{Binding FloatingBarCollection}">
+        <!-- FloatingBar -->
+        <ItemsControl ItemsSource="{Binding ToolBarCollection}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid ColumnDefinitions="Auto" RowDefinitions="Auto"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+        <!-- SlideShowControl -->
+        <ItemsControl ItemsSource="{Binding SlideShowControlCollection}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid ColumnDefinitions="Auto" RowDefinitions="Auto"/>

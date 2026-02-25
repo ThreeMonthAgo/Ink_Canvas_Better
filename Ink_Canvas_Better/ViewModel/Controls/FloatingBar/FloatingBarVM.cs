@@ -91,14 +91,14 @@ public class FloatingBarVM : FloatingBarViewModelBase
     public double X
     {
         get { return _x; }
-        set { SetProperty(ref _x, value); }
+        set { SetProperty(ref _x, value, false); }
     }
 
     [JsonIgnore]
     public double Y
     {
         get { return _y; }
-        set { SetProperty(ref _y, value); }
+        set { SetProperty(ref _y, value, false); }
     }
 
     /// <remarks>
@@ -111,7 +111,7 @@ public class FloatingBarVM : FloatingBarViewModelBase
     public double Width
     {
         get { return _width; }
-        set { SetProperty(ref _width, value); }
+        set { SetProperty(ref _width, value, false); }
     }
 
     /// <remarks>
@@ -124,7 +124,7 @@ public class FloatingBarVM : FloatingBarViewModelBase
     public double Height
     {
         get { return _height; }
-        set { SetProperty(ref _height, value); }
+        set { SetProperty(ref _height, value, false); }
     }
 
     #endregion
@@ -139,7 +139,7 @@ public class FloatingBarVM : FloatingBarViewModelBase
                 this.Y = 0;
                 break;
             case DockVerticalAlignment.Center:
-                this.Y = (scHeight() / 2) - (realHeight() / 2);
+                this.Y = (scHeight() - realHeight()) / 2;
                 break;
             case DockVerticalAlignment.Bottom:
                 this.Y = scHeight() - realHeight();
@@ -159,7 +159,7 @@ public class FloatingBarVM : FloatingBarViewModelBase
                 break;
             case DockHorizontalAlignment.Center:
             case DockHorizontalAlignment.Unset:
-                this.X = (scWidth() / 2) - (realWidth() / 2);
+                this.X = (scWidth() - realWidth()) / 2;
                 break;
         }
         this.X += scX();

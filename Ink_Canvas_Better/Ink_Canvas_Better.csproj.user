@@ -5,6 +5,12 @@
     <Compile Update="View\Controls\FloatingBar\FloatingBarControl\ClearControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Controls\FloatingBar\FloatingBarControl\NextPageControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Controls\FloatingBar\FloatingBarControl\PreviousPageControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Controls\FloatingBar\FloatingBarControl\RetraceControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

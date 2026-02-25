@@ -1,12 +1,32 @@
-﻿using System.Windows.Controls;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Windows.Controls;
+using Ink_Canvas_Better.Helpers;
+using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
 using Ink_Canvas_Better.Utilities.DataStructures;
+using Ink_Canvas_Better.View.Controls;
+using Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
+using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 using Newtonsoft.Json;
+using Windows.Win32.Foundation;
+using static Ink_Canvas_Better.Utilities.Enums.UI;
 
 namespace Ink_Canvas_Better.ViewModel.Controls;
 
-public class SlideShowControlVM : ViewModelBase
+[Component(
+    viewType: typeof(SlideShowControl),
+    guid: "910AB395-3347-466F-BB00-C71E1212F69A")]
+public class SlideShowControlVM : FloatingBarViewModelBase
 {
+    private ObservableCollection<FloatingBarViewModelBase>? _items = [
+        new FloatingBarGroupVM(){
+            Items = [
+                new PreviousPageControlVM(),
+                new NextPageControlVM(),
+            ]
+        },
+        ];
     private double _spacing = 4.0;
     private Orientation _orientation = Orientation.Horizontal;
     private double _scale = 1.0;
@@ -18,6 +38,12 @@ public class SlideShowControlVM : ViewModelBase
     private double _height = 0;
 
     #region
+
+    public ObservableCollection<FloatingBarViewModelBase>? Items
+    {
+        get { return _items; }
+        set { SetProperty(ref _items, value); }
+    }
 
     public double Spacing
     {
@@ -41,14 +67,14 @@ public class SlideShowControlVM : ViewModelBase
     public double X
     {
         get { return _x; }
-        set { SetProperty(ref _x, value); }
+        set { SetProperty(ref _x, value, false); }
     }
 
     [JsonIgnore]
     public double Y
     {
         get { return _y; }
-        set { SetProperty(ref _y, value); }
+        set { SetProperty(ref _y, value, false); }
     }
 
     /// <remarks>
@@ -61,7 +87,7 @@ public class SlideShowControlVM : ViewModelBase
     public double Width
     {
         get { return _width; }
-        set { SetProperty(ref _width, value); }
+        set { SetProperty(ref _width, value, false); }
     }
 
     /// <remarks>
@@ -74,13 +100,45 @@ public class SlideShowControlVM : ViewModelBase
     public double Height
     {
         get { return _height; }
-        set { SetProperty(ref _height, value); }
+        set { SetProperty(ref _height, value, false); }
     }
 
     #endregion
 
-    public void Dock(DockPlacement? placement = null)
+    /// <remarks>
+    /// DockPlacement is required and not null due to the SlideShowControl is auto generated runtime
+    /// </remarks>
+    public void Dock(DockPlacement placement, RECT rect)
     {
-
+        // Dock
+        switch (placement.VerticalAlignment)
+        {
+            case DockVerticalAlignment.Top:
+                this.Y = 0;
+                break;
+            case DockVerticalAlignment.Center:
+                this.Y = (rect.Height - Height) / 2;
+                break;
+            case DockVerticalAlignment.AboveTaskBar:
+            case DockVerticalAlignment.Bottom:
+            case DockVerticalAlignment.Unset:
+                this.Y = rect.Height - Height;
+                break;
+        }
+        switch (placement.HorizontalAlignment)
+        {
+            case DockHorizontalAlignment.Left:
+                this.X = 0;
+                break;
+            case DockHorizontalAlignment.Right:
+                this.X = rect.Width - Width;
+                break;
+            case DockHorizontalAlignment.Center:
+            case DockHorizontalAlignment.Unset:
+                this.X = (rect.Width - Width) / 2;
+                break;
+        }
+        this.X += rect.left;
+        this.Y += rect.top;
     }
 }

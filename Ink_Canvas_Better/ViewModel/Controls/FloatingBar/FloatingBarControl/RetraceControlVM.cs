@@ -19,13 +19,13 @@ public class RetraceControlVM : FloatingBarViewModelBase
     public bool IsOpen
     {
         get { return _isOpen; }
-        set { SetProperty(ref _isOpen, value); }
+        set { SetProperty(ref _isOpen, value, false); }
     }
 
     [JsonIgnore]
     public Visibility TextVisibility
     {
         get { return _textVisibility; }
-        set { SetProperty(ref _textVisibility, value); }
+        set { SetProperty(ref _textVisibility, value, false); }
     }
 }

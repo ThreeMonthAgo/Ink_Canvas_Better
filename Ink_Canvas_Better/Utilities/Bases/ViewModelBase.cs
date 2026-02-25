@@ -20,27 +20,29 @@ public abstract class ViewModelBase : INotifyPropertyChanged
     protected virtual void SetProperty<T>(
         ref T field,
         T newValue,
-        Action? onChanged = null,
-        bool force = true,
+        bool invokeSaveSettings = true,
+        bool forceInvokePropertyChanged = true,
         [CallerMemberName] string? propertyName = null)
     {
         if (EqualityComparer<T>.Default.Equals(field, newValue))
         {
-            if (force) OnPropertyChanged(propertyName);
+            if (forceInvokePropertyChanged) OnPropertyChanged(propertyName);
         }
         else
         {
             field = newValue;
             OnPropertyChanged(propertyName);
         }
-        onChanged?.Invoke();
+        if (invokeSaveSettings)
+        {
+            if (!IsInitializing) IApp.GetService<SettingsService>().SaveSettings();
+        }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged(string? propertyName = null, bool force = true)
     {
-        if (!IsInitializing) IApp.GetService<SettingsService>().SaveSettings();
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 

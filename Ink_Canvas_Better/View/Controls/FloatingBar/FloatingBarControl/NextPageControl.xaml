@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl.NextPageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl"
+             xmlns:ICBControls="Ink_Canvas_Better.Controls"
+             xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
+             xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
+             xmlns:fb="clr-namespace:Ink_Canvas_Better.View.Controls.FloatingBar"
+             xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl"
+             d:DataContext="{d:DesignInstance Type=vm:NextPageControlVM}"
+             mc:Ignorable="d" >
+    <ICBControls:FloatingBarButton
+        Text="{DynamicResource Text_Next}"
+        TextVisibility="{Binding TextVisibility}"
+        Icon="{x:Static iuwm:FluentSystemIcons.Next_24_Regular}"
+        Click="FloatingBarButton_Next_Click"/>
+</UserControl>

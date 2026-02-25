@@ -68,21 +68,21 @@ public class PenControlVM : FloatingBarViewModelBase
     public bool IsOpen
     {
         get { return _isOpen; }
-        set { SetProperty(ref _isOpen, value); }
+        set { SetProperty(ref _isOpen, value, false); }
     }
 
     [JsonIgnore]
     public SolidColorBrush EllipseFill
     {
         get { return _ellipseFill; }
-        set { SetProperty(ref _ellipseFill, value); }
+        set { SetProperty(ref _ellipseFill, value, false); }
     }
 
     [JsonIgnore]
     public Visibility TextVisibility
     {
         get { return _textVisibility; }
-        set { SetProperty(ref _textVisibility, value); }
+        set { SetProperty(ref _textVisibility, value, false); }
     }
 
     #endregion

@@ -2,6 +2,8 @@
 using System.Windows.Controls;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
+using Ink_Canvas_Better.ViewModel.Controls;
+using Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
 
 namespace Ink_Canvas_Better.View.Controls
 {
@@ -10,6 +12,8 @@ namespace Ink_Canvas_Better.View.Controls
     /// </summary>
     public partial class SlideShowControl : UserControl
     {
+        public SlideShowControlVM Settings => DataContext as SlideShowControlVM;
+
         public SlideShowControl() => InitializeComponent();
 
         private void FloatingBarButton_Previous_Click(object sender, RoutedEventArgs e) =>

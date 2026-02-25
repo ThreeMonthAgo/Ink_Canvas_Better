@@ -11,20 +11,19 @@
              xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls"
              d:DataContext="{d:DesignInstance Type=vm:SlideShowControlVM}"
              mc:Ignorable="d">
-    <Border Background="{DynamicResource {x:Static iuwm:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
-            BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
-            BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}"
-            CornerRadius="8">
-        <iuw:SimpleStackPanel
-            Orientation="{Binding Orientation}">
-            <ICBControls:FloatingBarButton
-                Text="{DynamicResource Text_Previous}"
-                Icon="{x:Static iuwm:FluentSystemIcons.Previous_24_Regular}"
-                Click="FloatingBarButton_Previous_Click"/>
-            <ICBControls:FloatingBarButton
-                Text="{DynamicResource Text_Next}"
-                Icon="{x:Static iuwm:FluentSystemIcons.Next_24_Regular}"
-                Click="FloatingBarButton_Next_Click"/>
-        </iuw:SimpleStackPanel>
-    </Border>
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform ScaleX="{Binding Scale, Mode=TwoWay}" ScaleY="{Binding Scale, Mode=TwoWay}"/>
+            <TranslateTransform X="{Binding X, Mode=TwoWay}" Y="{Binding Y, Mode=TwoWay}"/>
+        </TransformGroup>
+    </UserControl.RenderTransform>
+    
+    <ItemsControl ItemsSource="{Binding Items}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <iuw:SimpleStackPanel Spacing="{Binding Settings.Spacing, RelativeSource={RelativeSource AncestorType={x:Type local:SlideShowControl}}}"
+                                      Orientation="{Binding Settings.Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:SlideShowControl}}}"/>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+    </ItemsControl>
 </UserControl>

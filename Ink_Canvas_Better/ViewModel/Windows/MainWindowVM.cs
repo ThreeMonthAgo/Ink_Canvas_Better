@@ -3,6 +3,7 @@ using System.Windows.Ink;
 using Ink_Canvas_Better.Utilities.Bases;
 using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.View.Windows;
+using Ink_Canvas_Better.ViewModel.Controls;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
 using Newtonsoft.Json;
 using static Ink_Canvas_Better.Utilities.Enums.InkCanvas;
@@ -17,6 +18,7 @@ public class MainWindowVM : ViewModelBase
 
     // ignored below
     private EditingMode _currentEditingMode = EditingMode.None;
+    private ObservableCollection<SlideShowControlVM> _slideShowControlCollection = [];
 
     #region
 
@@ -30,7 +32,7 @@ public class MainWindowVM : ViewModelBase
         }
     }
 
-    public ObservableCollection<FloatingBarVM> FloatingBarCollection
+    public ObservableCollection<FloatingBarVM> ToolBarCollection
     {
         get { return _floatingBarCollection; }
         set { SetProperty(ref _floatingBarCollection, value); }
@@ -52,9 +54,16 @@ public class MainWindowVM : ViewModelBase
         get { return _currentEditingMode; }
         set
         {
-            SetProperty(ref _currentEditingMode, value);
+            SetProperty(ref _currentEditingMode, value, false);
             IApp.GetService<MainWindow>().UpdateInkCanvasEditingMode(value);
         }
+    }
+
+    [JsonIgnore]
+    public ObservableCollection<SlideShowControlVM> SlideShowControlCollection
+    {
+        get { return _slideShowControlCollection; }
+        set { SetProperty(ref _slideShowControlCollection, value, false); }
     }
 
     #endregion

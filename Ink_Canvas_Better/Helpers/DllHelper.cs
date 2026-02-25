@@ -66,6 +66,15 @@ public partial class DllHelper
         public readonly int Height => height;
         public readonly int WkaWidth => wkaWidth;
         public readonly int WkaHeight => wkaHeight;
+
+        public static implicit operator RECT(MonitorInfo info) =>
+            new()
+            {
+                left = info.X,
+                top = info.Y,
+                right = info.X + info.Width,
+                bottom = info.Y + info.Height
+            };
     }
 
     public static readonly ObservableCollection<MonitorInfo> Screens = [];

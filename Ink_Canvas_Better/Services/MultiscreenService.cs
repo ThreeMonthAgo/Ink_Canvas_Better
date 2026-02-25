@@ -48,7 +48,7 @@ public class MultiscreenService : IDisposable
         IApp.GetService<MainWindow>().Height = height;
         logger.WriteLog(LogLevel.Information, () => $"MainWindow has resized to {width}x{height}");
         // Floating bar
-        var fbCollection = settingsService.Settings.MainWindowVM.FloatingBarCollection;
+        var fbCollection = settingsService.Settings.MainWindowVM.ToolBarCollection;
         while (screenCount > fbCollection.Count) fbCollection.Add(new());
         // TODO: while (screenCount < fbCollection.Count) fbCollection.RemoveLast();
         for (int i = 0; i < screenCount; i++)
