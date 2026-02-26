@@ -33,6 +33,7 @@
             <ComboBox Name="ComboBox_StrokeType" MinWidth="60" SelectionChanged="ComboBox_StrokeType_SelectionChanged"/>
         </StackPanel>
         <controls:ICBInkCanvas
+            Loaded="ICBInkCanvas_Loaded"
             Name="ICBInkCanvas"
             Background="Transparent"
             Grid.Row="2"/>

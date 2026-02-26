@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Ink_Canvas_Better.Controls.ICBInkCanvas;
-using static Ink_Canvas_Better.Controls.ICBInkCanvas.ICBInkCanvas;
 
 namespace Ink_Canvas_Better.Gallery.Pages
 {
@@ -17,16 +13,6 @@ namespace Ink_Canvas_Better.Gallery.Pages
         public ICBInkCanvasPage()
         {
             InitializeComponent();
-
-            this.Loaded += MainWindow_Loaded;
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            var stkTypes = Enum.GetValues<ICBInkCanvas.StrokeType>();
-            ComboBox_StrokeType.ItemsSource = stkTypes;
-            ComboBox_StrokeType.SelectedIndex = 0;
-            ApplyToICBInkCanvas();
         }
 
         private void Button_Pen_Click(object sender, RoutedEventArgs e)
@@ -53,7 +39,7 @@ namespace Ink_Canvas_Better.Gallery.Pages
         {
             ICBInkCanvas.DefaultDrawingAttributes.Width = double.Parse(TextBox_Width.Text);
             ICBInkCanvas.DefaultDrawingAttributes.Height = double.Parse(TextBox_Height.Text);
-            ICBInkCanvas.DefaultStrokeType = (StrokeType)ComboBox_StrokeType.SelectedItem;
+            ICBInkCanvas.DefaultStrokeInfo = ICBInkCanvas.StrokeRegistrar.RegisteredStrokes[ComboBox_StrokeType.SelectedIndex];
         }
 
         private void Button_Redo_Click(object sender, RoutedEventArgs e) => ICBInkCanvas.Redo();
@@ -89,6 +75,25 @@ namespace Ink_Canvas_Better.Gallery.Pages
                     return true;
                 }
             }
+        }
+
+        private void ICBInkCanvas_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> typeName = [];
+            foreach (var item in ICBInkCanvas.StrokeRegistrar.RegisteredStrokes)
+            {
+                if (item.StrokeType is null)
+                {
+                    typeName.Add("Default");
+                }
+                else
+                {
+                    typeName.Add(item.StrokeType.Name);
+                }
+            }
+            ComboBox_StrokeType.ItemsSource = typeName;
+            ComboBox_StrokeType.SelectedIndex = 0;
+            ApplyToICBInkCanvas();
         }
     }
 }

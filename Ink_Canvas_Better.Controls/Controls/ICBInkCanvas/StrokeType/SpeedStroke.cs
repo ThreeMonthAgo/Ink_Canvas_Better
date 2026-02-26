@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Windows.Ink;
+﻿using System.Windows.Ink;
 using System.Windows.Input;
 
 namespace Ink_Canvas_Better.Controls.ICBInkCanvas.StrokeType;

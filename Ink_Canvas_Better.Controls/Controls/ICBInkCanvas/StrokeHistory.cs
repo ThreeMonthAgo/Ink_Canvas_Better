@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Ink;
 
 namespace Ink_Canvas_Better.Controls.ICBInkCanvas;
