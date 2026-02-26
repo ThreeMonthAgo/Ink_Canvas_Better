@@ -1,14 +1,38 @@
-﻿using System;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
-using Ink_Canvas_Better.Controls.ICBInkCanvas.StrokeType;
+using System.Windows.Input.StylusPlugIns;
+using Ink_Canvas_Better.Controls.Controls.ICBInkCanvas;
 
 namespace Ink_Canvas_Better.Controls.ICBInkCanvas;
 
 public partial class ICBInkCanvas : InkCanvas
 {
+    public static StrokeRegistrar StrokeRegistrar { get; } = new();
+
     public StrokeHistory History { get; }
+
+    public StrokeInfo DefaultStrokeInfo
+    {
+        get { return _defaultStrokeInfo; }
+        set
+        {
+            _defaultStrokeInfo = value;
+            StylusPlugIn plugin;
+            if (value != null && value.StylusPlugInType != null)
+            {
+                plugin = Activator.CreateInstance(_defaultStrokeInfo.StylusPlugInType) as StylusPlugIn;
+            }
+            else
+            {
+                plugin = null;
+            }
+            ChangeStylusPlugIn(plugin);
+        }
+    }
+
+    private StrokeInfo _defaultStrokeInfo = new(null, null);
     private bool _isHistory = false;
     private bool _isClear = false;
 
@@ -26,7 +50,7 @@ public partial class ICBInkCanvas : InkCanvas
     private void Strokes_StrokesChanged(object sender, StrokeCollectionChangedEventArgs e)
     {
         if (_isHistory) return;
-        if(this.EditingMode == InkCanvasEditingMode.EraseByPoint
+        if (this.EditingMode == InkCanvasEditingMode.EraseByPoint
             || this.EditingMode == InkCanvasEditingMode.EraseByStroke
             || _isClear)
         {
@@ -36,24 +60,19 @@ public partial class ICBInkCanvas : InkCanvas
 
     protected override void OnStrokeCollected(InkCanvasStrokeCollectedEventArgs e)
     {
-        switch (DefaultStrokeType)
+        try
         {
-            case StrokeType.Default:
-                this.DynamicRenderer = new();
-                History.Add(e.Stroke);
-                break;
-            case StrokeType.TailStroke:
-                TailStroke tailStroke = new(e.Stroke.StylusPoints, this.DefaultDrawingAttributes);
-                History.Add(tailStroke);
-                SwitchStrokeType(e.Stroke, tailStroke);
-                break;
-            case StrokeType.SpeedStroke:
-                SpeedStroke speedStroke = new(e.Stroke.StylusPoints, this.DefaultDrawingAttributes);
-                History.Add(speedStroke);
-                SwitchStrokeType(e.Stroke, speedStroke);
-                break;
-            default:
-                throw new InvalidOperationException($"Unexpected StrokeType: {DefaultStrokeType}");
+            if (DefaultStrokeInfo.StrokeType == null) return;
+            else
+            {
+                var newStroke = Activator.CreateInstance(DefaultStrokeInfo.StrokeType, [e.Stroke.StylusPoints, this.DefaultDrawingAttributes]) as Stroke;
+                History.Add(newStroke);
+                SwitchStrokeType(e.Stroke, newStroke);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Failed to create stroke of type {DefaultStrokeInfo.StrokeType}. Exception: {ex}");
         }
     }
 
@@ -79,5 +98,20 @@ public partial class ICBInkCanvas : InkCanvas
         b = !b;
         f();
         b = !b;
+    }
+
+    /// <remarks>
+    /// Currently, only one custom StylusPlugIn is supported, as I
+    /// haven't encountered a scenario requiring multiple StylusPlugIns.
+    /// If such a need arises in the future, this implementation should
+    /// be updated to support multiple StylusPlugIns.
+    /// </remarks>
+    public void ChangeStylusPlugIn(StylusPlugIn? newPlugIn)
+    {
+        this.StylusPlugIns.Clear();
+        // Ensure that the DynamicRenderer is always the last one. This allows
+        // new plug-in to process the stylus input before it is rendered.
+        if (newPlugIn != null) this.StylusPlugIns.Add(newPlugIn);
+        this.StylusPlugIns.Add(this.DynamicRenderer);
     }
 }

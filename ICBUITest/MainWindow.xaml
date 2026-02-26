@@ -26,6 +26,7 @@
             <Button Content="Apply" Click="Button_Apply_Click"/>
         </StackPanel>
         <controls:ICBInkCanvas
+            Loaded="ICBInkCanvas_Loaded"
             Name="ICBInkCanvas"
             Grid.Row="2"/>
     </Grid>
