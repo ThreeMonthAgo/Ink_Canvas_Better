@@ -6,6 +6,7 @@ using System.Windows.Media;
 using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
+using Ink_Canvas_Better.ViewModel.Windows;
 using Windows.Win32.Foundation;
 using static Ink_Canvas_Better.Utilities.Enums.InkCanvas;
 
@@ -16,6 +17,8 @@ namespace Ink_Canvas_Better.View.Windows
         private readonly SolidColorBrush NearlyTransparent = new(Color.FromArgb(1, 255, 255, 255));
         private readonly SolidColorBrush Transparent = Brushes.Transparent;
         public nint handle;
+
+        private MainWindowVM Settings => DataContext as MainWindowVM;
 
         /// <summary>
         /// Avoid operating MainWindow directly, use

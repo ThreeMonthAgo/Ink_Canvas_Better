@@ -1,9 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using Ink_Canvas_Better.Helpers;
+using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
+using Ink_Canvas_Better.View.Windows;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
+using Microsoft.Extensions.Logging;
 using static Ink_Canvas_Better.Helpers.DllHelper;
 
 namespace Ink_Canvas_Better.View.Pages.Settings.Debug;
@@ -21,5 +24,14 @@ public partial class DebugPage : Page
         InitializeComponent();
 
         DataContext = this;
+    }
+
+    private void Button_Save_Strokes(object sender, System.Windows.RoutedEventArgs e)
+    {
+        var inkCanvas = IApp.GetService<MainWindow>().InkCanvas;
+        var logger = IApp.GetService<ILogger<DebugPage>>();
+        var settings = IApp.GetService<SettingsService>();
+        IApp.GetService<InkCanvasService>().SaveData(inkCanvas);
+        logger.WriteLog(LogLevel.Debug, $"Saved strokes to file. Path:{settings.Settings.DataDirPath}");
     }
 }

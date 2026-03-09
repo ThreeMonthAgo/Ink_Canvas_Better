@@ -15,17 +15,26 @@ public class InkCanvasService(SettingsService settingsService)
     public void SaveData(ICBInkCanvas inkCanvas, string? path = null)
     {
         path ??= settingsService.Settings.DataDirPath;
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
+        path = Path.Combine(path, $"{DateTime.Now:yyyyMMdd HHmmss}.zip");
         using var zipStream = new FileStream(path, FileMode.Create);
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create);
         // Save strokes
-        var stkEntry = archive.CreateEntry("strokes.isf");
-        using var stkStream = stkEntry.Open();
-        inkCanvas.Strokes.Save(stkStream);
+        {
+            var stkEntry = archive.CreateEntry("strokes.isf");
+            using var stkStream = stkEntry.Open();
+            inkCanvas.Strokes.Save(stkStream);
+        }
         // Save history
-        var historyEntry = archive.CreateEntry("history.json");
-        using var historyStream = stkEntry.Open();
-        using var writer = new StreamWriter(historyStream);
-        writer.Write(JsonConvert.SerializeObject(inkCanvas.History));
+        {
+            var historyEntry = archive.CreateEntry("history.json");
+            using var historyStream = historyEntry.Open();
+            using var writer = new StreamWriter(historyStream);
+            writer.Write(JsonConvert.SerializeObject(inkCanvas.History));
+        }
     }
 
     public void LoadData(ICBInkCanvas inkCanvas, string path)
@@ -33,13 +42,17 @@ public class InkCanvasService(SettingsService settingsService)
         using var zipStream = new FileStream(path, FileMode.Open);
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
         // Load strokes
-        var stkEntry = archive.GetEntry("strokes.isf");
-        using var stkStream = stkEntry.Open();
-        inkCanvas.Strokes = new StrokeCollection(stkStream);
+        {
+            var stkEntry = archive.GetEntry("strokes.isf");
+            using var stkStream = stkEntry.Open();
+            inkCanvas.Strokes = new StrokeCollection(stkStream);
+        }
         // Load history
-        var historyEntry = archive.GetEntry("history.json");
-        using var historyStream = stkEntry.Open();
-        using var reader = new StreamReader(historyStream);
-        inkCanvas.History = JsonConvert.DeserializeObject<StrokeHistory>(reader.ReadToEnd()) ?? new();
+        {
+            var historyEntry = archive.GetEntry("history.json");
+            using var historyStream = historyEntry.Open();
+            using var reader = new StreamReader(historyStream);
+            inkCanvas.History = JsonConvert.DeserializeObject<StrokeHistory>(reader.ReadToEnd()) ?? new();
+        }
     }
 }

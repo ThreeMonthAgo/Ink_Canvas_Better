@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Logging;
 using Microsoft.Extensions.Logging;
@@ -17,7 +16,7 @@ public class PPTService(ILogger<PPTService> logger)
     };
 
     private readonly ILogger logger = logger;
-    private PPTApp? PPTApplication;
+    private dynamic? PPTApplication;
 
     public void Init()
     {
@@ -30,7 +29,7 @@ public class PPTService(ILogger<PPTService> logger)
         try
         {
             PPTCheckTimer.Enabled = false;
-            PPTApplication = DllHelper.GetActiveObject("PowerPoint.Application") as PPTApp;
+            PPTApplication = DllHelper.GetActiveObject("PowerPoint.Application");
             
             ConnectPPT();
         }
@@ -45,17 +44,17 @@ public class PPTService(ILogger<PPTService> logger)
     {
         try
         {
-            if (PPTApplication is null || PPTApplication.Presentations.Count == 0)
+            var ppt = PPTApplication as PPTApp;
+            if (ppt is null || PPTApplication.Presentations.Count == 0)
             {
                 PPTCheckTimer.Start();
             }
             else
             {
-                PPTApplication.PresentationOpen += PPTApplication_PresentationOpen;
-                PPTApplication.PresentationCloseFinal += PPTApplication_PresentationCloseFinal;
-                PPTApplication.SlideShowBegin += PPTApplication_SlideShowBegin;
+                ppt.PresentationOpen += PPTApplication_PresentationOpen;
+                ppt.PresentationCloseFinal += PPTApplication_PresentationCloseFinal;
+                ppt.SlideShowBegin += PPTApplication_SlideShowBegin;
                 logger.WriteLog(LogLevel.Information, $"PPT connected");
-                Debug.WriteLine(PPTApplication.Presentations.Count);
             }
         }
         catch (Exception ex)
@@ -69,13 +68,13 @@ public class PPTService(ILogger<PPTService> logger)
     {
         try
         {
-            if (PPTApplication is not null)
+            if (PPTApplication is PPTApp ppt)
             {
-                PPTApplication.PresentationOpen -= PPTApplication_PresentationOpen;
-                PPTApplication.PresentationCloseFinal -= PPTApplication_PresentationCloseFinal;
-                PPTApplication.SlideShowBegin -= PPTApplication_SlideShowBegin;
+                ppt.PresentationOpen -= PPTApplication_PresentationOpen;
+                ppt.PresentationCloseFinal -= PPTApplication_PresentationCloseFinal;
+                ppt.SlideShowBegin -= PPTApplication_SlideShowBegin;
                 Marshal.FinalReleaseComObject(PPTApplication);
-                PPTApplication = null;
+                ppt = null;
             }
             logger.WriteLog(LogLevel.Information, "PPT disconnected");
         }
@@ -103,12 +102,7 @@ public class PPTService(ILogger<PPTService> logger)
     private void PPTApplication_SlideShowBegin(SlideShowWindow s)
     {
         logger.WriteLog(LogLevel.Information, () => $"SlideShow Begin, path:{PPTApplication.ActivePresentation.FullName}");
-        Debug.WriteLine(PPTApplication.SlideShowWindows.Count);
-        foreach (SlideShowWindow item in PPTApplication.SlideShowWindows)
-        {
-            Debug.WriteLine(item.Width);
-            Debug.WriteLine(item.Height);
-        }
+
     }
 
     public void Previous()

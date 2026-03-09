@@ -15,7 +15,7 @@
             <iuwm:SettingsCard Name="SettingsCard_About_1" Header="Ink Cnavas Better" Description="{DynamicResource Text_Setting_AppDescription}" IsClickEnabled="True">
                 <iuwm:SettingsCard.HeaderIcon>
                     <!--<iuwm:FontIcon Glyph="&#xf167;"/>-->
-                    <Image Source="/Themes/App.ico"/>
+                    <Image Source="{DynamicResource Image.Others.AppIcon}"/>
                 </iuwm:SettingsCard.HeaderIcon>
                 <iuwm:SettingsCard.Content>
                     <iuw:SimpleStackPanel Orientation="Horizontal" Spacing="5">

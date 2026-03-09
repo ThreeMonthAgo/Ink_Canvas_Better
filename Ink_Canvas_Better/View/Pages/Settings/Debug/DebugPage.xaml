@@ -52,6 +52,9 @@
                     </iuwm:SettingsCard>
                 </iuwm:SettingsExpander.Items>
             </iuwm:SettingsExpander>
+            <iuwm:SettingsCard>
+                <Button Click="Button_Save_Strokes" Content="(Debug) Save strokes"/>
+            </iuwm:SettingsCard>
         </iuw:SimpleStackPanel>
     </ScrollViewer>
 </Page>

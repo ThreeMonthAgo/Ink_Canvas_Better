@@ -1,6 +1,5 @@
 ﻿using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Logging;
-using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.View.Windows;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
@@ -11,11 +10,13 @@ public class MultiscreenService : IDisposable
 {
     private readonly ILogger logger;
     private readonly SettingsService settingsService;
+    private readonly MainWindow mainWindow;
 
-    public MultiscreenService(ILogger<MultiscreenService> logger, SettingsService settingsService)
+    public MultiscreenService(ILogger<MultiscreenService> logger, SettingsService settingsService, MainWindow mainWindow)
     {
         this.logger = logger;
         this.settingsService = settingsService;
+        this.mainWindow = mainWindow;
 
         SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
     }
@@ -44,8 +45,8 @@ public class MultiscreenService : IDisposable
             }
         }
         // MainWindow
-        IApp.GetService<MainWindow>().Width = width;
-        IApp.GetService<MainWindow>().Height = height;
+        mainWindow.Width = width;
+        mainWindow.Height = height;
         logger.WriteLog(LogLevel.Information, () => $"MainWindow has resized to {width}x{height}");
         // Floating bar
         var fbCollection = settingsService.Settings.MainWindowVM.ToolBarCollection;
