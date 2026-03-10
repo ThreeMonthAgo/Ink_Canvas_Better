@@ -32,7 +32,7 @@ public partial class ICBInkCanvas : InkCanvas
         }
     }
 
-    private StrokeInfo _defaultStrokeInfo = new(null, null);
+    private StrokeInfo _defaultStrokeInfo = new(typeof(Stroke), typeof(DynamicRenderer));
     private bool _isHistory = false;
     private bool _isClear = false;
 
@@ -62,13 +62,9 @@ public partial class ICBInkCanvas : InkCanvas
     {
         try
         {
-            if (DefaultStrokeInfo.StrokeType == null) return;
-            else
-            {
-                var newStroke = Activator.CreateInstance(DefaultStrokeInfo.StrokeType, [e.Stroke.StylusPoints, this.DefaultDrawingAttributes]) as Stroke;
-                History.Add(newStroke);
-                SwitchStrokeType(e.Stroke, newStroke);
-            }
+            var newStroke = Activator.CreateInstance(this.DefaultStrokeInfo.StrokeType, [e.Stroke.StylusPoints, this.DefaultDrawingAttributes.Clone()]) as Stroke;
+            History.Add(newStroke);
+            SwitchStrokeType(e.Stroke, newStroke);
         }
         catch (Exception ex)
         {
@@ -111,7 +107,7 @@ public partial class ICBInkCanvas : InkCanvas
         this.StylusPlugIns.Clear();
         // Ensure that the DynamicRenderer is always the last one. This allows
         // new plug-in to process the stylus input before it is rendered.
-        if (newPlugIn != null) this.StylusPlugIns.Add(newPlugIn);
+        this.StylusPlugIns.Add(newPlugIn);
         this.StylusPlugIns.Add(this.DynamicRenderer);
     }
 }

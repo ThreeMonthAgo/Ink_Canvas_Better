@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.IO.Compression;
 using System.Windows.Ink;
 using Ink_Canvas_Better.Controls.ICBInkCanvas;
@@ -19,7 +17,7 @@ public class InkCanvasService(SettingsService settingsService)
         {
             Directory.CreateDirectory(path);
         }
-        path = Path.Combine(path, $"{DateTime.Now:yyyyMMdd HHmmss}.zip");
+        path = Path.Combine(path, $"{DateTime.Now:yyyy-MM-dd HH_mm_ss}.zip");
         using var zipStream = new FileStream(path, FileMode.Create);
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create);
         // Save strokes
