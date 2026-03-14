@@ -2,7 +2,6 @@
 using System.IO.Compression;
 using System.Windows.Ink;
 using Ink_Canvas_Better.Controls.ICBInkCanvas;
-using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Services;
 
@@ -17,7 +16,7 @@ public class InkCanvasService(SettingsService settingsService)
         {
             Directory.CreateDirectory(path);
         }
-        path = Path.Combine(path, $"{DateTime.Now:yyyy-MM-dd HH_mm_ss}.zip");
+        path = Path.Combine(path, $"{DateTime.Now:yyyy-MM-dd HH_mm_ss_fff}.zip");
         using var zipStream = new FileStream(path, FileMode.Create);
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create);
         // Save strokes
@@ -26,13 +25,13 @@ public class InkCanvasService(SettingsService settingsService)
             using var stkStream = stkEntry.Open();
             inkCanvas.Strokes.Save(stkStream);
         }
-        // Save history
-        {
-            var historyEntry = archive.CreateEntry("history.json");
-            using var historyStream = historyEntry.Open();
-            using var writer = new StreamWriter(historyStream);
-            writer.Write(JsonConvert.SerializeObject(inkCanvas.History));
-        }
+        // TODO: Save history
+        //{
+        //    var historyEntry = archive.CreateEntry("history.json");
+        //    using var historyStream = historyEntry.Open();
+        //    using var writer = new StreamWriter(historyStream);
+        //    writer.Write(JsonConvert.SerializeObject(inkCanvas.History));
+        //}
     }
 
     public void LoadData(ICBInkCanvas inkCanvas, string path)
@@ -45,12 +44,12 @@ public class InkCanvasService(SettingsService settingsService)
             using var stkStream = stkEntry.Open();
             inkCanvas.Strokes = new StrokeCollection(stkStream);
         }
-        // Load history
-        {
-            var historyEntry = archive.GetEntry("history.json");
-            using var historyStream = historyEntry.Open();
-            using var reader = new StreamReader(historyStream);
-            inkCanvas.History = JsonConvert.DeserializeObject<StrokeHistory>(reader.ReadToEnd()) ?? new();
-        }
+        // TODO: Load history
+        //{
+        //    var historyEntry = archive.GetEntry("history.json");
+        //    using var historyStream = historyEntry.Open();
+        //    using var reader = new StreamReader(historyStream);
+        //    inkCanvas.History = JsonConvert.DeserializeObject<StrokeHistory>(reader.ReadToEnd()) ?? new();
+        //}
     }
 }

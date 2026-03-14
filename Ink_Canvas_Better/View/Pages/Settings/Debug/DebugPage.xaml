@@ -9,7 +9,8 @@
       mc:Ignorable="d"
       d:DesignWidth="800"
       d:DataContext="{d:DesignInstance Type=local:DebugPage}"
-      Title="DebugPage">
+      Title="DebugPage"
+      Loaded="Page_Loaded">
 
     <ScrollViewer PanningMode="VerticalOnly">
         <iuw:SimpleStackPanel Spacing="4" Margin="16,4">
@@ -52,9 +53,21 @@
                     </iuwm:SettingsCard>
                 </iuwm:SettingsExpander.Items>
             </iuwm:SettingsExpander>
-            <iuwm:SettingsCard>
-                <Button Click="Button_Save_Strokes" Content="(Debug) Save strokes"/>
-            </iuwm:SettingsCard>
+            <iuwm:SettingsExpander Header="Debug" d:IsExpanded="true">
+                <iuwm:SettingsExpander.Items>
+                    <iuwm:SettingsCard ContentAlignment="Left">
+                        <Button Click="Button_Save_Strokes" Content="(Debug) Save strokes"/>
+                    </iuwm:SettingsCard>
+                    <iuwm:SettingsCard ContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Click="Button_Load_Strokes">
+                                <TextBlock Text="(Debug) Load strokes from" VerticalAlignment="Center"/>
+                            </Button>
+                            <TextBox Name="TextBox_StrokeFilePath"/>
+                        </StackPanel>
+                    </iuwm:SettingsCard>
+                </iuwm:SettingsExpander.Items>
+            </iuwm:SettingsExpander>
         </iuw:SimpleStackPanel>
     </ScrollViewer>
 </Page>

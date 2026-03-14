@@ -14,7 +14,7 @@
     <Compile Update="View\Controls\FloatingBar\FloatingBarControl\RetraceControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\Controls\SlideShowControl.xaml.cs">
+    <Compile Update="View\Controls\ToolBarControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Pages\Settings\Debug\DebugPage.xaml.cs">

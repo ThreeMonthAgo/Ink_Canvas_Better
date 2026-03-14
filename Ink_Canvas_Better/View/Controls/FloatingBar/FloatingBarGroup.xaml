@@ -17,7 +17,7 @@
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <iuw:SimpleStackPanel Spacing="{Binding Settings.Spacing, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBarGroup}}}"
-                                          Orientation="{Binding Settings.Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBar}}}"/>
+                                          Orientation="{Binding Settings.Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:FloatingBarGroup}}}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>

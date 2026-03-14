@@ -49,21 +49,21 @@ public class MultiscreenService : IDisposable
         mainWindow.Height = height;
         logger.WriteLog(LogLevel.Information, () => $"MainWindow has resized to {width}x{height}");
         // Floating bar
-        var fbCollection = settingsService.Settings.MainWindowVM.ToolBarCollection;
-        while (screenCount > fbCollection.Count) fbCollection.Add(new());
+        var tbCollection = settingsService.Settings.MainWindowVM.ToolBarCollection;
+        while (screenCount > tbCollection.Count) tbCollection.Add(new());
         // TODO: while (screenCount < fbCollection.Count) fbCollection.RemoveLast();
         for (int i = 0; i < screenCount; i++)
         {
-            var fb = fbCollection[i];
-            fb.ScreenIndex = i;
-            fb.Dock();
+            var tb = tbCollection[i];
+            tb.ScreenIndex = i;
+            tb.Dock();
         }
-        logger.WriteLog(LogLevel.Trace, () => $"Floating bar amount: {fbCollection.Count}");
+        logger.WriteLog(LogLevel.Trace, () => $"Floating bar amount: {tbCollection.Count}");
         if (logger.IsEnabled(LogLevel.Trace))
         {
-            for (int i = 0; i < fbCollection.Count; i++)
+            for (int i = 0; i < tbCollection.Count; i++)
             {
-                logger.WriteLog(LogLevel.Trace, () => $"Floating bar {i}: x:{fbCollection[i].X} y:{fbCollection[i].Y}");
+                logger.WriteLog(LogLevel.Trace, () => $"Floating bar {i}: x:{tbCollection[i].X} y:{tbCollection[i].Y}");
             }
         }
     }

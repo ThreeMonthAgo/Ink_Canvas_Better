@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Ink_Canvas_Better.View.Controls.ToolBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ink_Canvas_Better.View.Controls"
+             xmlns:ICBControls="Ink_Canvas_Better.Controls"
+             xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
+             xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
+             xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behavior="clr-namespace:Ink_Canvas_Better.Controls.Behaviors;assembly=Ink_Canvas_Better.Controls"
+             xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls"
+             d:DataContext="{d:DesignInstance Type=vm:ToolBarControlVM}"
+             Loaded="ToolBarControl_Loaded"
+             SizeChanged="ToolBarControl_SizeChanged"
+             mc:Ignorable="d">
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform ScaleX="{Binding Scale, Mode=TwoWay}" ScaleY="{Binding Scale, Mode=TwoWay}"/>
+            <TranslateTransform X="{Binding X, Mode=TwoWay}" Y="{Binding Y, Mode=TwoWay}"/>
+        </TransformGroup>
+    </UserControl.RenderTransform>
+    
+    <iuw:SimpleStackPanel Orientation="{Binding Orientation}" Spacing="{Binding Spacing}">
+        <Border Background="{DynamicResource {x:Static iuwm:ThemeKeys.ApplicationPageBackgroundThemeBrushKey}}"
+                BorderBrush="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeBrushKey}}"
+                BorderThickness="{DynamicResource {x:Static iuwm:ThemeKeys.FlyoutBorderThemeThicknessKey}}"
+                CornerRadius="8">
+            <ICBControls:FloatingBarButton
+                TextVisibility="Collapsed"
+                Icon="{x:Static iuwm:FluentSystemIcons.Drag_24_Regular}">
+                <ICBControls:FloatingBarButton.ExtraContent>
+                    <Thumb Opacity="0">
+                        <bh:Interaction.Behaviors>
+                            <behavior:DragBehavior TypeOfControlToDrag="{x:Type local:ToolBarControl}"/>
+                        </bh:Interaction.Behaviors>
+                    </Thumb>
+                </ICBControls:FloatingBarButton.ExtraContent>
+            </ICBControls:FloatingBarButton>
+        </Border>
+        <ItemsControl ItemsSource="{Binding Items}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <iuw:SimpleStackPanel Spacing="{Binding Settings.Spacing, RelativeSource={RelativeSource AncestorType={x:Type local:ToolBarControl}}}"
+                                          Orientation="{Binding Settings.Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:ToolBarControl}}}"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </iuw:SimpleStackPanel>
+</UserControl>

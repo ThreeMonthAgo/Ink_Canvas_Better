@@ -13,12 +13,12 @@ namespace Ink_Canvas_Better.ViewModel.Windows;
 public class MainWindowVM : ViewModelBase
 {
     private DrawingAttributes _currentDrawingAttributes = new();
-    private ObservableCollection<FloatingBarVM> _floatingBarCollection = [ new() ];
+    private ObservableCollection<ToolBarControlVM> _floatingBarCollection = [ new ToolBarControlVM() ];
     private StylusShape _eraserShape = new EllipseStylusShape(10, 10);
 
     // ignored below
     private EditingMode _currentEditingMode = EditingMode.None;
-    private ObservableCollection<SlideShowControlVM> _slideShowControlCollection = [];
+    private ObservableCollection<FloatingBarVM> _slideShowControlCollection = [];
 
     #region
 
@@ -32,7 +32,7 @@ public class MainWindowVM : ViewModelBase
         }
     }
 
-    public ObservableCollection<FloatingBarVM> ToolBarCollection
+    public ObservableCollection<ToolBarControlVM> ToolBarCollection
     {
         get { return _floatingBarCollection; }
         set { SetProperty(ref _floatingBarCollection, value); }
@@ -60,7 +60,7 @@ public class MainWindowVM : ViewModelBase
     }
 
     [JsonIgnore]
-    public ObservableCollection<SlideShowControlVM> SlideShowControlCollection
+    public ObservableCollection<FloatingBarVM> SlideShowControlCollection
     {
         get { return _slideShowControlCollection; }
         set { SetProperty(ref _slideShowControlCollection, value, false); }

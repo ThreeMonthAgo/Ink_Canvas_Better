@@ -13,7 +13,7 @@ public class FloatingBarGroupVM : FloatingBarViewModelBase
 {
     private ObservableCollection<FloatingBarViewModelBase>? _items = [];
     private double _spacing = 4.0;
-    private Orientation _orientation = Orientation.Vertical;
+    private Orientation _orientation = Orientation.Horizontal;
 
     #region
 
