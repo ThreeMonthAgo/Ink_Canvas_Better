@@ -1,10 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Ink;
 using System.Windows.Media;
+using Ink_Canvas_Better.Model;
+using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
+using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl;
 using Newtonsoft.Json;
+using static Ink_Canvas_Better.Utilities.Enums.InkCanvas;
 using ColorConverter = Ink_Canvas_Better.Helpers.Converter.ColorConverter;
 
 namespace Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
@@ -86,4 +91,39 @@ public class PenControlVM : FloatingBarViewModelBase
     }
 
     #endregion
+
+    public void Click()
+    {
+        var mainWindowVM = IApp.GetService<SettingsService>().Settings.MainWindowVM;
+        if (mainWindowVM.CurrentEditingMode != EditingMode.Ink)
+        {
+            this.Apply();
+        }
+        else
+        {
+            this.IsOpen = true;
+        }
+    }
+
+    public void Apply()
+    {
+        try
+        {
+            var seletedIndex = this.GridViewSelectedIndex;
+            var mainWindowVM = IApp.GetService<SettingsService>().Settings.MainWindowVM;
+            // UI
+            this.EllipseFill = this.ColorCollection[seletedIndex];
+            // InkCanvas
+            mainWindowVM.CurrentDrawingAttributes.Color = Color.FromArgb(
+                this.Alpha,
+                this.ColorCollection[seletedIndex].Color.R,
+                this.ColorCollection[seletedIndex].Color.G,
+                this.ColorCollection[seletedIndex].Color.B
+                );
+            mainWindowVM.CurrentDrawingAttributes.StylusTip = StylusTip.Ellipse;
+            mainWindowVM.CurrentDrawingAttributes.Width = mainWindowVM.CurrentDrawingAttributes.Height = this.Thickness;
+            mainWindowVM.CurrentEditingMode = EditingMode.Ink;
+        }
+        catch (Exception) { }
+    }
 }

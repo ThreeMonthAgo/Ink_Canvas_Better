@@ -18,8 +18,18 @@
         Click="RetraceControl_Click">
         <ICBControls:FloatingBarPopup.PopupContent>
             <iuw:SimpleStackPanel d:Background="AliceBlue" Orientation="Horizontal">
-                <Button Content="{DynamicResource Text_Redo}" Width="100" Click="Button_Redo_Click"/>
-                <Button Content="{DynamicResource Text_Undo}" Width="100" Click="Button_Undo_Click"/>
+                <Button Click="Button_Redo_Click">
+                    <iuwm:IconAndText
+                        Content="{DynamicResource Text_Redo}"
+                        Icon="{x:Static iuwm:SegoeFluentIcons.Back}"
+                        Orientation="Vertical"/>
+                </Button>
+                <Button Click="Button_Undo_Click">
+                    <iuwm:IconAndText
+                        Content="{DynamicResource Text_Redo}"
+                        Icon="{x:Static iuwm:SegoeFluentIcons.Forward}"
+                        Orientation="Vertical"/>
+                </Button>
             </iuw:SimpleStackPanel>
         </ICBControls:FloatingBarPopup.PopupContent>
     </ICBControls:FloatingBarPopup>

@@ -1,11 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Ink;
-using System.Windows.Media;
-using Ink_Canvas_Better.Services;
-using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
-using static Ink_Canvas_Better.Utilities.Enums.InkCanvas;
 
 namespace Ink_Canvas_Better.View.Controls.FloatingBar.FloatingBarControl;
 
@@ -21,41 +16,11 @@ public partial class PenControl : UserControl
         Settings.IsInitializing = false;
     }
 
-    private void PenControl_Click(object sender, RoutedEventArgs e)
-    {
-        var mainWindowVM = IApp.GetService<SettingsService>().Settings.MainWindowVM;
-        if (mainWindowVM.CurrentEditingMode != EditingMode.Ink)
-        {
-            this.Apply();
-        }
-        else
-        {
-            Settings.IsOpen = true;
-        }
-    }
+    private void PenControl_Click(object sender, RoutedEventArgs e) => Settings?.Click();
 
-    public void Apply()
-    {
-        if (Settings == null || Settings.IsInitializing) return;
-        try
-        {
-            var seletedIndex = Settings.GridViewSelectedIndex;
-            var mainWindowVM = IApp.GetService<SettingsService>().Settings.MainWindowVM;
-            // UI
-            Settings.EllipseFill = Settings.ColorCollection[seletedIndex];
-            // InkCanvas
-            mainWindowVM.CurrentDrawingAttributes.Color = Color.FromArgb(
-                Settings.Alpha,
-                Settings.ColorCollection[seletedIndex].Color.R,
-                Settings.ColorCollection[seletedIndex].Color.G,
-                Settings.ColorCollection[seletedIndex].Color.B
-                );
-            mainWindowVM.CurrentDrawingAttributes.StylusTip = StylusTip.Ellipse;
-            mainWindowVM.CurrentDrawingAttributes.Width = mainWindowVM.CurrentDrawingAttributes.Height = Slider_Thickness.Value;
-            mainWindowVM.CurrentEditingMode = EditingMode.Ink;
-        }
-        catch (Exception) { }
-    }
+    private void Slider_Thickness_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => Settings?.Apply();
+
+    private void Slider_Alpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => Settings?.Apply();
 
     private void GridView_Colors_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -68,17 +33,13 @@ public partial class PenControl : UserControl
             Popup_ColorPicker.IsOpen = true;
         }
         else if (Popup_ColorPicker.IsOpen == true) Popup_ColorPicker.IsOpen = false;
-        this.Apply();
+        Settings.Apply();
     }
-
-    private void Slider_Thickness_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => this.Apply();
-
-    private void Slider_Alpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => this.Apply();
 
     private void SqColorPicker_ColorChanged(object sender, RoutedEventArgs e)
     {
         var seletedIndex = Settings.GridViewSelectedIndex;
         Settings.ColorCollection[seletedIndex].Color = SqColorPicker.SelectedColor;
-        this.Apply();
+        Settings.Apply();
     }
 }
