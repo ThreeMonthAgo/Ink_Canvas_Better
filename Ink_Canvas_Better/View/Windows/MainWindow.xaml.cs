@@ -63,6 +63,8 @@ namespace Ink_Canvas_Better.View.Windows
         {
             this.handle = new WindowInteropHelper((Window)sender).Handle;
             DllHelper.SetExtendedStyle((HWND)handle, DllHelper.WS_EX_NOACTIVATE | DllHelper.WS_EX_TOOLWINDOW);
+            Settings.IsInitializing = false;
+            UpdateInkCanvasEditingMode(EditingMode.None);
         }
 
         #region

@@ -8,8 +8,10 @@ public class InkCanvas
     /// </summary>
     public enum EditingMode
     {
-        None, // Cursor
-        Ink, // Pen
+        /// <summary>Cursor</summary>
+        None,
+        /// <summary>Pen</summary>
+        Ink,
         Select,
         EraseByPoint,
         EraseByStroke,

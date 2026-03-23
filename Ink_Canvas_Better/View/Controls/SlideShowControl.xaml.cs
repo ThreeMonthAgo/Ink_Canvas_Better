@@ -5,13 +5,13 @@ using Ink_Canvas_Better.ViewModel.Controls;
 namespace Ink_Canvas_Better.View.Controls
 {
     /// <summary>
-    /// Interaction logic for ToolBarControl.xaml
+    /// Interaction logic for SlideShowControl.xaml
     /// </summary>
-    public partial class ToolBarControl : UserControl
+    public partial class SlideShowControl : UserControl
     {
-        public ToolBarControlVM Settings => DataContext as ToolBarControlVM;
+        public SlideShowControlVM Settings => DataContext as SlideShowControlVM;
 
-        public ToolBarControl()
+        public SlideShowControl()
         {
             InitializeComponent();
             SyncSize();

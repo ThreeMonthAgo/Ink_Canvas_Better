@@ -1,6 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Logging;
+using Ink_Canvas_Better.Model;
+using Ink_Canvas_Better.Utilities.Interface;
 using Microsoft.Extensions.Logging;
 using Microsoft.Office.Interop.PowerPoint;
 using PPTApp = Microsoft.Office.Interop.PowerPoint.Application;
@@ -102,7 +104,11 @@ public class PPTService(ILogger<PPTService> logger)
     private void PPTApplication_SlideShowBegin(SlideShowWindow s)
     {
         logger.WriteLog(LogLevel.Information, () => $"SlideShow Begin, path:{PPTApplication.ActivePresentation.FullName}");
-
+        var c = IApp.GetService<Settings>().MainWindowVM.SlideShowControlCollection;
+        foreach (var item in c)
+        {
+            //item.Dock(((PPTApp)PPTApplication).ActivePresentation.SlideShowWindow);
+        }
     }
 
     public void Previous()

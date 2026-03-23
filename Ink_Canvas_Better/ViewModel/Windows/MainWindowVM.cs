@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Ink;
 using Ink_Canvas_Better.Utilities.Bases;
+using Ink_Canvas_Better.Utilities.DataStructures;
 using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.View.Windows;
 using Ink_Canvas_Better.ViewModel.Controls;
@@ -18,7 +19,24 @@ public class MainWindowVM : ViewModelBase
 
     // ignored below
     private EditingMode _currentEditingMode = EditingMode.None;
-    private ObservableCollection<FloatingBarVM> _slideShowControlCollection = [];
+    private ObservableCollection<SlideShowControlVM> _slideShowControlCollection = [
+        new SlideShowControlVM()
+            {
+                DockPlacement = new DockPlacement()
+                {
+                    VerticalAlignment = Utilities.Enums.UI.DockVerticalAlignment.Bottom,
+                    HorizontalAlignment = Utilities.Enums.UI.DockHorizontalAlignment.Left,
+                }
+            },
+        new SlideShowControlVM()
+            {
+                DockPlacement = new DockPlacement()
+                {
+                    VerticalAlignment = Utilities.Enums.UI.DockVerticalAlignment.Bottom,
+                    HorizontalAlignment = Utilities.Enums.UI.DockHorizontalAlignment.Right,
+                }
+            }
+        ];
 
     #region
 

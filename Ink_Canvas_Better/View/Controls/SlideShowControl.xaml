@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Ink_Canvas_Better.View.Controls.SlideShowControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ink_Canvas_Better.View.Controls"
+             xmlns:ICBControls="Ink_Canvas_Better.Controls"
+             xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
+             xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
+             xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behavior="clr-namespace:Ink_Canvas_Better.Controls.Behaviors;assembly=Ink_Canvas_Better.Controls"
+             xmlns:vm="clr-namespace:Ink_Canvas_Better.ViewModel.Controls"
+             d:DataContext="{d:DesignInstance Type=vm:SlideShowControlVM}"
+             Loaded="ToolBarControl_Loaded"
+             SizeChanged="ToolBarControl_SizeChanged"
+             mc:Ignorable="d">
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform ScaleX="{Binding Scale, Mode=TwoWay}" ScaleY="{Binding Scale, Mode=TwoWay}"/>
+            <TranslateTransform X="{Binding X, Mode=TwoWay}" Y="{Binding Y, Mode=TwoWay}"/>
+        </TransformGroup>
+    </UserControl.RenderTransform>
+
+    <ItemsControl ItemsSource="{Binding Items}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <iuw:SimpleStackPanel Spacing="{Binding Settings.Spacing, RelativeSource={RelativeSource AncestorType={x:Type local:SlideShowControl}}}"
+                                      Orientation="{Binding Settings.Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:SlideShowControl}}}"/>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+    </ItemsControl>
+</UserControl>
