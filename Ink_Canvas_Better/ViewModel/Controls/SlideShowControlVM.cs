@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
-using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
 using Ink_Canvas_Better.Utilities.DataStructures;
@@ -8,6 +8,7 @@ using Ink_Canvas_Better.View.Controls;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
 using Ink_Canvas_Better.ViewModel.Controls.FloatingBar.FloatingBarControl;
 using Newtonsoft.Json;
+using Windows.Win32.Foundation;
 using static Ink_Canvas_Better.Utilities.Enums.UI;
 
 namespace Ink_Canvas_Better.ViewModel.Controls;
@@ -41,6 +42,7 @@ public class SlideShowControlVM : FloatingBarViewModelBase
     private double _y = 0;
     private double _width = 0;
     private double _height = 0;
+    private Visibility _visibility = Visibility.Collapsed;
 
     #region
 
@@ -108,9 +110,19 @@ public class SlideShowControlVM : FloatingBarViewModelBase
         set { SetProperty(ref _height, value, false); }
     }
 
+    [JsonIgnore]
+    public Visibility Visibility
+    {
+        get { return _visibility; }
+        set { SetProperty(ref _visibility, value, false); }
+    }
+
     #endregion
 
-    public void Dock(int? screenIndex = null, DockPlacement? placement = null)
+    public double RealWidth => this.Width * this.Scale;
+    public double RealHeight => this.Height * this.Scale;
+
+    public void Dock(RECT screen, DockPlacement? placement = null)
     {
         placement ??= this.DockPlacement;
         // Dock
@@ -120,14 +132,14 @@ public class SlideShowControlVM : FloatingBarViewModelBase
                 this.Y = 0;
                 break;
             case DockVerticalAlignment.Center:
-                this.Y = (scHeight() - realHeight()) / 2;
+                this.Y = (screen.Height - RealHeight) / 2;
                 break;
             case DockVerticalAlignment.Bottom:
-                this.Y = scHeight() - realHeight();
+                this.Y = screen.Height - RealHeight;
                 break;
             case DockVerticalAlignment.AboveTaskBar:
             case DockVerticalAlignment.Unset:
-                this.Y = wkaHeight() - realHeight();
+                this.Y = screen.Height - RealHeight;
                 break;
         }
         switch (placement.HorizontalAlignment)
@@ -136,25 +148,62 @@ public class SlideShowControlVM : FloatingBarViewModelBase
                 this.X = 0;
                 break;
             case DockHorizontalAlignment.Right:
-                this.X = scWidth() - realWidth();
+                this.X = screen.Width - RealWidth;
                 break;
             case DockHorizontalAlignment.Center:
             case DockHorizontalAlignment.Unset:
-                this.X = (scWidth() - realWidth()) / 2;
+                this.X = (screen.Width - RealWidth) / 2;
                 break;
         }
-        this.X += scX();
-        this.Y += scY();
-
-        double scX() => DllHelper.Screens[this.ScreenIndex].X;
-        double scY() => DllHelper.Screens[this.ScreenIndex].Y;
-        double scWidth() => DllHelper.Screens[this.ScreenIndex].Width;
-        double scHeight() => DllHelper.Screens[this.ScreenIndex].Height;
-        //double wkaWidth() => DllHelper.Screens[this.ScreenIndex].WkaWidth;  // never used
-        double wkaHeight() => DllHelper.Screens[this.ScreenIndex].WkaHeight;
-        double realWidth() => this.Width * this.Scale;
-        double realHeight() => this.Height * this.Scale;
+        this.X += screen.X;
+        this.Y += screen.Y;
     }
+
+    //public void Dock(int? screenIndex = null, DockPlacement? placement = null)
+    //{
+    //    placement ??= this.DockPlacement;
+    //    // Dock
+    //    switch (placement.VerticalAlignment)
+    //    {
+    //        case DockVerticalAlignment.Top:
+    //            this.Y = 0;
+    //            break;
+    //        case DockVerticalAlignment.Center:
+    //            this.Y = (scHeight() - realHeight()) / 2;
+    //            break;
+    //        case DockVerticalAlignment.Bottom:
+    //            this.Y = scHeight() - realHeight();
+    //            break;
+    //        case DockVerticalAlignment.AboveTaskBar:
+    //        case DockVerticalAlignment.Unset:
+    //            this.Y = wkaHeight() - realHeight();
+    //            break;
+    //    }
+    //    switch (placement.HorizontalAlignment)
+    //    {
+    //        case DockHorizontalAlignment.Left:
+    //            this.X = 0;
+    //            break;
+    //        case DockHorizontalAlignment.Right:
+    //            this.X = scWidth() - realWidth();
+    //            break;
+    //        case DockHorizontalAlignment.Center:
+    //        case DockHorizontalAlignment.Unset:
+    //            this.X = (scWidth() - realWidth()) / 2;
+    //            break;
+    //    }
+    //    this.X += scX();
+    //    this.Y += scY();
+
+    //    double scX() => DllHelper.Screens[this.ScreenIndex].X;
+    //    double scY() => DllHelper.Screens[this.ScreenIndex].Y;
+    //    double scWidth() => DllHelper.Screens[this.ScreenIndex].Width;
+    //    double scHeight() => DllHelper.Screens[this.ScreenIndex].Height;
+    //    //double wkaWidth() => DllHelper.Screens[this.ScreenIndex].WkaWidth;  // never used
+    //    double wkaHeight() => DllHelper.Screens[this.ScreenIndex].WkaHeight;
+    //    double realWidth() => this.Width * this.Scale;
+    //    double realHeight() => this.Height * this.Scale;
+    //}
 
     ///// <remarks>
     ///// DockPlacement is required and not null due to the SlideShowControl is auto generated runtime

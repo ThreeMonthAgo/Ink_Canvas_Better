@@ -78,7 +78,7 @@ public class MainWindowVM : ViewModelBase
     }
 
     [JsonIgnore]
-    public ObservableCollection<FloatingBarVM> SlideShowControlCollection
+    public ObservableCollection<SlideShowControlVM> SlideShowControlCollection
     {
         get { return _slideShowControlCollection; }
         set { SetProperty(ref _slideShowControlCollection, value, false); }

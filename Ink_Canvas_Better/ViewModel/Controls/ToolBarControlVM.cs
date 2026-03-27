@@ -118,6 +118,9 @@ public class ToolBarControlVM : FloatingBarViewModelBase
 
     #endregion
 
+    public double RealWidth => this.Width * this.Scale;
+    public double RealHeight => this.Height * this.Scale;
+
     public void Dock(DockPlacement? placement = null)
     {
         placement ??= this.DockPlacement;
@@ -128,14 +131,14 @@ public class ToolBarControlVM : FloatingBarViewModelBase
                 this.Y = 0;
                 break;
             case DockVerticalAlignment.Center:
-                this.Y = (scHeight() - realHeight()) / 2;
+                this.Y = (scHeight() - RealHeight) / 2;
                 break;
             case DockVerticalAlignment.Bottom:
-                this.Y = scHeight() - realHeight();
+                this.Y = scHeight() - RealHeight;
                 break;
             case DockVerticalAlignment.AboveTaskBar:
             case DockVerticalAlignment.Unset:
-                this.Y = wkaHeight() - realHeight();
+                this.Y = wkaHeight() - RealHeight;
                 break;
         }
         switch (placement.HorizontalAlignment)
@@ -144,11 +147,11 @@ public class ToolBarControlVM : FloatingBarViewModelBase
                 this.X = 0;
                 break;
             case DockHorizontalAlignment.Right:
-                this.X = scWidth() - realWidth();
+                this.X = scWidth() - RealWidth;
                 break;
             case DockHorizontalAlignment.Center:
             case DockHorizontalAlignment.Unset:
-                this.X = (scWidth() - realWidth()) / 2;
+                this.X = (scWidth() - RealWidth) / 2;
                 break;
         }
         this.X += scX();
@@ -160,8 +163,6 @@ public class ToolBarControlVM : FloatingBarViewModelBase
         double scHeight() => DllHelper.Screens[this.ScreenIndex].Height;
         //double wkaWidth() => DllHelper.Screens[this.ScreenIndex].WkaWidth;  // never used
         double wkaHeight() => DllHelper.Screens[this.ScreenIndex].WkaHeight;
-        double realWidth() => this.Width * this.Scale;
-        double realHeight() => this.Height * this.Scale;
     }
 
     ///// <remarks>

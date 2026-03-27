@@ -13,6 +13,7 @@
              d:DataContext="{d:DesignInstance Type=vm:SlideShowControlVM}"
              Loaded="ToolBarControl_Loaded"
              SizeChanged="ToolBarControl_SizeChanged"
+             Visibility="{Binding Visibility}"
              mc:Ignorable="d">
     <UserControl.RenderTransform>
         <TransformGroup>

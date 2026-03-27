@@ -1,7 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Windows;
 using Ink_Canvas_Better.Helpers;
+using Ink_Canvas_Better.Helpers.Converter;
 using Ink_Canvas_Better.Logging;
-using Ink_Canvas_Better.Model;
 using Ink_Canvas_Better.Utilities.Interface;
 using Microsoft.Extensions.Logging;
 using Microsoft.Office.Interop.PowerPoint;
@@ -56,6 +58,7 @@ public class PPTService(ILogger<PPTService> logger)
                 ppt.PresentationOpen += PPTApplication_PresentationOpen;
                 ppt.PresentationCloseFinal += PPTApplication_PresentationCloseFinal;
                 ppt.SlideShowBegin += PPTApplication_SlideShowBegin;
+                ppt.SlideShowEnd += PPTApplication_SlideShowEnd;
                 logger.WriteLog(LogLevel.Information, $"PPT connected");
             }
         }
@@ -75,6 +78,7 @@ public class PPTService(ILogger<PPTService> logger)
                 ppt.PresentationOpen -= PPTApplication_PresentationOpen;
                 ppt.PresentationCloseFinal -= PPTApplication_PresentationCloseFinal;
                 ppt.SlideShowBegin -= PPTApplication_SlideShowBegin;
+                ppt.SlideShowEnd -= PPTApplication_SlideShowEnd;
                 Marshal.FinalReleaseComObject(PPTApplication);
                 ppt = null;
             }
@@ -98,16 +102,32 @@ public class PPTService(ILogger<PPTService> logger)
     private void PPTApplication_PresentationCloseFinal(Presentation p)
     {
         DisconnectPPT();
-
     }
 
     private void PPTApplication_SlideShowBegin(SlideShowWindow s)
     {
-        logger.WriteLog(LogLevel.Information, () => $"SlideShow Begin, path:{PPTApplication.ActivePresentation.FullName}");
-        var c = IApp.GetService<Settings>().MainWindowVM.SlideShowControlCollection;
+        var p = ((PPTApp)PPTApplication).ActivePresentation;
+        logger.WriteLog(LogLevel.Information, () => $"SlideShow Begin, path:{p.FullName}");
+        var c = IApp.GetService<SettingsService>().Settings.MainWindowVM.SlideShowControlCollection;
         foreach (var item in c)
         {
-            //item.Dock(((PPTApp)PPTApplication).ActivePresentation.SlideShowWindow);
+            // TODO: Use screenIndex instead of ppt window data
+            item.Dock(p.SlideShowWindow.ToRect() * (p.SlideShowWindow.View.Zoom / 100d));
+            Debug.WriteLine(p.SlideShowWindow.Width);
+            Debug.WriteLine(p.SlideShowWindow.Height);
+            Debug.WriteLine(p.SlideShowWindow.View.Zoom);
+            Debug.WriteLine(item.X);
+            Debug.WriteLine(item.Y);
+            item.Visibility = Visibility.Visible;
+        }
+    }
+
+    private void PPTApplication_SlideShowEnd(Presentation Pres)
+    {
+        var c = IApp.GetService<SettingsService>().Settings.MainWindowVM.SlideShowControlCollection;
+        foreach (var item in c)
+        {
+            item.Visibility = Visibility.Collapsed;
         }
     }
 
