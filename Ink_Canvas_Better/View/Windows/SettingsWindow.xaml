@@ -32,7 +32,7 @@
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.Home}"/>
                 </iuwm:NavigationViewItem.Icon>
             </iuwm:NavigationViewItem>
-            <!-- TODO:
+            <!--
             <iuwm:NavigationViewItem Name="StartupAndUpdate" Content="{DynamicResource Text_StartupAndUpdate}" ToolTipService.ToolTip="{DynamicResource Text_StartupAndUpdate}">
                 <iuwm:NavigationViewItem.Icon>
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.PowerButton}"/>

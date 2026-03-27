@@ -109,16 +109,23 @@ public class PPTService(ILogger<PPTService> logger)
         var p = ((PPTApp)PPTApplication).ActivePresentation;
         logger.WriteLog(LogLevel.Information, () => $"SlideShow Begin, path:{p.FullName}");
         var c = IApp.GetService<SettingsService>().Settings.MainWindowVM.SlideShowControlCollection;
-        foreach (var item in c)
+        if (((PPTApp)PPTApplication).WindowState == PpWindowState.ppWindowNormal)
         {
-            // TODO: Use screenIndex instead of ppt window data
-            item.Dock(p.SlideShowWindow.ToRect() * (p.SlideShowWindow.View.Zoom / 100d));
-            Debug.WriteLine(p.SlideShowWindow.Width);
-            Debug.WriteLine(p.SlideShowWindow.Height);
-            Debug.WriteLine(p.SlideShowWindow.View.Zoom);
-            Debug.WriteLine(item.X);
-            Debug.WriteLine(item.Y);
-            item.Visibility = Visibility.Visible;
+            foreach (var item in c)
+            {
+                // TODO: Use screenIndex instead of ppt window data
+                item.Dock(p.SlideShowWindow.ToRect() * (p.SlideShowWindow.View.Zoom / 100d));
+                Debug.WriteLine(p.SlideShowWindow.Width);
+                Debug.WriteLine(p.SlideShowWindow.Height);
+                Debug.WriteLine(p.SlideShowWindow.View.Zoom);
+                Debug.WriteLine(item.X);
+                Debug.WriteLine(item.Y);
+                item.Visibility = Visibility.Visible;
+            }
+        }
+        else
+        {
+            // Dock
         }
     }
 
