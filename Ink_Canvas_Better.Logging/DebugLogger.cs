@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -37,7 +36,7 @@ public static class DebugLoggerExtensions
     public static ILoggingBuilder AddDebugLogger(this ILoggingBuilder builder)
     {
         builder.Services.AddOptions();
-        builder.Services.TryAddSingleton<ILoggerProvider, DebugLoggerProvider>();
+        builder.Services.AddSingleton<ILoggerProvider, DebugLoggerProvider>();
         return builder;
     }
 

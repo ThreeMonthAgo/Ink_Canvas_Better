@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -51,7 +50,7 @@ public static class FileLoggerExtensions
     public static ILoggingBuilder AddFileLogger(this ILoggingBuilder builder)
     {
         builder.Services.AddOptions();
-        builder.Services.TryAddSingleton<ILoggerProvider, FileLoggerProvider>();
+        builder.Services.AddSingleton<ILoggerProvider, FileLoggerProvider>();
         return builder;
     }
 
