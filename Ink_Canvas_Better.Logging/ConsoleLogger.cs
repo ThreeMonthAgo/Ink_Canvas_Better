@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -36,7 +35,7 @@ public static class ConsoleLoggerExtensions
     public static ILoggingBuilder AddConsoleLogger(this ILoggingBuilder builder)
     {
         builder.Services.AddOptions();
-        builder.Services.TryAddSingleton<ILoggerProvider, ConsoleLoggerProvider>();
+        builder.Services.AddSingleton<ILoggerProvider, ConsoleLoggerProvider>();
         return builder;
     }
 
