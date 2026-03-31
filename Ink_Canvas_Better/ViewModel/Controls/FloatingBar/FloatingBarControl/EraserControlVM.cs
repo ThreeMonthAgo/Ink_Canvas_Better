@@ -63,7 +63,7 @@ public class EraserControlVM : FloatingBarViewModelBase
 
     public void Click()
     {
-        var mainWindowVM = IApp.GetService<SettingsService>().Settings.MainWindowVM;
+        var mainWindowVM = IApp.Settings.MainWindowVM;
         if (mainWindowVM.CurrentEditingMode != EditingMode.EraseByStroke
             && mainWindowVM.CurrentEditingMode != EditingMode.EraseByPoint)
         {
@@ -84,7 +84,7 @@ public class EraserControlVM : FloatingBarViewModelBase
     {
         try
         {
-            var mainWindowVM = IApp.GetService<SettingsService>().Settings.MainWindowVM;
+            var mainWindowVM = IApp.Settings.MainWindowVM;
             switch (this.GridViewSelectedIndex)
             {
                 case 0:

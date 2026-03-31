@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Interop;
@@ -22,12 +23,26 @@ namespace Ink_Canvas_Better.View.Windows
 
         /// <summary>
         /// Avoid operating MainWindow directly, use
-        /// <strong> IApp.GetService -> SettingsService -> Settings -> MainWindowVM </strong>
+        /// <strong> IApp.Settings.MainWindowVM </strong>
         /// instead.
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = IApp.Settings.MainWindowVM;
+
+            IApp.Settings.PropertyChanged += HandlePropertyChanged;
+        }
+
+        public void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(MainWindowVM):
+                    this.DataContext = IApp.Settings.MainWindowVM;
+                    break;
+            }
         }
 
         public void UpdateInkCanvasEditingMode(EditingMode mode)

@@ -94,7 +94,7 @@ public class PenControlVM : FloatingBarViewModelBase
 
     public void Click()
     {
-        var mainWindowVM = IApp.GetService<SettingsService>().Settings.MainWindowVM;
+        var mainWindowVM = IApp.Settings.MainWindowVM;
         if (mainWindowVM.CurrentEditingMode != EditingMode.Ink)
         {
             this.Apply();
@@ -110,7 +110,7 @@ public class PenControlVM : FloatingBarViewModelBase
         try
         {
             var seletedIndex = this.GridViewSelectedIndex;
-            var mainWindowVM = IApp.GetService<SettingsService>().Settings.MainWindowVM;
+            var mainWindowVM = IApp.Settings.MainWindowVM;
             // UI
             this.EllipseFill = this.ColorCollection[seletedIndex];
             // InkCanvas

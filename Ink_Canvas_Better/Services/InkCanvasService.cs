@@ -2,16 +2,15 @@
 using System.IO.Compression;
 using System.Windows.Ink;
 using Ink_Canvas_Better.Controls.ICBInkCanvas;
+using Ink_Canvas_Better.Utilities.Interface;
 
 namespace Ink_Canvas_Better.Services;
 
-public class InkCanvasService(SettingsService settingsService)
+public class InkCanvasService
 {
-    private readonly SettingsService settingsService = settingsService;
-
     public void SaveData(ICBInkCanvas inkCanvas, string? path = null)
     {
-        path ??= settingsService.Settings.DataDirPath;
+        path ??= IApp.Settings.DataDirPath;
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);

@@ -5,7 +5,6 @@ using Ink_Canvas_Better.Utilities.DataStructures;
 using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.View.Windows;
 using Ink_Canvas_Better.ViewModel.Controls;
-using Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
 using Newtonsoft.Json;
 using static Ink_Canvas_Better.Utilities.Enums.InkCanvas;
 

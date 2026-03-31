@@ -2,9 +2,9 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
-using Ink_Canvas_Better.View.Windows;
 
 namespace Ink_Canvas_Better.View.Pages.Settings.Home
 {
@@ -17,7 +17,7 @@ namespace Ink_Canvas_Better.View.Pages.Settings.Home
         private void Home_Loaded(object sender, RoutedEventArgs e)
         {
             this.settingsService = IApp.GetService<SettingsService>();
-            SettingsCard_About_1.Header = $"Ink Canvas Better v{settingsService.Settings.AppVersion}" + (settingsService.Settings.AppVersion.Revision > 0 ? " - beta" : "");
+            SettingsCard_About_1.Header = $"Ink Canvas Better v{IApp.Settings.AppVersion}" + (IApp.Settings.AppVersion.Revision > 0 ? " - beta" : "");
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
@@ -33,7 +33,7 @@ namespace Ink_Canvas_Better.View.Pages.Settings.Home
         private void ButtonLog_Click(object sender, RoutedEventArgs e)
         {
             var p1 = AppDomain.CurrentDomain.BaseDirectory;
-            var p2 = settingsService.Settings.LogDirPath;
+            var p2 = IApp.Settings.LogDirPath;
             var p = Path.Combine(p1, p2);
             if (Directory.Exists(p))
             {
@@ -43,7 +43,7 @@ namespace Ink_Canvas_Better.View.Pages.Settings.Home
 
         private void ButtonResetSettings_Click(object sender, RoutedEventArgs e)
         {
-            settingsService.ResetSettings();
+            SettingsHelper.ResetSettings();
         }
 
         private void SettingsCard_Github_Click(object sender, RoutedEventArgs e)

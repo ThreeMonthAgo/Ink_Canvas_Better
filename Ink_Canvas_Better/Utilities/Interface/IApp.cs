@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows;
+using Ink_Canvas_Better.Model;
 using Microsoft.Extensions.Hosting;
 
 namespace Ink_Canvas_Better.Utilities.Interface;
@@ -8,6 +9,8 @@ internal interface IApp
 {
     public static IHost Host;
     public static string[] StartupArgs;
+
+    public static Settings Settings { get; private set; } = new();
 
     public static void ShutdownApp() => Application.Current.Shutdown();
 

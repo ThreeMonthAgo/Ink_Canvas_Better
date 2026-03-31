@@ -1,64 +1,47 @@
-﻿using Ink_Canvas_Better.Helpers;
+﻿using System.ComponentModel;
+using System.Globalization;
+using System.Windows;
 using Ink_Canvas_Better.Logging;
-using Ink_Canvas_Better.Model;
-using Ink_Canvas_Better.Services.JsonConverter;
+using Ink_Canvas_Better.Utilities.DataStructures;
+using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.View.Windows;
+using iNKORE.UI.WPF.Modern;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using Microsoft.Win32;
 
 namespace Ink_Canvas_Better.Services
 {
-    public class SettingsService(ILogger<SettingsService> logger, IServiceProvider serviceProvider)
+    public class SettingsService
     {
-        private readonly ILogger<SettingsService> logger = logger;
-        private readonly IServiceProvider serviceProvider = serviceProvider;
+        private readonly ILogger<SettingsService> logger;
+        private readonly IServiceProvider serviceProvider;
 
-        #region Serialization & Deserialization
-
-        private readonly JsonSerializerSettings jsonSerializerSettings = new()
+        public SettingsService(ILogger<SettingsService> logger, IServiceProvider serviceProvider)
         {
-            Converters = [
-                new FloatingBarViewModelBaseConverter(),
-                new IListConverter(),
-            ]
-        };
+            this.logger = logger;
+            this.serviceProvider = serviceProvider;
 
-        public string SettingsFilePath = "Settings.json";
+            ChangeCultureInfo(IApp.Settings.CultureInfo);
+            ChangeTheme(IApp.Settings.Theme);
 
-        public Settings Settings { get; private set; } = new();
+            IApp.Settings.PropertyChanged += HandlePropertyChanged;
+        }
 
-        public void LoadSettings()
+        public void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            try
+            switch (e.PropertyName)
             {
-                var json = ConfigurationHelper.LoadConfiguration(SettingsFilePath);
-                Settings.Copy(JsonConvert.DeserializeObject<Settings>(json, jsonSerializerSettings) ?? new());
-                Settings.IsInitializing = false;
-            }
-            catch (Exception ex)
-            {
-                logger.WriteLog(LogLevel.Warning, () => $"Load settings failed, creating a new one. {ex.Message}"); // TODO: Perhaps a need to inform the user?
-                ResetSettings();
+                case nameof(IApp.Settings.CultureInfo):
+                    ChangeCultureInfo(IApp.Settings.CultureInfo);
+                    break;
+                case nameof(IApp.Settings.Theme):
+                    ChangeTheme(IApp.Settings.Theme);
+                    break;
             }
         }
 
-        public void SaveSettings()
-        {
-            var json = JsonConvert.SerializeObject(Settings, jsonSerializerSettings);
-            ConfigurationHelper.SaveConfiguration(json, SettingsFilePath);
-        }
-
-        public void ResetSettings()
-        {
-            Settings.Copy(new Settings());
-            SaveSettings();
-            logger.WriteLog(LogLevel.Information, "Settings have been restored to defaults");
-        }
-
-        #endregion
-
-        #region Windows
+        #region SettingsWindow & LanguageWindow
 
         public SettingsWindow SettingsWindow { get; private set; }
 
@@ -87,6 +70,70 @@ namespace Ink_Canvas_Better.Services
             else
             {
                 LanguageWindow.Activate();
+            }
+        }
+
+        #endregion
+
+        #region Theme & Language
+
+        public readonly BiDictionary<CultureInfo, string> SupportedLanguage = new()
+        {
+            { new("en"), "English" },
+            { new("zh-CN"), "简体中文" },
+            { new("zh-TW"), "繁体中文" },
+        };
+
+        public void ChangeCultureInfo(CultureInfo cultureInfo)
+        {
+            if (SupportedLanguage.ContainsFirst(cultureInfo))
+            {
+                ChangeLanguage(cultureInfo);
+            }
+            else
+            {
+                logger.WriteLog(LogLevel.Warning, () => $"CultureInfo {cultureInfo} is not supported");
+                ChangeLanguage(SupportedLanguage.GetFirst(0));
+            }
+        }
+
+        private void ChangeLanguage(CultureInfo cultureInfo)
+        {
+            string path = $"Themes/Language/{cultureInfo}.xaml";
+            ResourceDictionary newDict = new() { Source = new Uri(path, UriKind.Relative) };
+            var oldDict = Application.Current.Resources.MergedDictionaries.FirstOrDefault(d => d.Source?.OriginalString.Contains("Language/") == true);
+            if (oldDict != null)
+            {
+                Application.Current.Resources.MergedDictionaries.Remove(oldDict);
+            }
+            Application.Current.Resources.MergedDictionaries.Add(newDict);
+        }
+
+        public void ChangeTheme(int Theme)
+        {
+            var d = Application.Current.Resources.MergedDictionaries;
+            switch (Theme)
+            {
+                case 0:
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
+                    {
+                        object registryValueObject = key?.GetValue("AppsUseLightTheme");
+                        if (registryValueObject is int appsUseLightTheme)
+                        {
+                            ThemeManager.Current.ApplicationTheme = appsUseLightTheme == 1 ? ApplicationTheme.Light : ApplicationTheme.Dark;
+                        }
+                        else
+                        {
+                            ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
+                        }
+                    }
+                    break;
+                case 1:
+                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
+                    break;
+                case 2:
+                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
+                    break;
             }
         }
 

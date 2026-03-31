@@ -1,21 +1,20 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Ink_Canvas_Better.Services;
+using Ink_Canvas_Better.Utilities.Interface;
 
 namespace Ink_Canvas_Better.View.Windows
 {
     public partial class LanguageWindow : Window
     {
         private readonly SettingsService settingsService;
-        private readonly ThemeService themeService;
 
-        public LanguageWindow(SettingsService settingsService, ThemeService themeService)
+        public LanguageWindow(SettingsService settingsService)
         {
             this.settingsService = settingsService;
-            this.themeService = themeService;
 
             InitializeComponent();
-            LanguageListBox.ItemsSource = new List<String>(themeService.SupportedLanguage.Seconds);
+            LanguageListBox.ItemsSource = new List<String>(settingsService.SupportedLanguage.Seconds);
         }
 
         private void LanguageListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -30,8 +29,8 @@ namespace Ink_Canvas_Better.View.Windows
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
-            var value = themeService.SupportedLanguage.GetFirst((String)LanguageListBox.SelectedItem);
-            settingsService.Settings.CultureInfo = value ?? themeService.SupportedLanguage.GetFirst(0);
+            var value = settingsService.SupportedLanguage.GetFirst((String)LanguageListBox.SelectedItem);
+            IApp.Settings.CultureInfo = value ?? settingsService.SupportedLanguage.GetFirst(0);
             this.Close();
         }
     }

@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
 using Ink_Canvas_Better.Utilities.Interface;
@@ -30,6 +29,6 @@ public class CursorControlVM : FloatingBarViewModelBase
 
     public void Apply()
     {
-        IApp.GetService<SettingsService>().Settings.MainWindowVM.CurrentEditingMode = EditingMode.None;
+        IApp.Settings.MainWindowVM.CurrentEditingMode = EditingMode.None;
     }
 }

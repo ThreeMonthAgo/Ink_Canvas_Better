@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
+using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Utilities.Attributes;
 using Ink_Canvas_Better.Utilities.Bases;
-using Ink_Canvas_Better.Utilities.Interface;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -21,7 +20,7 @@ public class FloatingBarViewModelBaseConverter : Newtonsoft.Json.JsonConverter
             throw new JsonSerializationException("Guid is required for deserialization");
         }
         string guid = guidToken.ToString();
-        if (!IApp.GetService<ComponentService>().RegisteredComponents.TryGetValue(guid, out Type type))
+        if (!SettingsHelper.RegisteredComponents.TryGetValue(guid, out (Type, Type) type))
         {
             throw new JsonSerializationException($"Component with guid {{{guid}}} is not registered");
         }
@@ -37,7 +36,7 @@ public class FloatingBarViewModelBaseConverter : Newtonsoft.Json.JsonConverter
         }
         else
         {
-            var instance = ActivatorUtilities.CreateInstance(IApp.GetService<IServiceProvider>(), type);
+            var instance = Activator.CreateInstance(type.Item1);
             using (var jsonReader = jobj.CreateReader())
             {
                 serializer.Populate(jsonReader, instance);

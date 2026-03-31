@@ -108,7 +108,7 @@ public class PPTService(ILogger<PPTService> logger)
     {
         var p = ((PPTApp)PPTApplication).ActivePresentation;
         logger.WriteLog(LogLevel.Information, () => $"SlideShow Begin, path:{p.FullName}");
-        var c = IApp.GetService<SettingsService>().Settings.MainWindowVM.SlideShowControlCollection;
+        var c = IApp.Settings.MainWindowVM.SlideShowControlCollection;
         if (((PPTApp)PPTApplication).WindowState == PpWindowState.ppWindowNormal)
         {
             foreach (var item in c)
@@ -131,7 +131,7 @@ public class PPTService(ILogger<PPTService> logger)
 
     private void PPTApplication_SlideShowEnd(Presentation Pres)
     {
-        var c = IApp.GetService<SettingsService>().Settings.MainWindowVM.SlideShowControlCollection;
+        var c = IApp.Settings.MainWindowVM.SlideShowControlCollection;
         foreach (var item in c)
         {
             item.Visibility = Visibility.Collapsed;

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Ink_Canvas_Better.Helpers;
 using Ink_Canvas_Better.Logging;
 using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
@@ -25,7 +26,7 @@ namespace Ink_Canvas_Better
         private void App_Exit(object sender, ExitEventArgs e)
         {
             IApp.GetService<MultiscreenService>().Dispose();
-            IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) terminated =====");
+            IApp.GetService<ILogger<App>>().WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.Settings.AppVersion}) terminated =====");
         }
 
         private void App_Startup(object sender, StartupEventArgs e)
@@ -45,7 +46,7 @@ namespace Ink_Canvas_Better
                 logger.WriteLog(LogLevel.Information, "Ink Canvas Batter automatically closed");
                 Environment.Exit(0);
             }
-            logger.WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is starting up =====");
+            logger.WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.Settings.AppVersion}) is starting up =====");
 
             #region log
             this.DispatcherUnhandledException += (sender, e) =>
@@ -64,32 +65,41 @@ namespace Ink_Canvas_Better
             };
             #endregion
 
-            IApp.GetService<ComponentService>().DetectAndRegisterComponents();
-            IApp.GetService<SettingsService>().LoadSettings();
-            this.MainWindow = IApp.GetService<MainWindow>();
-            MainWindow.Show();
+            if (logger.IsEnabled(LogLevel.Trace))
+            {
+                foreach (var component in SettingsHelper.RegisteredComponents)
+                {
+                    logger.WriteLog(LogLevel.Trace, () => $"Component registered: Guid[{component.Key}] ViewModel[{component.Value.Item1}] View[{component.Value.Item2}]");
+                }
+            }
+            logger.WriteLog(LogLevel.Trace, () => $"===== Ink Canvas Better (v{IApp.Settings.AppVersion}) is running =====");
+            this.MainWindow.Show(); 
             IApp.GetService<MultiscreenService>().Check();
             IApp.GetService<PPTService>().Init();
 
-            logger.WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.GetService<SettingsService>().Settings.AppVersion}) is running =====");
+            logger.WriteLog(LogLevel.Information, () => $"===== Ink Canvas Better (v{IApp.Settings.AppVersion}) is running =====");
         }
 
         private void Init()
         {
+            var mw = new MainWindow();
+            this.MainWindow = mw;
+
+            SettingsHelper.DetectAndRegisterComponents();
+            SettingsHelper.LoadSettings();
+
             IApp.Host = Microsoft.Extensions.Hosting.Host
                 .CreateDefaultBuilder()
                 .ConfigureServices((context, service) =>
                 {
                     // Services
-                    service.AddSingleton<ComponentService>();
                     service.AddSingleton<SettingsService>();
-                    service.AddSingleton<ThemeService>();
                     service.AddSingleton<InkCanvasService>();
                     service.AddSingleton<PPTService>();
                     service.AddSingleton<MultiscreenService>();
 
                     // UI (Windows)
-                    service.AddSingleton<MainWindow>();
+                    service.AddSingleton(mw);
 
                     // UI (Pages)
                     service.AddSingleton<HomePage>();
@@ -104,11 +114,13 @@ namespace Ink_Canvas_Better
                     {
                         config.MinimumLogLevel = LogLevel.Trace;
                     });
-#endif
+#else
+                    logging.SetMinimumLevel(IApp.Settings.LogLevel);
                     logging.AddFileLogger((config) =>
                     {
-                        config.MinimumLogLevel = LogLevel.Trace;
+                        config.MinimumLogLevel = IApp.Settings.LogLevel;
                     });
+#endif
                 })
                 .Build();
         }

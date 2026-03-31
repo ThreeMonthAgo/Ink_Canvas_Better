@@ -9,7 +9,6 @@
         xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
         iuwm:WindowHelper.UseModernWindowStyle="True"
         iuwm:WindowHelper.SystemBackdropType="Mica"
-        Topmost="True"
         Title="{DynamicResource Text_SettingWindowTitle}"
         Icon="/Themes/App.ico"
         Height="450" Width="900"

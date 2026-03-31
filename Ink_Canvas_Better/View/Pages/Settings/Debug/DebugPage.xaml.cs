@@ -8,7 +8,6 @@ using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Interface;
 using Ink_Canvas_Better.View.Windows;
 using Ink_Canvas_Better.ViewModel.Controls;
-using Ink_Canvas_Better.ViewModel.Controls.FloatingBar;
 using Microsoft.Extensions.Logging;
 using static Ink_Canvas_Better.Helpers.DllHelper;
 
@@ -20,7 +19,7 @@ namespace Ink_Canvas_Better.View.Pages.Settings.Debug;
 public partial class DebugPage : Page
 {
     public static ObservableCollection<MonitorInfo> Screens => DllHelper.Screens;
-    public ObservableCollection<ToolBarControlVM> FloatingBarCollection => IApp.GetService<SettingsService>().Settings.MainWindowVM.ToolBarCollection;
+    public ObservableCollection<ToolBarControlVM> FloatingBarCollection => IApp.Settings.MainWindowVM.ToolBarCollection;
 
     public DebugPage()
     {
@@ -31,7 +30,7 @@ public partial class DebugPage : Page
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        TextBox_StrokeFilePath.Text = IApp.GetService<SettingsService>().Settings.DataDirPath;
+        TextBox_StrokeFilePath.Text = IApp.Settings.DataDirPath;
     }
 
     private void Button_Save_Strokes(object sender, RoutedEventArgs e)
@@ -43,9 +42,8 @@ public partial class DebugPage : Page
             logger.WriteLog(LogLevel.Information, $"InkCanvas is empty!");
             return;
         }
-        var settings = IApp.GetService<SettingsService>();
         IApp.GetService<InkCanvasService>().SaveData(inkCanvas);
-        logger.WriteLog(LogLevel.Debug, $"Saved strokes to file. Path:{settings.Settings.DataDirPath}");
+        logger.WriteLog(LogLevel.Debug, $"Saved strokes to file. Path:{IApp.Settings.DataDirPath}");
     }
 
     private void Button_Load_Strokes(object sender, RoutedEventArgs e)
@@ -58,8 +56,7 @@ public partial class DebugPage : Page
             return;
         }
         var inkCanvas = IApp.GetService<MainWindow>().InkCanvas;
-        var settings = IApp.GetService<SettingsService>();
         IApp.GetService<InkCanvasService>().LoadData(inkCanvas, path);
-        logger.WriteLog(LogLevel.Debug, $"Saved strokes to file. Path:{settings.Settings.DataDirPath}");
+        logger.WriteLog(LogLevel.Debug, $"Saved strokes to file. Path:{IApp.Settings.DataDirPath}");
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Ink_Canvas_Better.Services;
-using Ink_Canvas_Better.Utilities.Interface;
+using Ink_Canvas_Better.Helpers;
 using Newtonsoft.Json;
 
 namespace Ink_Canvas_Better.Utilities.Bases;
@@ -35,7 +34,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
         }
         if (invokeSaveSettings)
         {
-            if (!IsInitializing) IApp.GetService<SettingsService>().SaveSettings();
+            if (!IsInitializing) SettingsHelper.SaveSettings();
         }
     }
 

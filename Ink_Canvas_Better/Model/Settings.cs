@@ -1,11 +1,9 @@
 ﻿using System.Globalization;
 using System.IO;
 using System.Windows;
-using Ink_Canvas_Better.Services;
 using Ink_Canvas_Better.Utilities.Bases;
-using Ink_Canvas_Better.Utilities.Interface;
-using Ink_Canvas_Better.View.Windows;
 using Ink_Canvas_Better.ViewModel.Windows;
+using Microsoft.Extensions.Logging;
 
 namespace Ink_Canvas_Better.Model;
 
@@ -21,6 +19,7 @@ public class Settings : ViewModelBase
     private string? _dataDirPath; // null => C:\Users\<UserName>\AppData\Local\Ink Canvas Better
     private CultureInfo _cultureInfo = new("en");
     private int _theme = 0; // UI theme; 0 => Auto
+    private LogLevel _logLevel = LogLevel.Information;
 
     #region
 
@@ -39,11 +38,7 @@ public class Settings : ViewModelBase
     public MainWindowVM MainWindowVM
     {
         get { return _mainWindowVM; }
-        set
-        {
-            SetProperty(ref _mainWindowVM, value);
-            IApp.GetService<MainWindow>().DataContext = value;
-        }
+        set { SetProperty(ref _mainWindowVM, value); }
     }
 
     public string LogDirPath
@@ -60,28 +55,26 @@ public class Settings : ViewModelBase
                 Environment.SpecialFolder.LocalApplicationData,
                 Environment.SpecialFolderOption.Create),
                 "Ink Canvas Better");
-        }   
+        }
         set { SetProperty(ref _dataDirPath, value); }
     }
 
     public CultureInfo CultureInfo
     {
         get { return _cultureInfo; }
-        set
-        {
-            SetProperty(ref _cultureInfo, value);
-            IApp.GetService<ThemeService>().ChangeCultureInfo(CultureInfo);
-        }
+        set { SetProperty(ref _cultureInfo, value); }
     }
 
     public int Theme
     {
         get { return _theme; }
-        set
-        {
-            SetProperty(ref _theme, value);
-            IApp.GetService<ThemeService>().ChangeTheme(Theme);
-        }
+        set { SetProperty(ref _theme, value); }
+    }
+
+    public LogLevel LogLevel
+    {
+        get { return _logLevel; }
+        set { SetProperty(ref _logLevel, value); }
     }
 
     #endregion
