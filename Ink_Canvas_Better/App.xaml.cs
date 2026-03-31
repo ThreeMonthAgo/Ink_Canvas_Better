@@ -114,6 +114,11 @@ namespace Ink_Canvas_Better
                     {
                         config.MinimumLogLevel = LogLevel.Trace;
                     });
+                    logging.AddFileLogger((config) =>
+                    {
+                        config.MinimumLogLevel = IApp.Settings.LogLevel;
+                        config.LogDirectoryPath = IApp.Settings.LogDirPath;
+                    });
 #else
                     logging.SetMinimumLevel(IApp.Settings.LogLevel);
                     logging.AddFileLogger((config) =>

@@ -45,6 +45,7 @@
     
     <s:String x:Key="Text_Home">Home</s:String>
     <s:String x:Key="Text_StartupAndUpdate">Startup and update</s:String>
+    <s:String x:Key="Text_Data">Data</s:String>
     <s:String x:Key="Text_Appearance">Appearance</s:String>
     <s:String x:Key="Text_PPT">PPT</s:String>
     <s:String x:Key="Text_ExperimentalFeatures">Experimental Features</s:String>
@@ -58,6 +59,10 @@
         <s:String x:Key="Text_ResetSettings">Reset Settings</s:String>
         <s:String x:Key="Text_OpenLogDir">Open Log Directory</s:String>
         <s:String x:Key="Text_About">About</s:String>
+        <!-- Data -->
+        <s:String x:Key="Text_Setting_Log">Log</s:String>
+        <s:String x:Key="Text_Setting_LogDir">Log Directory</s:String>
+        <s:String x:Key="Text_Setting_LogLevel">Log Level</s:String>
         <!-- Appearance -->
         <s:String x:Key="Text_Setting_Theme">Theme</s:String>
         <s:String x:Key="Text_Setting_Auto">Auto</s:String>
@@ -77,5 +82,7 @@
     <s:String x:Key="Text_Off">Off</s:String>
     <s:String x:Key="Text_Previous">Previous</s:String>
     <s:String x:Key="Text_Next">Next</s:String>
+    <s:String x:Key="Text_Open">Open</s:String>
+    <s:String x:Key="Text_RestartRequired">Restarting the program is required to apply the changes</s:String>
     
 </ResourceDictionary>

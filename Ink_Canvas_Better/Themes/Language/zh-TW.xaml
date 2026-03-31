@@ -46,6 +46,7 @@
 
     <s:String x:Key="Text_Home">主頁</s:String>
     <s:String x:Key="Text_StartupAndUpdate">啟動與更新</s:String>
+    <s:String x:Key="Text_Data">數據</s:String>
     <s:String x:Key="Text_Appearance">外觀</s:String>
     <s:String x:Key="Text_PPT">PPT</s:String>
     <s:String x:Key="Text_ExperimentalFeatures">實驗性功能</s:String>
@@ -58,6 +59,10 @@
         <s:String x:Key="Text_Setting_Language">語言</s:String>
         <s:String x:Key="Text_ResetSettings">重設設定</s:String>
         <s:String x:Key="Text_OpenLogDir">打開日誌目錄</s:String>
+        <!-- Data -->
+        <s:String x:Key="Text_Setting_Log">日誌</s:String>
+        <s:String x:Key="Text_Setting_LogDir">日誌目錄</s:String>
+        <s:String x:Key="Text_Setting_LogLevel">日誌等級</s:String>
         <!-- Appearance -->
         <s:String x:Key="Text_Setting_Theme">主題</s:String>
         <s:String x:Key="Text_Setting_Auto">自動</s:String>
@@ -77,5 +82,7 @@
     <s:String x:Key="Text_Off">已停用</s:String>
     <s:String x:Key="Text_Previous">上一頁</s:String>
     <s:String x:Key="Text_Next">下一頁</s:String>
+    <s:String x:Key="Text_Open">打開</s:String>
+    <s:String x:Key="Text_RestartRequired">你需要重啟程式以應用變更</s:String>
 
 </ResourceDictionary>

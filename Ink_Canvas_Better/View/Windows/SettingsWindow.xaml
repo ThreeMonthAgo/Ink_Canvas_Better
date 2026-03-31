@@ -37,6 +37,11 @@
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.PowerButton}"/>
                 </iuwm:NavigationViewItem.Icon>
             </iuwm:NavigationViewItem>-->
+            <iuwm:NavigationViewItem Name="Data" Content="{DynamicResource Text_Data}" ToolTipService.ToolTip="{DynamicResource Text_Data}">
+                <iuwm:NavigationViewItem.Icon>
+                    <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.FileExplorer}"/>
+                </iuwm:NavigationViewItem.Icon>
+            </iuwm:NavigationViewItem>
             <iuwm:NavigationViewItem Name="Appearance" Content="{DynamicResource Text_Appearance}" ToolTipService.ToolTip="{DynamicResource Text_Appearance}">
                 <iuwm:NavigationViewItem.Icon>
                     <iuwm:FontIcon Icon="{x:Static iuwm:SegoeFluentIcons.Color}"/>

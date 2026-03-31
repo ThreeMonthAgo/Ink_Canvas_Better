@@ -20,6 +20,9 @@
     <Compile Update="View\Controls\ToolBarControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Pages\Settings\Data\DataPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Pages\Settings\Debug\DebugPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,0 +1,49 @@
+﻿<Page x:Class="Ink_Canvas_Better.View.Pages.Settings.Data.DataPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Ink_Canvas_Better.View.Pages.Settings.Data"
+      xmlns:iuw="http://schemas.inkore.net/lib/ui/wpf"
+      xmlns:iuwm="http://schemas.inkore.net/lib/ui/wpf/modern"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+      mc:Ignorable="d"
+      d:DesignWidth="800"
+      Title="{DynamicResource Text_Data}">
+
+    <ScrollViewer PanningMode="VerticalOnly">
+        <iuw:SimpleStackPanel Spacing="4" Margin="16,4">
+            <TextBlock
+                Name="TextBlock_Restart_LogDir"
+                Visibility="Hidden" d:Visibility="Visible"
+                Text="{DynamicResource Text_RestartRequired}"
+                Foreground="{DynamicResource {x:Static iuwm:ThemeKeys.InfoBarWarningSeverityIconBackgroundKey}}"/>
+            <iuwm:SettingsExpander Header="{DynamicResource Text_Setting_Log}" d:IsExpanded="True">
+                <iuwm:SettingsExpander.HeaderIcon>
+                    <iuwm:FontIcon Icon="{x:Static iuwm:FluentSystemIcons.Code_24_Regular}"/>
+                </iuwm:SettingsExpander.HeaderIcon>
+                <iuwm:SettingsExpander.Items>
+                    <iuwm:SettingsCard ContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource Text_Setting_LogDir}" VerticalAlignment="Center"/>
+                            <Button VerticalAlignment="Stretch" Content="{DynamicResource Text_Open}" Click="Button_OpenLogDir_Click"/>
+                            <Button VerticalAlignment="Stretch" Content="{DynamicResource Text_Confirm}" Click="Button_EditLogDir_Click"/>
+                            <TextBox Name="TextBlock_LogDir" Text="{Binding Settings.LogDirPath, Mode=OneWay}"/>
+                        </StackPanel>
+                    </iuwm:SettingsCard>
+                    <iuwm:SettingsCard Header="{DynamicResource Text_Setting_LogLevel}">
+                        <ComboBox Name="Data_LogLevel" SelectedIndex="{Binding LogLevel}">
+                            <ComboBoxItem Content="0: Trace"/>
+                            <ComboBoxItem Content="1: Debug"/>
+                            <ComboBoxItem Content="2: Information"/>
+                            <ComboBoxItem Content="3: Warning"/>
+                            <ComboBoxItem Content="4: Error"/>
+                            <ComboBoxItem Content="5: Critical"/>
+                            <ComboBoxItem Content="6: None"/>
+                        </ComboBox>
+                    </iuwm:SettingsCard>
+                </iuwm:SettingsExpander.Items>
+            </iuwm:SettingsExpander>
+        </iuw:SimpleStackPanel>
+    </ScrollViewer>
+</Page>

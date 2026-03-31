@@ -32,7 +32,7 @@ public sealed class FileLogger(Func<FileLoggerConfiguration> getCurrentConfig) :
             Directory.CreateDirectory(config.LogDirectoryPath);
         }
         StreamWriter sw = new(
-            path: config.LogDirectoryPath + $"{DateTime.Now:yyyy-MM-dd}.log",
+            path: Path.Combine(config.LogDirectoryPath, $"{DateTime.Now:yyyy-MM-dd}.log"),
             encoding: System.Text.Encoding.UTF8,
             options: new FileStreamOptions()
             {

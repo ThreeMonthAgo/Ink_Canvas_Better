@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Ink_Canvas_Better.View.Pages.Settings.Appearance;
+using Ink_Canvas_Better.View.Pages.Settings.Data;
 using Ink_Canvas_Better.View.Pages.Settings.Debug;
 using Ink_Canvas_Better.View.Pages.Settings.Home;
 using Ink_Canvas_Better.ViewModel.Windows;
@@ -34,6 +35,9 @@ namespace Ink_Canvas_Better.View.Windows
                     Settings.SelectedPage = new HomePage();
                     break;
                 case "StartupAndUpdate":
+                    break;
+                case "Data":
+                    Settings.SelectedPage = new DataPage();
                     break;
                 case "Appearance":
                     Settings.SelectedPage = new AppearancePage();
