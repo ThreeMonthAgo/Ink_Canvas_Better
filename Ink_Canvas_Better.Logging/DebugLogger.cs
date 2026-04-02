@@ -5,6 +5,8 @@ using Microsoft.Extensions.Options;
 
 namespace Ink_Canvas_Better.Logging;
 
+#if DEBUG
+
 public sealed class DebugLoggerProvider(IOptionsMonitor<DebugLoggerConfiguration> config) : ILoggerProvider
 {
     public ILogger CreateLogger(string categoryName) => new DebugLogger(() => config.CurrentValue);
@@ -54,3 +56,5 @@ public class DebugLoggerConfiguration
 {
     public LogLevel MinimumLogLevel { get; set; } = LogLevel.Information;
 }
+
+#endif

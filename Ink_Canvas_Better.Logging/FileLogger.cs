@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -27,14 +28,10 @@ public sealed class FileLogger(Func<FileLoggerConfiguration> getCurrentConfig) :
         if (!IsEnabled(logLevel)) return;
 
         var config = getCurrentConfig();
-        if (!Directory.Exists(config.LogDirectoryPath))
-        {
-            Directory.CreateDirectory(config.LogDirectoryPath);
-        }
         StreamWriter sw = new(
-            path: Path.Combine(config.LogDirectoryPath, $"{DateTime.Now:yyyy-MM-dd}.log"),
-            encoding: System.Text.Encoding.UTF8,
-            options: new FileStreamOptions()
+            config.LogDirectoryPath + $"{DateTime.Now:yyyy-MM-dd}.log",
+            Encoding.UTF8,
+            new FileStreamOptions()
             {
                 Mode = FileMode.Append,
                 Share = FileShare.ReadWrite,
@@ -68,5 +65,26 @@ public class FileLoggerConfiguration
 {
     public LogLevel MinimumLogLevel { get; set; } = LogLevel.Information;
 
-    public string LogDirectoryPath { get; set; } = "./Logs/";
+    private string FullPath = "./Logs/";
+
+    public string LogDirectoryPath
+    {
+        get => FullPath;
+        set
+        {
+            if (Path.IsPathRooted(value))
+            {
+                FullPath = value;
+            }
+            else
+            {
+                FullPath = Path.GetFullPath(value);
+            }
+
+            if (!Directory.Exists(value))
+            {
+                Directory.CreateDirectory(value);
+            }
+        }
+    }
 }
