@@ -83,6 +83,7 @@
     <s:String x:Key="Text_Previous">上一页</s:String>
     <s:String x:Key="Text_Next">下一页</s:String>
     <s:String x:Key="Text_Open">打开</s:String>
+    <s:String x:Key="Text_Browser">浏览</s:String>
     <s:String x:Key="Text_RestartRequired">你需要重启程序以应用变更</s:String>
 
 </ResourceDictionary>

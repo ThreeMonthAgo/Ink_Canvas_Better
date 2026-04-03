@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Controls;
 using Ink_Canvas_Better.Utilities.Interface;
 using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
 
 namespace Ink_Canvas_Better.View.Pages.Settings.Data;
 
@@ -44,6 +45,27 @@ public partial class DataPage : Page
 
     private void Button_EditLogDir_Click(object sender, System.Windows.RoutedEventArgs e)
     {
+        ApplyLogDirChange();
+    }
+
+    private void Button_BrowserDir_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        OpenFolderDialog folderPicker = new()
+        {
+            DefaultDirectory = AppDomain.CurrentDomain.BaseDirectory,
+            Multiselect = false,
+        };
+        folderPicker.FolderOk += (s, args) =>
+        {
+            TextBlock_LogDir.Text = folderPicker.FolderNames[0];
+            ApplyLogDirChange();
+        };
+
+        folderPicker.ShowDialog();
+    }
+
+    private void ApplyLogDirChange()
+    {
         if (string.Equals(TextBlock_LogDir.Text, IApp.Settings.LogDirPath))
         {
             return;
@@ -52,7 +74,6 @@ public partial class DataPage : Page
         {
             IApp.Settings.LogDirPath = TextBlock_LogDir.Text;
             TextBlock_Restart_LogDir.Visibility = System.Windows.Visibility.Visible;
-            // TODO: Absolute path support
         }
     }
 }

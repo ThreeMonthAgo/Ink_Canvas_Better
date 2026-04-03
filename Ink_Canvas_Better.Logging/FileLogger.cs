@@ -12,11 +12,11 @@ public sealed class FileLoggerProvider(IOptionsMonitor<FileLoggerConfiguration> 
     public void Dispose() { }
 }
 
-public sealed class FileLogger(Func<FileLoggerConfiguration> getCurrentConfig) : ILogger
+public sealed class FileLogger(Func<FileLoggerConfiguration> GetCurrent) : ILogger
 {
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull => default!;
 
-    public bool IsEnabled(LogLevel logLevel) => logLevel >= getCurrentConfig().MinimumLogLevel;
+    public bool IsEnabled(LogLevel logLevel) => logLevel >= GetCurrent().MinimumLogLevel;
 
     public void Log<TState>(
         LogLevel logLevel,
@@ -27,15 +27,14 @@ public sealed class FileLogger(Func<FileLoggerConfiguration> getCurrentConfig) :
     {
         if (!IsEnabled(logLevel)) return;
 
-        var config = getCurrentConfig();
         StreamWriter sw = new(
-            config.LogDirectoryPath + $"{DateTime.Now:yyyy-MM-dd}.log",
+            Path.Combine(GetCurrent().LogDirectoryPath, $"{DateTime.Now:yyyy-MM-dd}.log"),
             Encoding.UTF8,
             new FileStreamOptions()
             {
                 Mode = FileMode.Append,
                 Share = FileShare.ReadWrite,
-                Access = FileAccess.Write
+                Access = FileAccess.Write,
             });
         sw.WriteLine(string.Format("{0} [{1}] {2} {3}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), logLevel, state, exception));
         sw.Close();

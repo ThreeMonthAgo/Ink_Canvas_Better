@@ -83,6 +83,7 @@
     <s:String x:Key="Text_Previous">Previous</s:String>
     <s:String x:Key="Text_Next">Next</s:String>
     <s:String x:Key="Text_Open">Open</s:String>
+    <s:String x:Key="Text_Browser">Browser</s:String>
     <s:String x:Key="Text_RestartRequired">Restarting the program is required to apply the changes</s:String>
     
 </ResourceDictionary>

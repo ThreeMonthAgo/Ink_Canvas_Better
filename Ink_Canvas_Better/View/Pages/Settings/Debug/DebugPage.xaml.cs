@@ -59,4 +59,10 @@ public partial class DebugPage : Page
         IApp.GetService<InkCanvasService>().LoadData(inkCanvas, path);
         logger.WriteLog(LogLevel.Debug, $"Saved strokes to file. Path:{IApp.Settings.DataDirPath}");
     }
+
+    private void Button_WriteLog(object sender, RoutedEventArgs e)
+    {
+        var logger = IApp.GetService<ILogger<DebugPage>>();
+        logger.WriteLog(LogLevel.Information, $"you clicked write log button in debug page");
+    }
 }

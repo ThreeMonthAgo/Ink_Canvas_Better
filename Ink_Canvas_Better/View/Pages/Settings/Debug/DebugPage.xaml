@@ -66,6 +66,13 @@
                             <TextBox Name="TextBox_StrokeFilePath"/>
                         </StackPanel>
                     </iuwm:SettingsCard>
+                    <iuwm:SettingsCard ContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Click="Button_WriteLog">
+                                <TextBlock Text="(Debug) Write a log" VerticalAlignment="Center"/>
+                            </Button>
+                        </StackPanel>
+                    </iuwm:SettingsCard>
                 </iuwm:SettingsExpander.Items>
             </iuwm:SettingsExpander>
         </iuw:SimpleStackPanel>

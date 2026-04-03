@@ -28,6 +28,7 @@
                             <TextBlock Text="{DynamicResource Text_Setting_LogDir}" VerticalAlignment="Center"/>
                             <Button VerticalAlignment="Stretch" Content="{DynamicResource Text_Open}" Click="Button_OpenLogDir_Click"/>
                             <Button VerticalAlignment="Stretch" Content="{DynamicResource Text_Confirm}" Click="Button_EditLogDir_Click"/>
+                            <Button VerticalAlignment="Stretch" Content="{DynamicResource Text_Browser}" Click="Button_BrowserDir_Click"/>
                             <TextBox Name="TextBlock_LogDir" Text="{Binding Settings.LogDirPath, Mode=OneWay}"/>
                         </StackPanel>
                     </iuwm:SettingsCard>

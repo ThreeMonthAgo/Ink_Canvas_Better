@@ -26,7 +26,29 @@ public sealed class ConsoleLogger(Func<ConsoleLoggerConfiguration> getCurrentCon
     {
         if (!IsEnabled(logLevel)) return;
 
-        Console.WriteLine(string.Format("==> {0} [{1}] {2} {3}", DateTime.Now.ToString("HH:mm:ss.fff"), logLevel, state, exception));
+        //Console.WriteLine(string.Format("==> {0} [{1}] {2} {3}", DateTime.Now.ToString("HH:mm:ss.fff"), logLevel, state, exception));
+        var originalForeGroundColor = Console.ForegroundColor;
+        var originalBackgroundColor = Console.BackgroundColor;
+        Console.Write("==> ");
+
+        Console.BackgroundColor = ConsoleColor.White;
+        Console.ForegroundColor = ConsoleColor.Black;
+        Console.Write($"{DateTime.Now:HH:mm:ss.fff}");
+
+        Console.BackgroundColor = originalBackgroundColor;
+        Console.ForegroundColor = logLevel switch
+        {
+            LogLevel.Debug => ConsoleColor.DarkGreen,
+            LogLevel.Information => ConsoleColor.Cyan,
+            LogLevel.Warning => ConsoleColor.Yellow,
+            LogLevel.Error => ConsoleColor.Red,
+            LogLevel.Critical => ConsoleColor.Magenta,
+            _ => originalForeGroundColor,
+        };
+        Console.Write($" [{logLevel}] ");
+
+        Console.ForegroundColor = originalForeGroundColor;
+        Console.WriteLine($"{state} {exception}");
     }
 }
 
