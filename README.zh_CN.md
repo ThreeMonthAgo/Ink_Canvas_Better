@@ -1,8 +1,13 @@
 [English](./README.md)
 
-**:construction: 正在开发 :construction:**  
+> [!IMPORTANT]
+> :sob: 开发终止
+> 由于作者无法完美地处理本软件在多屏情况下的表现，遂停止开发
 
 迁移自 [v1.X 仓库](https://github.com/BaiYang2238/Ink-Canvas-Better)  
+
+<details>
+    <summary>旧 README</summary>
 
 <div align="center">
 
@@ -48,3 +53,5 @@ Ink Canvas Better 是一款基于 WPF 的屏幕批注软件，支持 `WPS` 和 `
 错误报告：[https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new?labels=bug](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new?labels=bug)
 
 当然，如果你有能力参与开发的话，也欢迎提交代码
+
+</details>

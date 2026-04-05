@@ -1,8 +1,13 @@
 [中文简体](README.zh_CN.md)  
 
-**:construction: Under Development :construction:**  
+> [!IMPORTANT]
+> :sob: Development terminated
+> Because the author could not perfectly handle the software's performance in multi-screen scenarios, development has been discontinued.
 
 Migrated from the [v.1.X repository](https://github.com/BaiYang2238/Ink-Canvas-Better)
+
+<details>
+    <summary>Old README</summary>
 
 <div align="center">
 
@@ -48,3 +53,5 @@ Feature Requests: [https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new
 Bug Reports: [https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new?labels=bug](https://github.com/ThreeMonthAgo/Ink_Canvas_Better/issues/new?labels=bug)
 
 We also welcome code contributions if you have the ability and interest to participate in development.
+
+</details>
